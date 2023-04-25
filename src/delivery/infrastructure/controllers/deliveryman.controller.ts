@@ -5,7 +5,7 @@ import { UpdateDeliverymansInfoDto } from '../dtos/update-deliverymans-info.dto'
 import { UpdateDeliverymansOrdersDto } from '../dtos/update-deliverymans-orders.dto';
 import { ChangeDeliverymansStatusDto } from '../dtos/change-deliverymans-status.dto';
 import { Deliveryman } from '../orm-entities/deliveryman.model';
-import { CreateDeliveryManNestDto } from '../dtos/create-deliveryman.dto';
+import { CreateDeliverymanNestDto } from '../dtos/create-deliveryman.dto';
 
 @Controller('deliverymans')
 export class DeliverymanController {
@@ -18,7 +18,7 @@ export class DeliverymanController {
 
   @Post('/')
   createDeliveryMan(
-    @Body() createDeliveryManDto: CreateDeliveryManNestDto,
+    @Body() createDeliveryManDto: CreateDeliverymanNestDto,
   ): Promise<Deliveryman> {
     return this.deliverymanService.createDeliveryMan(createDeliveryManDto);
   }
