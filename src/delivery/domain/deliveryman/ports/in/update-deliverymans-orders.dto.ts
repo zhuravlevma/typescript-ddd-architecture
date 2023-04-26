@@ -2,8 +2,8 @@ export interface UpdateDeliverymansOrdersDto {
   description?: string;
 }
 
-export interface UpdateDeliverymansOrdersUseCase {
-  updateDeliverymansOrders(
+export abstract class UpdateDeliverymansOrdersUseCase {
+  abstract updateDeliverymansOrders(
     deliverymanId: string,
     updateDeliverymansOrdersDto: UpdateDeliverymansOrdersDto,
   );

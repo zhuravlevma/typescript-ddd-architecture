@@ -2,17 +2,27 @@ import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Injectable } from '@nestjs/common';
 import { DeliverymanOrmEntity } from '../orm-entities/deliveryman.orm-entity';
-import { DeliverymanEntity } from 'src/delivery/domain/entities/deliveryman.entity';
 import { DeliverymanMapper } from '../mappers/deliveryman.mapper';
+import { CreateDeliverymanPort } from 'src/delivery/domain/deliveryman/ports/out/create-deliveryman.port';
+import { FindAllDeliverymansPort } from 'src/delivery/domain/deliveryman/ports/out/find-all-deliverymans.port';
+import { FindDeliverymanByIdWithOrdersPort } from 'src/delivery/domain/deliveryman/ports/out/find-deliveryman-by-id-with-orders.port';
+import { SaveDeliverymanPort } from 'src/delivery/domain/deliveryman/ports/out/save-deliveryman.port';
+import { DeliverymanEntity } from 'src/delivery/domain/deliveryman/entities/deliveryman.entity';
 
 @Injectable()
-export class DeliverymanRepository {
+export class DeliverymanRepository
+  implements
+    CreateDeliverymanPort,
+    FindAllDeliverymansPort,
+    FindDeliverymanByIdWithOrdersPort,
+    SaveDeliverymanPort
+{
   constructor(
     @InjectRepository(DeliverymanOrmEntity)
     private deliveryMan: Repository<DeliverymanOrmEntity>,
   ) {}
 
-  async createDeliveryMan(
+  async createDeliveryman(
     deliveryManEntity: DeliverymanEntity,
   ): Promise<DeliverymanEntity> {
     const deliveryman = DeliverymanMapper.mapToOrm(deliveryManEntity);

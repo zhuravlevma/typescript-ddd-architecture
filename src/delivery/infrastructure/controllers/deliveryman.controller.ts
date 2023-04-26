@@ -1,35 +1,48 @@
 import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
-import { DeliverymanService } from '../services/deliveryman.service';
-import { CreateOrderNestDto } from '../dtos/create-order.dto';
+import { AddOrderToDeliverymanNestDto } from '../dtos/add-order-to-deliveryman.dto';
 import { UpdateDeliverymansInfoNestDto } from '../dtos/update-deliverymans-info.dto';
 import { UpdateDeliverymansOrdersNestDto } from '../dtos/update-deliverymans-orders.dto';
 import { ChangeDeliverymansStatusNestDto } from '../dtos/change-deliverymans-status.dto';
-import { DeliverymanOrmEntity } from '../orm-entities/deliveryman.orm-entity';
 import { CreateDeliverymanNestDto } from '../dtos/create-deliveryman.dto';
-import { DeliverymanEntity } from 'src/delivery/domain/entities/deliveryman.entity';
+import { DeliverymanEntity } from 'src/delivery/domain/deliveryman/entities/deliveryman.entity';
+import { CreateDeliverymanUseCase } from 'src/delivery/domain/deliveryman/ports/in/create-deliveryman.use-case';
+import { FindAllDeliverymansUseCase } from 'src/delivery/domain/deliveryman/ports/in/find-all-deliverymans.use-case';
+import { AddOrderToDeliverymanUseCase } from 'src/delivery/domain/deliveryman/ports/in/add-order-to-deliveryman.use-case';
+import { UpdateDeliverymansInfoUseCase } from 'src/delivery/domain/deliveryman/ports/in/update-deliveryman-info.use-case';
+import { ChangeDeliverymansStatusUseCase } from 'src/delivery/domain/deliveryman/ports/in/change-deliverymans-status.use-case';
+import { UpdateDeliverymansOrdersUseCase } from 'src/delivery/domain/deliveryman/ports/in/update-deliverymans-orders.dto';
 
 @Controller('deliverymans')
 export class DeliverymanController {
-  constructor(private readonly deliverymanService: DeliverymanService) {}
+  constructor(
+    private readonly createDeliverymanService: CreateDeliverymanUseCase,
+    private readonly findAllDeliverymansService: FindAllDeliverymansUseCase,
+    private readonly addOrderToDeliverymanService: AddOrderToDeliverymanUseCase,
+    private readonly updateDeliverymansInfoService: UpdateDeliverymansInfoUseCase,
+    private readonly changeDeliverymansStatusService: ChangeDeliverymansStatusUseCase,
+    private readonly updateDeliverymansOrdersService: UpdateDeliverymansOrdersUseCase,
+  ) {}
 
   @Get('/')
   find(): Promise<DeliverymanEntity[]> {
-    return this.deliverymanService.findAll();
+    return this.findAllDeliverymansService.findAll();
   }
 
   @Post('/')
   createDeliveryMan(
     @Body() createDeliveryManDto: CreateDeliverymanNestDto,
   ): Promise<DeliverymanEntity> {
-    return this.deliverymanService.createDeliveryman(createDeliveryManDto);
+    return this.createDeliverymanService.createDeliveryman(
+      createDeliveryManDto,
+    );
   }
 
   @Post('/:deliverymanId/orders')
   addOrderToDeliveryman(
     @Param('deliverymanId') deliverymanId: string,
-    @Body() createDeliveryManDto: CreateOrderNestDto,
+    @Body() createDeliveryManDto: AddOrderToDeliverymanNestDto,
   ): Promise<DeliverymanEntity> {
-    return this.deliverymanService.addOrderToDeliveryman(
+    return this.addOrderToDeliverymanService.addOrderToDeliveryman(
       deliverymanId,
       createDeliveryManDto,
     );
@@ -40,7 +53,7 @@ export class DeliverymanController {
     @Param('deliverymanId') deliverymanId: string,
     @Body() updateDeliveryManDto: UpdateDeliverymansInfoNestDto,
   ): Promise<DeliverymanEntity> {
-    return this.deliverymanService.updateDeliverymansInfo(
+    return this.updateDeliverymansInfoService.updateDeliverymansInfo(
       deliverymanId,
       updateDeliveryManDto,
     );
@@ -51,7 +64,7 @@ export class DeliverymanController {
     @Param('deliverymanId') deliverymanId: string,
     @Body() changeDeliverymansStatusDto: ChangeDeliverymansStatusNestDto,
   ): Promise<DeliverymanEntity> {
-    return this.deliverymanService.changeDeliverymansStatus(
+    return this.changeDeliverymansStatusService.changeDeliverymansStatus(
       deliverymanId,
       changeDeliverymansStatusDto,
     );
@@ -63,7 +76,7 @@ export class DeliverymanController {
     deliverymanId: string,
     @Body() updateDeliverymansOrdersDto: UpdateDeliverymansOrdersNestDto,
   ): Promise<DeliverymanEntity> {
-    return this.deliverymanService.updateDeliverymansOrders(
+    return this.updateDeliverymansOrdersService.updateDeliverymansOrders(
       deliverymanId,
       updateDeliverymansOrdersDto,
     );

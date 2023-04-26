@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { OrdersRepository } from '../repositories/orders.repository';
-import { UpdateOrderNestDto } from '../dtos/update-order.dto';
-import { AccountingOrderEntity } from 'src/delivery/domain/entities/accounting-order.entity';
+import { AccountingOrdersRepository } from '../../../infrastructure/repositories/accounting-orders.repository';
+import { UpdateOrderNestDto } from '../../../infrastructure/dtos/update-orders.dto';
+import { AccountingOrderEntity } from 'src/delivery/domain/accounting-order/entities/accounting-order.entity';
 
 @Injectable()
-export class OrdersService {
-  constructor(private ordersRepository: OrdersRepository) {}
+export class AccountingOrdersService {
+  constructor(private ordersRepository: AccountingOrdersRepository) {}
 
   findAll(): Promise<AccountingOrderEntity[]> {
     return this.ordersRepository.findAllOrders();

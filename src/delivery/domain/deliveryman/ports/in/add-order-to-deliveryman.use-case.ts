@@ -3,8 +3,8 @@ export interface AddOrderToDeliverymanDto {
   description: string;
 }
 
-export interface AddOrderToDeliverymanUseCase {
-  addOrderToDeliveryman(
+export abstract class AddOrderToDeliverymanUseCase {
+  abstract addOrderToDeliveryman(
     deliverymanId: string,
     addOrderToDeliverymanDto: AddOrderToDeliverymanDto,
   );

@@ -1,7 +1,7 @@
-import { DeliverymanEntity } from 'src/delivery/domain/entities/deliveryman.entity';
+import { DeliverymanEntity } from 'src/delivery/domain/deliveryman/entities/deliveryman.entity';
 import { DeliverymanOrmEntity } from '../orm-entities/deliveryman.orm-entity';
-import { OrderEntity } from 'src/delivery/domain/entities/order.entity';
 import { OrderOrmEntity } from '../orm-entities/orders.orm-entity';
+import { OrderEntity } from 'src/delivery/domain/deliveryman/entities/order.entity';
 
 export class DeliverymanMapper {
   static mapToDomain(

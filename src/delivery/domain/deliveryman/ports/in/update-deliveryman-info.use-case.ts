@@ -3,9 +3,8 @@ export interface UpdateDeliverymansInfoDto {
   lastName?: string;
   isActive?: boolean;
 }
-
-export interface UpdateDeliverymansInfoUseCase {
-  updateDeliverymansInfo(
+export abstract class UpdateDeliverymansInfoUseCase {
+  abstract updateDeliverymansInfo(
     deliverymanId: string,
     updateDeliverymanInfoDto: UpdateDeliverymansInfoDto,
   );

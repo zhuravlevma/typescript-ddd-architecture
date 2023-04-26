@@ -1,4 +1,4 @@
-import { OrderEntity } from 'src/delivery/domain/entities/order.entity';
+import { OrderEntity } from 'src/delivery/domain/deliveryman/entities/order.entity';
 import { OrderOrmEntity } from '../orm-entities/orders.orm-entity';
 
 export class AccountingOrderMapper {
