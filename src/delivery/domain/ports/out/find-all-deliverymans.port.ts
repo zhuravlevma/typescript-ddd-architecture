@@ -1,3 +1,5 @@
+import { DeliverymanEntity } from '../../entities/deliveryman.entity';
+
 export interface FindAllDeliverymansPort {
-  findAllDeliveryMans();
+  findAllDeliveryMans(): Promise<DeliverymanEntity[]>;
 }
