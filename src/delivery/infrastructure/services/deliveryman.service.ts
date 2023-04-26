@@ -1,8 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { DeliverymanRepository } from '../repositories/deliveryman.repository';
-import { UpdateDeliverymansInfoDto } from '../dtos/update-deliverymans-info.dto';
-import { UpdateDeliverymansOrdersDto } from '../dtos/update-deliverymans-orders.dto';
-import { ChangeDeliverymansStatusDto } from '../dtos/change-deliverymans-status.dto';
 import {
   AddOrderToDeliverymanDto,
   AddOrderToDeliverymanUseCase,
@@ -13,10 +10,27 @@ import {
 } from 'src/delivery/domain/ports/in/create-deliveryman.use-case';
 import { Deliveryman } from '../orm-entities/deliveryman.model';
 import { Order } from '../orm-entities/orders.model';
+import {
+  UpdateDeliverymansInfoDto,
+  UpdateDeliverymansInfoUseCase,
+} from 'src/delivery/domain/ports/in/update-deliveryman-info.use-case';
+import {
+  ChangeDeliverymansStatusDto,
+  ChangeDeliverymansStatusUseCase,
+} from 'src/delivery/domain/ports/in/change-deliverymans-status.use-case';
+import {
+  UpdateDeliverymansOrdersUseCase,
+  UpdateDeliverymansOrdersDto,
+} from 'src/delivery/domain/ports/in/update-deliverymans-orders.dto';
 
 @Injectable()
 export class DeliverymanService
-  implements AddOrderToDeliverymanUseCase, CreateDeliverymanUseCase
+  implements
+    AddOrderToDeliverymanUseCase,
+    CreateDeliverymanUseCase,
+    ChangeDeliverymansStatusUseCase,
+    UpdateDeliverymansInfoUseCase,
+    UpdateDeliverymansOrdersUseCase
 {
   constructor(private deliverymanRepository: DeliverymanRepository) {}
 
@@ -24,13 +38,13 @@ export class DeliverymanService
     return this.deliverymanRepository.findAllDeliveryMans();
   }
 
-  createDeliveryMan(
-    createDeliveryManDto: CreateDeliverymanDto,
+  createDeliveryman(
+    createDeliverymanDto: CreateDeliverymanDto,
   ): Promise<Deliveryman> {
     return this.deliverymanRepository.createDeliveryMan(
       new Deliveryman(
-        createDeliveryManDto.firstName,
-        createDeliveryManDto.lastName,
+        createDeliverymanDto.firstName,
+        createDeliverymanDto.lastName,
       ),
     );
   }
@@ -95,7 +109,7 @@ export class DeliverymanService
     }
   }
 
-  async updateDeliverymansOrdersDto(
+  async updateDeliverymansOrders(
     deliverymanId: number,
     updateDeliverymansOrdersDto: UpdateDeliverymansOrdersDto,
   ): Promise<Deliveryman> {

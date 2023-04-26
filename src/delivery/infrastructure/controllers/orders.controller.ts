@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { Order } from '../orm-entities/orders.model';
 import { OrdersService } from '../services/orders.service';
-import { UpdateOrderDto } from '../dtos/update-order.dto';
+import { UpdateOrderNestDto } from '../dtos/update-order.dto';
 
 @Controller('orders')
 export class OrdersController {
@@ -15,7 +15,7 @@ export class OrdersController {
   @Post('/:orderId')
   updateOrderById(
     @Param('orderId') orderId: string,
-    @Body() updateOrderDto: UpdateOrderDto,
+    @Body() updateOrderDto: UpdateOrderNestDto,
   ): Promise<Order> {
     return this.orderService.updateOrder(+orderId, updateOrderDto);
   }

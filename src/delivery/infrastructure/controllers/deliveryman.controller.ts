@@ -1,9 +1,9 @@
 import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
 import { DeliverymanService } from '../services/deliveryman.service';
-import { CreateOrderDto } from '../dtos/create-order.dto';
-import { UpdateDeliverymansInfoDto } from '../dtos/update-deliverymans-info.dto';
-import { UpdateDeliverymansOrdersDto } from '../dtos/update-deliverymans-orders.dto';
-import { ChangeDeliverymansStatusDto } from '../dtos/change-deliverymans-status.dto';
+import { CreateOrderNestDto } from '../dtos/create-order.dto';
+import { UpdateDeliverymansInfoNestDto } from '../dtos/update-deliverymans-info.dto';
+import { UpdateDeliverymansOrdersNestDto } from '../dtos/update-deliverymans-orders.dto';
+import { ChangeDeliverymansStatusNestDto } from '../dtos/change-deliverymans-status.dto';
 import { Deliveryman } from '../orm-entities/deliveryman.model';
 import { CreateDeliverymanNestDto } from '../dtos/create-deliveryman.dto';
 
@@ -20,13 +20,13 @@ export class DeliverymanController {
   createDeliveryMan(
     @Body() createDeliveryManDto: CreateDeliverymanNestDto,
   ): Promise<Deliveryman> {
-    return this.deliverymanService.createDeliveryMan(createDeliveryManDto);
+    return this.deliverymanService.createDeliveryman(createDeliveryManDto);
   }
 
   @Post('/:deliverymanId/orders')
   addOrderToDeliveryman(
     @Param('deliverymanId') deliverymanId: string,
-    @Body() createDeliveryManDto: CreateOrderDto,
+    @Body() createDeliveryManDto: CreateOrderNestDto,
   ): Promise<Deliveryman> {
     return this.deliverymanService.addOrderToDeliveryman(
       +deliverymanId,
@@ -37,7 +37,7 @@ export class DeliverymanController {
   @Patch('/:deliverymanId')
   updateDeliverymansInfo(
     @Param('deliverymanId') deliverymanId: string,
-    @Body() updateDeliveryManDto: UpdateDeliverymansInfoDto,
+    @Body() updateDeliveryManDto: UpdateDeliverymansInfoNestDto,
   ): Promise<Deliveryman> {
     return this.deliverymanService.updateDeliverymansInfo(
       +deliverymanId,
@@ -48,7 +48,7 @@ export class DeliverymanController {
   @Patch('/:deliverymanId/status')
   changeDeliverymansStatus(
     @Param('deliverymanId') deliverymanId: string,
-    @Body() changeDeliverymansStatusDto: ChangeDeliverymansStatusDto,
+    @Body() changeDeliverymansStatusDto: ChangeDeliverymansStatusNestDto,
   ): Promise<Deliveryman> {
     return this.deliverymanService.changeDeliverymansStatus(
       +deliverymanId,
@@ -58,10 +58,11 @@ export class DeliverymanController {
 
   @Patch('/:deliverymanId/orders')
   updateDeliverymansOrders(
-    @Param('deliverymanId') deliverymanId: string,
-    @Body() updateDeliverymansOrdersDto: UpdateDeliverymansOrdersDto,
+    @Param('deliverymanId')
+    deliverymanId: string,
+    @Body() updateDeliverymansOrdersDto: UpdateDeliverymansOrdersNestDto,
   ): Promise<Deliveryman> {
-    return this.deliverymanService.updateDeliverymansOrdersDto(
+    return this.deliverymanService.updateDeliverymansOrders(
       +deliverymanId,
       updateDeliverymansOrdersDto,
     );

@@ -4,5 +4,5 @@ export interface CreateDeliverymanDto {
 }
 
 export interface CreateDeliverymanUseCase {
-  createDeliveryMan(createDeliverymanDto: CreateDeliverymanDto);
+  createDeliveryman(createDeliverymanDto: CreateDeliverymanDto);
 }
