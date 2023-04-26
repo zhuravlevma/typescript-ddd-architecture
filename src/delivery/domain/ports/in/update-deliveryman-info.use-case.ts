@@ -6,7 +6,7 @@ export interface UpdateDeliverymansInfoDto {
 
 export interface UpdateDeliverymansInfoUseCase {
   updateDeliverymansInfo(
-    deliverymanId: number,
+    deliverymanId: string,
     updateDeliverymanInfoDto: UpdateDeliverymansInfoDto,
   );
 }

@@ -2,8 +2,8 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { Deliveryman } from './delivery/infrastructure/orm-entities/deliveryman.model';
-import { Order } from './delivery/infrastructure/orm-entities/orders.model';
+import { DeliverymanOrmEntity } from './delivery/infrastructure/orm-entities/deliveryman.orm-entity';
+import { OrderOrmEntity } from './delivery/infrastructure/orm-entities/orders.orm-entity';
 import { DeliveryModule } from './delivery/infrastructure/delivery.module';
 
 @Module({
@@ -15,7 +15,7 @@ import { DeliveryModule } from './delivery/infrastructure/delivery.module';
       username: 'maksim',
       password: '123321',
       database: 'postgres',
-      entities: [Order, Deliveryman],
+      entities: [OrderOrmEntity, DeliverymanOrmEntity],
       synchronize: true,
     }),
     DeliveryModule,

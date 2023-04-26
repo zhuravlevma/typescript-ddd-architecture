@@ -1,36 +1,22 @@
-import {
-  Entity,
-  Column,
-  PrimaryGeneratedColumn,
-  ManyToOne,
-  JoinColumn,
-} from 'typeorm';
-import { Deliveryman } from './deliveryman.model';
-
-@Entity('orders')
-export class Order {
-  @PrimaryGeneratedColumn()
-  id: number;
-
-  @Column()
+export class AccountingOrderEntity {
+  id: string;
   name: string;
-
-  @Column()
   description: string;
-
-  @Column({ default: true })
   isActive: boolean;
+  deliverymanId: string;
 
-  @Column()
-  deliverymanId: number;
-
-  @ManyToOne(() => Deliveryman, (deliveryMan) => deliveryMan.orders)
-  @JoinColumn({ name: 'deliverymanId', referencedColumnName: 'id' })
-  deliveryman: Deliveryman;
-
-  constructor(name: string, description: string) {
+  constructor(
+    id: string,
+    name: string,
+    description: string,
+    isActive: boolean,
+    deliverymanId: string,
+  ) {
+    this.id = id;
     this.name = name;
     this.description = description;
+    this.isActive = isActive;
+    this.deliverymanId = deliverymanId;
   }
 
   checkName() {

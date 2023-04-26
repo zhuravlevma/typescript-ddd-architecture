@@ -1,25 +1,36 @@
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Injectable } from '@nestjs/common';
-import { Deliveryman } from '../orm-entities/deliveryman.model';
+import { DeliverymanOrmEntity } from '../orm-entities/deliveryman.orm-entity';
+import { DeliverymanEntity } from 'src/delivery/domain/entities/deliveryman.entity';
+import { DeliverymanMapper } from '../mappers/deliveryman.mapper';
 
 @Injectable()
 export class DeliverymanRepository {
   constructor(
-    @InjectRepository(Deliveryman)
-    private deliveryMan: Repository<Deliveryman>,
+    @InjectRepository(DeliverymanOrmEntity)
+    private deliveryMan: Repository<DeliverymanOrmEntity>,
   ) {}
 
-  createDeliveryMan(deliveryMan: Deliveryman): Promise<Deliveryman> {
-    return this.deliveryMan.save(deliveryMan);
+  async createDeliveryMan(
+    deliveryManEntity: DeliverymanEntity,
+  ): Promise<DeliverymanEntity> {
+    const deliveryman = DeliverymanMapper.mapToOrm(deliveryManEntity);
+    const savedDeliveryman = await this.deliveryMan.save(deliveryman);
+    return DeliverymanMapper.mapToDomain(savedDeliveryman);
   }
 
-  findAllDeliveryMans(): Promise<Deliveryman[]> {
-    return this.deliveryMan.find();
+  async findAllDeliveryMans(): Promise<DeliverymanEntity[]> {
+    const findedDeliverymans = await this.deliveryMan.find();
+    return findedDeliverymans.map((deliveryman) =>
+      DeliverymanMapper.mapToDomain(deliveryman),
+    );
   }
 
-  findDeliverymanByIdWithOrders(deliverymanId: number): Promise<Deliveryman> {
-    return this.deliveryMan.findOne({
+  async findDeliverymanByIdWithOrders(
+    deliverymanId: string,
+  ): Promise<DeliverymanEntity> {
+    const deliveryman = await this.deliveryMan.findOne({
       where: {
         id: deliverymanId,
         orders: {
@@ -30,9 +41,12 @@ export class DeliverymanRepository {
         orders: true,
       },
     });
+    return DeliverymanMapper.mapToDomain(deliveryman);
   }
 
-  save(deliveryMan: Deliveryman): Promise<Deliveryman> {
-    return this.deliveryMan.save(deliveryMan);
+  async save(deliveryMan: DeliverymanEntity): Promise<DeliverymanEntity> {
+    const deliverymanOrm = DeliverymanMapper.mapToOrm(deliveryMan);
+    const savedDeliveryman = await this.deliveryMan.save(deliverymanOrm);
+    return DeliverymanMapper.mapToDomain(savedDeliveryman);
   }
 }

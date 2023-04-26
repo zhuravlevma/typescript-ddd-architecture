@@ -1,16 +1,16 @@
 export class OrderEntity {
-  id: number;
+  id: string;
   name: string;
   description: string;
   isActive: boolean;
-  deliverymanId: number;
+  deliverymanId: string;
 
   constructor(
-    id: number,
+    id: string,
     name: string,
     description: string,
     isActive: boolean,
-    deliverymanId: number,
+    deliverymanId: string,
   ) {
     this.id = id;
     this.name = name;

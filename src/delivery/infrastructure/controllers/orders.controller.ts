@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
-import { Order } from '../orm-entities/orders.model';
+import { OrderOrmEntity } from '../orm-entities/orders.orm-entity';
 import { OrdersService } from '../services/orders.service';
 import { UpdateOrderNestDto } from '../dtos/update-order.dto';
 
@@ -8,7 +8,7 @@ export class OrdersController {
   constructor(private readonly orderService: OrdersService) {}
 
   @Get('/')
-  find(): Promise<Order[]> {
+  find(): Promise<OrderOrmEntity[]> {
     return this.orderService.findAll();
   }
 
@@ -16,7 +16,7 @@ export class OrdersController {
   updateOrderById(
     @Param('orderId') orderId: string,
     @Body() updateOrderDto: UpdateOrderNestDto,
-  ): Promise<Order> {
+  ): Promise<OrderOrmEntity> {
     return this.orderService.updateOrder(+orderId, updateOrderDto);
   }
 }

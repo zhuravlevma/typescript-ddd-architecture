@@ -1,24 +1,24 @@
 import { Injectable } from '@nestjs/common';
-import { Order } from '../orm-entities/orders.model';
 import { OrdersRepository } from '../repositories/orders.repository';
 import { UpdateOrderNestDto } from '../dtos/update-order.dto';
+import { AccountingOrderEntity } from 'src/delivery/domain/entities/accounting-order.entity';
 
 @Injectable()
 export class OrdersService {
   constructor(private ordersRepository: OrdersRepository) {}
 
-  findAll(): Promise<Order[]> {
+  findAll(): Promise<AccountingOrderEntity[]> {
     return this.ordersRepository.findAllOrders();
   }
 
-  findOne(id: number): Promise<Order | null> {
+  findOne(id: string): Promise<AccountingOrderEntity | null> {
     return this.ordersRepository.findOrderByIdWithDeliveryman(id);
   }
 
   async updateOrder(
-    orderId: number,
+    orderId: string,
     updateOrderDto: UpdateOrderNestDto,
-  ): Promise<Order> {
+  ): Promise<AccountingOrderEntity> {
     const order = await this.ordersRepository.findOrderByIdWithDeliveryman(
       orderId,
     );

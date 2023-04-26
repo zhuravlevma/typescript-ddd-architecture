@@ -5,7 +5,7 @@ export interface AddOrderToDeliverymanDto {
 
 export interface AddOrderToDeliverymanUseCase {
   addOrderToDeliveryman(
-    deliverymanId: number,
+    deliverymanId: string,
     addOrderToDeliverymanDto: AddOrderToDeliverymanDto,
   );
 }

@@ -4,22 +4,23 @@ import { CreateOrderNestDto } from '../dtos/create-order.dto';
 import { UpdateDeliverymansInfoNestDto } from '../dtos/update-deliverymans-info.dto';
 import { UpdateDeliverymansOrdersNestDto } from '../dtos/update-deliverymans-orders.dto';
 import { ChangeDeliverymansStatusNestDto } from '../dtos/change-deliverymans-status.dto';
-import { Deliveryman } from '../orm-entities/deliveryman.model';
+import { DeliverymanOrmEntity } from '../orm-entities/deliveryman.orm-entity';
 import { CreateDeliverymanNestDto } from '../dtos/create-deliveryman.dto';
+import { DeliverymanEntity } from 'src/delivery/domain/entities/deliveryman.entity';
 
 @Controller('deliverymans')
 export class DeliverymanController {
   constructor(private readonly deliverymanService: DeliverymanService) {}
 
   @Get('/')
-  find(): Promise<Deliveryman[]> {
+  find(): Promise<DeliverymanEntity[]> {
     return this.deliverymanService.findAll();
   }
 
   @Post('/')
   createDeliveryMan(
     @Body() createDeliveryManDto: CreateDeliverymanNestDto,
-  ): Promise<Deliveryman> {
+  ): Promise<DeliverymanEntity> {
     return this.deliverymanService.createDeliveryman(createDeliveryManDto);
   }
 
@@ -27,9 +28,9 @@ export class DeliverymanController {
   addOrderToDeliveryman(
     @Param('deliverymanId') deliverymanId: string,
     @Body() createDeliveryManDto: CreateOrderNestDto,
-  ): Promise<Deliveryman> {
+  ): Promise<DeliverymanEntity> {
     return this.deliverymanService.addOrderToDeliveryman(
-      +deliverymanId,
+      deliverymanId,
       createDeliveryManDto,
     );
   }
@@ -38,9 +39,9 @@ export class DeliverymanController {
   updateDeliverymansInfo(
     @Param('deliverymanId') deliverymanId: string,
     @Body() updateDeliveryManDto: UpdateDeliverymansInfoNestDto,
-  ): Promise<Deliveryman> {
+  ): Promise<DeliverymanEntity> {
     return this.deliverymanService.updateDeliverymansInfo(
-      +deliverymanId,
+      deliverymanId,
       updateDeliveryManDto,
     );
   }
@@ -49,9 +50,9 @@ export class DeliverymanController {
   changeDeliverymansStatus(
     @Param('deliverymanId') deliverymanId: string,
     @Body() changeDeliverymansStatusDto: ChangeDeliverymansStatusNestDto,
-  ): Promise<Deliveryman> {
+  ): Promise<DeliverymanEntity> {
     return this.deliverymanService.changeDeliverymansStatus(
-      +deliverymanId,
+      deliverymanId,
       changeDeliverymansStatusDto,
     );
   }
@@ -61,9 +62,9 @@ export class DeliverymanController {
     @Param('deliverymanId')
     deliverymanId: string,
     @Body() updateDeliverymansOrdersDto: UpdateDeliverymansOrdersNestDto,
-  ): Promise<Deliveryman> {
+  ): Promise<DeliverymanEntity> {
     return this.deliverymanService.updateDeliverymansOrders(
-      +deliverymanId,
+      deliverymanId,
       updateDeliverymansOrdersDto,
     );
   }

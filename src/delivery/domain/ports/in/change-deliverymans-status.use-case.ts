@@ -4,7 +4,7 @@ export interface ChangeDeliverymansStatusDto {
 
 export interface ChangeDeliverymansStatusUseCase {
   changeDeliverymansStatus(
-    deliverymanId: number,
+    deliverymanId: string,
     changeDeliverymansStatusDto: ChangeDeliverymansStatusDto,
   );
 }

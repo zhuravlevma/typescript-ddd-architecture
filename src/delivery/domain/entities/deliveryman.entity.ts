@@ -1,14 +1,14 @@
 import { OrderEntity } from './order.entity';
 
 export class DeliverymanEntity {
-  id: number;
+  id: string;
   firstName: string;
   lastName: string;
   isActive: boolean;
   orders: OrderEntity[];
 
   constructor(
-    id: number,
+    id: string,
     firstName: string,
     lastName: string,
     isActive: boolean,

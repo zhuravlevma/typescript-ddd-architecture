@@ -1,21 +1,26 @@
 import { Repository } from 'typeorm';
-import { Order } from '../orm-entities/orders.model';
+import { OrderOrmEntity } from '../orm-entities/orders.orm-entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Injectable } from '@nestjs/common';
+import { AccountingOrderEntity } from 'src/delivery/domain/entities/accounting-order.entity';
+import { AccountingOrderMapper } from '../mappers/accounting-order.mapper';
 
 @Injectable()
 export class OrdersRepository {
   constructor(
-    @InjectRepository(Order)
-    private ordersRepository: Repository<Order>,
+    @InjectRepository(OrderOrmEntity)
+    private ordersRepository: Repository<OrderOrmEntity>,
   ) {}
 
-  findAllOrders(): Promise<Order[]> {
-    return this.ordersRepository.find();
+  async findAllOrders(): Promise<AccountingOrderEntity[]> {
+    const orders = await this.ordersRepository.find();
+    return orders.map((order) => AccountingOrderMapper.mapToDomain(order));
   }
 
-  findOrderByIdWithDeliveryman(orderId: number): Promise<Order> {
-    return this.ordersRepository.findOne({
+  async findOrderByIdWithDeliveryman(
+    orderId: string,
+  ): Promise<AccountingOrderEntity> {
+    const order = await this.ordersRepository.findOne({
       where: {
         id: orderId,
       },
@@ -23,9 +28,12 @@ export class OrdersRepository {
         deliveryman: true,
       },
     });
+    return AccountingOrderMapper.mapToDomain(order);
   }
 
-  async save(order: Order) {
-    return this.ordersRepository.save(order);
+  async save(order: AccountingOrderEntity): Promise<AccountingOrderEntity> {
+    const orderOrm = AccountingOrderMapper.mapToOrm(order);
+    const savedOrder = await this.ordersRepository.save(orderOrm);
+    return AccountingOrderMapper.mapToDomain(savedOrder);
   }
 }

@@ -8,8 +8,8 @@ import {
   CreateDeliverymanDto,
   CreateDeliverymanUseCase,
 } from 'src/delivery/domain/ports/in/create-deliveryman.use-case';
-import { Deliveryman } from '../orm-entities/deliveryman.model';
-import { Order } from '../orm-entities/orders.model';
+import { DeliverymanOrmEntity } from '../orm-entities/deliveryman.orm-entity';
+import { OrderOrmEntity } from '../orm-entities/orders.orm-entity';
 import {
   UpdateDeliverymansInfoDto,
   UpdateDeliverymansInfoUseCase,
@@ -22,6 +22,9 @@ import {
   UpdateDeliverymansOrdersUseCase,
   UpdateDeliverymansOrdersDto,
 } from 'src/delivery/domain/ports/in/update-deliverymans-orders.dto';
+import { DeliverymanEntity } from 'src/delivery/domain/entities/deliveryman.entity';
+import { v4 as uuid } from 'uuid';
+import { OrderEntity } from 'src/delivery/domain/entities/order.entity';
 
 @Injectable()
 export class DeliverymanService
@@ -34,32 +37,41 @@ export class DeliverymanService
 {
   constructor(private deliverymanRepository: DeliverymanRepository) {}
 
-  findAll(): Promise<Deliveryman[]> {
+  findAll(): Promise<DeliverymanEntity[]> {
     return this.deliverymanRepository.findAllDeliveryMans();
   }
 
   createDeliveryman(
     createDeliverymanDto: CreateDeliverymanDto,
-  ): Promise<Deliveryman> {
+  ): Promise<DeliverymanEntity> {
     return this.deliverymanRepository.createDeliveryMan(
-      new Deliveryman(
+      new DeliverymanEntity(
+        uuid(),
         createDeliverymanDto.firstName,
         createDeliverymanDto.lastName,
+        false,
+        [],
       ),
     );
   }
 
   async addOrderToDeliveryman(
-    deliverymanId: number,
+    deliverymanId: string,
     createOrderDto: AddOrderToDeliverymanDto,
-  ): Promise<Deliveryman> {
+  ): Promise<DeliverymanEntity> {
     try {
       const deliverymanWithOrders =
         await this.deliverymanRepository.findDeliverymanByIdWithOrders(
           deliverymanId,
         );
 
-      const order = new Order(createOrderDto.name, createOrderDto.description);
+      const order = new OrderEntity(
+        uuid(),
+        createOrderDto.name,
+        createOrderDto.description,
+        false,
+        deliverymanId,
+      );
       order.checkName();
 
       deliverymanWithOrders.addOrder(order);
@@ -71,9 +83,9 @@ export class DeliverymanService
   }
 
   async updateDeliverymansInfo(
-    deliverymanId: number,
+    deliverymanId: string,
     updateDeliveryManDto: UpdateDeliverymansInfoDto,
-  ): Promise<Deliveryman> {
+  ): Promise<DeliverymanEntity> {
     try {
       const deliverymanWithOrders =
         await this.deliverymanRepository.findDeliverymanByIdWithOrders(
@@ -93,9 +105,9 @@ export class DeliverymanService
   }
 
   async changeDeliverymansStatus(
-    deliverymanId: number,
+    deliverymanId: string,
     changeDeliverymansStatusDto: ChangeDeliverymansStatusDto,
-  ): Promise<Deliveryman> {
+  ): Promise<DeliverymanEntity> {
     try {
       const deliverymanWithOrders =
         await this.deliverymanRepository.findDeliverymanByIdWithOrders(
@@ -110,9 +122,9 @@ export class DeliverymanService
   }
 
   async updateDeliverymansOrders(
-    deliverymanId: number,
+    deliverymanId: string,
     updateDeliverymansOrdersDto: UpdateDeliverymansOrdersDto,
-  ): Promise<Deliveryman> {
+  ): Promise<DeliverymanEntity> {
     try {
       const deliverymanWithOrders =
         await this.deliverymanRepository.findDeliverymanByIdWithOrders(
