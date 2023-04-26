@@ -8,7 +8,7 @@ import { v4 as uuid } from 'uuid';
 import { CreateDeliverymanPort } from '../ports/out/create-deliveryman.port';
 
 @Injectable()
-export class DeliverymanService implements CreateDeliverymanUseCase {
+export class CreateDeliverymanService implements CreateDeliverymanUseCase {
   constructor(private createDeliverymanPort: CreateDeliverymanPort) {}
 
   createDeliveryman(

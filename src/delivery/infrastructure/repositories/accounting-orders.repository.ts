@@ -17,15 +17,10 @@ export class AccountingOrdersRepository {
     return orders.map((order) => AccountingOrderMapper.mapToDomain(order));
   }
 
-  async findOrderByIdWithDeliveryman(
-    orderId: string,
-  ): Promise<AccountingOrderEntity> {
+  async findOrderById(orderId: string): Promise<AccountingOrderEntity> {
     const order = await this.accountingOrdersRepository.findOne({
       where: {
         id: orderId,
-      },
-      relations: {
-        deliveryman: true,
       },
     });
     return AccountingOrderMapper.mapToDomain(order);
