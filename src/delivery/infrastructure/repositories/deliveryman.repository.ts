@@ -20,7 +20,7 @@ export class DeliverymanRepository
 {
   constructor(
     @InjectRepository(DeliverymanOrmEntity)
-    private deliveryMan: Repository<DeliverymanOrmEntity>,
+    private deliverymanRepository: Repository<DeliverymanOrmEntity>,
     @InjectRepository(OrderOrmEntity)
     private ordersRepository: Repository<OrderOrmEntity>,
   ) {}
@@ -29,12 +29,12 @@ export class DeliverymanRepository
     deliveryManEntity: DeliverymanEntity,
   ): Promise<DeliverymanEntity> {
     const deliveryman = DeliverymanMapper.mapToOrm(deliveryManEntity);
-    const savedDeliveryman = await this.deliveryMan.save(deliveryman);
+    const savedDeliveryman = await this.deliverymanRepository.save(deliveryman);
     return DeliverymanMapper.mapToDomain(savedDeliveryman);
   }
 
   async findAllDeliveryMans(): Promise<DeliverymanEntity[]> {
-    const findedDeliverymans = await this.deliveryMan.find();
+    const findedDeliverymans = await this.deliverymanRepository.find();
     return findedDeliverymans.map((deliveryman) =>
       DeliverymanMapper.mapToDomain(deliveryman),
     );
@@ -43,7 +43,7 @@ export class DeliverymanRepository
   async findDeliverymanByIdWithOrders(
     deliverymanId: string,
   ): Promise<DeliverymanEntity> {
-    const deliveryman = await this.deliveryMan.findOne({
+    const deliveryman = await this.deliverymanRepository.findOne({
       where: {
         id: deliverymanId,
       },
@@ -59,7 +59,9 @@ export class DeliverymanRepository
 
   async save(deliveryMan: DeliverymanEntity): Promise<DeliverymanEntity> {
     const deliverymanOrm = DeliverymanMapper.mapToOrm(deliveryMan);
-    const savedDeliveryman = await this.deliveryMan.save(deliverymanOrm);
+    const savedDeliveryman = await this.deliverymanRepository.save(
+      deliverymanOrm,
+    );
     return DeliverymanMapper.mapToDomain(savedDeliveryman);
   }
 }
