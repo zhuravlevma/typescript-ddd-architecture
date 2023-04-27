@@ -1,7 +1,7 @@
 ## Description
 
 ```mermaid
-  flowchart TB
+  flowchart TD
 
     subgraph infrastructure
     subgraph web
