@@ -24,7 +24,6 @@
 
     services2(services) -- uses --> entities2(entities)
     services2(services) -- uses --> ports2(ports)
-    services2(services) -- uses --> use-cases2(use-cases)
     services2(services) -- uses --> plain-dto2(dto)
     end
     end
