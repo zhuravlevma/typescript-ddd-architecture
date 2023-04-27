@@ -34,6 +34,7 @@ export class AddOrderToDeliverymanService
         createOrderDto.description,
         false,
         deliverymanId,
+        [],
       );
       order.checkName();
 

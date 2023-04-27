@@ -9,6 +9,7 @@ import { FindDeliverymanByIdWithOrdersPort } from 'src/delivery/domain/deliverym
 import { SaveDeliverymanPort } from 'src/delivery/domain/deliveryman/ports/out/save-deliveryman.port';
 import { DeliverymanEntity } from 'src/delivery/domain/deliveryman/entities/deliveryman.entity';
 import { OrderOrmEntity } from '../orm-entities/orders.orm-entity';
+import { FindDeliverymanOrderLadingPort } from 'src/delivery/domain/deliveryman/ports/out/find-deliveryman-order-lading';
 
 @Injectable()
 export class DeliverymanRepository
@@ -16,7 +17,8 @@ export class DeliverymanRepository
     CreateDeliverymanPort,
     FindAllDeliverymansPort,
     FindDeliverymanByIdWithOrdersPort,
-    SaveDeliverymanPort
+    SaveDeliverymanPort,
+    FindDeliverymanOrderLadingPort
 {
   constructor(
     @InjectRepository(DeliverymanOrmEntity)
@@ -24,6 +26,23 @@ export class DeliverymanRepository
     @InjectRepository(OrderOrmEntity)
     private ordersRepository: Repository<OrderOrmEntity>,
   ) {}
+
+  async findDeliverymanOrderLading(
+    deliverymanId: string,
+    orderId: string,
+  ): Promise<DeliverymanEntity> {
+    const deliveryman = await this.deliverymanRepository
+      .createQueryBuilder('deliveryman')
+      .leftJoinAndSelect('deliveryman.orders', 'orders')
+      .leftJoinAndSelect(
+        'orders.billOfLadingPositions',
+        'billOfLadingPositions',
+      )
+      .where('deliveryman.id = :deliverymanId', { deliverymanId })
+      .andWhere('orders.id = :orderId', { orderId })
+      .getOne();
+    return DeliverymanMapper.mapToDomain(deliveryman);
+  }
 
   async createDeliveryman(
     deliveryManEntity: DeliverymanEntity,

@@ -12,7 +12,7 @@ export class DeliverymanEntity {
     firstName: string,
     lastName: string,
     isActive: boolean,
-    orders?: OrderEntity[],
+    orders: OrderEntity[],
   ) {
     this.id = id;
     this.firstName = firstName;
@@ -26,6 +26,12 @@ export class DeliverymanEntity {
       throw new Error('Exceeded the number of orders');
     }
     this.orders.push(order);
+  }
+
+  deliverOrders() {
+    for (const order of this.orders) {
+      order.deliver();
+    }
   }
 
   changeStatus(newStatus: boolean) {

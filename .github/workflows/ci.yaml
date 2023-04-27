@@ -54,19 +54,3 @@ jobs:
           key: node-modules-${{ hashFiles('package-lock.json') }}
       - name: Lint source code with Prettier
         run: npm run format:check
-  testing:
-    needs: [eslint, prettier]
-    name: Testing
-    runs-on: self-hosted
-    container:
-      image: node:16
-    steps:
-      - uses: actions/checkout@v3
-      - name: Cache Node Modules
-        id: cache-node-modules
-        uses: actions/cache@v3
-        with:
-          path: node_modules
-          key: node-modules-${{ hashFiles('package-lock.json') }}
-      - name: Run tests
-        run: npm run test

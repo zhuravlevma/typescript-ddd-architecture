@@ -20,6 +20,6 @@ export class AccountingOrderEntity {
   }
 
   addInfoToDescription(info: string) {
-    this.description += '\n' + info;
+    this.description += '\nInfo from the Accounting department' + info;
   }
 }

@@ -2,6 +2,8 @@ import { DeliverymanEntity } from 'src/delivery/domain/deliveryman/entities/deli
 import { DeliverymanOrmEntity } from '../orm-entities/deliveryman.orm-entity';
 import { OrderOrmEntity } from '../orm-entities/orders.orm-entity';
 import { OrderEntity } from 'src/delivery/domain/deliveryman/entities/order.entity';
+import { BillOfLadingPositionEntity } from 'src/delivery/domain/deliveryman/entities/bill-of-lading-position.entity';
+import { BillOfLadingPositionOrmEntity } from '../orm-entities/bill-of-lading-position.orm-entity';
 
 export class DeliverymanMapper {
   static mapToDomain(
@@ -20,6 +22,13 @@ export class DeliverymanMapper {
             orderOrmEntity.description,
             orderOrmEntity.isActive,
             orderOrmEntity.deliverymanId,
+            orderOrmEntity.billOfLadingPositions.map(
+              (positionOrm) =>
+                new BillOfLadingPositionEntity(
+                  positionOrm.id,
+                  positionOrm.isValid,
+                ),
+            ),
           ),
       ),
     );
@@ -39,6 +48,13 @@ export class DeliverymanMapper {
         orderOrmEntity.name = orderEntity.name;
         orderOrmEntity.isActive = orderEntity.isActive;
         orderOrmEntity.id = orderEntity.id;
+        orderOrmEntity.billOfLadingPositions =
+          orderEntity.billOfLadingPostion.map((positionEntity) => {
+            const positionOrm = new BillOfLadingPositionOrmEntity();
+            positionOrm.isValid = positionEntity.isValid;
+            positionOrm.id = positionEntity.id;
+            return positionOrm;
+          });
         return orderOrmEntity;
       },
     );

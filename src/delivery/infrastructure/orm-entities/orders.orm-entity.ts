@@ -4,8 +4,10 @@ import {
   PrimaryGeneratedColumn,
   ManyToOne,
   JoinColumn,
+  OneToMany,
 } from 'typeorm';
 import { DeliverymanOrmEntity } from './deliveryman.orm-entity';
+import { BillOfLadingPositionOrmEntity } from './bill-of-lading-position.orm-entity';
 
 @Entity('orders')
 export class OrderOrmEntity {
@@ -27,4 +29,13 @@ export class OrderOrmEntity {
   @ManyToOne(() => DeliverymanOrmEntity, (deliveryMan) => deliveryMan.orders)
   @JoinColumn({ name: 'deliverymanId', referencedColumnName: 'id' })
   deliveryman: DeliverymanOrmEntity;
+
+  @OneToMany(
+    () => BillOfLadingPositionOrmEntity,
+    (billOfLadingElement) => billOfLadingElement.order,
+    {
+      cascade: ['insert', 'update'],
+    },
+  )
+  billOfLadingPositions: BillOfLadingPositionOrmEntity[];
 }
