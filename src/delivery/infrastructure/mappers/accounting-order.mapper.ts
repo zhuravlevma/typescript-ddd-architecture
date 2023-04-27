@@ -1,9 +1,9 @@
-import { OrderEntity } from 'src/delivery/domain/deliveryman/entities/order.entity';
 import { OrderOrmEntity } from '../orm-entities/orders.orm-entity';
+import { AccountingOrderEntity } from 'src/delivery/domain/accounting-order/entities/accounting-order.entity';
 
 export class AccountingOrderMapper {
   static mapToDomain(orderOrmEntity: OrderOrmEntity) {
-    return new OrderEntity(
+    return new AccountingOrderEntity(
       orderOrmEntity.id,
       orderOrmEntity.name,
       orderOrmEntity.description,
@@ -11,7 +11,7 @@ export class AccountingOrderMapper {
       orderOrmEntity.deliverymanId,
     );
   }
-  static mapToOrm(orderEntity: OrderEntity) {
+  static mapToOrm(orderEntity: AccountingOrderEntity) {
     const orderOrmEntity = new OrderOrmEntity();
     orderOrmEntity.deliverymanId = orderEntity.deliverymanId;
     orderOrmEntity.description = orderEntity.description;

@@ -1,5 +1,5 @@
-import { OrderEntity } from 'src/delivery/domain/deliveryman/entities/order.entity';
+import { AccountingOrderEntity } from '../../entities/accounting-order.entity';
 
 export abstract class SaveOrderPort {
-  abstract save(order: OrderEntity): Promise<OrderEntity>;
+  abstract save(order: AccountingOrderEntity): Promise<AccountingOrderEntity>;
 }

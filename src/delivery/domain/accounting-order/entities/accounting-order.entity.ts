@@ -19,30 +19,7 @@ export class AccountingOrderEntity {
     this.deliverymanId = deliverymanId;
   }
 
-  checkName() {
-    if (this.name.length < 3) {
-      throw new Error('The length of the name is less than 3');
-    }
-  }
-
-  changeStatus(newStatus: boolean) {
-    if (newStatus === true) {
-      this.deliver();
-    } else {
-      this.return();
-    }
-  }
-
   addInfoToDescription(info: string) {
     this.description += '\n' + info;
-  }
-
-  return() {
-    this.addInfoToDescription('This order has been returned :(');
-  }
-
-  deliver() {
-    this.isActive = false;
-    this.addInfoToDescription('This order has been delivered.');
   }
 }

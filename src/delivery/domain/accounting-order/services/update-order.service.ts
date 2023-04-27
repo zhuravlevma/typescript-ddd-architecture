@@ -18,9 +18,6 @@ export class UpdateOrderService implements UpdateOrderUseCase {
   ): Promise<AccountingOrderEntity> {
     const order = await this.findOrderByIdPort.findOrderById(orderId);
 
-    updateOrderDto.isActive !== undefined ??
-      order.changeStatus(updateOrderDto.isActive);
-
     updateOrderDto.description !== undefined ??
       order.addInfoToDescription(updateOrderDto.description);
 
