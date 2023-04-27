@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { DeliverymanOrmEntity } from './delivery/infrastructure/orm-entities/deliveryman.orm-entity';
-import { OrderOrmEntity } from './delivery/infrastructure/orm-entities/orders.orm-entity';
+import { DeliverymanOrmEntity } from './delivery/infrastructure/dal/orm-entities/deliveryman.orm-entity';
+import { OrderOrmEntity } from './delivery/infrastructure/dal/orm-entities/orders.orm-entity';
 import { DeliveryModule } from './delivery/infrastructure/delivery.module';
 import { ConfigModule } from '@nestjs/config';
 import { config } from './config';

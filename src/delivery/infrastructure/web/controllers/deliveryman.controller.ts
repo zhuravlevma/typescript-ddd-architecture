@@ -11,6 +11,8 @@ import { AddOrderToDeliverymanUseCase } from 'src/delivery/domain/deliveryman/po
 import { UpdateDeliverymansInfoUseCase } from 'src/delivery/domain/deliveryman/ports/in/update-deliveryman-info.use-case';
 import { ChangeDeliverymansStatusUseCase } from 'src/delivery/domain/deliveryman/ports/in/change-deliverymans-status.use-case';
 import { UpdateDeliverymansOrdersUseCase } from 'src/delivery/domain/deliveryman/ports/in/update-deliverymans-orders.dto';
+import { UpdateOrderStatusUseCase } from 'src/delivery/domain/deliveryman/ports/in/update-order-status.use-case';
+import { UpdateOrderStatusNestDto } from '../dtos/update-order-status.dto';
 
 @Controller('deliverymans')
 export class DeliverymanController {
@@ -21,6 +23,7 @@ export class DeliverymanController {
     private readonly updateDeliverymansInfoService: UpdateDeliverymansInfoUseCase,
     private readonly changeDeliverymansStatusService: ChangeDeliverymansStatusUseCase,
     private readonly updateDeliverymansOrdersService: UpdateDeliverymansOrdersUseCase,
+    private readonly updateOrderStatusService: UpdateOrderStatusUseCase,
   ) {}
 
   @Get('/')
@@ -78,6 +81,21 @@ export class DeliverymanController {
   ): Promise<DeliverymanEntity> {
     return this.updateDeliverymansOrdersService.updateDeliverymansOrders(
       deliverymanId,
+      updateDeliverymansOrdersDto,
+    );
+  }
+
+  @Patch('/:deliverymanId/orders/:orderId/status')
+  updateDeliverymansOrderStatus(
+    @Param('deliverymanId')
+    deliverymanId: string,
+    @Param('orderId')
+    orderId: string,
+    @Body() updateDeliverymansOrdersDto: UpdateOrderStatusNestDto,
+  ): Promise<DeliverymanEntity> {
+    return this.updateOrderStatusService.updateOrderStatus(
+      deliverymanId,
+      orderId,
       updateDeliverymansOrdersDto,
     );
   }

@@ -1,11 +1,9 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { OrderOrmEntity } from './orm-entities/orders.orm-entity';
-import { AccountingOrdersController } from './controllers/accounting-orders.controller';
-import { AccountingOrdersRepository } from './repositories/accounting-orders.repository';
-import { DeliverymanController } from './controllers/deliveryman.controller';
-import { DeliverymanRepository } from './repositories/deliveryman.repository';
-import { DeliverymanOrmEntity } from './orm-entities/deliveryman.orm-entity';
+import { OrderOrmEntity } from './dal/orm-entities/orders.orm-entity';
+import { AccountingOrdersController } from './web/controllers/accounting-orders.controller';
+import { DeliverymanController } from './web/controllers/deliveryman.controller';
+import { DeliverymanOrmEntity } from './dal/orm-entities/deliveryman.orm-entity';
 import { CreateDeliverymanService } from '../domain/deliveryman/services/create-deliveryman.service';
 import { AddOrderToDeliverymanUseCase } from '../domain/deliveryman/ports/in/add-order-to-deliveryman.use-case';
 import { AddOrderToDeliverymanService } from '../domain/deliveryman/services/add-order-to-deliveryman.service';
@@ -29,6 +27,8 @@ import { UpdateOrderService } from '../domain/accounting-order/services/update-o
 import { FindAllOrdersPort } from '../domain/accounting-order/ports/out/find-all-orders.port';
 import { FindOrderByIdPort } from '../domain/accounting-order/ports/out/find-order-by-id.port';
 import { SaveOrderPort } from '../domain/accounting-order/ports/out/save-order.port';
+import { DeliverymanRepository } from './dal/repositories/deliveryman.repository';
+import { AccountingOrdersRepository } from './dal/repositories/accounting-orders.repository';
 
 @Module({
   imports: [TypeOrmModule.forFeature([OrderOrmEntity, DeliverymanOrmEntity])],
