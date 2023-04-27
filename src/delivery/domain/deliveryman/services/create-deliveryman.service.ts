@@ -19,7 +19,7 @@ export class CreateDeliverymanService implements CreateDeliverymanUseCase {
         uuid(),
         createDeliverymanDto.firstName,
         createDeliverymanDto.lastName,
-        false,
+        true,
         [],
       ),
     );

@@ -8,6 +8,7 @@ import { FindAllDeliverymansPort } from 'src/delivery/domain/deliveryman/ports/o
 import { FindDeliverymanByIdWithOrdersPort } from 'src/delivery/domain/deliveryman/ports/out/find-deliveryman-by-id-with-orders.port';
 import { SaveDeliverymanPort } from 'src/delivery/domain/deliveryman/ports/out/save-deliveryman.port';
 import { DeliverymanEntity } from 'src/delivery/domain/deliveryman/entities/deliveryman.entity';
+import { OrderOrmEntity } from '../orm-entities/orders.orm-entity';
 
 @Injectable()
 export class DeliverymanRepository
@@ -20,6 +21,8 @@ export class DeliverymanRepository
   constructor(
     @InjectRepository(DeliverymanOrmEntity)
     private deliveryMan: Repository<DeliverymanOrmEntity>,
+    @InjectRepository(OrderOrmEntity)
+    private ordersRepository: Repository<OrderOrmEntity>,
   ) {}
 
   async createDeliveryman(
@@ -43,14 +46,14 @@ export class DeliverymanRepository
     const deliveryman = await this.deliveryMan.findOne({
       where: {
         id: deliverymanId,
-        orders: {
-          isActive: true,
-        },
-      },
-      relations: {
-        orders: true,
       },
     });
+    const orders = await this.ordersRepository.findBy({
+      deliverymanId: deliveryman.id,
+      isActive: true,
+    });
+    deliveryman.orders = orders;
+
     return DeliverymanMapper.mapToDomain(deliveryman);
   }
 
