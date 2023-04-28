@@ -5,6 +5,7 @@ import { OrderOrmEntity } from './delivery/infrastructure/dal/orm-entities/order
 import { DeliveryModule } from './delivery/infrastructure/delivery.module';
 import { ConfigModule } from '@nestjs/config';
 import { config } from './config';
+import { BillOfLadingPositionOrmEntity } from './delivery/infrastructure/dal/orm-entities/bill-of-lading-position.orm-entity';
 
 @Module({
   imports: [
@@ -18,7 +19,11 @@ import { config } from './config';
       username: config().database.username,
       password: config().database.password,
       database: config().database.name,
-      entities: [OrderOrmEntity, DeliverymanOrmEntity],
+      entities: [
+        OrderOrmEntity,
+        DeliverymanOrmEntity,
+        BillOfLadingPositionOrmEntity,
+      ],
       synchronize: true,
     }),
     DeliveryModule,

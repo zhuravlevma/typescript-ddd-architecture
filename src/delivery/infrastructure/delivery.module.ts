@@ -29,9 +29,18 @@ import { FindOrderByIdPort } from '../domain/accounting-order/ports/out/find-ord
 import { SaveOrderPort } from '../domain/accounting-order/ports/out/save-order.port';
 import { DeliverymanRepository } from './dal/repositories/deliveryman.repository';
 import { AccountingOrdersRepository } from './dal/repositories/accounting-orders.repository';
+import { BillOfLadingPositionOrmEntity } from './dal/orm-entities/bill-of-lading-position.orm-entity';
+import { UpdateOrderStatusUseCase } from '../domain/deliveryman/ports/in/update-order-status.use-case';
+import { UpdateOrderStatusService } from '../domain/deliveryman/services/update-order-status.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([OrderOrmEntity, DeliverymanOrmEntity])],
+  imports: [
+    TypeOrmModule.forFeature([
+      OrderOrmEntity,
+      DeliverymanOrmEntity,
+      BillOfLadingPositionOrmEntity,
+    ]),
+  ],
   controllers: [AccountingOrdersController, DeliverymanController],
   providers: [
     {
@@ -97,6 +106,10 @@ import { AccountingOrdersRepository } from './dal/repositories/accounting-orders
     {
       provide: SaveOrderPort,
       useClass: AccountingOrdersRepository,
+    },
+    {
+      provide: UpdateOrderStatusUseCase,
+      useClass: UpdateOrderStatusService,
     },
     AccountingOrdersRepository,
     DeliverymanRepository,

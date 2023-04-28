@@ -7,7 +7,7 @@ import {
 } from 'typeorm';
 import { OrderOrmEntity } from './orders.orm-entity';
 
-@Entity('orders')
+@Entity('bill_of_ladings')
 export class BillOfLadingPositionOrmEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -29,6 +29,12 @@ export class BillOfLadingPositionOrmEntity {
 
   @Column()
   amount: number;
+
+  @Column()
+  sum: number;
+
+  @Column()
+  rate: number;
 
   @Column()
   isValid: boolean;
