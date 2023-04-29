@@ -15,13 +15,13 @@ export class CreateDeliverymanService implements CreateDeliverymanUseCase {
     createDeliverymanDto: CreateDeliverymanDto,
   ): Promise<DeliverymanEntity> {
     return this.createDeliverymanPort.createDeliveryman(
-      new DeliverymanEntity(
-        uuid(),
-        createDeliverymanDto.firstName,
-        createDeliverymanDto.lastName,
-        true,
-        [],
-      ),
+      new DeliverymanEntity({
+        id: uuid(),
+        firstName: createDeliverymanDto.firstName,
+        lastName: createDeliverymanDto.lastName,
+        isActive: true,
+        orders: [],
+      }),
     );
   }
 }

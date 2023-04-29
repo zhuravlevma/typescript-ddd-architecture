@@ -1,27 +1,29 @@
 import { BillOfLadingPositionAccountingEntity } from './bill-of-lading-position-accounting.entity';
 
-export class AccountingOrderEntity {
+interface Attributes {
   id: string;
   name: string;
   description: string;
   isActive: boolean;
   deliverymanId: string;
-  billOfLadingPostions: BillOfLadingPositionAccountingEntity[];
+  billOfLadingPositions: BillOfLadingPositionAccountingEntity[];
+}
 
-  constructor(
-    id: string,
-    name: string,
-    description: string,
-    isActive: boolean,
-    deliverymanId: string,
-    billOfLadingPostions: BillOfLadingPositionAccountingEntity[],
-  ) {
-    this.id = id;
-    this.name = name;
-    this.description = description;
-    this.isActive = isActive;
-    this.deliverymanId = deliverymanId;
-    this.billOfLadingPostions = billOfLadingPostions;
+export class AccountingOrderEntity implements Attributes {
+  id: string;
+  name: string;
+  description: string;
+  isActive: boolean;
+  deliverymanId: string;
+  billOfLadingPositions: BillOfLadingPositionAccountingEntity[];
+
+  constructor(attributes: Attributes) {
+    this.id = attributes.id;
+    this.name = attributes.name;
+    this.description = attributes.description;
+    this.isActive = attributes.isActive;
+    this.deliverymanId = attributes.deliverymanId;
+    this.billOfLadingPositions = attributes.billOfLadingPositions;
   }
 
   addInfoToDescription(info: string) {

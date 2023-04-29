@@ -1,24 +1,26 @@
 import { OrderEntity } from './order.entity';
 
-export class DeliverymanEntity {
+interface Attributes {
+  id: string;
+  firstName: string;
+  lastName: string;
+  isActive: boolean;
+  orders: OrderEntity[];
+}
+
+export class DeliverymanEntity implements Attributes {
   id: string;
   firstName: string;
   lastName: string;
   isActive: boolean;
   orders: OrderEntity[];
 
-  constructor(
-    id: string,
-    firstName: string,
-    lastName: string,
-    isActive: boolean,
-    orders: OrderEntity[],
-  ) {
-    this.id = id;
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.isActive = isActive;
-    this.orders = orders;
+  constructor(attributes: Attributes) {
+    this.id = attributes.id;
+    this.firstName = attributes.firstName;
+    this.lastName = attributes.lastName;
+    this.isActive = attributes.isActive;
+    this.orders = attributes.orders;
   }
 
   addOrder(order: OrderEntity) {

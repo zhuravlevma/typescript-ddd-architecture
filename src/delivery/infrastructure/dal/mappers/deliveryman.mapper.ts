@@ -9,29 +9,29 @@ export class DeliverymanMapper {
   static mapToDomain(
     deliverymanOrmEntity: DeliverymanOrmEntity,
   ): DeliverymanEntity {
-    return new DeliverymanEntity(
-      deliverymanOrmEntity.id,
-      deliverymanOrmEntity.firstName,
-      deliverymanOrmEntity.lastName,
-      deliverymanOrmEntity.isActive,
-      deliverymanOrmEntity.orders.map(
+    return new DeliverymanEntity({
+      id: deliverymanOrmEntity.id,
+      firstName: deliverymanOrmEntity.firstName,
+      lastName: deliverymanOrmEntity.lastName,
+      isActive: deliverymanOrmEntity.isActive,
+      orders: deliverymanOrmEntity.orders.map(
         (orderOrmEntity) =>
-          new OrderEntity(
-            orderOrmEntity.id,
-            orderOrmEntity.name,
-            orderOrmEntity.description,
-            orderOrmEntity.isActive,
-            orderOrmEntity.deliverymanId,
-            orderOrmEntity.billOfLadingPositions.map(
+          new OrderEntity({
+            id: orderOrmEntity.id,
+            name: orderOrmEntity.name,
+            description: orderOrmEntity.description,
+            isActive: orderOrmEntity.isActive,
+            deliverymanId: orderOrmEntity.deliverymanId,
+            billOfLadingPositions: orderOrmEntity.billOfLadingPositions.map(
               (positionOrm) =>
                 new BillOfLadingPositionEntity(
                   positionOrm.id,
                   positionOrm.isValid,
                 ),
             ),
-          ),
+          }),
       ),
-    );
+    });
   }
 
   static mapToOrm(deliverymanEntity: DeliverymanEntity): DeliverymanOrmEntity {
@@ -49,7 +49,7 @@ export class DeliverymanMapper {
         orderOrmEntity.isActive = orderEntity.isActive;
         orderOrmEntity.id = orderEntity.id;
         orderOrmEntity.billOfLadingPositions =
-          orderEntity.billOfLadingPostion.map((positionEntity) => {
+          orderEntity.billOfLadingPositions.map((positionEntity) => {
             const positionOrm = new BillOfLadingPositionOrmEntity();
             positionOrm.isValid = positionEntity.isValid;
             positionOrm.id = positionEntity.id;

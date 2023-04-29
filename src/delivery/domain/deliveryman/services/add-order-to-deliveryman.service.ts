@@ -28,14 +28,14 @@ export class AddOrderToDeliverymanService
           deliverymanId,
         );
 
-      const order = new OrderEntity(
-        uuid(),
-        createOrderDto.name,
-        createOrderDto.description,
-        false,
+      const order = new OrderEntity({
+        id: uuid(),
+        name: createOrderDto.name,
+        description: createOrderDto.description,
+        isActive: false,
         deliverymanId,
-        [],
-      );
+        billOfLadingPositions: [],
+      });
       order.checkName();
 
       deliverymanWithOrders.addOrder(order);

@@ -6,27 +6,27 @@ import { SumObjectValue } from 'src/delivery/domain/accounting-order/object-valu
 
 export class AccountingOrderMapper {
   static mapToDomain(orderOrmEntity: OrderOrmEntity) {
-    return new AccountingOrderEntity(
-      orderOrmEntity.id,
-      orderOrmEntity.name,
-      orderOrmEntity.description,
-      orderOrmEntity.isActive,
-      orderOrmEntity.deliverymanId,
-      orderOrmEntity.billOfLadingPositions.map(
+    return new AccountingOrderEntity({
+      id: orderOrmEntity.id,
+      name: orderOrmEntity.name,
+      description: orderOrmEntity.description,
+      isActive: orderOrmEntity.isActive,
+      deliverymanId: orderOrmEntity.deliverymanId,
+      billOfLadingPositions: orderOrmEntity.billOfLadingPositions.map(
         (position) =>
-          new BillOfLadingPositionAccountingEntity(
-            position.id,
-            position.name,
-            position.count,
-            position.code,
-            position.weight,
-            position.orderId,
-            position.amount,
-            position.isValid,
-            new SumObjectValue(position.sum, position.rate),
-          ),
+          new BillOfLadingPositionAccountingEntity({
+            id: position.id,
+            name: position.name,
+            count: position.count,
+            code: position.code,
+            weight: position.weight,
+            orderId: position.orderId,
+            amount: position.amount,
+            isValid: position.isValid,
+            sum: new SumObjectValue(position.sum, position.rate),
+          }),
       ),
-    );
+    });
   }
   static mapToOrm(orderEntity: AccountingOrderEntity) {
     const orderOrmEntity = new OrderOrmEntity();
@@ -35,8 +35,8 @@ export class AccountingOrderMapper {
     orderOrmEntity.name = orderEntity.name;
     orderOrmEntity.isActive = orderEntity.isActive;
     orderOrmEntity.id = orderEntity.id;
-    orderOrmEntity.billOfLadingPositions = orderEntity.billOfLadingPostions.map(
-      (postitionEntity) => {
+    orderOrmEntity.billOfLadingPositions =
+      orderEntity.billOfLadingPositions.map((postitionEntity) => {
         const positionOrmEntity = new BillOfLadingPositionOrmEntity();
         positionOrmEntity.id = postitionEntity.id;
         positionOrmEntity.name = postitionEntity.name;
@@ -47,8 +47,7 @@ export class AccountingOrderMapper {
         positionOrmEntity.amount = postitionEntity.amount;
         positionOrmEntity.isValid = postitionEntity.isValid;
         return positionOrmEntity;
-      },
-    );
+      });
     return orderOrmEntity;
   }
 }

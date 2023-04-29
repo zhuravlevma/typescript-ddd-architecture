@@ -1,27 +1,28 @@
 import { BillOfLadingPositionEntity } from './bill-of-lading-position.entity';
 
-export class OrderEntity {
+interface Attributes {
   id: string;
   name: string;
   description: string;
   isActive: boolean;
   deliverymanId: string;
-  billOfLadingPostion: BillOfLadingPositionEntity[];
+  billOfLadingPositions: BillOfLadingPositionEntity[];
+}
+export class OrderEntity implements Attributes {
+  id: string;
+  name: string;
+  description: string;
+  isActive: boolean;
+  deliverymanId: string;
+  billOfLadingPositions: BillOfLadingPositionEntity[];
 
-  constructor(
-    id: string,
-    name: string,
-    description: string,
-    isActive: boolean,
-    deliverymanId: string,
-    billOfLadingPostion: BillOfLadingPositionEntity[],
-  ) {
-    this.id = id;
-    this.name = name;
-    this.description = description;
-    this.isActive = isActive;
-    this.deliverymanId = deliverymanId;
-    this.billOfLadingPostion = billOfLadingPostion;
+  constructor(attributes: Attributes) {
+    this.id = attributes.id;
+    this.name = attributes.name;
+    this.description = attributes.description;
+    this.isActive = attributes.isActive;
+    this.deliverymanId = attributes.deliverymanId;
+    this.billOfLadingPositions = attributes.billOfLadingPositions;
   }
 
   checkName() {
@@ -55,10 +56,10 @@ export class OrderEntity {
   }
 
   orderIsValid() {
-    if (this.billOfLadingPostion.length === 0) {
+    if (this.billOfLadingPositions.length === 0) {
       throw new Error('This order does not contain a bill of lading');
     }
-    const postionsWithStatusOfInvalid = this.billOfLadingPostion.filter(
+    const postionsWithStatusOfInvalid = this.billOfLadingPositions.filter(
       (position) => position.positionIsValid() === false,
     );
     if (postionsWithStatusOfInvalid.length !== 0) {
