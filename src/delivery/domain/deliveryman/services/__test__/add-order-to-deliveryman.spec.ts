@@ -20,7 +20,7 @@ describe('delivery/domain/deliveryman/services/add-order-to-deliveryman.service'
       orders: [],
     });
   });
-  it('adding order is complete', async () => {
+  it('order added successfully', async () => {
     findDeliverymanByIdWithOrdersPort.findDeliverymanByIdWithOrders.mockResolvedValue(
       deliverymanEntity,
     );
@@ -28,7 +28,6 @@ describe('delivery/domain/deliveryman/services/add-order-to-deliveryman.service'
       findDeliverymanByIdWithOrdersPort,
       saveDeliverymanPort,
     );
-
     const createOrderDto: AddOrderToDeliverymanDto = {
       name: 'test',
       description: 'testdescr',
