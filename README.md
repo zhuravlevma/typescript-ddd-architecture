@@ -2,6 +2,27 @@
 
 [Domain model](https://martinfowler.com/eaaCatalog/domainModel.html) with a clean architecture with ports and adapters. It takes into account some tactical patterns from DDD.
 
+1. The system is divided into modules, each module is a separate piece of the system. The module is divided into an infrastructure part and a domain part
+
+```mermaid
+  flowchart TD
+    subgraph delivery-module
+	domain
+	infrastucture
+	end
+```
+
+2. Inside, the domain folder is divided into aggregates. Aggregates are a collection of entities. Each aggregate has a root. All interaction with entities must occur through the root.
+
+```mermaid
+  flowchart TD
+	delivery-module --> domain
+    subgraph domain
+	accounting-order-aggregate
+	deliveryman-aggregate
+	end
+```
+
 ```mermaid
   flowchart TD
 
@@ -31,27 +52,6 @@
 
     infrastructure -- use interfaces from domain --> aggregate#2
     infrastructure -- use interfaces from domain --> aggregate#1
-```
-
-1. The system is divided into modules, each module is a separate piece of the system. The module is divided into an infrastructure part and a domain part
-
-```mermaid
-  flowchart TD
-    subgraph delivery-module
-	domain
-	infrastucture
-	end
-```
-
-2. Inside, the domain folder is divided into aggregates. Aggregates are a collection of entities. Each aggregate has a root. All interaction with entities must occur through the root.
-
-```mermaid
-  flowchart TD
-	delivery-module --> domain
-    subgraph domain
-	accounting-order-aggregate
-	deliveryman-aggregate
-	end
 ```
 
 ## Installation
