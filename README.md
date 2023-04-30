@@ -23,6 +23,19 @@
 	end
 ```
 
+3. Each aggregate contains a set of entities with business logic, a set of value objects, a set of ports and services (use-cases)
+
+```mermaid
+  flowchart TD
+	delivery-module --> domain
+	domain --> aggregate
+    subgraph aggregate
+	entities
+	ports
+	services
+	end
+```
+
 ```mermaid
   flowchart TD
 
