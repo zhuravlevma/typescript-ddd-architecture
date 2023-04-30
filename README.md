@@ -36,7 +36,7 @@
 	end
 ```
 
-4. Entities are models with business logic. In addition to the data, they [must contain behavior](https://martinfowler.com/bliki/AnemicDomainModel.html).[Value objects](https://martinfowler.com/bliki/ValueObject.html) do not contain an Id and provide additional behavior. Entities(without id) within entities.
+4. Entities are models with business logic. In addition to the data, they [must contain behavior](https://martinfowler.com/bliki/AnemicDomainModel.html). [Value objects](https://martinfowler.com/bliki/ValueObject.html) do not contain an Id and provide additional behavior. Entities(without id) within entities.
 
 5. Ports are interfaces. Incoming ports describe the services contract (application layer). The outgoing ports describe the data access layer contract.
 
