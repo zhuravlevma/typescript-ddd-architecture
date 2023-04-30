@@ -54,6 +54,7 @@
 
 ```mermaid
   flowchart TD
+	delivery-module -- domain
     subgraph domain
 	accounting-order-aggregate
 	deliveryman-aggregate
