@@ -37,16 +37,14 @@
 
 ```mermaid
   flowchart TD
-    subgraph delivery-module(delivery module)
-	infrastructure
-	domain
+    delivery-module(delivery module)
 ```
 
 2. The module is divided into an infrastructure part and a domain part
 
 ```mermaid
   flowchart TD
-    delivery-module(delivery-module)
+    subgraph delivery-module(delivery-module)
 	domain
 	infrastucture
 ```
