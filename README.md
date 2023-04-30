@@ -44,13 +44,21 @@
 
 ```mermaid
   flowchart TD
-    subgraph delivery-module(delivery-module)
+    subgraph delivery-module
 	domain
 	infrastucture
 	end
 ```
 
 3. Inside, the domain folder is divided into aggregates. Aggregates are a collection of entities. Each aggregate has a root. All interaction with entities must occur through the root.
+
+```mermaid
+  flowchart TD
+    subgraph domain
+	accounting-order-aggregate
+	deliveryman-aggregate
+	end
+```
 
 ## Installation
 
