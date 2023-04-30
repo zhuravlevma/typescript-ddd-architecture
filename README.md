@@ -36,6 +36,17 @@
 	end
 ```
 
+4. Entities are models with business logic. In addition to the data, they must contain behavior. https://martinfowler.com/bliki/AnemicDomainModel.html
+Value objects do not contain an Id and provide additional behavior. Entities(without id) within entities. https://martinfowler.com/bliki/ValueObject.html
+
+5. Ports are interfaces. Incoming ports describe the services contract (application layer). The outgoing ports describe the data access layer contract.
+
+```mermaid
+  flowchart TD
+    service -- implements --> incoming-port
+	service -- uses --> outgoing-port
+```
+
 ```mermaid
   flowchart TD
 
