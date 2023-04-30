@@ -47,6 +47,7 @@
     subgraph delivery-module(delivery-module)
 	domain
 	infrastucture
+	end
 ```
 
 3. Inside, the domain folder is divided into aggregates. Aggregates are a collection of entities. Each aggregate has a root. All interaction with entities must occur through the root.
