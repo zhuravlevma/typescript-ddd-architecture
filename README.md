@@ -1,5 +1,7 @@
 ## Description
 
+[Domain model](https://martinfowler.com/eaaCatalog/domainModel.html) with a clean architecture with ports and adapters. It takes into account some tactical patterns from DDD.
+
 ```mermaid
   flowchart TD
 
@@ -30,6 +32,14 @@
     infrastructure -- use interfaces from domain --> aggregate#2
     infrastructure -- use interfaces from domain --> aggregate#1
 ```
+
+1. The system is divided into modules, each module is a separate piece of the system.
+
+```mermaid
+  flowchart TD
+    delivery-module(delivery-module)
+```
+
 
 ## Installation
 
