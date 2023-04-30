@@ -33,14 +33,7 @@
     infrastructure -- use interfaces from domain --> aggregate#1
 ```
 
-1. The system is divided into modules, each module is a separate piece of the system.
-
-```mermaid
-  flowchart TD
-    delivery-module(delivery module)
-```
-
-2. The module is divided into an infrastructure part and a domain part
+1. The system is divided into modules, each module is a separate piece of the system. The module is divided into an infrastructure part and a domain part
 
 ```mermaid
   flowchart TD
@@ -50,11 +43,11 @@
 	end
 ```
 
-3. Inside, the domain folder is divided into aggregates. Aggregates are a collection of entities. Each aggregate has a root. All interaction with entities must occur through the root.
+2. Inside, the domain folder is divided into aggregates. Aggregates are a collection of entities. Each aggregate has a root. All interaction with entities must occur through the root.
 
 ```mermaid
   flowchart TD
-	delivery-module -- domain
+	delivery-module --> domain
     subgraph domain
 	accounting-order-aggregate
 	deliveryman-aggregate
