@@ -2,10 +2,12 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DeliverymanOrmEntity } from './infrastructure/dal/orm-entities/deliveryman.orm-entity';
 import { OrderOrmEntity } from './infrastructure/dal/orm-entities/orders.orm-entity';
-import { DeliveryModule } from './infrastructure/delivery.module';
+import { InfrastructureModule } from './infrastructure/infrastructure.module';
 import { ConfigModule } from '@nestjs/config';
 import { config } from './config';
 import { BillOfLadingPositionOrmEntity } from './infrastructure/dal/orm-entities/bill-of-lading-position.orm-entity';
+import { AccountingOrderModule } from './accounting-order/accounting-order.module';
+import { DeliverymanModule } from './deliveryman/deliveryman.module';
 
 @Module({
   imports: [
@@ -26,7 +28,9 @@ import { BillOfLadingPositionOrmEntity } from './infrastructure/dal/orm-entities
       ],
       synchronize: true,
     }),
-    DeliveryModule,
+    InfrastructureModule,
+    AccountingOrderModule,
+    DeliverymanModule,
   ],
   controllers: [],
   providers: [],
