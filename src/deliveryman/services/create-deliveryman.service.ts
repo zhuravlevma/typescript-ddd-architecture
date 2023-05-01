@@ -1,4 +1,3 @@
-import { Injectable } from '@nestjs/common';
 import {
   CreateDeliverymanDto,
   CreateDeliverymanUseCase,
@@ -7,7 +6,6 @@ import { DeliverymanEntity } from 'src/deliveryman/entities/deliveryman.entity';
 import { v4 as uuid } from 'uuid';
 import { CreateDeliverymanPort } from '../ports/out/create-deliveryman.port';
 
-@Injectable()
 export class CreateDeliverymanService implements CreateDeliverymanUseCase {
   constructor(private createDeliverymanPort: CreateDeliverymanPort) {}
 

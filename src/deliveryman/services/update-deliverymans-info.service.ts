@@ -1,4 +1,3 @@
-import { Injectable } from '@nestjs/common';
 import {
   UpdateDeliverymansInfoDto,
   UpdateDeliverymansInfoUseCase,
@@ -7,7 +6,6 @@ import { DeliverymanEntity } from 'src/deliveryman/entities/deliveryman.entity';
 import { FindDeliverymanByIdWithOrdersPort } from '../ports/out/find-deliveryman-by-id-with-orders.port';
 import { SaveDeliverymanPort } from '../ports/out/save-deliveryman.port';
 
-@Injectable()
 export class UpdateDeliverymansInfoService
   implements UpdateDeliverymansInfoUseCase
 {

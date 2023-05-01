@@ -1,4 +1,3 @@
-import { Injectable } from '@nestjs/common';
 import {
   AddOrderToDeliverymanDto,
   AddOrderToDeliverymanUseCase,
@@ -9,7 +8,6 @@ import { OrderEntity } from '../entities/order.entity';
 import { FindDeliverymanByIdWithOrdersPort } from '../ports/out/find-deliveryman-by-id-with-orders.port';
 import { SaveDeliverymanPort } from '../ports/out/save-deliveryman.port';
 
-@Injectable()
 export class AddOrderToDeliverymanService
   implements AddOrderToDeliverymanUseCase
 {
