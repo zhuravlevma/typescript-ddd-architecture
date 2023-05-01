@@ -2,33 +2,23 @@
 
 [Domain model](https://martinfowler.com/eaaCatalog/domainModel.html) with a clean architecture with ports and adapters. It takes into account some tactical patterns from DDD.
 
-1. The system is divided into modules, each module is a separate piece of the system. The module is divided into an infrastructure part and a domain part
+1. The system is divided into sub-modules. There is an infrastructure module and there are domain modules. Each domain module is an aggregate. Aggregates are a collection of entities. Each aggregate has a root. All interaction with entities must occur through the root.
 
 ```mermaid
-  flowchart TD
-    subgraph delivery-module
-	domain
-	infrastucture
-	end
-```
-
-2. Inside, the domain folder is divided into aggregates. Aggregates are a collection of entities. Each aggregate has a root. All interaction with entities must occur through the root.
-
-```mermaid
-  flowchart TD
-	delivery-module --> domain
+    flowchart TD
+    subgraph modules
+	infrastructure
     subgraph domain
 	accounting-order-aggregate
 	deliveryman-aggregate
 	end
+    end
 ```
 
-3. Each aggregate contains a set of entities with business logic, a set of value objects, a set of ports and services (use-cases)
+2. Each aggregate contains a set of entities with business logic, a set of value objects, a set of ports and services (use-cases)
 
 ```mermaid
   flowchart TD
-	delivery-module --> domain
-	domain --> aggregate
     subgraph aggregate
 	entities
 	ports
@@ -36,9 +26,9 @@
 	end
 ```
 
-4. Entities are models with business logic. In addition to the data, they [must contain behavior](https://martinfowler.com/bliki/AnemicDomainModel.html). [Value objects](https://martinfowler.com/bliki/ValueObject.html) do not contain an Id and provide additional behavior. Entities(without id) within entities.
+3. Entities are models with business logic. In addition to the data, they [must contain behavior](https://martinfowler.com/bliki/AnemicDomainModel.html). [Value objects](https://martinfowler.com/bliki/ValueObject.html) do not contain an Id and provide additional behavior. Entities(without id) within entities.
 
-5. Ports are interfaces. Incoming ports describe the services contract (application layer). The outgoing ports describe the data access layer contract.
+4. Ports are interfaces. Incoming ports describe the services contract (application layer). The outgoing ports describe the data access layer contract.
 
 ```mermaid
   flowchart TD
@@ -57,7 +47,7 @@
     repositories -- uses --> mappers
     end
     end
-    subgraph domain
+    subgraph modules
     subgraph aggregate#1
 
     services1(services) -- uses --> entities1(entities)
