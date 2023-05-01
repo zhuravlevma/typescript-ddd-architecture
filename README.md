@@ -47,7 +47,7 @@
     repositories -- uses --> mappers
     end
     end
-    subgraph modules
+    subgraph domain-modules
     subgraph aggregate#1
 
     services1(services) -- uses --> entities1(entities)
