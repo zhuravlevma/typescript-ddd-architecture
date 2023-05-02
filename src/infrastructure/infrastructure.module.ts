@@ -16,9 +16,30 @@ import { AccountingOrdersRepository } from './dal/repositories/accounting-orders
 import { BillOfLadingPositionOrmEntity } from './dal/orm-entities/bill-of-lading-position.orm-entity';
 import { AccountingOrderModule } from 'src/accounting-order/accounting-order.module';
 import { DeliverymanModule } from 'src/deliveryman/deliveryman.module';
+import { config } from 'src/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: async (configService: ConfigService) => ({
+        type: 'postgres',
+        host: configService.get<string>('database.host'),
+        port: configService.get<number>('database.port'),
+        username: configService.get<string>('database.username'),
+        password: configService.get<string>('database.password'),
+        database: configService.get<string>('database.name'),
+        entities: [
+          OrderOrmEntity,
+          DeliverymanOrmEntity,
+          BillOfLadingPositionOrmEntity,
+        ],
+        synchronize: true,
+        logging: true,
+      }),
+      inject: [ConfigService],
+    }),
     AccountingOrderModule,
     DeliverymanModule,
     TypeOrmModule.forFeature([
