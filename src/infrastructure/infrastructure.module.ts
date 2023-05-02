@@ -16,7 +16,6 @@ import { AccountingOrdersRepository } from './dal/repositories/accounting-orders
 import { BillOfLadingPositionOrmEntity } from './dal/orm-entities/bill-of-lading-position.orm-entity';
 import { AccountingOrderModule } from 'src/accounting-order/accounting-order.module';
 import { DeliverymanModule } from 'src/deliveryman/deliveryman.module';
-import { config } from 'src/config';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
