@@ -1,8 +1,8 @@
-import { DeliverymanEntity } from 'src/deliveryman/entities/deliveryman.entity';
+import { DeliverymanEntity } from 'src/domain/deliveryman/entities/deliveryman.entity';
 import { DeliverymanOrmEntity } from '../orm-entities/deliveryman.orm-entity';
 import { OrderOrmEntity } from '../orm-entities/orders.orm-entity';
-import { OrderEntity } from 'src/deliveryman/entities/order.entity';
-import { BillOfLadingPositionEntity } from 'src/deliveryman/entities/bill-of-lading-position.entity';
+import { OrderEntity } from 'src/domain/deliveryman/entities/order.entity';
+import { BillOfLadingPositionEntity } from 'src/domain/deliveryman/entities/bill-of-lading-position.entity';
 import { BillOfLadingPositionOrmEntity } from '../orm-entities/bill-of-lading-position.orm-entity';
 
 export class DeliverymanMapper {

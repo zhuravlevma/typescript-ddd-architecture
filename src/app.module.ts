@@ -2,8 +2,8 @@ import { Module } from '@nestjs/common';
 import { InfrastructureModule } from './infrastructure/infrastructure.module';
 import { ConfigModule } from '@nestjs/config';
 import { config } from './config';
-import { AccountingOrderModule } from './accounting-order/accounting-order.module';
-import { DeliverymanModule } from './deliveryman/deliveryman.module';
+import { AccountingOrderModule } from './domain/accounting-order/accounting-order.module';
+import { DeliverymanModule } from './domain/deliveryman/deliveryman.module';
 
 @Module({
   imports: [

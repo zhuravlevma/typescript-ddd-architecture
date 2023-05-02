@@ -1,8 +1,8 @@
 import {
   UpdateDeliverymansInfoDto,
   UpdateDeliverymansInfoUseCase,
-} from 'src/deliveryman/ports/in/update-deliveryman-info.use-case';
-import { DeliverymanEntity } from 'src/deliveryman/entities/deliveryman.entity';
+} from 'src/domain/deliveryman/ports/in/update-deliveryman-info.use-case';
+import { DeliverymanEntity } from 'src/domain/deliveryman/entities/deliveryman.entity';
 import { FindDeliverymanByIdWithOrdersPort } from '../ports/out/find-deliveryman-by-id-with-orders.port';
 import { SaveDeliverymanPort } from '../ports/out/save-deliveryman.port';
 

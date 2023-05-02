@@ -1,5 +1,5 @@
 import { IsString, IsOptional } from 'class-validator';
-import { UpdateDeliverymansInfoDto } from 'src/deliveryman/ports/in/update-deliveryman-info.use-case';
+import { UpdateDeliverymansInfoDto } from 'src/domain/deliveryman/ports/in/update-deliveryman-info.use-case';
 
 export class UpdateDeliverymansInfoNestDto
   implements UpdateDeliverymansInfoDto

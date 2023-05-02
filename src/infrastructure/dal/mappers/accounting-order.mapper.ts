@@ -1,8 +1,8 @@
-import { BillOfLadingPositionAccountingEntity } from 'src/accounting-order/entities/bill-of-lading-position-accounting.entity';
+import { BillOfLadingPositionAccountingEntity } from 'src/domain/accounting-order/entities/bill-of-lading-position-accounting.entity';
 import { OrderOrmEntity } from '../orm-entities/orders.orm-entity';
-import { AccountingOrderEntity } from 'src/accounting-order/entities/accounting-order.entity';
+import { AccountingOrderEntity } from 'src/domain/accounting-order/entities/accounting-order.entity';
 import { BillOfLadingPositionOrmEntity } from '../orm-entities/bill-of-lading-position.orm-entity';
-import { SumObjectValue } from 'src/accounting-order/object-values/sum.object-value';
+import { SumObjectValue } from 'src/domain/accounting-order/object-values/sum.object-value';
 
 export class AccountingOrderMapper {
   static mapToDomain(orderOrmEntity: OrderOrmEntity) {

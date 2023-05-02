@@ -4,18 +4,18 @@ import { OrderOrmEntity } from './dal/orm-entities/orders.orm-entity';
 import { AccountingOrdersController } from './web/controllers/accounting-orders.controller';
 import { DeliverymanController } from './web/controllers/deliveryman.controller';
 import { DeliverymanOrmEntity } from './dal/orm-entities/deliveryman.orm-entity';
-import { CreateDeliverymanPort } from '../deliveryman/ports/out/create-deliveryman.port';
-import { FindAllDeliverymansPort } from '../deliveryman/ports/out/find-all-deliverymans.port';
-import { FindDeliverymanByIdWithOrdersPort } from '../deliveryman/ports/out/find-deliveryman-by-id-with-orders.port';
-import { SaveDeliverymanPort } from '../deliveryman/ports/out/save-deliveryman.port';
-import { FindAllOrdersPort } from '../accounting-order/ports/out/find-all-orders.port';
-import { FindOrderByIdPort } from '../accounting-order/ports/out/find-order-by-id.port';
-import { SaveOrderPort } from '../accounting-order/ports/out/save-order.port';
+import { CreateDeliverymanPort } from '../domain/deliveryman/ports/out/create-deliveryman.port';
+import { FindAllDeliverymansPort } from '../domain/deliveryman/ports/out/find-all-deliverymans.port';
+import { FindDeliverymanByIdWithOrdersPort } from '../domain/deliveryman/ports/out/find-deliveryman-by-id-with-orders.port';
+import { SaveDeliverymanPort } from '../domain/deliveryman/ports/out/save-deliveryman.port';
+import { FindAllOrdersPort } from '../domain/accounting-order/ports/out/find-all-orders.port';
+import { FindOrderByIdPort } from '../domain/accounting-order/ports/out/find-order-by-id.port';
+import { SaveOrderPort } from '../domain/accounting-order/ports/out/save-order.port';
 import { DeliverymanRepository } from './dal/repositories/deliveryman.repository';
 import { AccountingOrdersRepository } from './dal/repositories/accounting-orders.repository';
 import { BillOfLadingPositionOrmEntity } from './dal/orm-entities/bill-of-lading-position.orm-entity';
-import { AccountingOrderModule } from 'src/accounting-order/accounting-order.module';
-import { DeliverymanModule } from 'src/deliveryman/deliveryman.module';
+import { AccountingOrderModule } from 'src/domain/accounting-order/accounting-order.module';
+import { DeliverymanModule } from 'src/domain/deliveryman/deliveryman.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({

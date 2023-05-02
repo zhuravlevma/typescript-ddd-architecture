@@ -1,5 +1,5 @@
 import { IsBoolean, IsOptional } from 'class-validator';
-import { UpdateOrderStatusDto } from 'src/deliveryman/ports/in/update-order-status.use-case';
+import { UpdateOrderStatusDto } from 'src/domain/deliveryman/ports/in/update-order-status.use-case';
 
 export class UpdateOrderStatusNestDto implements UpdateOrderStatusDto {
   @IsBoolean()

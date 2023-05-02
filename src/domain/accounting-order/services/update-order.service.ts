@@ -1,4 +1,4 @@
-import { AccountingOrderEntity } from 'src/accounting-order/entities/accounting-order.entity';
+import { AccountingOrderEntity } from 'src/domain/accounting-order/entities/accounting-order.entity';
 import { UpdateOrderUseCase } from '../ports/in/update-order.use-case';
 import { FindOrderByIdPort } from '../ports/out/find-order-by-id.port';
 import { SaveOrderPort } from '../ports/out/save-order.port';

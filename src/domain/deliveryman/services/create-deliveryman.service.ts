@@ -1,8 +1,8 @@
 import {
   CreateDeliverymanDto,
   CreateDeliverymanUseCase,
-} from 'src/deliveryman/ports/in/create-deliveryman.use-case';
-import { DeliverymanEntity } from 'src/deliveryman/entities/deliveryman.entity';
+} from 'src/domain/deliveryman/ports/in/create-deliveryman.use-case';
+import { DeliverymanEntity } from 'src/domain/deliveryman/entities/deliveryman.entity';
 import { v4 as uuid } from 'uuid';
 import { CreateDeliverymanPort } from '../ports/out/create-deliveryman.port';
 

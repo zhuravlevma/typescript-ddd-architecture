@@ -4,14 +4,14 @@ import { UpdateDeliverymansInfoNestDto } from '../dtos/update-deliverymans-info.
 import { UpdateDeliverymansOrdersNestDto } from '../dtos/update-deliverymans-orders.dto';
 import { ChangeDeliverymansStatusNestDto } from '../dtos/change-deliverymans-status.dto';
 import { CreateDeliverymanNestDto } from '../dtos/create-deliveryman.dto';
-import { DeliverymanEntity } from 'src/deliveryman/entities/deliveryman.entity';
-import { CreateDeliverymanUseCase } from 'src/deliveryman/ports/in/create-deliveryman.use-case';
-import { FindAllDeliverymansUseCase } from 'src/deliveryman/ports/in/find-all-deliverymans.use-case';
-import { AddOrderToDeliverymanUseCase } from 'src/deliveryman/ports/in/add-order-to-deliveryman.use-case';
-import { UpdateDeliverymansInfoUseCase } from 'src/deliveryman/ports/in/update-deliveryman-info.use-case';
-import { ChangeDeliverymansStatusUseCase } from 'src/deliveryman/ports/in/change-deliverymans-status.use-case';
-import { UpdateDeliverymansOrdersUseCase } from 'src/deliveryman/ports/in/update-deliverymans-orders.dto';
-import { UpdateOrderStatusUseCase } from 'src/deliveryman/ports/in/update-order-status.use-case';
+import { DeliverymanEntity } from 'src/domain/deliveryman/entities/deliveryman.entity';
+import { CreateDeliverymanUseCase } from 'src/domain/deliveryman/ports/in/create-deliveryman.use-case';
+import { FindAllDeliverymansUseCase } from 'src/domain/deliveryman/ports/in/find-all-deliverymans.use-case';
+import { AddOrderToDeliverymanUseCase } from 'src/domain/deliveryman/ports/in/add-order-to-deliveryman.use-case';
+import { UpdateDeliverymansInfoUseCase } from 'src/domain/deliveryman/ports/in/update-deliveryman-info.use-case';
+import { ChangeDeliverymansStatusUseCase } from 'src/domain/deliveryman/ports/in/change-deliverymans-status.use-case';
+import { UpdateDeliverymansOrdersUseCase } from 'src/domain/deliveryman/ports/in/update-deliverymans-orders.dto';
+import { UpdateOrderStatusUseCase } from 'src/domain/deliveryman/ports/in/update-order-status.use-case';
 import { UpdateOrderStatusNestDto } from '../dtos/update-order-status.dto';
 
 @Controller('deliverymans')

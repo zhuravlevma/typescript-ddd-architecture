@@ -1,5 +1,5 @@
-import { DeliverymanEntity } from 'src/deliveryman/entities/deliveryman.entity';
-import { FindAllDeliverymansUseCase } from 'src/deliveryman/ports/in/find-all-deliverymans.use-case';
+import { DeliverymanEntity } from 'src/domain/deliveryman/entities/deliveryman.entity';
+import { FindAllDeliverymansUseCase } from 'src/domain/deliveryman/ports/in/find-all-deliverymans.use-case';
 import { FindAllDeliverymansPort } from '../ports/out/find-all-deliverymans.port';
 
 export class FindAllDeliverymansService implements FindAllDeliverymansUseCase {

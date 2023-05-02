@@ -3,13 +3,13 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Injectable } from '@nestjs/common';
 import { DeliverymanOrmEntity } from '../orm-entities/deliveryman.orm-entity';
 import { DeliverymanMapper } from '../mappers/deliveryman.mapper';
-import { CreateDeliverymanPort } from 'src/deliveryman/ports/out/create-deliveryman.port';
-import { FindAllDeliverymansPort } from 'src/deliveryman/ports/out/find-all-deliverymans.port';
-import { FindDeliverymanByIdWithOrdersPort } from 'src/deliveryman/ports/out/find-deliveryman-by-id-with-orders.port';
-import { SaveDeliverymanPort } from 'src/deliveryman/ports/out/save-deliveryman.port';
-import { DeliverymanEntity } from 'src/deliveryman/entities/deliveryman.entity';
+import { CreateDeliverymanPort } from 'src/domain/deliveryman/ports/out/create-deliveryman.port';
+import { FindAllDeliverymansPort } from 'src/domain/deliveryman/ports/out/find-all-deliverymans.port';
+import { FindDeliverymanByIdWithOrdersPort } from 'src/domain/deliveryman/ports/out/find-deliveryman-by-id-with-orders.port';
+import { SaveDeliverymanPort } from 'src/domain/deliveryman/ports/out/save-deliveryman.port';
+import { DeliverymanEntity } from 'src/domain/deliveryman/entities/deliveryman.entity';
 import { OrderOrmEntity } from '../orm-entities/orders.orm-entity';
-import { FindDeliverymanOrderLadingPort } from 'src/deliveryman/ports/out/find-deliveryman-order-lading';
+import { FindDeliverymanOrderLadingPort } from 'src/domain/deliveryman/ports/out/find-deliveryman-order-lading';
 
 @Injectable()
 export class DeliverymanRepository

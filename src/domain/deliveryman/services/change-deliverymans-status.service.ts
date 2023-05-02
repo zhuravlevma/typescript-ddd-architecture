@@ -1,32 +1,29 @@
 import {
-  UpdateDeliverymansOrdersUseCase,
-  UpdateDeliverymansOrdersDto,
-} from 'src/deliveryman/ports/in/update-deliverymans-orders.dto';
-import { DeliverymanEntity } from 'src/deliveryman/entities/deliveryman.entity';
+  ChangeDeliverymansStatusDto,
+  ChangeDeliverymansStatusUseCase,
+} from 'src/domain/deliveryman/ports/in/change-deliverymans-status.use-case';
+import { DeliverymanEntity } from 'src/domain/deliveryman/entities/deliveryman.entity';
 import { SaveDeliverymanPort } from '../ports/out/save-deliveryman.port';
 import { FindDeliverymanByIdWithOrdersPort } from '../ports/out/find-deliveryman-by-id-with-orders.port';
 
-export class UpdateDeliverymansOrdersService
-  implements UpdateDeliverymansOrdersUseCase
+export class ChangeDeliverymansStatusService
+  implements ChangeDeliverymansStatusUseCase
 {
   constructor(
     private readonly findDeliverymanByIdWithOrdersPort: FindDeliverymanByIdWithOrdersPort,
     private readonly saveDeliverymanPort: SaveDeliverymanPort,
   ) {}
 
-  async updateDeliverymansOrders(
+  async changeDeliverymansStatus(
     deliverymanId: string,
-    updateDeliverymansOrdersDto: UpdateDeliverymansOrdersDto,
+    changeDeliverymansStatusDto: ChangeDeliverymansStatusDto,
   ): Promise<DeliverymanEntity> {
     try {
       const deliverymanWithOrders =
         await this.findDeliverymanByIdWithOrdersPort.findDeliverymanByIdWithOrders(
           deliverymanId,
         );
-
-      deliverymanWithOrders.addNewMessageToOrders(
-        updateDeliverymansOrdersDto.description,
-      );
+      deliverymanWithOrders.changeStatus(changeDeliverymansStatusDto.isActive);
 
       return await this.saveDeliverymanPort.save(deliverymanWithOrders);
     } catch (error) {
