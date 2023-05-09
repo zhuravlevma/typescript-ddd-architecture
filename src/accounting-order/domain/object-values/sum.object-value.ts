@@ -1,15 +1,15 @@
 export class SumObjectValue {
-  sumWithRate: number;
   sumWithoutRate: number;
+  totalSum: number;
   rate: number;
 
   constructor(sum: number, rate: number) {
-    this.sumWithoutRate = sum;
-    this.sumWithRate = sum * (100 - rate);
+    this.totalSum = sum;
+    this.sumWithoutRate = sum * (100 - rate);
     this.rate = rate;
   }
 
   difference(): number {
-    return this.sumWithoutRate - this.sumWithRate;
+    return this.totalSum - this.sumWithoutRate;
   }
 }

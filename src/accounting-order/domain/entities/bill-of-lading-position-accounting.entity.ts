@@ -35,6 +35,18 @@ export class BillOfLadingPositionEntity implements Attributes {
     this.sum = attributes.sum;
   }
 
+  priceOfOnePosition() {
+    return this.sum.sumWithoutRate / this.amount;
+  }
+
+  getTotalSum() {
+    return this.sum.totalSum;
+  }
+
+  getValueOfRate() {
+    return this.sum.difference();
+  }
+
   positionIsValid() {
     return this.isValid;
   }

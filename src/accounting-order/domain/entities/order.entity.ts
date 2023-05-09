@@ -26,6 +26,30 @@ export class OrderEntity implements Attributes {
     this.billOfLadingPositions = attributes.billOfLadingPositions;
   }
 
+  getTotalSum(): number {
+    let totalSum = 0;
+    this.billOfLadingPositions.forEach((position) => {
+      totalSum += position.getTotalSum();
+    });
+    return totalSum;
+  }
+
+  getTotalWeight() {
+    let totalWeight = 0;
+    this.billOfLadingPositions.forEach((position) => {
+      totalWeight += position.weight;
+    });
+    return totalWeight;
+  }
+
+  getTotalRate(): number {
+    let totalSum = 0;
+    this.billOfLadingPositions.forEach((position) => {
+      totalSum += position.getValueOfRate();
+    });
+    return totalSum;
+  }
+
   addInfoToDescription(info: string) {
     this.description += '\nInfo from the Accounting department' + info;
   }
