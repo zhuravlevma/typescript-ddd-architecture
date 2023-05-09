@@ -5,7 +5,9 @@ import { FindAllDeliverymansPort } from '../ports/out/find-all-deliverymans.port
 export class FindAllDeliverymansInteractor
   implements FindAllDeliverymansUseCase
 {
-  constructor(private findAllDeliverymansPort: FindAllDeliverymansPort) {}
+  constructor(
+    private readonly findAllDeliverymansPort: FindAllDeliverymansPort,
+  ) {}
 
   execute(): Promise<DeliverymanEntity[]> {
     return this.findAllDeliverymansPort.findAllDeliveryMans();

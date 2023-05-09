@@ -6,7 +6,6 @@ export interface UpdateOrderStatusDto {
   delivered?: boolean;
   returned?: boolean;
 }
-
 export abstract class UpdateOrderStatusUseCase {
   abstract execute(
     updateOrderStatusDto: UpdateOrderStatusDto,

@@ -7,7 +7,7 @@ import { v4 as uuid } from 'uuid';
 import { CreateDeliverymanPort } from '../ports/out/create-deliveryman.port';
 
 export class CreateDeliverymanInteractor implements CreateDeliverymanUseCase {
-  constructor(private createDeliverymanPort: CreateDeliverymanPort) {}
+  constructor(private readonly createDeliverymanPort: CreateDeliverymanPort) {}
 
   execute(
     createDeliverymanDto: CreateDeliverymanDto,

@@ -4,7 +4,6 @@ export interface UpdateDeliverymansOrdersDto {
   deliverymanId: string;
   description?: string;
 }
-
 export abstract class UpdateDeliverymansOrdersUseCase {
   abstract execute(
     updateDeliverymansOrdersDto: UpdateDeliverymansOrdersDto,

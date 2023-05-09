@@ -5,7 +5,7 @@ import { BillOfLadingPositionEntity } from '../domain/entities/bill-of-lading-po
 import { SumObjectValue } from '../domain/object-values/sum.object-value';
 
 export class AccountingOrderMapper {
-  static mapToDomain(orderOrmEntity: OrderOrmEntity) {
+  static mapToDomain(orderOrmEntity: OrderOrmEntity): OrderEntity {
     return new OrderEntity({
       id: orderOrmEntity.id,
       name: orderOrmEntity.name,
@@ -28,7 +28,7 @@ export class AccountingOrderMapper {
       ),
     });
   }
-  static mapToOrm(orderEntity: OrderEntity) {
+  static mapToOrm(orderEntity: OrderEntity): OrderOrmEntity {
     const orderOrmEntity = new OrderOrmEntity();
     orderOrmEntity.deliverymanId = orderEntity.deliverymanId;
     orderOrmEntity.description = orderEntity.description;

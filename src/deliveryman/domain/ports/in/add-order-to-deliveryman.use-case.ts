@@ -7,7 +7,6 @@ export interface AddOrderToDeliverymanDto {
     description: string;
   };
 }
-
 export abstract class AddOrderToDeliverymanUseCase {
   abstract execute(
     addOrderToDeliverymanDto: AddOrderToDeliverymanDto,
