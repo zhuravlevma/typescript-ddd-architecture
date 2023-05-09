@@ -21,6 +21,9 @@ export class AccountingOrdersController {
     @Param('orderId') orderId: string,
     @Body() updateOrderDto: UpdateOrderNestDto,
   ): Promise<OrderEntity> {
-    return this.updateOrderService.execute(orderId, updateOrderDto);
+    return this.updateOrderService.execute({
+      orderId,
+      ...updateOrderDto,
+    });
   }
 }
