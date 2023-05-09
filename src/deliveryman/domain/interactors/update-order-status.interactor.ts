@@ -21,6 +21,7 @@ export class UpdateOrderStatusInteractor implements UpdateOrderStatusUseCase {
           updateOrderStatusDto.deliverymanId,
           updateOrderStatusDto.orderId,
         );
+
       if (!deliveryman) {
         throw new Error('deliveryman not found');
       }

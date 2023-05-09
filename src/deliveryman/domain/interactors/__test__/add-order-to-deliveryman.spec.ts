@@ -29,11 +29,14 @@ describe('delivery/domain/deliveryman/services/add-order-to-deliveryman.service'
       saveDeliverymanPort,
     );
     const createOrderDto: AddOrderToDeliverymanDto = {
-      name: 'test',
-      description: 'testdescr',
+      deliverymanId: 'deliverymanId',
+      order: {
+        name: 'test',
+        description: 'testdescr',
+      },
     };
 
-    await service.execute('deliverymanId', createOrderDto);
+    await service.execute(createOrderDto);
 
     expect(deliverymanEntity.orders.length).toEqual(1);
   });

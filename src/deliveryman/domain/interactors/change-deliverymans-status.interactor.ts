@@ -22,6 +22,7 @@ export class ChangeDeliverymansStatusInteractor
         await this.findDeliverymanByIdWithOrdersPort.findDeliverymanByIdWithOrders(
           changeDeliverymansStatusDto.deliverymanId,
         );
+
       deliverymanWithOrders.changeStatus(changeDeliverymansStatusDto.isActive);
 
       return await this.saveDeliverymanPort.save(deliverymanWithOrders);
