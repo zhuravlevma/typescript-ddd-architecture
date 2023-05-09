@@ -1,0 +1,21 @@
+@startuml
+
+package "Module" {
+
+
+package "Domain" {
+ [OutputPorts]
+ [Entities]
+ [Interactors] -up-> Entities : use
+
+ [InputPorts]
+}
+
+[Controllers] --> [InputPorts] : use
+
+[DAL] -left-> [OutputPorts] : use
+
+}
+
+
+@enduml
