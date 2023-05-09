@@ -1,12 +1,12 @@
 import {
   UpdateDeliverymansOrdersUseCase,
   UpdateDeliverymansOrdersDto,
-} from 'src/deliveryman/domain/ports/in/update-deliverymans-orders.dto';
+} from 'src/deliveryman/domain/ports/in/update-deliverymans-orders.use-case';
 import { DeliverymanEntity } from 'src/deliveryman/domain/entities/deliveryman.entity';
 import { SaveDeliverymanPort } from '../ports/out/save-deliveryman.port';
 import { FindDeliverymanByIdWithOrdersPort } from '../ports/out/find-deliveryman-by-id-with-orders.port';
 
-export class UpdateDeliverymansOrdersService
+export class UpdateDeliverymansOrdersInteractor
   implements UpdateDeliverymansOrdersUseCase
 {
   constructor(
@@ -14,14 +14,13 @@ export class UpdateDeliverymansOrdersService
     private readonly saveDeliverymanPort: SaveDeliverymanPort,
   ) {}
 
-  async updateDeliverymansOrders(
-    deliverymanId: string,
+  async execute(
     updateDeliverymansOrdersDto: UpdateDeliverymansOrdersDto,
   ): Promise<DeliverymanEntity> {
     try {
       const deliverymanWithOrders =
         await this.findDeliverymanByIdWithOrdersPort.findDeliverymanByIdWithOrders(
-          deliverymanId,
+          updateDeliverymansOrdersDto.deliverymanId,
         );
 
       deliverymanWithOrders.addNewMessageToOrders(

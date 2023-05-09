@@ -1,7 +1,5 @@
 import { IsNotEmpty, IsString } from 'class-validator';
-import { CreateDeliverymanDto } from 'src/deliveryman/domain/ports/in/create-deliveryman.use-case';
-
-export class CreateDeliverymanNestDto implements CreateDeliverymanDto {
+export class CreateDeliverymanNestDto {
   @IsString()
   @IsNotEmpty()
   firstName: string;

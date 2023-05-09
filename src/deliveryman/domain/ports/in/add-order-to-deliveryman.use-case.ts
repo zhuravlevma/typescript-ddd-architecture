@@ -1,11 +1,15 @@
+import { DeliverymanEntity } from '../../entities/deliveryman.entity';
+
 export interface AddOrderToDeliverymanDto {
-  name: string;
-  description: string;
+  deliverymanId: string;
+  order: {
+    name: string;
+    description: string;
+  };
 }
 
 export abstract class AddOrderToDeliverymanUseCase {
-  abstract addOrderToDeliveryman(
-    deliverymanId: string,
+  abstract execute(
     addOrderToDeliverymanDto: AddOrderToDeliverymanDto,
-  );
+  ): Promise<DeliverymanEntity>;
 }

@@ -1,17 +1,17 @@
 import { Module } from '@nestjs/common';
-import { UpdateDeliverymansInfoService } from './domain/services/update-deliverymans-info.service';
-import { UpdateDeliverymansOrdersUseCase } from './domain/ports/in/update-deliverymans-orders.dto';
+import { UpdateDeliverymansInfoInteractor } from './domain/interactors/update-deliverymans-info.interactor';
+import { UpdateDeliverymansOrdersUseCase } from './domain/ports/in/update-deliverymans-orders.use-case';
 import { UpdateDeliverymansInfoUseCase } from './domain/ports/in/update-deliveryman-info.use-case';
-import { FindAllDeliverymansService } from './domain/services/find-all-deliverymans.service';
+import { FindAllDeliverymansInteractor } from './domain/interactors/find-all-deliverymans.interactor';
 import { FindAllDeliverymansUseCase } from './domain/ports/in/find-all-deliverymans.use-case';
 import { CreateDeliverymanUseCase } from './domain/ports/in/create-deliveryman.use-case';
-import { CreateDeliverymanService } from './domain/services/create-deliveryman.service';
-import { ChangeDeliverymansStatusService } from './domain/services/change-deliverymans-status.service';
+import { CreateDeliverymanInteractor } from './domain/interactors/create-deliveryman.interactor';
+import { ChangeDeliverymansStatusInteractor } from './domain/interactors/change-deliverymans-status.interactor';
 import { ChangeDeliverymansStatusUseCase } from './domain/ports/in/change-deliverymans-status.use-case';
-import { AddOrderToDeliverymanService } from './domain/services/add-order-to-deliveryman.service';
+import { AddOrderToDeliverymanInteractor } from './domain/interactors/add-order-to-deliveryman.interactor';
 import { AddOrderToDeliverymanUseCase } from './domain/ports/in/add-order-to-deliveryman.use-case';
 import { UpdateOrderStatusUseCase } from './domain/ports/in/update-order-status.use-case';
-import { UpdateOrderStatusService } from './domain/services/update-order-status.service';
+import { UpdateOrderStatusInteractor } from './domain/interactors/update-order-status.interactor';
 import { DeliverymanRepository } from './dal/deliveryman.repository';
 import { CreateDeliverymanPort } from './domain/ports/out/create-deliveryman.port';
 import { FindAllDeliverymansPort } from './domain/ports/out/find-all-deliverymans.port';
@@ -35,31 +35,31 @@ import { OrderOrmEntity } from 'src/__typeorm/orders.orm-entity';
   providers: [
     {
       provide: AddOrderToDeliverymanUseCase,
-      useClass: AddOrderToDeliverymanService,
+      useClass: AddOrderToDeliverymanInteractor,
     },
     {
       provide: ChangeDeliverymansStatusUseCase,
-      useClass: ChangeDeliverymansStatusService,
+      useClass: ChangeDeliverymansStatusInteractor,
     },
     {
       provide: CreateDeliverymanUseCase,
-      useClass: CreateDeliverymanService,
+      useClass: CreateDeliverymanInteractor,
     },
     {
       provide: FindAllDeliverymansUseCase,
-      useClass: FindAllDeliverymansService,
+      useClass: FindAllDeliverymansInteractor,
     },
     {
       provide: UpdateDeliverymansInfoUseCase,
-      useClass: UpdateDeliverymansInfoService,
+      useClass: UpdateDeliverymansInfoInteractor,
     },
     {
       provide: UpdateDeliverymansOrdersUseCase,
-      useClass: UpdateDeliverymansInfoService,
+      useClass: UpdateDeliverymansInfoInteractor,
     },
     {
       provide: UpdateOrderStatusUseCase,
-      useClass: UpdateOrderStatusService,
+      useClass: UpdateOrderStatusInteractor,
     },
 
     {

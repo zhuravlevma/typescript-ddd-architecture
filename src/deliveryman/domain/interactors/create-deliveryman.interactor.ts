@@ -6,10 +6,10 @@ import { DeliverymanEntity } from 'src/deliveryman/domain/entities/deliveryman.e
 import { v4 as uuid } from 'uuid';
 import { CreateDeliverymanPort } from '../ports/out/create-deliveryman.port';
 
-export class CreateDeliverymanService implements CreateDeliverymanUseCase {
+export class CreateDeliverymanInteractor implements CreateDeliverymanUseCase {
   constructor(private createDeliverymanPort: CreateDeliverymanPort) {}
 
-  createDeliveryman(
+  execute(
     createDeliverymanDto: CreateDeliverymanDto,
   ): Promise<DeliverymanEntity> {
     return this.createDeliverymanPort.createDeliveryman(

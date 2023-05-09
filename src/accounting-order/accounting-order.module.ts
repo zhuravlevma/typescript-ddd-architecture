@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
-import { UpdateOrderService } from './domain/services/update-order.service';
+import { UpdateOrderService } from './domain/interactors/update-order.interactor';
 import { UpdateOrderUseCase } from './domain/ports/in/update-order.use-case';
-import { FindOrderByIdService } from './domain/services/find-order-by-id.service';
+import { FindOrderByIdInteractor } from './domain/interactors/find-order-by-id.interactor';
 import { FindOrderByIdUseCase } from './domain/ports/in/find-order-by-id.use-case';
-import { FindAllOrdersService } from './domain/services/find-all-orders.service';
+import { FindAllOrdersInteractor } from './domain/interactors/find-all-orders.interactor';
 import { FindAllOrdersUseCase } from './domain/ports/in/find-all-orders.use-case';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { OrderOrmEntity } from 'src/__typeorm/orders.orm-entity';
@@ -22,11 +22,11 @@ import { SaveOrderPort } from './domain/ports/out/save-order.port';
   providers: [
     {
       provide: FindAllOrdersUseCase,
-      useClass: FindAllOrdersService,
+      useClass: FindAllOrdersInteractor,
     },
     {
       provide: FindOrderByIdUseCase,
-      useClass: FindOrderByIdService,
+      useClass: FindOrderByIdInteractor,
     },
     {
       provide: UpdateOrderUseCase,

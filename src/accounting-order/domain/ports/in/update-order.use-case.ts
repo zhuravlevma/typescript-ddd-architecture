@@ -6,7 +6,7 @@ export interface UpdateOrderDto {
 }
 
 export abstract class UpdateOrderUseCase {
-  abstract updateOrder(
+  abstract execute(
     orderId: string,
     updateOrderDto: UpdateOrderDto,
   ): Promise<OrderEntity>;

@@ -1,7 +1,6 @@
 import { IsString, IsNotEmpty } from 'class-validator';
-import { AddOrderToDeliverymanDto } from 'src/deliveryman/domain/ports/in/add-order-to-deliveryman.use-case';
 
-export class AddOrderToDeliverymanNestDto implements AddOrderToDeliverymanDto {
+export class AddOrderToDeliverymanNestDto {
   @IsString()
   @IsNotEmpty()
   name: string;

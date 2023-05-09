@@ -1,6 +1,6 @@
 import { DeliverymanEntity } from '../../entities/deliveryman.entity';
 import { AddOrderToDeliverymanDto } from '../../ports/in/add-order-to-deliveryman.use-case';
-import { AddOrderToDeliverymanService } from '../add-order-to-deliveryman.service';
+import { AddOrderToDeliverymanInteractor } from '../add-order-to-deliveryman.interactor';
 
 describe('delivery/domain/deliveryman/services/add-order-to-deliveryman.service', () => {
   let deliverymanEntity: DeliverymanEntity;
@@ -24,7 +24,7 @@ describe('delivery/domain/deliveryman/services/add-order-to-deliveryman.service'
     findDeliverymanByIdWithOrdersPort.findDeliverymanByIdWithOrders.mockResolvedValue(
       deliverymanEntity,
     );
-    const service = new AddOrderToDeliverymanService(
+    const service = new AddOrderToDeliverymanInteractor(
       findDeliverymanByIdWithOrdersPort,
       saveDeliverymanPort,
     );
@@ -33,7 +33,7 @@ describe('delivery/domain/deliveryman/services/add-order-to-deliveryman.service'
       description: 'testdescr',
     };
 
-    await service.addOrderToDeliveryman('deliverymanId', createOrderDto);
+    await service.execute('deliverymanId', createOrderDto);
 
     expect(deliverymanEntity.orders.length).toEqual(1);
   });

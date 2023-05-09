@@ -1,9 +1,5 @@
 import { IsString, IsOptional } from 'class-validator';
-import { UpdateDeliverymansInfoDto } from 'src/deliveryman/domain/ports/in/update-deliveryman-info.use-case';
-
-export class UpdateDeliverymansInfoNestDto
-  implements UpdateDeliverymansInfoDto
-{
+export class UpdateDeliverymansInfoNestDto {
   @IsString()
   @IsOptional()
   firstName?: string;

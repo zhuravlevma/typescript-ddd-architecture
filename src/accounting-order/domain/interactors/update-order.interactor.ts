@@ -13,7 +13,7 @@ export class UpdateOrderService implements UpdateOrderUseCase {
     private readonly saveOrderPort: SaveOrderPort,
   ) {}
 
-  async updateOrder(
+  async execute(
     orderId: string,
     updateOrderDto: UpdateAccountingOrderDto,
   ): Promise<OrderEntity> {

@@ -13,7 +13,7 @@ export class AccountingOrdersController {
 
   @Get('/')
   find(): Promise<OrderEntity[]> {
-    return this.findAllOrdersService.findAll();
+    return this.findAllOrdersService.execute();
   }
 
   @Post('/:orderId')
@@ -21,6 +21,6 @@ export class AccountingOrdersController {
     @Param('orderId') orderId: string,
     @Body() updateOrderDto: UpdateOrderNestDto,
   ): Promise<OrderEntity> {
-    return this.updateOrderService.updateOrder(orderId, updateOrderDto);
+    return this.updateOrderService.execute(orderId, updateOrderDto);
   }
 }

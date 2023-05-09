@@ -8,7 +8,7 @@ import { OrderEntity } from '../entities/order.entity';
 import { FindDeliverymanByIdWithOrdersPort } from '../ports/out/find-deliveryman-by-id-with-orders.port';
 import { SaveDeliverymanPort } from '../ports/out/save-deliveryman.port';
 
-export class AddOrderToDeliverymanService
+export class AddOrderToDeliverymanInteractor
   implements AddOrderToDeliverymanUseCase
 {
   constructor(
@@ -16,22 +16,21 @@ export class AddOrderToDeliverymanService
     private readonly saveDeliverymanPort: SaveDeliverymanPort,
   ) {}
 
-  async addOrderToDeliveryman(
-    deliverymanId: string,
-    createOrderDto: AddOrderToDeliverymanDto,
+  async execute(
+    addOrderToDeliverymanDto: AddOrderToDeliverymanDto,
   ): Promise<DeliverymanEntity> {
     try {
       const deliverymanWithOrders =
         await this.findDeliverymanByIdWithOrdersPort.findDeliverymanByIdWithOrders(
-          deliverymanId,
+          addOrderToDeliverymanDto.deliverymanId,
         );
 
       const order = new OrderEntity({
         id: uuid(),
-        name: createOrderDto.name,
-        description: createOrderDto.description,
+        name: addOrderToDeliverymanDto.order.name,
+        description: addOrderToDeliverymanDto.order.description,
         isActive: false,
-        deliverymanId,
+        deliverymanId: addOrderToDeliverymanDto.deliverymanId,
         billOfLadingPositions: [],
       });
       order.checkName();
