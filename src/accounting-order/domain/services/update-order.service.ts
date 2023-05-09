@@ -1,4 +1,4 @@
-import { AccountingOrderEntity } from '../entities/accounting-order.entity';
+import { OrderEntity } from '../entities/order.entity';
 import { UpdateOrderUseCase } from '../ports/in/update-order.use-case';
 import { FindOrderByIdPort } from '../ports/out/find-order-by-id.port';
 import { SaveOrderPort } from '../ports/out/save-order.port';
@@ -16,7 +16,7 @@ export class UpdateOrderService implements UpdateOrderUseCase {
   async updateOrder(
     orderId: string,
     updateOrderDto: UpdateAccountingOrderDto,
-  ): Promise<AccountingOrderEntity> {
+  ): Promise<OrderEntity> {
     const order = await this.findOrderByIdPort.findOrderById(orderId);
 
     updateOrderDto.description !== undefined ??

@@ -1,7 +1,5 @@
-import { AccountingOrderEntity } from '../../entities/accounting-order.entity';
+import { OrderEntity } from '../../entities/order.entity';
 
 export abstract class FindOrderByIdPort {
-  abstract findOrderById(
-    orderId: string,
-  ): Promise<AccountingOrderEntity | null>;
+  abstract findOrderById(orderId: string): Promise<OrderEntity | null>;
 }

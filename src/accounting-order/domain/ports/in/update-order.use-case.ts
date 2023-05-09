@@ -1,4 +1,4 @@
-import { AccountingOrderEntity } from '../../entities/accounting-order.entity';
+import { OrderEntity } from '../../entities/order.entity';
 
 export interface UpdateOrderDto {
   isActive?: boolean;
@@ -9,5 +9,5 @@ export abstract class UpdateOrderUseCase {
   abstract updateOrder(
     orderId: string,
     updateOrderDto: UpdateOrderDto,
-  ): Promise<AccountingOrderEntity>;
+  ): Promise<OrderEntity>;
 }

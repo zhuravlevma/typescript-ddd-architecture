@@ -1,12 +1,12 @@
 import { BillOfLadingPositionOrmEntity } from 'src/__typeorm/bill-of-lading-position.orm-entity';
 import { OrderOrmEntity } from 'src/__typeorm/orders.orm-entity';
-import { AccountingOrderEntity } from '../domain/entities/accounting-order.entity';
-import { BillOfLadingPositionAccountingEntity } from '../domain/entities/bill-of-lading-position-accounting.entity';
+import { OrderEntity } from '../domain/entities/order.entity';
+import { BillOfLadingPositionEntity } from '../domain/entities/bill-of-lading-position-accounting.entity';
 import { SumObjectValue } from '../domain/object-values/sum.object-value';
 
 export class AccountingOrderMapper {
   static mapToDomain(orderOrmEntity: OrderOrmEntity) {
-    return new AccountingOrderEntity({
+    return new OrderEntity({
       id: orderOrmEntity.id,
       name: orderOrmEntity.name,
       description: orderOrmEntity.description,
@@ -14,7 +14,7 @@ export class AccountingOrderMapper {
       deliverymanId: orderOrmEntity.deliverymanId,
       billOfLadingPositions: orderOrmEntity.billOfLadingPositions.map(
         (position) =>
-          new BillOfLadingPositionAccountingEntity({
+          new BillOfLadingPositionEntity({
             id: position.id,
             name: position.name,
             count: position.count,
@@ -28,7 +28,7 @@ export class AccountingOrderMapper {
       ),
     });
   }
-  static mapToOrm(orderEntity: AccountingOrderEntity) {
+  static mapToOrm(orderEntity: OrderEntity) {
     const orderOrmEntity = new OrderOrmEntity();
     orderOrmEntity.deliverymanId = orderEntity.deliverymanId;
     orderOrmEntity.description = orderEntity.description;

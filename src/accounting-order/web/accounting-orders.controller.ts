@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { UpdateOrderNestDto } from './dtos/update-orders.dto';
-import { AccountingOrderEntity } from '../domain/entities/accounting-order.entity';
+import { OrderEntity } from '../domain/entities/order.entity';
 import { FindAllOrdersUseCase } from '../domain/ports/in/find-all-orders.use-case';
 import { UpdateOrderUseCase } from '../domain/ports/in/update-order.use-case';
 
@@ -12,7 +12,7 @@ export class AccountingOrdersController {
   ) {}
 
   @Get('/')
-  find(): Promise<AccountingOrderEntity[]> {
+  find(): Promise<OrderEntity[]> {
     return this.findAllOrdersService.findAll();
   }
 
@@ -20,7 +20,7 @@ export class AccountingOrdersController {
   updateOrderById(
     @Param('orderId') orderId: string,
     @Body() updateOrderDto: UpdateOrderNestDto,
-  ): Promise<AccountingOrderEntity> {
+  ): Promise<OrderEntity> {
     return this.updateOrderService.updateOrder(orderId, updateOrderDto);
   }
 }

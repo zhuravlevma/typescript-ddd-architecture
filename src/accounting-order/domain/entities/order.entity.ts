@@ -1,4 +1,4 @@
-import { BillOfLadingPositionAccountingEntity } from './bill-of-lading-position-accounting.entity';
+import { BillOfLadingPositionEntity } from './bill-of-lading-position-accounting.entity';
 
 interface Attributes {
   id: string;
@@ -6,16 +6,16 @@ interface Attributes {
   description: string;
   isActive: boolean;
   deliverymanId: string;
-  billOfLadingPositions: BillOfLadingPositionAccountingEntity[];
+  billOfLadingPositions: BillOfLadingPositionEntity[];
 }
 
-export class AccountingOrderEntity implements Attributes {
+export class OrderEntity implements Attributes {
   id: string;
   name: string;
   description: string;
   isActive: boolean;
   deliverymanId: string;
-  billOfLadingPositions: BillOfLadingPositionAccountingEntity[];
+  billOfLadingPositions: BillOfLadingPositionEntity[];
 
   constructor(attributes: Attributes) {
     this.id = attributes.id;

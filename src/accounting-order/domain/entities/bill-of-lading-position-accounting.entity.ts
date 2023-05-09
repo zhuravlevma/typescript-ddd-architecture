@@ -12,7 +12,7 @@ interface Attributes {
   sum: SumObjectValue;
 }
 
-export class BillOfLadingPositionAccountingEntity implements Attributes {
+export class BillOfLadingPositionEntity implements Attributes {
   id: string;
   name: string;
   count: number;
