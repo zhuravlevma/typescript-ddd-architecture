@@ -23,6 +23,8 @@ export class OrderEntity implements Attributes {
     this.isActive = attributes.isActive;
     this.deliverymanId = attributes.deliverymanId;
     this.billOfLadingPositions = attributes.billOfLadingPositions;
+
+    this.checkName();
   }
 
   checkName() {

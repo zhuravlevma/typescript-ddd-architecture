@@ -25,17 +25,16 @@ export class AddOrderToDeliverymanInteractor
           addOrderToDeliverymanDto.deliverymanId,
         );
 
-      const order = new OrderEntity({
-        id: uuid(),
-        name: addOrderToDeliverymanDto.order.name,
-        description: addOrderToDeliverymanDto.order.description,
-        isActive: false,
-        deliverymanId: addOrderToDeliverymanDto.deliverymanId,
-        billOfLadingPositions: [],
-      });
-      order.checkName();
-
-      deliverymanWithOrders.addOrder(order);
+      deliverymanWithOrders.addOrder(
+        new OrderEntity({
+          id: uuid(),
+          name: addOrderToDeliverymanDto.order.name,
+          description: addOrderToDeliverymanDto.order.description,
+          isActive: false,
+          deliverymanId: addOrderToDeliverymanDto.deliverymanId,
+          billOfLadingPositions: [],
+        }),
+      );
 
       return await this.saveDeliverymanPort.save(deliverymanWithOrders);
     } catch (error) {
