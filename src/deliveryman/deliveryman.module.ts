@@ -19,9 +19,9 @@ import { FindDeliverymanByIdWithOrdersPort } from './domain/ports/out/find-deliv
 import { SaveDeliverymanPort } from './domain/ports/out/save-deliveryman.port';
 import { DeliverymanController } from './web/deliveryman.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { BillOfLadingPositionOrmEntity } from 'src/__typeorm/bill-of-lading-position.orm-entity';
-import { DeliverymanOrmEntity } from 'src/__typeorm/deliveryman.orm-entity';
-import { OrderOrmEntity } from 'src/__typeorm/orders.orm-entity';
+import { BillOfLadingPositionOrmEntity } from 'src/__typeorm__/bill-of-lading-position.orm-entity';
+import { DeliverymanOrmEntity } from 'src/__typeorm__/deliveryman.orm-entity';
+import { OrderOrmEntity } from 'src/__typeorm__/orders.orm-entity';
 
 @Module({
   imports: [

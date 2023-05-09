@@ -1,9 +1,9 @@
 import { DeliverymanEntity } from 'src/deliveryman/domain/entities/deliveryman.entity';
-import { DeliverymanOrmEntity } from '../../__typeorm/deliveryman.orm-entity';
-import { OrderOrmEntity } from '../../__typeorm/orders.orm-entity';
+import { DeliverymanOrmEntity } from '../../__typeorm__/deliveryman.orm-entity';
+import { OrderOrmEntity } from '../../__typeorm__/orders.orm-entity';
 import { OrderEntity } from 'src/deliveryman/domain/entities/order.entity';
 import { BillOfLadingPositionEntity } from 'src/deliveryman/domain/entities/bill-of-lading-position.entity';
-import { BillOfLadingPositionOrmEntity } from '../../__typeorm/bill-of-lading-position.orm-entity';
+import { BillOfLadingPositionOrmEntity } from '../../__typeorm__/bill-of-lading-position.orm-entity';
 
 export class DeliverymanMapper {
   static mapToDomain(

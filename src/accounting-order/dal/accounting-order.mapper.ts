@@ -1,5 +1,5 @@
-import { BillOfLadingPositionOrmEntity } from 'src/__typeorm/bill-of-lading-position.orm-entity';
-import { OrderOrmEntity } from 'src/__typeorm/orders.orm-entity';
+import { BillOfLadingPositionOrmEntity } from 'src/__typeorm__/bill-of-lading-position.orm-entity';
+import { OrderOrmEntity } from 'src/__typeorm__/orders.orm-entity';
 import { OrderEntity } from '../domain/entities/order.entity';
 import { BillOfLadingPositionEntity } from '../domain/entities/bill-of-lading-position-accounting.entity';
 import { SumObjectValue } from '../domain/object-values/sum.object-value';

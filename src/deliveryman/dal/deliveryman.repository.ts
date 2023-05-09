@@ -1,14 +1,14 @@
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Injectable } from '@nestjs/common';
-import { DeliverymanOrmEntity } from '../../__typeorm/deliveryman.orm-entity';
+import { DeliverymanOrmEntity } from '../../__typeorm__/deliveryman.orm-entity';
 import { DeliverymanMapper } from './deliveryman.mapper';
 import { CreateDeliverymanPort } from 'src/deliveryman/domain/ports/out/create-deliveryman.port';
 import { FindAllDeliverymansPort } from 'src/deliveryman/domain/ports/out/find-all-deliverymans.port';
 import { FindDeliverymanByIdWithOrdersPort } from 'src/deliveryman/domain/ports/out/find-deliveryman-by-id-with-orders.port';
 import { SaveDeliverymanPort } from 'src/deliveryman/domain/ports/out/save-deliveryman.port';
 import { DeliverymanEntity } from 'src/deliveryman/domain/entities/deliveryman.entity';
-import { OrderOrmEntity } from '../../__typeorm/orders.orm-entity';
+import { OrderOrmEntity } from '../../__typeorm__/orders.orm-entity';
 import { FindDeliverymanOrderLadingPort } from 'src/deliveryman/domain/ports/out/find-deliveryman-order-lading';
 
 @Injectable()

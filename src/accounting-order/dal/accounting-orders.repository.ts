@@ -2,7 +2,7 @@ import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Injectable } from '@nestjs/common';
 import { AccountingOrderMapper } from './accounting-order.mapper';
-import { OrderOrmEntity } from 'src/__typeorm/orders.orm-entity';
+import { OrderOrmEntity } from 'src/__typeorm__/orders.orm-entity';
 import { OrderEntity } from '../domain/entities/order.entity';
 
 @Injectable()

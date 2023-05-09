@@ -6,8 +6,8 @@ import { FindOrderByIdUseCase } from './domain/ports/in/find-order-by-id.use-cas
 import { FindAllOrdersInteractor } from './domain/interactors/find-all-orders.interactor';
 import { FindAllOrdersUseCase } from './domain/ports/in/find-all-orders.use-case';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { OrderOrmEntity } from 'src/__typeorm/orders.orm-entity';
-import { BillOfLadingPositionOrmEntity } from 'src/__typeorm/bill-of-lading-position.orm-entity';
+import { OrderOrmEntity } from 'src/__typeorm__/orders.orm-entity';
+import { BillOfLadingPositionOrmEntity } from 'src/__typeorm__/bill-of-lading-position.orm-entity';
 import { AccountingOrdersController } from './web/accounting-orders.controller';
 import { AccountingOrdersRepository } from './dal/accounting-orders.repository';
 import { FindAllOrdersPort } from './domain/ports/out/find-all-orders.port';
