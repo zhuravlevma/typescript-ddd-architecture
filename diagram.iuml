@@ -4,16 +4,19 @@ package "Module" {
 
 
 package "Domain" {
- [OutputPorts]
- [Entities]
- [Interactors] -up-> Entities : use
+ component [UseCases] #AliceBlue
+ component [Entities] #TECHNOLOGY
+ component [OutputPorts] #AliceBlue
+ component [Interactors] #TECHNOLOGY
 
- [InputPorts]
+ [Interactors] -up-> [UseCases] : impl
+ [Interactors] .down.> [Entities] : use
+ [Interactors] .down.> [OutputPorts] : use
 }
 
-[Controllers] --> [InputPorts] : use
+[Controllers] ..> [UseCases] : use
 
-[DAL] -left-> [OutputPorts] : use
+[Repositories] -up-> [OutputPorts] : impl
 
 }
 
