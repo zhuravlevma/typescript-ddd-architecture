@@ -1,7 +1,5 @@
 import { IsBoolean, IsOptional, IsString } from 'class-validator';
-import { UpdateOrderDto } from '../../domain/ports/in/update-order.use-case';
-
-export class UpdateOrderNestDto implements UpdateOrderDto {
+export class UpdateOrderNestDto {
   @IsBoolean()
   @IsOptional()
   isActive?: boolean;

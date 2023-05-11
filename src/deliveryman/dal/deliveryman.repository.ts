@@ -1,15 +1,15 @@
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Injectable } from '@nestjs/common';
-import { DeliverymanOrmEntity } from '../../__typeorm__/deliveryman.orm-entity';
+import { DeliverymanOrmEntity } from './orm-entities/deliveryman.orm-entity';
 import { DeliverymanMapper } from './deliveryman.mapper';
 import { CreateDeliverymanPort } from 'src/deliveryman/domain/ports/out/create-deliveryman.port';
 import { FindAllDeliverymansPort } from 'src/deliveryman/domain/ports/out/find-all-deliverymans.port';
 import { FindDeliverymanByIdWithOrdersPort } from 'src/deliveryman/domain/ports/out/find-deliveryman-by-id-with-orders.port';
 import { SaveDeliverymanPort } from 'src/deliveryman/domain/ports/out/save-deliveryman.port';
 import { DeliverymanEntity } from 'src/deliveryman/domain/entities/deliveryman.entity';
-import { OrderOrmEntity } from '../../__typeorm__/orders.orm-entity';
 import { FindDeliverymanOrderLadingPort } from 'src/deliveryman/domain/ports/out/find-deliveryman-order-lading';
+import { OrderOrmEntity } from './orm-entities/orders.orm-entity';
 
 @Injectable()
 export class DeliverymanRepository
@@ -34,10 +34,6 @@ export class DeliverymanRepository
     const deliveryman = await this.deliverymanRepository
       .createQueryBuilder('deliveryman')
       .leftJoinAndSelect('deliveryman.orders', 'orders')
-      .leftJoinAndSelect(
-        'orders.billOfLadingPositions',
-        'billOfLadingPositions',
-      )
       .where('deliveryman.id = :deliverymanId', { deliverymanId })
       .andWhere('orders.id = :orderId', { orderId })
       .getOne();

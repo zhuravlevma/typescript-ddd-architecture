@@ -3,10 +3,11 @@ import { ConfigModule } from '@nestjs/config';
 import { config } from './config';
 import { DeliverymanModule } from './deliveryman/deliveryman.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { BillOfLadingPositionOrmEntity } from './__typeorm__/bill-of-lading-position.orm-entity';
-import { DeliverymanOrmEntity } from './__typeorm__/deliveryman.orm-entity';
-import { OrderOrmEntity } from './__typeorm__/orders.orm-entity';
+import { BillOfLadingPositionOrmEntity } from './accounting-order/dal/orm-entities/bill-of-lading-position.orm-entity';
+import { DeliverymanOrmEntity } from './deliveryman/dal/orm-entities/deliveryman.orm-entity';
 import { AccountingOrderModule } from './accounting-order/accounting-order.module';
+import { OrderOrmEntity } from './deliveryman/dal/orm-entities/orders.orm-entity';
+import { BillOfLadingReportOrmEntity } from './accounting-order/dal/orm-entities/bill-of-lading-report.orm-entity';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { AccountingOrderModule } from './accounting-order/accounting-order.modul
         OrderOrmEntity,
         DeliverymanOrmEntity,
         BillOfLadingPositionOrmEntity,
+        BillOfLadingReportOrmEntity,
       ],
       synchronize: true,
       logging: true,

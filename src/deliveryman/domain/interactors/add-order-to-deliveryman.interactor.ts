@@ -32,7 +32,6 @@ export class AddOrderToDeliverymanInteractor
           description: addOrderToDeliverymanDto.order.description,
           isActive: false,
           deliverymanId: addOrderToDeliverymanDto.deliverymanId,
-          billOfLadingPositions: [],
         }),
       );
 

@@ -1,29 +1,15 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
-import { UpdateOrderNestDto } from './dtos/update-orders.dto';
-import { OrderEntity } from '../domain/entities/order.entity';
-import { FindAllOrdersUseCase } from '../domain/ports/in/find-all-orders.use-case';
-import { UpdateOrderUseCase } from '../domain/ports/in/update-order.use-case';
+import { Controller, Param, Post } from '@nestjs/common';
+import { FindReportByIdUseCase } from '../domain/ports/in/find-report-by-id.use-case';
+import { BillOfLadingReportEntity } from '../domain/entities/bill-of-lading-report.entity';
 
 @Controller('orders')
 export class AccountingOrdersController {
-  constructor(
-    private readonly findAllOrdersService: FindAllOrdersUseCase,
-    private readonly updateOrderService: UpdateOrderUseCase,
-  ) {}
+  constructor(private readonly findReportByIdService: FindReportByIdUseCase) {}
 
-  @Get('/')
-  find(): Promise<OrderEntity[]> {
-    return this.findAllOrdersService.execute();
-  }
-
-  @Post('/:orderId')
+  @Post('/:reportId')
   updateOrderById(
-    @Param('orderId') orderId: string,
-    @Body() updateOrderDto: UpdateOrderNestDto,
-  ): Promise<OrderEntity> {
-    return this.updateOrderService.execute({
-      orderId,
-      ...updateOrderDto,
-    });
+    @Param('reportId') reportId: string,
+  ): Promise<BillOfLadingReportEntity> {
+    return this.findReportByIdService.execute(reportId);
   }
 }
