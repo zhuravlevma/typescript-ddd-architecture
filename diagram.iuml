@@ -14,11 +14,18 @@ package "Domain" {
  [Interactors] .down.> [OutputPorts] : use
 }
 
+package "WEB" {
+
 [Controllers] ..> [UseCases] : use
-
-[Repositories] -up-> [OutputPorts] : impl
-
+[Controllers] .right.> [DTOs] : use
 }
 
+package "DAL" {
+[Repositories] -up-> [OutputPorts] : impl
+[Repositories] .down.> [ORM Entities] : use
+[Repositories] .down.> [Mappers] : use
+[Mappers] ..> Entities : use
+}
+}
 
 @enduml
