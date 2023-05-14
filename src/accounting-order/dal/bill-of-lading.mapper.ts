@@ -11,6 +11,7 @@ export class BillOfLadingMapper {
     return new BillOfLadingReportEntity({
       id: reportOrm.id,
       isValid: reportOrm.isValid,
+      orderId: reportOrm.orderId,
       positions: reportOrm.positions.map(
         (positionOrm) =>
           new BillOfLadingPositionEntity({
@@ -19,7 +20,6 @@ export class BillOfLadingMapper {
             count: positionOrm.count,
             code: positionOrm.code,
             weight: positionOrm.weight,
-            orderId: positionOrm.orderId,
             amount: positionOrm.amount,
             sum: new SumObjectValue(positionOrm.sum, positionOrm.rate),
           }),
@@ -32,6 +32,7 @@ export class BillOfLadingMapper {
     const reportOrmEntity = new BillOfLadingReportOrmEntity();
     reportOrmEntity.id = reportEntity.id;
     reportOrmEntity.isValid = reportEntity.isValid;
+    reportOrmEntity.orderId = reportEntity.orderId;
     reportOrmEntity.positions = reportEntity.positions.map((positionEntity) => {
       const positionOrmEntity = new BillOfLadingPositionOrmEntity();
       positionOrmEntity.id = positionEntity.id;
@@ -39,7 +40,6 @@ export class BillOfLadingMapper {
       positionOrmEntity.count = positionEntity.count;
       positionOrmEntity.code = positionEntity.code;
       positionOrmEntity.weight = positionEntity.weight;
-      positionOrmEntity.orderId = positionEntity.orderId;
       positionOrmEntity.amount = positionEntity.amount;
       return positionOrmEntity;
     });

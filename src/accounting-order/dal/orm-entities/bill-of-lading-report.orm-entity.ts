@@ -9,6 +9,9 @@ export class BillOfLadingReportOrmEntity {
   @Column()
   isValid: boolean;
 
+  @Column()
+  orderId: string;
+
   @OneToMany(
     () => BillOfLadingPositionOrmEntity,
     (position) => position.report,

@@ -6,7 +6,6 @@ interface Attributes {
   count: number;
   code: number;
   weight: number;
-  orderId: string;
   amount: number;
   sum: SumObjectValue;
 }
@@ -17,7 +16,6 @@ export class BillOfLadingPositionEntity implements Attributes {
   count: number;
   code: number;
   weight: number;
-  orderId: string;
   amount: number;
   sum: SumObjectValue;
 
@@ -27,7 +25,6 @@ export class BillOfLadingPositionEntity implements Attributes {
     this.count = attributes.count;
     this.code = attributes.code;
     this.weight = attributes.weight;
-    this.orderId = attributes.orderId;
     this.amount = attributes.amount;
     this.sum = attributes.sum;
   }

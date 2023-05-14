@@ -26,9 +26,6 @@ export class BillOfLadingPositionOrmEntity {
   weight: number;
 
   @Column()
-  orderId: string;
-
-  @Column()
   reportId: string;
 
   @Column()
