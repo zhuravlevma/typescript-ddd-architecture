@@ -14,7 +14,7 @@ import { WarehouseModule } from './warehouse/warehouse.module';
 import { OutboxOrmEntity } from './__relay__/outbox.orm-entity';
 import { WarehouseOrmEntity } from './warehouse/dal/orm-entities/warehouse.orm-entity';
 import { EventEmitterModule } from '@nestjs/event-emitter';
-
+import { OrderOrmEntity as WarehouseOrderOrmEntity } from './warehouse/dal/orm-entities/order.orm-entity';
 @Module({
   imports: [
     EventEmitterModule.forRoot(), // move to relay module
@@ -36,6 +36,7 @@ import { EventEmitterModule } from '@nestjs/event-emitter';
         BillOfLadingPositionOrmEntity,
         BillOfLadingReportOrmEntity,
         WarehouseOrmEntity,
+        WarehouseOrderOrmEntity,
         OutboxOrmEntity,
       ],
       synchronize: true,

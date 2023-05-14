@@ -1,4 +1,4 @@
-import { DomainEvent } from 'src/__lib__/domain-event';
+import { DomainEvent } from 'src/__relay__/domain-event';
 
 export class OrderValidatedEvent implements DomainEvent {
   id: string;

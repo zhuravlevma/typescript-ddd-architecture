@@ -1,5 +1,6 @@
-import { DomainEvent } from 'src/__lib__/domain-event';
+import { DomainEvent } from 'src/__relay__/domain-event';
 import { OrderEntity } from './order.entity';
+import { OrderValidatedEvent } from '../events/order-validated.event';
 
 interface Attributes {
   id: string;
@@ -11,11 +12,13 @@ export class WarehouseEntity implements Attributes {
   id: string;
   name: string;
   orders: OrderEntity[];
+  events: DomainEvent[];
 
   constructor(attributes: Attributes) {
     this.id = attributes.id;
     this.name = attributes.name;
     this.orders = attributes.orders;
+    this.events = [];
   }
 
   addOrder(order: OrderEntity) {
@@ -25,9 +28,16 @@ export class WarehouseEntity implements Attributes {
   changeOrderStatusToValid(orderId: string) {
     const order = this.orders.find((el) => el.id === orderId);
     order.changeStatus(true);
+    this.events.push(
+      new OrderValidatedEvent({
+        id: this.id,
+        type: 'order-validated',
+        reason: 'this order has been validate',
+      }),
+    );
   }
 
   getUnpublishedEvents(): DomainEvent[] {
-    return this.orders.map((order) => order.domainEvents).flat(1);
+    return this.events;
   }
 }
