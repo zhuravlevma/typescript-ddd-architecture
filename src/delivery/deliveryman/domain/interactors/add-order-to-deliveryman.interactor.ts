@@ -1,8 +1,8 @@
 import {
   AddOrderToDeliverymanDto,
   AddOrderToDeliverymanUseCase,
-} from 'src/deliveryman/domain/ports/in/add-order-to-deliveryman.use-case';
-import { DeliverymanEntity } from 'src/deliveryman/domain/entities/deliveryman.entity';
+} from 'src/delivery/deliveryman/domain/ports/in/add-order-to-deliveryman.use-case';
+import { DeliverymanEntity } from 'src/delivery/deliveryman/domain/entities/deliveryman.entity';
 import { v4 as uuid } from 'uuid';
 import { OrderEntity } from '../entities/order.entity';
 import { FindDeliverymanByIdWithOrdersPort } from '../ports/out/find-deliveryman-by-id-with-orders.port';

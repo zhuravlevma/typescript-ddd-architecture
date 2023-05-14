@@ -6,9 +6,8 @@ import {
   JoinColumn,
 } from 'typeorm';
 import { BillOfLadingReportOrmEntity } from './bill-of-lading-report.orm-entity';
-import { OrderOrmEntity } from 'src/deliveryman/dal/orm-entities/orders.orm-entity';
 
-@Entity('bill_of_ladings')
+@Entity('bill_of_ladings_positions', { schema: 'accounting' })
 export class BillOfLadingPositionOrmEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -39,10 +38,6 @@ export class BillOfLadingPositionOrmEntity {
 
   @Column()
   isValid: boolean;
-
-  @ManyToOne(() => OrderOrmEntity, (order) => order.billOfLadingPositions)
-  @JoinColumn({ name: 'orderId', referencedColumnName: 'id' })
-  order: OrderOrmEntity;
 
   @ManyToOne(() => BillOfLadingReportOrmEntity, (report) => report.positions)
   @JoinColumn({ name: 'reportId', referencedColumnName: 'id' })

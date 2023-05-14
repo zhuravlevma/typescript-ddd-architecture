@@ -1,7 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { BillOfLadingPositionOrmEntity } from './bill-of-lading-position.orm-entity';
 
-@Entity('bill_of_ladings_report')
+@Entity('bill_of_ladings_reports', { schema: 'accounting' })
 export class BillOfLadingReportOrmEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;

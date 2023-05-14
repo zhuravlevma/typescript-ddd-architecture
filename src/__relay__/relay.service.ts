@@ -21,8 +21,6 @@ export class TasksService {
       where: { publushed: false },
     });
 
-    console.log(events);
-
     events.forEach((event) => {
       this.eventEmitter.emit(event.type, event);
     });

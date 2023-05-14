@@ -4,15 +4,15 @@ import { UpdateDeliverymansInfoNestDto } from './dtos/update-deliverymans-info.d
 import { UpdateDeliverymansOrdersNestDto } from './dtos/update-deliverymans-orders.dto';
 import { ChangeDeliverymansStatusNestDto } from './dtos/change-deliverymans-status.dto';
 import { CreateDeliverymanNestDto } from './dtos/create-deliveryman.dto';
-import { DeliverymanEntity } from 'src/deliveryman/domain/entities/deliveryman.entity';
-import { CreateDeliverymanUseCase } from 'src/deliveryman/domain/ports/in/create-deliveryman.use-case';
-import { FindAllDeliverymansUseCase } from 'src/deliveryman/domain/ports/in/find-all-deliverymans.use-case';
-import { AddOrderToDeliverymanUseCase } from 'src/deliveryman/domain/ports/in/add-order-to-deliveryman.use-case';
-import { UpdateDeliverymansInfoUseCase } from 'src/deliveryman/domain/ports/in/update-deliveryman-info.use-case';
-import { ChangeDeliverymansStatusUseCase } from 'src/deliveryman/domain/ports/in/change-deliverymans-status.use-case';
-import { UpdateDeliverymansOrdersUseCase } from 'src/deliveryman/domain/ports/in/update-deliverymans-orders.use-case';
-import { UpdateOrderStatusUseCase } from 'src/deliveryman/domain/ports/in/update-order-status.use-case';
+import { DeliverymanEntity } from 'src/delivery/deliveryman/domain/entities/deliveryman.entity';
 import { UpdateOrderStatusNestDto } from './dtos/update-order-status.dto';
+import { AddOrderToDeliverymanUseCase } from '../domain/ports/in/add-order-to-deliveryman.use-case';
+import { ChangeDeliverymansStatusUseCase } from '../domain/ports/in/change-deliverymans-status.use-case';
+import { CreateDeliverymanUseCase } from '../domain/ports/in/create-deliveryman.use-case';
+import { FindAllDeliverymansUseCase } from '../domain/ports/in/find-all-deliverymans.use-case';
+import { UpdateDeliverymansInfoUseCase } from '../domain/ports/in/update-deliveryman-info.use-case';
+import { UpdateDeliverymansOrdersUseCase } from '../domain/ports/in/update-deliverymans-orders.use-case';
+import { UpdateOrderStatusUseCase } from '../domain/ports/in/update-order-status.use-case';
 
 @Controller('deliverymans')
 export class DeliverymanController {

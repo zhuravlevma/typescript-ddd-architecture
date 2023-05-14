@@ -3,13 +3,13 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Injectable } from '@nestjs/common';
 import { DeliverymanOrmEntity } from './orm-entities/deliveryman.orm-entity';
 import { DeliverymanMapper } from './deliveryman.mapper';
-import { CreateDeliverymanPort } from 'src/deliveryman/domain/ports/out/create-deliveryman.port';
-import { FindAllDeliverymansPort } from 'src/deliveryman/domain/ports/out/find-all-deliverymans.port';
-import { FindDeliverymanByIdWithOrdersPort } from 'src/deliveryman/domain/ports/out/find-deliveryman-by-id-with-orders.port';
-import { SaveDeliverymanPort } from 'src/deliveryman/domain/ports/out/save-deliveryman.port';
-import { DeliverymanEntity } from 'src/deliveryman/domain/entities/deliveryman.entity';
-import { FindDeliverymanOrderLadingPort } from 'src/deliveryman/domain/ports/out/find-deliveryman-order-lading';
+import { DeliverymanEntity } from 'src/delivery/deliveryman/domain/entities/deliveryman.entity';
 import { OrderOrmEntity } from './orm-entities/orders.orm-entity';
+import { CreateDeliverymanPort } from '../domain/ports/out/create-deliveryman.port';
+import { FindAllDeliverymansPort } from '../domain/ports/out/find-all-deliverymans.port';
+import { FindDeliverymanByIdWithOrdersPort } from '../domain/ports/out/find-deliveryman-by-id-with-orders.port';
+import { FindDeliverymanOrderLadingPort } from '../domain/ports/out/find-deliveryman-order-lading';
+import { SaveDeliverymanPort } from '../domain/ports/out/save-deliveryman.port';
 
 @Injectable()
 export class DeliverymanRepository
@@ -32,9 +32,9 @@ export class DeliverymanRepository
     orderId: string,
   ): Promise<DeliverymanEntity> {
     const deliveryman = await this.deliverymanRepository
-      .createQueryBuilder('deliveryman')
-      .leftJoinAndSelect('deliveryman.orders', 'orders')
-      .where('deliveryman.id = :deliverymanId', { deliverymanId })
+      .createQueryBuilder('deliverymans')
+      .leftJoinAndSelect('deliverymans.orders', 'orders')
+      .where('deliverymans.id = :deliverymanId', { deliverymanId })
       .andWhere('orders.id = :orderId', { orderId })
       .getOne();
     return DeliverymanMapper.mapToDomain(deliveryman);

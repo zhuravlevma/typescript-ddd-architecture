@@ -1,6 +1,6 @@
-import { DeliverymanEntity } from 'src/deliveryman/domain/entities/deliveryman.entity';
+import { DeliverymanEntity } from 'src/delivery/deliveryman/domain/entities/deliveryman.entity';
 import { DeliverymanOrmEntity } from './orm-entities/deliveryman.orm-entity';
-import { OrderEntity } from 'src/deliveryman/domain/entities/order.entity';
+import { OrderEntity } from 'src/delivery/deliveryman/domain/entities/order.entity';
 import { OrderOrmEntity } from './orm-entities/orders.orm-entity';
 
 export class DeliverymanMapper {

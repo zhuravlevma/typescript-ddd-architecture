@@ -1,4 +1,4 @@
-import { BillOfLadingPositionOrmEntity } from 'src/accounting-order/dal/orm-entities/bill-of-lading-position.orm-entity';
+import { BillOfLadingPositionOrmEntity } from 'src/accounting/dal/orm-entities/bill-of-lading-position.orm-entity';
 import { BillOfLadingPositionEntity } from '../domain/entities/bill-of-lading-position-accounting.entity';
 import { SumObjectValue } from '../domain/object-values/sum.object-value';
 import { BillOfLadingReportEntity } from '../domain/entities/bill-of-lading-report.entity';
