@@ -18,6 +18,9 @@ export class OrderOrmEntity {
   @Column()
   description: string;
 
+  @Column()
+  orderId: string; // from warehouse
+
   @Column({ default: true })
   isActive: boolean;
 

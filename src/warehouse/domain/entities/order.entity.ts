@@ -1,6 +1,3 @@
-import { DomainEvent } from 'src/__relay__/domain-event';
-import { OrderValidatedEvent } from '../events/order-validated.event';
-
 interface Attributes {
   id: string;
   name: string;

@@ -28,9 +28,10 @@ export class AddOrderToDeliverymanInteractor
       deliverymanWithOrders.addOrder(
         new OrderEntity({
           id: uuid(),
-          name: addOrderToDeliverymanDto.order.name,
-          description: addOrderToDeliverymanDto.order.description,
+          name: 'test name',
+          description: 'test descr',
           isActive: false,
+          orderId: addOrderToDeliverymanDto.orderId,
           deliverymanId: addOrderToDeliverymanDto.deliverymanId,
         }),
       );

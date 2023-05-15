@@ -11,6 +11,8 @@ import { FindReportByIdPort } from './domain/ports/out/find-report-by-id.port';
 import { FindPositionByIdPort } from './domain/ports/out/find-position-by-id.port';
 import { SaveReportPort } from './domain/ports/out/save-report.port';
 import { BillOfLadingReportOrmEntity } from './dal/orm-entities/bill-of-lading-report.orm-entity';
+import { CreateReportUseCase } from './domain/ports/in/create-report.use-case';
+import { CreateReportInteractor } from './domain/interactors/create-report.interactor';
 
 @Module({
   imports: [
@@ -29,7 +31,14 @@ import { BillOfLadingReportOrmEntity } from './dal/orm-entities/bill-of-lading-r
       provide: UpdatePositionUseCase,
       useClass: UpdateReportInteractor,
     },
-
+    {
+      provide: CreateReportUseCase,
+      useClass: CreateReportInteractor,
+    },
+    {
+      provide: FindReportByIdUseCase,
+      useClass: FindReportByIdInteractor,
+    },
     {
       provide: FindReportByIdPort,
       useClass: BillOfLadingRepository,

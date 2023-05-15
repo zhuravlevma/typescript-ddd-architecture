@@ -33,6 +33,7 @@ export class WarehouseEntity implements Attributes {
         id: this.id,
         type: 'order-validated',
         reason: 'this order has been validate',
+        payload: new Map(),
       }),
     );
   }

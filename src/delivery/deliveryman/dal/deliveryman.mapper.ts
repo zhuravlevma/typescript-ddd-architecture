@@ -20,6 +20,7 @@ export class DeliverymanMapper {
             description: orderOrmEntity.description,
             isActive: orderOrmEntity.isActive,
             deliverymanId: orderOrmEntity.deliverymanId,
+            orderId: orderOrmEntity.orderId,
           }),
       ),
     });
@@ -39,6 +40,7 @@ export class DeliverymanMapper {
         orderOrmEntity.name = orderEntity.name;
         orderOrmEntity.isActive = orderEntity.isActive;
         orderOrmEntity.id = orderEntity.id;
+        orderOrmEntity.orderId = orderEntity.orderId;
         return orderOrmEntity;
       },
     );

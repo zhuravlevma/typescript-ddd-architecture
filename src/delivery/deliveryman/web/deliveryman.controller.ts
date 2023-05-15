@@ -13,6 +13,8 @@ import { FindAllDeliverymansUseCase } from '../domain/ports/in/find-all-delivery
 import { UpdateDeliverymansInfoUseCase } from '../domain/ports/in/update-deliveryman-info.use-case';
 import { UpdateDeliverymansOrdersUseCase } from '../domain/ports/in/update-deliverymans-orders.use-case';
 import { UpdateOrderStatusUseCase } from '../domain/ports/in/update-order-status.use-case';
+import { OnEvent } from '@nestjs/event-emitter';
+import { OfferTakedEvent } from 'src/delivery/offer/domain/events/offer-taked.event';
 
 @Controller('deliverymans')
 export class DeliverymanController {
@@ -45,10 +47,15 @@ export class DeliverymanController {
   ): Promise<DeliverymanEntity> {
     return this.addOrderToDeliverymanService.execute({
       deliverymanId,
-      order: {
-        name: addOrderToDeliverymanNestDto.name,
-        description: addOrderToDeliverymanNestDto.description,
-      },
+      orderId: addOrderToDeliverymanNestDto.orderId,
+    });
+  }
+
+  @OnEvent('offer-taked')
+  handleOrderValidatedEvent(event: OfferTakedEvent) {
+    return this.addOrderToDeliverymanService.execute({
+      deliverymanId: event.payload.get('deliverymanId'),
+      orderId: event.payload.get('orderId'),
     });
   }
 

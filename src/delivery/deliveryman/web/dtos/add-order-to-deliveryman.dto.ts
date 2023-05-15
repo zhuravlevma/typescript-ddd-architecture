@@ -3,9 +3,9 @@ import { IsString, IsNotEmpty } from 'class-validator';
 export class AddOrderToDeliverymanNestDto {
   @IsString()
   @IsNotEmpty()
-  name: string;
+  deliverymanId: string;
 
   @IsString()
   @IsNotEmpty()
-  description: string;
+  orderId: string;
 }

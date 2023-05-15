@@ -1,6 +1,6 @@
 import { DomainEvent } from 'src/__relay__/domain-event';
 
-export class OrderValidatedEvent implements DomainEvent {
+export class ReportValidatedEvent implements DomainEvent {
   id: string;
   type: string;
   reason: string;

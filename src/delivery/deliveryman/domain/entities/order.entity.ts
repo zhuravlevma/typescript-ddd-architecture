@@ -4,6 +4,7 @@ interface Attributes {
   description: string;
   isActive: boolean;
   deliverymanId: string;
+  orderId: string;
 }
 export class OrderEntity implements Attributes {
   id: string;
@@ -11,6 +12,7 @@ export class OrderEntity implements Attributes {
   description: string;
   isActive: boolean;
   deliverymanId: string;
+  orderId: string;
 
   constructor(attributes: Attributes) {
     this.id = attributes.id;
@@ -18,8 +20,7 @@ export class OrderEntity implements Attributes {
     this.description = attributes.description;
     this.isActive = attributes.isActive;
     this.deliverymanId = attributes.deliverymanId;
-
-    this.checkName();
+    this.orderId = attributes.orderId;
   }
 
   checkName() {
