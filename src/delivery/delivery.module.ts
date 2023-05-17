@@ -40,11 +40,13 @@ import { SaveDeliverymanPort } from './deliveryman/domain/ports/out/save-deliver
     },
     {
       provide: FindAllDeliverymansUseCase,
-      useClass: FindAllDeliverymansInteractor,
+      useFactory: (t) => new FindAllDeliverymansInteractor(t),
+      inject: [FindAllDeliverymansPort],
     },
     {
       provide: UpdateDeliverymansInfoUseCase,
-      useClass: UpdateDeliverymansInfoInteractor,
+      useFactory: (a, b) => new UpdateDeliverymansInfoInteractor(a, b),
+      inject: [FindDeliverymanByIdWithOrdersPort, SaveDeliverymanPort],
     },
     {
       provide: UpdateDeliverymansOrdersUseCase,

@@ -24,20 +24,19 @@ import { CreateReportInteractor } from './domain/interactors/create-report.inter
   controllers: [AccountingController],
   providers: [
     {
-      provide: FindReportByIdUseCase,
-      useClass: FindReportByIdInteractor,
-    },
-    {
       provide: UpdatePositionUseCase,
-      useClass: UpdateReportInteractor,
+      useFactory: (a, b) => new UpdateReportInteractor(a, b),
+      inject: [FindReportByIdPort, SaveReportPort],
     },
     {
       provide: CreateReportUseCase,
-      useClass: CreateReportInteractor,
+      useFactory: (a) => new CreateReportInteractor(a),
+      inject: [SaveReportPort],
     },
     {
       provide: FindReportByIdUseCase,
-      useClass: FindReportByIdInteractor,
+      useFactory: (a) => new FindReportByIdInteractor(a),
+      inject: [FindReportByIdPort],
     },
     {
       provide: FindReportByIdPort,

@@ -1,7 +1,7 @@
 import { WarehouseEntity } from '../../entities/warehouse.entity';
 
 export interface AddOrderDto {
-  id: string;
+  warehouseId: string;
   name: string;
   orderId: string;
   isValid: boolean;

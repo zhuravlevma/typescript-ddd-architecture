@@ -4,12 +4,13 @@ import {
   UpdateOrderStatusDto,
 } from '../ports/in/update-order-status.use-case';
 import { GetWarehouseWithOrderPort } from '../ports/out/get-warehouse-with-order.port';
-import { UpdateOrderPort } from '../ports/out/update-order.port';
+import { GetWarehouseWithOrdersPort } from '../ports/out/get-warehouse-with-orders.port';
+import { SaveWarehousePort } from '../ports/out/save-warehouse.port';
 
 export class UpdateOrderStatusInteractor implements UpdateOrderStatusUseCase {
   constructor(
-    private readonly getWarehouseWithOrderPort: GetWarehouseWithOrderPort,
-    private readonly updateOrderPort: UpdateOrderPort,
+    private readonly getWarehouseWithOrderPort: GetWarehouseWithOrdersPort,
+    private readonly saveWhPort: SaveWarehousePort,
   ) {}
   async execute(
     updateOrderStatusDto: UpdateOrderStatusDto,
@@ -17,11 +18,15 @@ export class UpdateOrderStatusInteractor implements UpdateOrderStatusUseCase {
     const warehouse =
       await this.getWarehouseWithOrderPort.getWarehouseWithOrderPort(
         updateOrderStatusDto.warehouseId,
-        updateOrderStatusDto.orderId,
+        // updateOrderStatusDto.orderId,
       );
 
-    warehouse.changeOrderStatusToValid(updateOrderStatusDto.orderId);
+    if (updateOrderStatusDto.isValid) {
+      warehouse.changeOrderStatusToValid(updateOrderStatusDto.orderId);
+    }
 
-    return this.updateOrderPort.updateOrder(warehouse);
+    console.log(warehouse);
+
+    return this.saveWhPort.saveWarehouse(warehouse);
   }
 }

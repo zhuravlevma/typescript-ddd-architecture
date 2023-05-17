@@ -19,8 +19,10 @@ export class AccountingController {
     return this.findReportByIdInteractor.execute(reportId);
   }
 
-  @OnEvent('order.validated')
+  @OnEvent('order-validated')
   handleOrderValidatedEvent(event: OrderValidatedEvent) {
+    console.log(event, 'dwdw');
+
     return this.createReportInteractor.execute({
       orderId: event.id,
     });

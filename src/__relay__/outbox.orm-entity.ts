@@ -14,6 +14,12 @@ export class OutboxOrmEntity {
   @Column()
   reason: string;
 
+  @Column({
+    type: 'jsonb',
+    default: {},
+  })
+  payload: any;
+
   @Column({ default: false })
   publushed: boolean;
 }

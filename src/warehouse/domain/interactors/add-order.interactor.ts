@@ -13,7 +13,7 @@ export class AddOrderInteractor implements AddOrderUseCase {
   async execute(addOrderDto: AddOrderDto): Promise<WarehouseEntity> {
     const warehouse =
       await this.getWarehouseWithOrderPort.getWarehouseWithOrderPort(
-        addOrderDto.id,
+        addOrderDto.warehouseId,
       );
 
     warehouse.addOrder(
@@ -23,6 +23,8 @@ export class AddOrderInteractor implements AddOrderUseCase {
         isValid: false,
       }),
     );
+
+    console.log(warehouse);
 
     return this.updateOrderPort.saveWarehouse(warehouse);
   }
