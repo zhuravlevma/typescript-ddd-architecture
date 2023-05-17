@@ -32,7 +32,7 @@ export class BillOfLadingReportEntity implements Attributes {
           id: this.id,
           reason: 'report validated',
           type: 'report-validated',
-          payload: new Map([['orderId', this.orderId]]),
+          payload: { orderId: this.orderId },
         }),
       );
     } else {

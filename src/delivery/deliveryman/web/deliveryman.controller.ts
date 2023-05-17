@@ -54,8 +54,8 @@ export class DeliverymanController {
   @OnEvent('offer-taked')
   handleOrderValidatedEvent(event: OfferTakedEvent) {
     return this.addOrderToDeliverymanService.execute({
-      deliverymanId: event.payload.get('deliverymanId'),
-      orderId: event.payload.get('orderId'),
+      deliverymanId: event.payload.deliverymanId,
+      orderId: event.payload.orderId,
     });
   }
 

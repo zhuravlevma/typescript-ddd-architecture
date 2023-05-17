@@ -1,10 +1,9 @@
 import { DomainEvent } from 'src/__relay__/domain-event';
-
 export class OrderValidatedEvent implements DomainEvent {
   id: string;
   type: string;
   reason: string;
-  payload: Map<string, string>;
+  payload: object;
 
   constructor(attributes: DomainEvent) {
     this.id = attributes.id;

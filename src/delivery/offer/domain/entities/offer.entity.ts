@@ -30,10 +30,10 @@ export class OfferEntity implements Attributes {
         id: this.id,
         reason: 'offer taked',
         type: 'offer-taked',
-        payload: new Map([
-          ['orderId', this.orderId],
-          ['deliverymanId', this.deliverymanId],
-        ]),
+        payload: {
+          orderId: this.orderId,
+          deliverymanId: this.orderId,
+        },
       }),
     );
   }
