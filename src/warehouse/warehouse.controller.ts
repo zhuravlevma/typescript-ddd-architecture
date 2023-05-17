@@ -17,22 +17,33 @@ export class WarehouseController {
     private readonly createWarehouseInteractor: CreateWarehouseUseCase,
     private readonly updateOrderStatusInteractor: UpdateOrderStatusUseCase,
   ) {}
+
+  @ApiOkResponse({
+    description: 'Saved Wh with orders',
+    type: SavedWarehouseResponseDto,
+  })
   @Post('/')
   async createWarehouse(
     @Body() createWarehouseDto: CreateWarehouseNestDto,
   ): Promise<SavedWarehouseResponseDto> {
-    return this.createWarehouseInteractor.execute(createWarehouseDto);
+    const wh = await this.createWarehouseInteractor.execute(createWarehouseDto);
+    return SavedWarehouseResponseDto.fromDomain(wh);
   }
 
+  @ApiOkResponse({
+    description: 'Saved Wh with orders',
+    type: SavedWarehouseResponseDto,
+  })
   @Post('/:warehouseId/orders')
-  addOrderToWh(
+  async addOrderToWh(
     @Param('warehouseId') warehouseId: string,
     @Body() addOrderToWhDto: AddOrderNestDto,
-  ): Promise<WarehouseEntity> {
-    return this.addOrderInteractor.execute({
+  ): Promise<SavedWarehouseResponseDto> {
+    const wh = await this.addOrderInteractor.execute({
       warehouseId,
       ...addOrderToWhDto,
     });
+    return SavedWarehouseResponseDto.fromDomain(wh);
   }
 
   @ApiOkResponse({
