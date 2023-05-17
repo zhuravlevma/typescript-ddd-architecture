@@ -25,8 +25,6 @@ export class UpdateOrderStatusInteractor implements UpdateOrderStatusUseCase {
       warehouse.changeOrderStatusToValid(updateOrderStatusDto.orderId);
     }
 
-    console.log(warehouse);
-
     return this.saveWhPort.saveWarehouse(warehouse);
   }
 }

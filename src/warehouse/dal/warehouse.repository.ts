@@ -34,14 +34,10 @@ export class WarehouseRepository
     return WarehouseMapper.mapToDomain(whOrm);
   }
   async saveWarehouse(warehouse: WarehouseEntity): Promise<WarehouseEntity> {
-    console.log('fefefefe ');
-
     const warehouseORM = WarehouseMapper.mapToORM(warehouse);
     const outboxORM = warehouse
       .getUnpublishedEvents()
       .map((event) => OutboxMapper.mapToORM(event));
-
-    console.log(outboxORM);
 
     const whOrm = await this.dataSource.transaction(
       async (transactionalEntityManager) => {

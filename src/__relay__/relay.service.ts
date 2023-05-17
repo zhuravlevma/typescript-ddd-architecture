@@ -19,14 +19,17 @@ export class TasksService {
   async handleCron() {
     const events = await this.outBoxRepository.find({
       where: { publushed: false },
+      take: 5,
     });
 
-    events.forEach((event) => {
-      this.eventEmitter.emit(event.type, event);
-    });
-
-    await this.outBoxRepository.remove(events);
-
-    this.logger.debug('Called when the current second is 10');
+    for (const event of events) {
+      try {
+        this.logger.debug('run publishing: ' + event.id);
+        this.eventEmitter.emit(event.type, event);
+        await this.outBoxRepository.remove(event);
+      } catch (err) {
+        this.logger.error('published error: ' + err.message);
+      }
+    }
   }
 }

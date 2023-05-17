@@ -24,8 +24,6 @@ export class AddOrderInteractor implements AddOrderUseCase {
       }),
     );
 
-    console.log(warehouse);
-
     return this.updateOrderPort.saveWarehouse(warehouse);
   }
 }

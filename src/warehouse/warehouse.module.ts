@@ -9,7 +9,6 @@ import { AddOrderUseCase } from './domain/ports/in/add-order.use-case';
 import { AddOrderInteractor } from './domain/interactors/add-order.interactor';
 import { CreateWarehouseUseCase } from './domain/ports/in/create-warehouse.use-case';
 import { CreateWarehouseInteractor } from './domain/interactors/create-warehouse.interactor';
-import { GetWarehouseWithOrderPort } from './domain/ports/out/get-warehouse-with-order.port';
 import { GetWarehouseWithOrdersPort } from './domain/ports/out/get-warehouse-with-orders.port';
 import { WarehouseController } from './web/warehouse.controller';
 import { OrderOrmEntity } from './dal/orm-entities/order.orm-entity';

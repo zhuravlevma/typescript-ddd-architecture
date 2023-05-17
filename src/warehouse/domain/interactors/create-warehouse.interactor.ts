@@ -12,8 +12,6 @@ export class CreateWarehouseInteractor implements CreateWarehouseUseCase {
   async execute(
     createWarehouseDto: CreateWarehouseDto,
   ): Promise<WarehouseEntity> {
-    console.log(createWarehouseDto, this.saveWhPort);
-
     return this.saveWhPort.saveWarehouse(
       new WarehouseEntity({
         id: uuid(),
