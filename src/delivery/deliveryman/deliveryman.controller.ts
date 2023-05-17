@@ -6,16 +6,18 @@ import { ChangeDeliverymansStatusNestDto } from './dtos/change-deliverymans-stat
 import { CreateDeliverymanNestDto } from './dtos/create-deliveryman.dto';
 import { DeliverymanEntity } from 'src/delivery/deliveryman/domain/entities/deliveryman.entity';
 import { UpdateOrderStatusNestDto } from './dtos/update-order-status.dto';
-import { AddOrderToDeliverymanUseCase } from '../domain/ports/in/add-order-to-deliveryman.use-case';
-import { ChangeDeliverymansStatusUseCase } from '../domain/ports/in/change-deliverymans-status.use-case';
-import { CreateDeliverymanUseCase } from '../domain/ports/in/create-deliveryman.use-case';
-import { FindAllDeliverymansUseCase } from '../domain/ports/in/find-all-deliverymans.use-case';
-import { UpdateDeliverymansInfoUseCase } from '../domain/ports/in/update-deliveryman-info.use-case';
-import { UpdateDeliverymansOrdersUseCase } from '../domain/ports/in/update-deliverymans-orders.use-case';
-import { UpdateOrderStatusUseCase } from '../domain/ports/in/update-order-status.use-case';
+import { AddOrderToDeliverymanUseCase } from './domain/ports/in/add-order-to-deliveryman.use-case';
+import { ChangeDeliverymansStatusUseCase } from './domain/ports/in/change-deliverymans-status.use-case';
+import { CreateDeliverymanUseCase } from './domain/ports/in/create-deliveryman.use-case';
+import { FindAllDeliverymansUseCase } from './domain/ports/in/find-all-deliverymans.use-case';
+import { UpdateDeliverymansInfoUseCase } from './domain/ports/in/update-deliveryman-info.use-case';
+import { UpdateDeliverymansOrdersUseCase } from './domain/ports/in/update-deliverymans-orders.use-case';
+import { UpdateOrderStatusUseCase } from './domain/ports/in/update-order-status.use-case';
 import { OnEvent } from '@nestjs/event-emitter';
 import { OfferTakedEvent } from 'src/delivery/offer/domain/events/offer-taked.event';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('delivery')
 @Controller('deliverymans')
 export class DeliverymanController {
   constructor(

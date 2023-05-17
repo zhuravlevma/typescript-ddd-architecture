@@ -12,7 +12,7 @@ export class WarehouseEntity implements Attributes {
   id: string;
   name: string;
   orders: OrderEntity[];
-  events: DomainEvent[];
+  private events: DomainEvent[];
 
   constructor(attributes: Attributes) {
     this.id = attributes.id;

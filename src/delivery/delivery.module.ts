@@ -3,7 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { DeliverymanRepository } from './deliveryman/dal/deliveryman.repository';
 import { DeliverymanOrmEntity } from './deliveryman/dal/orm-entities/deliveryman.orm-entity';
 import { OrderOrmEntity } from './deliveryman/dal/orm-entities/orders.orm-entity';
-import { DeliverymanController } from './deliveryman/web/deliveryman.controller';
+import { DeliverymanController } from './deliveryman/deliveryman.controller';
 import { AddOrderToDeliverymanInteractor } from './deliveryman/domain/interactors/add-order-to-deliveryman.interactor';
 import { ChangeDeliverymansStatusInteractor } from './deliveryman/domain/interactors/change-deliverymans-status.interactor';
 import { CreateDeliverymanInteractor } from './deliveryman/domain/interactors/create-deliveryman.interactor';

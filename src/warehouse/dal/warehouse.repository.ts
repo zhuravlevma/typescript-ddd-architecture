@@ -11,7 +11,10 @@ import { WarehouseOrmEntity } from './orm-entities/warehouse.orm-entity';
 
 @Injectable()
 export class WarehouseRepository
-  implements SaveWarehousePort, GetWarehouseWithOrdersPort
+  implements
+    SaveWarehousePort,
+    GetWarehouseWithOrdersPort,
+    GetWarehouseWithOrderPort
 {
   constructor(
     @InjectDataSource()
@@ -21,6 +24,19 @@ export class WarehouseRepository
   ) {}
 
   async getWarehouseWithOrderPort(
+    warehouseId: string,
+    orderId: string,
+  ): Promise<WarehouseEntity> {
+    const whOrm = await this.whRepository
+      .createQueryBuilder('warehouses')
+      .leftJoinAndSelect('warehouses.orders', 'orders')
+      .where('warehouses.id = :warehouseId', { warehouseId })
+      .andWhere('orders.id = :orderId', { orderId })
+      .getOne();
+    return WarehouseMapper.mapToDomain(whOrm);
+  }
+
+  async getWarehouseWithOrdersPort(
     warehouseId: string,
   ): Promise<WarehouseEntity> {
     const whOrm = await this.whRepository.findOne({
@@ -33,6 +49,7 @@ export class WarehouseRepository
     });
     return WarehouseMapper.mapToDomain(whOrm);
   }
+
   async saveWarehouse(warehouse: WarehouseEntity): Promise<WarehouseEntity> {
     const warehouseORM = WarehouseMapper.mapToORM(warehouse);
     const outboxORM = warehouse

@@ -10,8 +10,9 @@ import { AddOrderInteractor } from './domain/interactors/add-order.interactor';
 import { CreateWarehouseUseCase } from './domain/ports/in/create-warehouse.use-case';
 import { CreateWarehouseInteractor } from './domain/interactors/create-warehouse.interactor';
 import { GetWarehouseWithOrdersPort } from './domain/ports/out/get-warehouse-with-orders.port';
-import { WarehouseController } from './web/warehouse.controller';
 import { OrderOrmEntity } from './dal/orm-entities/order.orm-entity';
+import { GetWarehouseWithOrderPort } from './domain/ports/out/get-warehouse-with-order.port';
+import { WarehouseController } from './warehouse.controller';
 
 @Module({
   imports: [TypeOrmModule.forFeature([WarehouseOrmEntity, OrderOrmEntity])],
@@ -21,7 +22,7 @@ import { OrderOrmEntity } from './dal/orm-entities/order.orm-entity';
     {
       provide: UpdateOrderStatusUseCase,
       useFactory: (a, b) => new UpdateOrderStatusInteractor(a, b),
-      inject: [SaveWarehousePort, GetWarehouseWithOrdersPort],
+      inject: [SaveWarehousePort, GetWarehouseWithOrderPort],
     },
     {
       provide: CreateWarehouseUseCase,
@@ -35,6 +36,10 @@ import { OrderOrmEntity } from './dal/orm-entities/order.orm-entity';
     },
     {
       provide: GetWarehouseWithOrdersPort,
+      useClass: WarehouseRepository,
+    },
+    {
+      provide: GetWarehouseWithOrderPort,
       useClass: WarehouseRepository,
     },
     {

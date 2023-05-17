@@ -12,7 +12,7 @@ export class AddOrderInteractor implements AddOrderUseCase {
   ) {}
   async execute(addOrderDto: AddOrderDto): Promise<WarehouseEntity> {
     const warehouse =
-      await this.getWarehouseWithOrderPort.getWarehouseWithOrderPort(
+      await this.getWarehouseWithOrderPort.getWarehouseWithOrdersPort(
         addOrderDto.warehouseId,
       );
 
