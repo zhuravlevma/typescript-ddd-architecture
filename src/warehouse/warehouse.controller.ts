@@ -6,7 +6,7 @@ import { WarehouseEntity } from './domain/entities/warehouse.entity';
 import { AddOrderUseCase } from './domain/ports/in/add-order.use-case';
 import { CreateWarehouseUseCase } from './domain/ports/in/create-warehouse.use-case';
 import { UpdateOrderStatusUseCase } from './domain/ports/in/update-order-status.use-case';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { SavedWarehouseResponseDto } from './dtos/response/saved-warehouse.response-dto';
 
 @ApiTags('warehouse')
@@ -35,6 +35,10 @@ export class WarehouseController {
     });
   }
 
+  @ApiOkResponse({
+    description: 'Saved Wh with orders',
+    type: SavedWarehouseResponseDto,
+  })
   @Patch('/:warehouseId/orders/:orderId')
   async updateOrderStatus(
     @Param('warehouseId') warehouseId: string,

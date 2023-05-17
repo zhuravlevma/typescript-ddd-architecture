@@ -17,7 +17,7 @@ export class SavedWarehouseResponseDto {
   @ApiProperty()
   name: string;
 
-  @ApiProperty()
+  @ApiProperty({ isArray: true, type: SavedOrderResponseDto })
   orders: SavedOrderResponseDto[];
 
   static fromDomain(
