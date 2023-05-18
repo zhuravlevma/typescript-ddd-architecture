@@ -6,7 +6,6 @@ export class OutboxMapper {
   static mapToORM<Payload>(event: DomainEvent<Payload>): OutboxOrmEntity {
     const orm = new OutboxOrmEntity();
     orm.id = uuid();
-    orm.domainId = event.id;
     orm.reason = event.reason;
     orm.type = event.type;
     orm.payload = event.payload;

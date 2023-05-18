@@ -27,9 +27,7 @@ export class OfferEntity implements Attributes {
     this.deliverymanId = deliverymanId;
     this.events.push(
       new OfferTakedEvent({
-        id: this.id,
         reason: 'offer taked',
-        type: 'offer-taked',
         payload: {
           orderId: this.orderId,
           deliverymanId: this.orderId,

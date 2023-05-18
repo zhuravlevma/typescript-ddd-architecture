@@ -24,7 +24,7 @@ export class AccountingController {
   @OnEvent('order-validated')
   handleOrderValidatedEvent(event: OrderValidatedEvent) {
     return this.createReportInteractor.execute({
-      orderId: event.id,
+      orderId: event.payload.orderId,
     });
   }
 }

@@ -29,9 +29,7 @@ export class BillOfLadingReportEntity implements Attributes {
       this.isValid = true;
       this.events.push(
         new ReportValidatedEvent({
-          id: this.id,
           reason: 'report validated',
-          type: 'report-validated',
           payload: { orderId: this.orderId },
         }),
       );

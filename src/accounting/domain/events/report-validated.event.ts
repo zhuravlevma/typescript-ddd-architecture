@@ -1,5 +1,4 @@
-import { DomainEvent } from 'src/__relay__/domain-event';
-
+import { DomainEvent, DomainEventAttr } from 'src/__relay__/domain-event';
 interface ReportValidatedPayload {
   orderId: string;
 }
@@ -7,13 +6,11 @@ interface ReportValidatedPayload {
 export class ReportValidatedEvent
   implements DomainEvent<ReportValidatedPayload>
 {
-  id: string;
   type: string;
   reason: string;
   payload: ReportValidatedPayload;
-  constructor(attributes: DomainEvent<ReportValidatedPayload>) {
-    this.id = attributes.id;
-    this.type = attributes.type;
+  constructor(attributes: DomainEventAttr<ReportValidatedPayload>) {
+    this.type = 'report-validated';
     this.reason = attributes.reason;
     this.payload = attributes.payload;
   }

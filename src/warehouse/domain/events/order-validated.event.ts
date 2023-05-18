@@ -1,14 +1,16 @@
-import { DomainEvent } from 'src/__relay__/domain-event';
-export class OrderValidatedEvent implements DomainEvent {
-  id: string;
+import { DomainEvent, DomainEventAttr } from 'src/__relay__/domain-event';
+
+interface OrderValidatedPayload {
+  orderId: string;
+}
+export class OrderValidatedEvent implements DomainEvent<OrderValidatedPayload> {
   type: string;
   reason: string;
-  payload: object;
+  payload: OrderValidatedPayload;
 
-  constructor(attributes: DomainEvent) {
-    this.id = attributes.id;
-    this.type = attributes.type;
+  constructor(attributes: DomainEventAttr<OrderValidatedPayload>) {
     this.reason = attributes.reason;
     this.payload = attributes.payload;
+    this.type = 'order-validated';
   }
 }

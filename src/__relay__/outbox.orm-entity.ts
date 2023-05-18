@@ -6,9 +6,6 @@ export class OutboxOrmEntity {
   id: string;
 
   @Column()
-  domainId: string;
-
-  @Column()
   type: string;
 
   @Column()

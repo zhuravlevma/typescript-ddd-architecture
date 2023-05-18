@@ -30,10 +30,10 @@ export class WarehouseEntity implements Attributes {
     order.changeStatus(true);
     this.events.push(
       new OrderValidatedEvent({
-        id: this.id,
-        type: 'order-validated',
         reason: 'this order has been validate',
-        payload: {},
+        payload: {
+          orderId: this.id,
+        },
       }),
     );
   }
