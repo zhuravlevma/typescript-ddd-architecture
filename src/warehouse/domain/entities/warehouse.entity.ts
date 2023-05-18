@@ -12,7 +12,7 @@ export class WarehouseEntity implements Attributes {
   id: string;
   name: string;
   orders: OrderEntity[];
-  private events: DomainEvent[];
+  events: DomainEvent[];
 
   constructor(attributes: Attributes) {
     this.id = attributes.id;
@@ -36,9 +36,5 @@ export class WarehouseEntity implements Attributes {
         },
       }),
     );
-  }
-
-  getUnpublishedEvents(): DomainEvent[] {
-    return this.events;
   }
 }

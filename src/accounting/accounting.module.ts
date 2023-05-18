@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { UpdateReportInteractor } from './domain/interactors/update-report.interactor';
-import { UpdatePositionUseCase } from './domain/ports/in/update-report.use-case';
+import { UpdateReportUseCase } from './domain/ports/in/update-report.use-case';
 import { FindReportByIdInteractor } from './domain/interactors/find-report-by-id.interactor';
 import { FindReportByIdUseCase } from './domain/ports/in/find-report-by-id.use-case';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -24,7 +24,7 @@ import { AccountingController } from './accounting.controller';
   controllers: [AccountingController],
   providers: [
     {
-      provide: UpdatePositionUseCase,
+      provide: UpdateReportUseCase,
       useFactory: (a, b) => new UpdateReportInteractor(a, b),
       inject: [FindReportByIdPort, SaveReportPort],
     },

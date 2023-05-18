@@ -1,6 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity('outbox', { schema: 'delivery' })
+@Entity('outbox')
 export class OutboxOrmEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;

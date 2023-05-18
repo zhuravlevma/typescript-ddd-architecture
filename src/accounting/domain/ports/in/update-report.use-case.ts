@@ -1,12 +1,12 @@
 import { BillOfLadingReportEntity } from '../../entities/bill-of-lading-report.entity';
 
-export interface UpdatePositionDto {
-  orderId: string;
+export interface UpdateReprotDto {
+  reportId: string;
   isValid?: boolean;
 }
 
-export abstract class UpdatePositionUseCase {
+export abstract class UpdateReportUseCase {
   abstract execute(
-    updateOrderDto: UpdatePositionDto,
+    updateOrderDto: UpdateReprotDto,
   ): Promise<BillOfLadingReportEntity>;
 }
