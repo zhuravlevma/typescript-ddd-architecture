@@ -5,7 +5,6 @@ import { DeliveryModule } from './delivery/delivery.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AccountingModule } from './accounting/accounting.module';
 import { ScheduleModule } from '@nestjs/schedule';
-import { TasksService } from './__relay__/relay.service';
 import { WarehouseModule } from './warehouse/warehouse.module';
 import { OutboxOrmEntity } from './__relay__/outbox.orm-entity';
 import { EventEmitterModule } from '@nestjs/event-emitter';
@@ -16,9 +15,10 @@ import { OfferOrmEntity } from './delivery/offer/dal/orm-entities/offer.orm-enti
 import { ReportPositionOrmEntity } from './accounting/report/dal/orm-entities/report-position.orm-entity';
 import { ReportOrmEntity } from './accounting/report/dal/orm-entities/report.orm-entity';
 import { WarehouseOrmEntity } from './warehouse/warehouse/dal/orm-entities/warehouse.orm-entity';
+import { RelayModule } from './__relay__/relay.module';
 @Module({
   imports: [
-    EventEmitterModule.forRoot(), // move to relay module
+    EventEmitterModule.forRoot(),
     TypeOrmModule.forFeature([OutboxOrmEntity]), // move to relay module
     ScheduleModule.forRoot(),
     ConfigModule.forRoot({
@@ -44,11 +44,10 @@ import { WarehouseOrmEntity } from './warehouse/warehouse/dal/orm-entities/wareh
       synchronize: true,
       logging: true,
     }),
+    RelayModule,
     AccountingModule,
     DeliveryModule,
     WarehouseModule,
   ],
-  controllers: [],
-  providers: [TasksService],
 })
 export class AppModule {}

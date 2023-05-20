@@ -6,8 +6,8 @@ import { Repository } from 'typeorm';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 
 @Injectable()
-export class TasksService {
-  private readonly logger = new Logger(TasksService.name);
+export class RelayService {
+  private readonly logger = new Logger(RelayService.name);
 
   constructor(
     @InjectRepository(OutboxOrmEntity)
