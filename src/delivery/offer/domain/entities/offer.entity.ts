@@ -30,7 +30,7 @@ export class OfferEntity implements Attributes {
         reason: 'offer taked',
         payload: {
           orderId: this.orderId,
-          deliverymanId: this.orderId,
+          deliverymanId: this.deliverymanId,
         },
       }),
     );

@@ -25,8 +25,6 @@ export class BillOfLadingReportEntity implements Attributes {
   }
 
   updateReportStatus(status: boolean) {
-    console.log(status);
-
     if (status === true) {
       this.isValid = true;
       this.events.push(

@@ -11,6 +11,6 @@ export class OfferOrmEntity {
   @Column()
   orderId: string;
 
-  @Column()
+  @Column({ nullable: true })
   deliverymanId: string | null;
 }

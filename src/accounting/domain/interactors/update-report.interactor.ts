@@ -19,8 +19,6 @@ export class UpdateReportInteractor implements UpdateReportUseCase {
       updatePositionDto.reportId,
     );
 
-    console.log(updatePositionDto);
-
     if (updatePositionDto.isValid === true) {
       report.updateReportStatus(updatePositionDto.isValid);
     }

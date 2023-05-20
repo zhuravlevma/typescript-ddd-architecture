@@ -35,7 +35,6 @@ export class AddOrderToDeliverymanInteractor
           deliverymanId: addOrderToDeliverymanDto.deliverymanId,
         }),
       );
-
       return await this.saveDeliverymanPort.save(deliverymanWithOrders);
     } catch (error) {
       return error.message;

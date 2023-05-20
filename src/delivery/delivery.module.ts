@@ -30,6 +30,8 @@ import { UpdateOfferUseCase } from './offer/domain/ports/in/update-offer.interac
 import { UpdateOfferInteractor } from './offer/domain/interactors/update-offer.interactor';
 import { CreateOfferInteractor } from './offer/domain/interactors/create-offer.interactor';
 import { CreateOfferUseCase } from './offer/domain/ports/in/create-offer.use-case';
+import { FindDeliverymanOrderLadingPort } from './deliveryman/domain/ports/out/find-deliveryman-order-lading';
+import { OfferController } from './offer/offer.controller';
 
 @Module({
   imports: [
@@ -39,19 +41,22 @@ import { CreateOfferUseCase } from './offer/domain/ports/in/create-offer.use-cas
       OfferOrmEntity,
     ]),
   ],
-  controllers: [DeliverymanController],
+  controllers: [DeliverymanController, OfferController],
   providers: [
     {
       provide: AddOrderToDeliverymanUseCase,
-      useClass: AddOrderToDeliverymanInteractor,
+      useFactory: (a, b) => new AddOrderToDeliverymanInteractor(a, b),
+      inject: [FindDeliverymanByIdWithOrdersPort, SaveDeliverymanPort],
     },
     {
       provide: ChangeDeliverymansStatusUseCase,
-      useClass: ChangeDeliverymansStatusInteractor,
+      useFactory: (a, b) => new ChangeDeliverymansStatusInteractor(a, b),
+      inject: [FindDeliverymanByIdWithOrdersPort, SaveDeliverymanPort],
     },
     {
       provide: CreateDeliverymanUseCase,
-      useClass: CreateDeliverymanInteractor,
+      useFactory: (a) => new CreateDeliverymanInteractor(a),
+      inject: [CreateDeliverymanPort],
     },
     {
       provide: FindAllDeliverymansUseCase,
@@ -65,11 +70,13 @@ import { CreateOfferUseCase } from './offer/domain/ports/in/create-offer.use-cas
     },
     {
       provide: UpdateDeliverymansOrdersUseCase,
-      useClass: UpdateDeliverymansInfoInteractor,
+      useFactory: (a, b) => new UpdateDeliverymansInfoInteractor(a, b),
+      inject: [FindDeliverymanByIdWithOrdersPort, SaveDeliverymanPort],
     },
     {
       provide: UpdateOrderStatusUseCase,
-      useClass: UpdateOrderStatusInteractor,
+      useFactory: (a, b) => new UpdateOrderStatusInteractor(a, b),
+      inject: [FindDeliverymanOrderLadingPort, SaveDeliverymanPort],
     },
 
     {
@@ -82,6 +89,10 @@ import { CreateOfferUseCase } from './offer/domain/ports/in/create-offer.use-cas
     },
     {
       provide: FindDeliverymanByIdWithOrdersPort,
+      useClass: DeliverymanRepository,
+    },
+    {
+      provide: FindDeliverymanOrderLadingPort,
       useClass: DeliverymanRepository,
     },
     {
