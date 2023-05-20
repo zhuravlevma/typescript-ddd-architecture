@@ -7,7 +7,7 @@ import {
 } from '../ports/in/update-offer.interactor';
 import { FindOfferByIdPort } from '../ports/out/find-offer-by-id.port';
 
-export class CreateOfferInteractor implements UpdateOfferUseCase {
+export class UpdateOfferInteractor implements UpdateOfferUseCase {
   constructor(
     private readonly findOfferByIdPort: FindOfferByIdPort,
     private readonly saveOfferPort: SaveOfferPort,

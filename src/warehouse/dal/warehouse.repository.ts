@@ -55,7 +55,6 @@ export class WarehouseRepository
     const outboxORM = warehouse.events.map((event) =>
       OutboxMapper.mapToORM(event),
     );
-
     const whOrm = await this.dataSource.transaction(
       async (transactionalEntityManager) => {
         await transactionalEntityManager.save(outboxORM);

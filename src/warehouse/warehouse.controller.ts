@@ -2,7 +2,6 @@ import { Body, Controller, Param, Patch, Post } from '@nestjs/common';
 import { CreateWarehouseNestDto } from './dtos/create-warehouse.dto';
 import { AddOrderNestDto } from './dtos/add-order.dto';
 import { UpdateOrderStatusNestDto } from './dtos/update-order-status.dto';
-import { WarehouseEntity } from './domain/entities/warehouse.entity';
 import { AddOrderUseCase } from './domain/ports/in/add-order.use-case';
 import { CreateWarehouseUseCase } from './domain/ports/in/create-warehouse.use-case';
 import { UpdateOrderStatusUseCase } from './domain/ports/in/update-order-status.use-case';

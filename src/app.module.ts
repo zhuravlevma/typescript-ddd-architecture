@@ -15,6 +15,7 @@ import { EventEmitterModule } from '@nestjs/event-emitter';
 import { OrderOrmEntity as WarehouseOrderOrmEntity } from './warehouse/dal/orm-entities/order.orm-entity';
 import { DeliverymanOrmEntity } from './delivery/deliveryman/dal/orm-entities/deliveryman.orm-entity';
 import { OrderOrmEntity } from './delivery/deliveryman/dal/orm-entities/orders.orm-entity';
+import { OfferOrmEntity } from './delivery/offer/dal/orm-entities/offer.orm-entity';
 @Module({
   imports: [
     EventEmitterModule.forRoot(), // move to relay module
@@ -38,6 +39,7 @@ import { OrderOrmEntity } from './delivery/deliveryman/dal/orm-entities/orders.o
         WarehouseOrmEntity,
         WarehouseOrderOrmEntity,
         OutboxOrmEntity,
+        OfferOrmEntity,
       ],
       synchronize: true,
       logging: true,

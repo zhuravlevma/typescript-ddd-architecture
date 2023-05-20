@@ -21,9 +21,24 @@ import { CreateDeliverymanPort } from './deliveryman/domain/ports/out/create-del
 import { FindAllDeliverymansPort } from './deliveryman/domain/ports/out/find-all-deliverymans.port';
 import { FindDeliverymanByIdWithOrdersPort } from './deliveryman/domain/ports/out/find-deliveryman-by-id-with-orders.port';
 import { SaveDeliverymanPort } from './deliveryman/domain/ports/out/save-deliveryman.port';
+import { OfferOrmEntity } from './offer/dal/orm-entities/offer.orm-entity';
+import { SaveOfferPort } from './offer/domain/ports/out/save-offer.port';
+import { OfferRepository } from './offer/dal/offer.repository';
+import { FindOfferByIdPort } from './offer/domain/ports/out/find-offer-by-id.port';
+import { FindOfferByOrderIdPort } from './offer/domain/ports/out/find-offer-by-order-id.port';
+import { UpdateOfferUseCase } from './offer/domain/ports/in/update-offer.interactor';
+import { UpdateOfferInteractor } from './offer/domain/interactors/update-offer.interactor';
+import { CreateOfferInteractor } from './offer/domain/interactors/create-offer.interactor';
+import { CreateOfferUseCase } from './offer/domain/ports/in/create-offer.use-case';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([OrderOrmEntity, DeliverymanOrmEntity])],
+  imports: [
+    TypeOrmModule.forFeature([
+      OrderOrmEntity,
+      DeliverymanOrmEntity,
+      OfferOrmEntity,
+    ]),
+  ],
   controllers: [DeliverymanController],
   providers: [
     {
@@ -72,6 +87,28 @@ import { SaveDeliverymanPort } from './deliveryman/domain/ports/out/save-deliver
     {
       provide: SaveDeliverymanPort,
       useClass: DeliverymanRepository,
+    },
+    {
+      provide: SaveOfferPort,
+      useClass: OfferRepository,
+    },
+    {
+      provide: FindOfferByIdPort,
+      useClass: OfferRepository,
+    },
+    {
+      provide: FindOfferByOrderIdPort,
+      useClass: OfferRepository,
+    },
+    {
+      provide: UpdateOfferUseCase,
+      useFactory: (a, b) => new UpdateOfferInteractor(a, b),
+      inject: [FindOfferByIdPort, SaveOfferPort],
+    },
+    {
+      provide: CreateOfferUseCase,
+      useFactory: (a) => new CreateOfferInteractor(a),
+      inject: [SaveOfferPort],
     },
   ],
 })
