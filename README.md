@@ -8,7 +8,7 @@
 
 ### Event Storming schema
 
-![image](https://github.com/zhuravlevma/nestjs-clean-architecture/assets/44276887/bc1b6672-32ab-4a87-8f24-3324902f4f01)
+![image](https://github.com/zhuravlevma/nestjs-clean-architecture/assets/44276887/396d6ec0-bc43-4cf3-9dec-a77625f2fd11)
 
 
 ## Installation
