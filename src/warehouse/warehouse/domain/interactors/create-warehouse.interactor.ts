@@ -1,7 +1,7 @@
 import { v4 as uuid } from 'uuid';
 import { SaveWarehousePort } from '../ports/out/save-warehouse.port';
 import {
-  CreateWarehouseDto,
+  CreateWarehouseCommand,
   CreateWarehouseUseCase,
 } from '../ports/in/create-warehouse.use-case';
 import { WarehouseEntity } from '../entities/warehouse.entity';
@@ -10,12 +10,12 @@ export class CreateWarehouseInteractor implements CreateWarehouseUseCase {
   constructor(private readonly saveWhPort: SaveWarehousePort) {}
 
   async execute(
-    createWarehouseDto: CreateWarehouseDto,
+    createWarehouseCommand: CreateWarehouseCommand,
   ): Promise<WarehouseEntity> {
     return this.saveWhPort.saveWarehouse(
       new WarehouseEntity({
         id: uuid(),
-        name: createWarehouseDto.name,
+        name: createWarehouseCommand.name,
         orders: [],
       }),
     );

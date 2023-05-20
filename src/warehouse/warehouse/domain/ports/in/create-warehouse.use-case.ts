@@ -1,11 +1,11 @@
 import { WarehouseEntity } from '../../entities/warehouse.entity';
 
-export interface CreateWarehouseDto {
+export interface CreateWarehouseCommand {
   name: string;
 }
 
 export abstract class CreateWarehouseUseCase {
   abstract execute(
-    createWarehouseDto: CreateWarehouseDto,
+    createWarehouseCommand: CreateWarehouseCommand,
   ): Promise<WarehouseEntity>;
 }

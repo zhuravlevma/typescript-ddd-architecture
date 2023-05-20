@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsString, IsNotEmpty } from 'class-validator';
 
-export class AddOrderToDeliverymanNestDto {
+export class AddOrderToDeliverymanDto {
   @ApiProperty()
   @IsString()
   @IsNotEmpty()

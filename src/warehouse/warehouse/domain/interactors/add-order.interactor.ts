@@ -1,6 +1,9 @@
 import { OrderEntity } from '../entities/order.entity';
 import { WarehouseEntity } from '../entities/warehouse.entity';
-import { AddOrderDto, AddOrderUseCase } from '../ports/in/add-order.use-case';
+import {
+  AddOrderCommand,
+  AddOrderUseCase,
+} from '../ports/in/add-order.use-case';
 import { GetWarehouseWithOrdersPort } from '../ports/out/get-warehouse-with-orders.port';
 import { SaveWarehousePort } from '../ports/out/save-warehouse.port';
 import { v4 as uuid } from 'uuid';
@@ -10,16 +13,16 @@ export class AddOrderInteractor implements AddOrderUseCase {
     private readonly getWarehouseWithOrderPort: GetWarehouseWithOrdersPort,
     private readonly updateOrderPort: SaveWarehousePort,
   ) {}
-  async execute(addOrderDto: AddOrderDto): Promise<WarehouseEntity> {
+  async execute(addOrderCommand: AddOrderCommand): Promise<WarehouseEntity> {
     const warehouse =
       await this.getWarehouseWithOrderPort.getWarehouseWithOrdersPort(
-        addOrderDto.warehouseId,
+        addOrderCommand.warehouseId,
       );
 
     warehouse.addOrder(
       new OrderEntity({
         id: uuid(),
-        name: addOrderDto.name,
+        name: addOrderCommand.name,
         isValid: false,
       }),
     );

@@ -6,28 +6,30 @@ import { ReportEntity } from './domain/entities/report.entity';
 import { FindReportByIdUseCase } from './domain/ports/in/find-report-by-id.use-case';
 import { ApiTags } from '@nestjs/swagger';
 import { UpdateReportUseCase } from './domain/ports/in/update-report.use-case';
-import { UpdateReportNestDto } from './dtos/update-report.dto';
+import { UpdateReportDto } from './dtos/update-report.dto';
 
 @ApiTags('reports')
 @Controller('reports')
 export class ReportController {
   constructor(
-    private readonly findReportByIdInteractor: FindReportByIdUseCase,
-    private readonly createReportInteractor: CreateReportUseCase,
-    private readonly updateReportInteractor: UpdateReportUseCase,
+    private readonly findReportByIdUseCase: FindReportByIdUseCase,
+    private readonly createReportUseCase: CreateReportUseCase,
+    private readonly updateReportUseCase: UpdateReportUseCase,
   ) {}
 
   @Get('/:reportId')
-  findByReportId(@Param('reportId') reportId: string): Promise<ReportEntity> {
-    return this.findReportByIdInteractor.execute(reportId);
+  findByReportId(@Param('reportId') id: string): Promise<ReportEntity> {
+    return this.findReportByIdUseCase.execute({
+      id,
+    });
   }
 
   @Patch('/:reportId')
   updateReport(
     @Param('reportId') reportId: string,
-    @Body() updateReportDto: UpdateReportNestDto,
+    @Body() updateReportDto: UpdateReportDto,
   ): Promise<ReportEntity> {
-    return this.updateReportInteractor.execute({
+    return this.updateReportUseCase.execute({
       reportId,
       isValid: updateReportDto.isValid,
     });
@@ -35,7 +37,7 @@ export class ReportController {
 
   @OnEvent('order-validated')
   handleOrderValidatedEvent(event: OrderValidatedEvent) {
-    return this.createReportInteractor.execute({
+    return this.createReportUseCase.execute({
       orderId: event.payload.orderId,
     });
   }

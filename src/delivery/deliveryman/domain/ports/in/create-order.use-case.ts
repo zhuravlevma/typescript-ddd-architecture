@@ -1,8 +1,10 @@
 import { DeliverymanEntity } from '../../entities/deliveryman.entity';
 
-export interface CreateOrderDto {
+export interface CreateOrderCommand {
   id: string;
 }
 export abstract class CreateOrderUseCase {
-  abstract execute(createOrderDto: CreateOrderDto): Promise<DeliverymanEntity>;
+  abstract execute(
+    createOrderCommand: CreateOrderCommand,
+  ): Promise<DeliverymanEntity>;
 }

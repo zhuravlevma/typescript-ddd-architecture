@@ -1,5 +1,5 @@
 import {
-  AddOrderToDeliverymanDto,
+  AddOrderToDeliverymanCommand,
   AddOrderToDeliverymanUseCase,
 } from 'src/delivery/deliveryman/domain/ports/in/add-order-to-deliveryman.use-case';
 import { DeliverymanEntity } from 'src/delivery/deliveryman/domain/entities/deliveryman.entity';
@@ -17,12 +17,12 @@ export class AddOrderToDeliverymanInteractor
   ) {}
 
   async execute(
-    addOrderToDeliverymanDto: AddOrderToDeliverymanDto,
+    addOrderToDeliverymanCommand: AddOrderToDeliverymanCommand,
   ): Promise<DeliverymanEntity> {
     try {
       const deliverymanWithOrders =
         await this.findDeliverymanByIdWithOrdersPort.findDeliverymanByIdWithOrders(
-          addOrderToDeliverymanDto.deliverymanId,
+          addOrderToDeliverymanCommand.deliverymanId,
         );
 
       deliverymanWithOrders.addOrder(
@@ -31,8 +31,8 @@ export class AddOrderToDeliverymanInteractor
           name: 'test name',
           description: 'test descr',
           isActive: false,
-          orderId: addOrderToDeliverymanDto.orderId,
-          deliverymanId: addOrderToDeliverymanDto.deliverymanId,
+          orderId: addOrderToDeliverymanCommand.orderId,
+          deliverymanId: addOrderToDeliverymanCommand.deliverymanId,
         }),
       );
       return await this.saveDeliverymanPort.save(deliverymanWithOrders);

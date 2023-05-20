@@ -1,13 +1,13 @@
 import { WarehouseEntity } from '../../entities/warehouse.entity';
 
-export interface UpdateOrderStatusDto {
+export interface UpdateOrderCommand {
   warehouseId: string;
   orderId: string;
   isValid: boolean;
 }
 
-export abstract class UpdateOrderStatusUseCase {
+export abstract class UpdateOrderUseCase {
   abstract execute(
-    updateOrderStatus: UpdateOrderStatusDto,
+    updateOrderStatusCommand: UpdateOrderCommand,
   ): Promise<WarehouseEntity>;
 }

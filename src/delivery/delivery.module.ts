@@ -9,14 +9,12 @@ import { ChangeDeliverymansStatusInteractor } from './deliveryman/domain/interac
 import { CreateDeliverymanInteractor } from './deliveryman/domain/interactors/create-deliveryman.interactor';
 import { FindAllDeliverymansInteractor } from './deliveryman/domain/interactors/find-all-deliverymans.interactor';
 import { UpdateDeliverymansInfoInteractor } from './deliveryman/domain/interactors/update-deliverymans-info.interactor';
-import { UpdateOrderStatusInteractor } from './deliveryman/domain/interactors/update-order-status.interactor';
 import { AddOrderToDeliverymanUseCase } from './deliveryman/domain/ports/in/add-order-to-deliveryman.use-case';
 import { ChangeDeliverymansStatusUseCase } from './deliveryman/domain/ports/in/change-deliverymans-status.use-case';
 import { CreateDeliverymanUseCase } from './deliveryman/domain/ports/in/create-deliveryman.use-case';
 import { FindAllDeliverymansUseCase } from './deliveryman/domain/ports/in/find-all-deliverymans.use-case';
 import { UpdateDeliverymansInfoUseCase } from './deliveryman/domain/ports/in/update-deliveryman-info.use-case';
-import { UpdateDeliverymansOrdersUseCase } from './deliveryman/domain/ports/in/update-deliverymans-orders.use-case';
-import { UpdateOrderStatusUseCase } from './deliveryman/domain/ports/in/update-order-status.use-case';
+import { UpdateOrderUseCase } from './deliveryman/domain/ports/in/update-order.use-case';
 import { CreateDeliverymanPort } from './deliveryman/domain/ports/out/create-deliveryman.port';
 import { FindAllDeliverymansPort } from './deliveryman/domain/ports/out/find-all-deliverymans.port';
 import { FindDeliverymanByIdWithOrdersPort } from './deliveryman/domain/ports/out/find-deliveryman-by-id-with-orders.port';
@@ -32,6 +30,7 @@ import { CreateOfferInteractor } from './offer/domain/interactors/create-offer.i
 import { CreateOfferUseCase } from './offer/domain/ports/in/create-offer.use-case';
 import { FindDeliverymanOrderLadingPort } from './deliveryman/domain/ports/out/find-deliveryman-order-lading';
 import { OfferController } from './offer/offer.controller';
+import { UpdateOrderInteractor } from './deliveryman/domain/interactors/update-order.interactor';
 
 @Module({
   imports: [
@@ -69,13 +68,8 @@ import { OfferController } from './offer/offer.controller';
       inject: [FindDeliverymanByIdWithOrdersPort, SaveDeliverymanPort],
     },
     {
-      provide: UpdateDeliverymansOrdersUseCase,
-      useFactory: (a, b) => new UpdateDeliverymansInfoInteractor(a, b),
-      inject: [FindDeliverymanByIdWithOrdersPort, SaveDeliverymanPort],
-    },
-    {
-      provide: UpdateOrderStatusUseCase,
-      useFactory: (a, b) => new UpdateOrderStatusInteractor(a, b),
+      provide: UpdateOrderUseCase,
+      useFactory: (a, b) => new UpdateOrderInteractor(a, b),
       inject: [FindDeliverymanOrderLadingPort, SaveDeliverymanPort],
     },
 

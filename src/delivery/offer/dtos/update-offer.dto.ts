@@ -1,3 +1,3 @@
-export class UpdateOfferNestDto {
+export class UpdateOfferDto {
   deliverymanId: string;
 }

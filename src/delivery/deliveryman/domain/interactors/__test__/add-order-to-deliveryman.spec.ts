@@ -1,5 +1,5 @@
 import { DeliverymanEntity } from '../../entities/deliveryman.entity';
-import { AddOrderToDeliverymanDto } from '../../ports/in/add-order-to-deliveryman.use-case';
+import { AddOrderToDeliverymanCommand } from '../../ports/in/add-order-to-deliveryman.use-case';
 import { AddOrderToDeliverymanInteractor } from '../add-order-to-deliveryman.interactor';
 
 describe('delivery/domain/deliveryman/services/add-order-to-deliveryman.service', () => {
@@ -29,7 +29,7 @@ describe('delivery/domain/deliveryman/services/add-order-to-deliveryman.service'
       findDeliverymanByIdWithOrdersPort,
       saveDeliverymanPort,
     );
-    const createOrderDto: AddOrderToDeliverymanDto = {
+    const createOrderDto: AddOrderToDeliverymanCommand = {
       deliverymanId: 'deliverymanId',
       order: {
         name: 'test',

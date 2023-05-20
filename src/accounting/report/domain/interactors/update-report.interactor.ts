@@ -1,6 +1,6 @@
 import { ReportEntity } from '../entities/report.entity';
 import {
-  UpdateReprotDto as UpdateReportDto,
+  UpdateReprotCommand as UpdateReportDto,
   UpdateReportUseCase,
 } from '../ports/in/update-report.use-case';
 import { FindReportByIdPort } from '../ports/out/find-report-by-id.port';

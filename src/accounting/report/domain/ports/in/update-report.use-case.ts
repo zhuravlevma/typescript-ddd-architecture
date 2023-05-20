@@ -1,10 +1,12 @@
 import { ReportEntity } from '../../entities/report.entity';
 
-export interface UpdateReprotDto {
+export interface UpdateReprotCommand {
   reportId: string;
   isValid?: boolean;
 }
 
 export abstract class UpdateReportUseCase {
-  abstract execute(updateOrderDto: UpdateReprotDto): Promise<ReportEntity>;
+  abstract execute(
+    updateOrderCommand: UpdateReprotCommand,
+  ): Promise<ReportEntity>;
 }

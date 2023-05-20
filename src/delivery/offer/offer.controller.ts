@@ -1,6 +1,6 @@
 import { Body, Controller, Param, Patch } from '@nestjs/common';
 import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
-import { UpdateOfferNestDto } from './dtos/update-offer.dto';
+import { UpdateOfferDto } from './dtos/update-offer.dto';
 import { UpdateOfferUseCase } from './domain/ports/in/update-offer.interactor';
 import { OfferEntity } from './domain/entities/offer.entity';
 import { OnEvent } from '@nestjs/event-emitter';
@@ -29,7 +29,7 @@ export class OfferController {
   @Patch('/:offerId')
   async updateOrderStatus(
     @Param('offerId') offerId: string,
-    @Body() updateOfferDto: UpdateOfferNestDto,
+    @Body() updateOfferDto: UpdateOfferDto,
   ): Promise<OfferEntity> {
     return this.updateOfferUseCase.execute({
       offerId,

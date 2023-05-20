@@ -1,6 +1,6 @@
 import { DeliverymanEntity } from '../../entities/deliveryman.entity';
 
-export interface UpdateDeliverymansInfoDto {
+export interface UpdateDeliverymansInfoCommand {
   deliverymanId: string;
   firstName?: string;
   lastName?: string;
@@ -8,6 +8,6 @@ export interface UpdateDeliverymansInfoDto {
 }
 export abstract class UpdateDeliverymansInfoUseCase {
   abstract execute(
-    updateDeliverymanInfoDto: UpdateDeliverymansInfoDto,
+    updateDeliverymansInfoCommand: UpdateDeliverymansInfoCommand,
   ): Promise<DeliverymanEntity>;
 }

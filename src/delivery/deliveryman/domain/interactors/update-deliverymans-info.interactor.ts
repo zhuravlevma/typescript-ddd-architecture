@@ -1,5 +1,5 @@
 import {
-  UpdateDeliverymansInfoDto,
+  UpdateDeliverymansInfoCommand,
   UpdateDeliverymansInfoUseCase,
 } from 'src/delivery/deliveryman/domain/ports/in/update-deliveryman-info.use-case';
 import { DeliverymanEntity } from 'src/delivery/deliveryman/domain/entities/deliveryman.entity';
@@ -15,7 +15,7 @@ export class UpdateDeliverymansInfoInteractor
   ) {}
 
   async execute(
-    updateDeliveryManDto: UpdateDeliverymansInfoDto,
+    updateDeliveryManDto: UpdateDeliverymansInfoCommand,
   ): Promise<DeliverymanEntity> {
     try {
       const deliverymanWithOrders =

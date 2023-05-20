@@ -1,19 +1,19 @@
 import { DeliverymanEntity } from '../entities/deliveryman.entity';
 import {
-  UpdateOrderStatusDto,
-  UpdateOrderStatusUseCase,
-} from '../ports/in/update-order-status.use-case';
+  UpdateOrderCommand,
+  UpdateOrderUseCase,
+} from '../ports/in/update-order.use-case';
 import { FindDeliverymanOrderLadingPort } from '../ports/out/find-deliveryman-order-lading';
 import { SaveDeliverymanPort } from '../ports/out/save-deliveryman.port';
 
-export class UpdateOrderStatusInteractor implements UpdateOrderStatusUseCase {
+export class UpdateOrderInteractor implements UpdateOrderUseCase {
   constructor(
     private readonly findDeliverymanPort: FindDeliverymanOrderLadingPort,
     private readonly saveDeliverymanPort: SaveDeliverymanPort,
   ) {}
 
   async execute(
-    updateOrderStatusDto: UpdateOrderStatusDto,
+    updateOrderStatusDto: UpdateOrderCommand,
   ): Promise<DeliverymanEntity> {
     try {
       const deliveryman =

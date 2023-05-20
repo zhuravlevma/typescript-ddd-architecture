@@ -1,6 +1,6 @@
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { UpdateOrderStatusInteractor } from './warehouse/domain/interactors/update-order-status.interactor';
-import { UpdateOrderStatusUseCase } from './warehouse/domain/ports/in/update-order-status.use-case';
+import { UpdateOrderInteractor } from './warehouse/domain/interactors/update-order.interactor';
+import { UpdateOrderUseCase } from './warehouse/domain/ports/in/update-order.use-case';
 import { Module } from '@nestjs/common';
 import { SaveWarehousePort } from './warehouse/domain/ports/out/save-warehouse.port';
 import { AddOrderUseCase } from './warehouse/domain/ports/in/add-order.use-case';
@@ -20,8 +20,8 @@ import { WarehouseRepository } from './warehouse/dal/warehouse.repository';
   providers: [
     WarehouseRepository,
     {
-      provide: UpdateOrderStatusUseCase,
-      useFactory: (a, b) => new UpdateOrderStatusInteractor(a, b),
+      provide: UpdateOrderUseCase,
+      useFactory: (a, b) => new UpdateOrderInteractor(a, b),
       inject: [SaveWarehousePort, GetWarehouseWithOrderPort],
     },
     {

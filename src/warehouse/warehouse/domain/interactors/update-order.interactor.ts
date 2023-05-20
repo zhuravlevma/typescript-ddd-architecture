@@ -1,27 +1,27 @@
 import { WarehouseEntity } from '../entities/warehouse.entity';
 import {
-  UpdateOrderStatusUseCase,
-  UpdateOrderStatusDto,
-} from '../ports/in/update-order-status.use-case';
+  UpdateOrderUseCase,
+  UpdateOrderCommand,
+} from '../ports/in/update-order.use-case';
 import { GetWarehouseWithOrderPort } from '../ports/out/get-warehouse-with-order.port';
 import { SaveWarehousePort } from '../ports/out/save-warehouse.port';
 
-export class UpdateOrderStatusInteractor implements UpdateOrderStatusUseCase {
+export class UpdateOrderInteractor implements UpdateOrderUseCase {
   constructor(
     private readonly getWarehouseWithOrderPort: GetWarehouseWithOrderPort,
     private readonly saveWhPort: SaveWarehousePort,
   ) {}
   async execute(
-    updateOrderStatusDto: UpdateOrderStatusDto,
+    updateOrderStatusCommand: UpdateOrderCommand,
   ): Promise<WarehouseEntity> {
     const warehouse =
       await this.getWarehouseWithOrderPort.getWarehouseWithOrderPort(
-        updateOrderStatusDto.warehouseId,
-        updateOrderStatusDto.orderId,
+        updateOrderStatusCommand.warehouseId,
+        updateOrderStatusCommand.orderId,
       );
 
-    if (updateOrderStatusDto.isValid) {
-      warehouse.changeOrderStatusToValid(updateOrderStatusDto.orderId);
+    if (updateOrderStatusCommand.isValid) {
+      warehouse.changeOrderStatusToValid(updateOrderStatusCommand.orderId);
     }
 
     return this.saveWhPort.saveWarehouse(warehouse);

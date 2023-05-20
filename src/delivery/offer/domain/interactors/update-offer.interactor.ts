@@ -2,7 +2,7 @@ import { v4 as uuid } from 'uuid';
 import { SaveOfferPort } from '../ports/out/save-offer.port';
 import { OfferEntity } from '../entities/offer.entity';
 import {
-  UpdateOfferDto,
+  UpdateOfferCommand,
   UpdateOfferUseCase,
 } from '../ports/in/update-offer.interactor';
 import { FindOfferByIdPort } from '../ports/out/find-offer-by-id.port';
@@ -13,14 +13,14 @@ export class UpdateOfferInteractor implements UpdateOfferUseCase {
     private readonly saveOfferPort: SaveOfferPort,
   ) {}
 
-  async execute(updateOfferDto: UpdateOfferDto): Promise<OfferEntity> {
+  async execute(updateOfferCommand: UpdateOfferCommand): Promise<OfferEntity> {
     try {
       const offer = await this.findOfferByIdPort.findOfferByIdPort(
-        updateOfferDto.offerId,
+        updateOfferCommand.offerId,
       );
 
-      if (updateOfferDto.deliverymanId !== undefined) {
-        offer.deliverymanTakeOffer(updateOfferDto.deliverymanId);
+      if (updateOfferCommand.deliverymanId !== undefined) {
+        offer.deliverymanTakeOffer(updateOfferCommand.deliverymanId);
       }
 
       return this.saveOfferPort.saveOffer(offer);

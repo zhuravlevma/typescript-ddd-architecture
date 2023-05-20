@@ -1,5 +1,5 @@
 import {
-  ChangeDeliverymansStatusDto,
+  ChangeDeliverymansStatusCommand,
   ChangeDeliverymansStatusUseCase,
 } from 'src/delivery/deliveryman/domain/ports/in/change-deliverymans-status.use-case';
 import { DeliverymanEntity } from 'src/delivery/deliveryman/domain/entities/deliveryman.entity';
@@ -15,15 +15,17 @@ export class ChangeDeliverymansStatusInteractor
   ) {}
 
   async execute(
-    changeDeliverymansStatusDto: ChangeDeliverymansStatusDto,
+    changeDeliverymansStatusCommand: ChangeDeliverymansStatusCommand,
   ): Promise<DeliverymanEntity> {
     try {
       const deliverymanWithOrders =
         await this.findDeliverymanByIdWithOrdersPort.findDeliverymanByIdWithOrders(
-          changeDeliverymansStatusDto.deliverymanId,
+          changeDeliverymansStatusCommand.deliverymanId,
         );
 
-      deliverymanWithOrders.changeStatus(changeDeliverymansStatusDto.isActive);
+      deliverymanWithOrders.changeStatus(
+        changeDeliverymansStatusCommand.isActive,
+      );
 
       return await this.saveDeliverymanPort.save(deliverymanWithOrders);
     } catch (error) {

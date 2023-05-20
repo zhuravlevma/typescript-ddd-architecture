@@ -1,13 +1,14 @@
 import { DeliverymanEntity } from '../../entities/deliveryman.entity';
 
-export interface UpdateOrderStatusDto {
+export interface UpdateOrderCommand {
   deliverymanId: string;
   orderId: string;
+  description?: string;
   delivered?: boolean;
   returned?: boolean;
 }
-export abstract class UpdateOrderStatusUseCase {
+export abstract class UpdateOrderUseCase {
   abstract execute(
-    updateOrderStatusDto: UpdateOrderStatusDto,
+    updateOrderStatusCommand: UpdateOrderCommand,
   ): Promise<DeliverymanEntity>;
 }

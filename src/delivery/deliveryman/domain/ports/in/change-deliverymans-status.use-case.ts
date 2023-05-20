@@ -1,11 +1,11 @@
 import { DeliverymanEntity } from '../../entities/deliveryman.entity';
 
-export interface ChangeDeliverymansStatusDto {
+export interface ChangeDeliverymansStatusCommand {
   deliverymanId: string;
   isActive: boolean;
 }
 export abstract class ChangeDeliverymansStatusUseCase {
   abstract execute(
-    changeDeliverymansStatusDto: ChangeDeliverymansStatusDto,
+    changeDeliverymansStatusCommand: ChangeDeliverymansStatusCommand,
   ): Promise<DeliverymanEntity>;
 }
