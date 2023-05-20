@@ -3,7 +3,8 @@
 package "Module" {
 
 
-package "Domain" {
+package Aggregate {
+ package "Domain" {
  component [UseCases] #AliceBlue
  component [Entities] #TECHNOLOGY
  component [OutputPorts] #AliceBlue
@@ -20,6 +21,7 @@ package "DAL" {
 [Repositories] -up-> [OutputPorts] : impl
 [Repositories] .down.> [ORM Entities] : use
 [Repositories] .down.> [Mappers] : use
+}
 }
 }
 

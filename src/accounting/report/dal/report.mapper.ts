@@ -1,8 +1,8 @@
-import { ReportPositionOrmEntity } from 'src/accounting/dal/orm-entities/report-position.orm-entity';
 import { ReportPositionEntity } from '../domain/entities/report-position.entity';
 import { SumObjectValue } from '../domain/object-values/sum.object-value';
 import { ReportEntity } from '../domain/entities/report.entity';
 import { ReportOrmEntity } from './orm-entities/report.orm-entity';
+import { ReportPositionOrmEntity } from './orm-entities/report-position.orm-entity';
 
 export class BillOfLadingMapper {
   static mapToDomain(reportOrm: ReportOrmEntity): ReportEntity {

@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { WarehouseEntity } from 'src/warehouse/domain/entities/warehouse.entity';
+import { WarehouseEntity } from 'src/warehouse/warehouse/domain/entities/warehouse.entity';
 
 class SavedOrderResponseDto {
   @ApiProperty()
