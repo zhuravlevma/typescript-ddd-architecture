@@ -1,20 +1,18 @@
-import { BillOfLadingPositionOrmEntity } from 'src/accounting/dal/orm-entities/bill-of-lading-position.orm-entity';
-import { BillOfLadingPositionEntity } from '../domain/entities/bill-of-lading-position-accounting.entity';
+import { ReportPositionOrmEntity } from 'src/accounting/dal/orm-entities/report-position.orm-entity';
+import { ReportPositionEntity } from '../domain/entities/report-position.entity';
 import { SumObjectValue } from '../domain/object-values/sum.object-value';
-import { BillOfLadingReportEntity } from '../domain/entities/bill-of-lading-report.entity';
-import { BillOfLadingReportOrmEntity } from './orm-entities/bill-of-lading-report.orm-entity';
+import { ReportEntity } from '../domain/entities/report.entity';
+import { ReportOrmEntity } from './orm-entities/report.orm-entity';
 
 export class BillOfLadingMapper {
-  static mapToDomain(
-    reportOrm: BillOfLadingReportOrmEntity,
-  ): BillOfLadingReportEntity {
-    return new BillOfLadingReportEntity({
+  static mapToDomain(reportOrm: ReportOrmEntity): ReportEntity {
+    return new ReportEntity({
       id: reportOrm.id,
       isValid: reportOrm.isValid,
       orderId: reportOrm.orderId,
       positions: reportOrm.positions.map(
         (positionOrm) =>
-          new BillOfLadingPositionEntity({
+          new ReportPositionEntity({
             id: positionOrm.id,
             name: positionOrm.name,
             count: positionOrm.count,
@@ -26,15 +24,13 @@ export class BillOfLadingMapper {
       ),
     });
   }
-  static mapToOrm(
-    reportEntity: BillOfLadingReportEntity,
-  ): BillOfLadingReportOrmEntity {
-    const reportOrmEntity = new BillOfLadingReportOrmEntity();
+  static mapToOrm(reportEntity: ReportEntity): ReportOrmEntity {
+    const reportOrmEntity = new ReportOrmEntity();
     reportOrmEntity.id = reportEntity.id;
     reportOrmEntity.isValid = reportEntity.isValid;
     reportOrmEntity.orderId = reportEntity.orderId;
     reportOrmEntity.positions = reportEntity.positions.map((positionEntity) => {
-      const positionOrmEntity = new BillOfLadingPositionOrmEntity();
+      const positionOrmEntity = new ReportPositionOrmEntity();
       positionOrmEntity.id = positionEntity.id;
       positionOrmEntity.name = positionEntity.name;
       positionOrmEntity.count = positionEntity.count;

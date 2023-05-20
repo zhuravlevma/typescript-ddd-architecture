@@ -2,7 +2,7 @@ import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
 import { OnEvent } from '@nestjs/event-emitter';
 import { OrderValidatedEvent } from 'src/warehouse/domain/events/order-validated.event';
 import { CreateReportUseCase } from './domain/ports/in/create-report.use-case';
-import { BillOfLadingReportEntity } from './domain/entities/bill-of-lading-report.entity';
+import { ReportEntity } from './domain/entities/report.entity';
 import { FindReportByIdUseCase } from './domain/ports/in/find-report-by-id.use-case';
 import { ApiTags } from '@nestjs/swagger';
 import { UpdateReportUseCase } from './domain/ports/in/update-report.use-case';
@@ -18,9 +18,7 @@ export class AccountingController {
   ) {}
 
   @Get('/:reportId')
-  findByReportId(
-    @Param('reportId') reportId: string,
-  ): Promise<BillOfLadingReportEntity> {
+  findByReportId(@Param('reportId') reportId: string): Promise<ReportEntity> {
     return this.findReportByIdInteractor.execute(reportId);
   }
 
@@ -28,7 +26,7 @@ export class AccountingController {
   updateReport(
     @Param('reportId') reportId: string,
     @Body() updateReportDto: UpdateReportNestDto,
-  ): Promise<BillOfLadingReportEntity> {
+  ): Promise<ReportEntity> {
     return this.updateReportInteractor.execute({
       reportId,
       isValid: updateReportDto.isValid,

@@ -1,7 +1,5 @@
-import { BillOfLadingReportEntity } from '../../entities/bill-of-lading-report.entity';
+import { ReportEntity } from '../../entities/report.entity';
 
 export abstract class SaveReportPort {
-  abstract save(
-    order: BillOfLadingReportEntity,
-  ): Promise<BillOfLadingReportEntity>;
+  abstract save(order: ReportEntity): Promise<ReportEntity>;
 }

@@ -1,4 +1,4 @@
-import { BillOfLadingReportEntity } from '../entities/bill-of-lading-report.entity';
+import { ReportEntity } from '../entities/report.entity';
 import {
   CreateReportDto,
   CreateReportUseCase,
@@ -9,10 +9,8 @@ import { v4 as uuid } from 'uuid';
 export class CreateReportInteractor implements CreateReportUseCase {
   constructor(private readonly saveReport: SaveReportPort) {}
 
-  async execute(
-    createReportDto: CreateReportDto,
-  ): Promise<BillOfLadingReportEntity> {
-    const report = new BillOfLadingReportEntity({
+  async execute(createReportDto: CreateReportDto): Promise<ReportEntity> {
+    const report = new ReportEntity({
       id: uuid(),
       orderId: createReportDto.orderId,
       isValid: false,

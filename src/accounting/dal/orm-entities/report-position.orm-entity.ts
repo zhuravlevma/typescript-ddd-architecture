@@ -5,10 +5,10 @@ import {
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
-import { BillOfLadingReportOrmEntity } from './bill-of-lading-report.orm-entity';
+import { ReportOrmEntity } from './report.orm-entity';
 
-@Entity('bill_of_ladings_positions', { schema: 'accounting' })
-export class BillOfLadingPositionOrmEntity {
+@Entity('reports_positions', { schema: 'accounting' })
+export class ReportPositionOrmEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -39,7 +39,7 @@ export class BillOfLadingPositionOrmEntity {
   @Column()
   isValid: boolean;
 
-  @ManyToOne(() => BillOfLadingReportOrmEntity, (report) => report.positions)
+  @ManyToOne(() => ReportOrmEntity, (report) => report.positions)
   @JoinColumn({ name: 'reportId', referencedColumnName: 'id' })
-  report: BillOfLadingReportOrmEntity;
+  report: ReportOrmEntity;
 }

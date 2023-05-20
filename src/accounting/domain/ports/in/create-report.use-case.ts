@@ -1,11 +1,9 @@
-import { BillOfLadingReportEntity } from '../../entities/bill-of-lading-report.entity';
+import { ReportEntity } from '../../entities/report.entity';
 
 export interface CreateReportDto {
   orderId: string;
 }
 
 export abstract class CreateReportUseCase {
-  abstract execute(
-    createReportDto: CreateReportDto,
-  ): Promise<BillOfLadingReportEntity>;
+  abstract execute(createReportDto: CreateReportDto): Promise<ReportEntity>;
 }

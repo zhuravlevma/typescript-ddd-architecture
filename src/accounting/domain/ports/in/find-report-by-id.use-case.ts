@@ -1,5 +1,5 @@
-import { BillOfLadingReportEntity } from '../../entities/bill-of-lading-report.entity';
+import { ReportEntity } from '../../entities/report.entity';
 
 export abstract class FindReportByIdUseCase {
-  abstract execute(reportId: string): Promise<BillOfLadingReportEntity>;
+  abstract execute(reportId: string): Promise<ReportEntity>;
 }

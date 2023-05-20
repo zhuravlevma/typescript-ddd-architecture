@@ -1,4 +1,4 @@
-import { BillOfLadingReportEntity } from '../entities/bill-of-lading-report.entity';
+import { ReportEntity } from '../entities/report.entity';
 import {
   UpdateReprotDto as UpdateReportDto,
   UpdateReportUseCase,
@@ -12,9 +12,7 @@ export class UpdateReportInteractor implements UpdateReportUseCase {
     private readonly saveReportPort: SaveReportPort,
   ) {}
 
-  async execute(
-    updatePositionDto: UpdateReportDto,
-  ): Promise<BillOfLadingReportEntity> {
+  async execute(updatePositionDto: UpdateReportDto): Promise<ReportEntity> {
     const report = await this.findReportById.findReportById(
       updatePositionDto.reportId,
     );

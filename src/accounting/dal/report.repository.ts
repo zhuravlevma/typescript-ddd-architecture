@@ -1,40 +1,36 @@
 import { DataSource, Repository } from 'typeorm';
 import { InjectDataSource, InjectRepository } from '@nestjs/typeorm';
 import { Injectable } from '@nestjs/common';
-import { BillOfLadingMapper } from './bill-of-lading.mapper';
+import { BillOfLadingMapper as ReportMapper } from './report.mapper';
 import { FindReportByIdPort } from '../domain/ports/out/find-report-by-id.port';
 import { SaveReportPort } from '../domain/ports/out/save-report.port';
-import { BillOfLadingReportEntity } from '../domain/entities/bill-of-lading-report.entity';
-import { BillOfLadingReportOrmEntity } from './orm-entities/bill-of-lading-report.orm-entity';
+import { ReportEntity } from '../domain/entities/report.entity';
+import { ReportOrmEntity } from './orm-entities/report.orm-entity';
 import { OutboxMapper } from 'src/__relay__/outbox.mapper';
 
 @Injectable()
-export class BillOfLadingRepository
-  implements FindReportByIdPort, SaveReportPort
-{
+export class ReportRepository implements FindReportByIdPort, SaveReportPort {
   constructor(
     @InjectDataSource()
     private dataSource: DataSource,
-    @InjectRepository(BillOfLadingReportOrmEntity)
-    private billOfLadingReportRepository: Repository<BillOfLadingReportOrmEntity>,
+    @InjectRepository(ReportOrmEntity)
+    private reportRepository: Repository<ReportOrmEntity>,
   ) {}
-  async findReportById(reportId: string): Promise<BillOfLadingReportEntity> {
-    const [order] = await this.billOfLadingReportRepository.find({
+  async findReportById(reportId: string): Promise<ReportEntity> {
+    const [order] = await this.reportRepository.find({
       where: { id: reportId },
       relations: {
         positions: true,
       },
     });
-    return BillOfLadingMapper.mapToDomain(order);
+    return ReportMapper.mapToDomain(order);
   }
 
-  async save(
-    report: BillOfLadingReportEntity,
-  ): Promise<BillOfLadingReportEntity> {
+  async save(report: ReportEntity): Promise<ReportEntity> {
     const outboxORM = report.events.map((event) =>
       OutboxMapper.mapToORM(event),
     );
-    const reportOrm = BillOfLadingMapper.mapToOrm(report);
+    const reportOrm = ReportMapper.mapToOrm(report);
 
     const savedReport = await this.dataSource.transaction(
       async (transactionalEntityManager) => {
@@ -42,6 +38,6 @@ export class BillOfLadingRepository
         return await transactionalEntityManager.save(reportOrm);
       },
     );
-    return BillOfLadingMapper.mapToDomain(savedReport);
+    return ReportMapper.mapToDomain(savedReport);
   }
 }

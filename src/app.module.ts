@@ -3,9 +3,9 @@ import { ConfigModule } from '@nestjs/config';
 import { config } from './config';
 import { DeliveryModule } from './delivery/delivery.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { BillOfLadingPositionOrmEntity } from './accounting/dal/orm-entities/bill-of-lading-position.orm-entity';
+import { ReportPositionOrmEntity } from './accounting/dal/orm-entities/report-position.orm-entity';
 import { AccountingModule } from './accounting/accounting.module';
-import { BillOfLadingReportOrmEntity } from './accounting/dal/orm-entities/bill-of-lading-report.orm-entity';
+import { ReportOrmEntity } from './accounting/dal/orm-entities/report.orm-entity';
 import { ScheduleModule } from '@nestjs/schedule';
 import { TasksService } from './__relay__/relay.service';
 import { WarehouseModule } from './warehouse/warehouse.module';
@@ -34,8 +34,8 @@ import { OfferOrmEntity } from './delivery/offer/dal/orm-entities/offer.orm-enti
       entities: [
         OrderOrmEntity,
         DeliverymanOrmEntity,
-        BillOfLadingPositionOrmEntity,
-        BillOfLadingReportOrmEntity,
+        ReportPositionOrmEntity,
+        ReportOrmEntity,
         WarehouseOrmEntity,
         WarehouseOrderOrmEntity,
         OutboxOrmEntity,

@@ -1,19 +1,19 @@
 import { DomainEvent } from 'src/__relay__/domain-event';
-import { BillOfLadingPositionEntity } from './bill-of-lading-position-accounting.entity';
+import { ReportPositionEntity } from './report-position.entity';
 import { ReportValidatedEvent } from '../events/report-validated.event';
 
 interface Attributes {
   id: string;
   isValid: boolean;
   orderId: string;
-  positions: BillOfLadingPositionEntity[];
+  positions: ReportPositionEntity[];
 }
 
-export class BillOfLadingReportEntity implements Attributes {
+export class ReportEntity implements Attributes {
   id: string;
   isValid: boolean;
   orderId: string;
-  positions: BillOfLadingPositionEntity[];
+  positions: ReportPositionEntity[];
   events: DomainEvent[];
 
   constructor(attributes: Attributes) {

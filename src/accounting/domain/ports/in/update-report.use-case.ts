@@ -1,4 +1,4 @@
-import { BillOfLadingReportEntity } from '../../entities/bill-of-lading-report.entity';
+import { ReportEntity } from '../../entities/report.entity';
 
 export interface UpdateReprotDto {
   reportId: string;
@@ -6,7 +6,5 @@ export interface UpdateReprotDto {
 }
 
 export abstract class UpdateReportUseCase {
-  abstract execute(
-    updateOrderDto: UpdateReprotDto,
-  ): Promise<BillOfLadingReportEntity>;
+  abstract execute(updateOrderDto: UpdateReprotDto): Promise<ReportEntity>;
 }

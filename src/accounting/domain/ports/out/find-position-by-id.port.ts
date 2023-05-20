@@ -1,7 +1,7 @@
-import { BillOfLadingPositionEntity } from '../../entities/bill-of-lading-position-accounting.entity';
+import { ReportPositionEntity } from '../../entities/report-position.entity';
 
 export abstract class FindPositionByIdPort {
   abstract findPositionById(
     orderId: string,
-  ): Promise<BillOfLadingPositionEntity | null>;
+  ): Promise<ReportPositionEntity | null>;
 }

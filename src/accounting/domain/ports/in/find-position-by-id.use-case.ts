@@ -1,5 +1,5 @@
-import { BillOfLadingPositionEntity } from '../../entities/bill-of-lading-position-accounting.entity';
+import { ReportPositionEntity } from '../../entities/report-position.entity';
 
 export abstract class FindPositionByIdUseCase {
-  abstract execute(id: string): Promise<BillOfLadingPositionEntity | null>;
+  abstract execute(id: string): Promise<ReportPositionEntity | null>;
 }
