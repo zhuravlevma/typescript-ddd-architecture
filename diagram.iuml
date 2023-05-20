@@ -14,18 +14,28 @@ package "Domain" {
  [Interactors] .down.> [OutputPorts] : use
 }
 
-package "WEB" {
-
 [Controllers] ..> [UseCases] : use
-[Controllers] .right.> [DTOs] : use
-}
 
 package "DAL" {
 [Repositories] -up-> [OutputPorts] : impl
 [Repositories] .down.> [ORM Entities] : use
 [Repositories] .down.> [Mappers] : use
-[Mappers] ..> Entities : use
 }
 }
+
+queue EventBus
+
+package "Relay" {
+ [RelayService] ..> [OutboxOrm] : use
+ [RelayService] ..> [EventBus] : use
+ [Controllers] ..> [EventBus] : use
+ [OutboxOrm] <.. [DAL] : use
+
+ database events
+
+ [OutboxOrm] ..> [events]
+
+}
+
 
 @enduml
