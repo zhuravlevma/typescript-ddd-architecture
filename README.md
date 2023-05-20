@@ -24,7 +24,7 @@ In this example, there are more than one bounded contexts, you have a monolith i
 
 ### Important
 
-This is not a production ready solution. For example, eventemitter needs to be replaced with a separate message broker that [supports retry with confirmation](https://medium.com/upstream-engineering/a-tale-of-retries-using-rabbitmq-8a02a357a66).
+This is not a production ready solution. For example, Event Emitter needs to be replaced with a separate message broker that [supports retry with confirmation](https://medium.com/upstream-engineering/a-tale-of-retries-using-rabbitmq-8a02a357a66).
 
 ### Event Storming schema
 
