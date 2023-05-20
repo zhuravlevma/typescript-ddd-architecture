@@ -5,10 +5,10 @@ export class OutboxOrmEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
+  @Column({ type: 'text' })
   type: string;
 
-  @Column()
+  @Column({ type: 'text' })
   reason: string;
 
   @Column({
@@ -17,6 +17,6 @@ export class OutboxOrmEntity {
   })
   payload: any;
 
-  @Column({ default: false })
+  @Column({ type: 'bool', default: false })
   publushed: boolean;
 }

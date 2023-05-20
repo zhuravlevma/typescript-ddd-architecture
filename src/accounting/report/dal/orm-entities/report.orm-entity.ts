@@ -6,10 +6,10 @@ export class ReportOrmEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
+  @Column({ type: 'bool' })
   isValid: boolean;
 
-  @Column()
+  @Column({ type: 'text' })
   orderId: string;
 
   @OneToMany(() => ReportPositionOrmEntity, (position) => position.report, {

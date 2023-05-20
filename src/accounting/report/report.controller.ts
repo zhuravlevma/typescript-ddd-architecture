@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch } from '@nestjs/common';
 import { OnEvent } from '@nestjs/event-emitter';
 import { OrderValidatedEvent } from 'src/warehouse/warehouse/domain/events/order-validated.event';
 import { CreateReportUseCase } from './domain/ports/in/create-report.use-case';

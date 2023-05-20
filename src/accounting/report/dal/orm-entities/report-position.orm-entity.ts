@@ -12,31 +12,31 @@ export class ReportPositionOrmEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
+  @Column({ type: 'text' })
   name: string;
 
-  @Column()
+  @Column({ type: 'integer' })
   count: number;
 
-  @Column()
+  @Column({ type: 'integer' })
   code: number;
 
-  @Column()
+  @Column({ type: 'integer' })
   weight: number;
 
-  @Column()
+  @Column({ type: 'text' })
   reportId: string;
 
-  @Column()
+  @Column({ type: 'integer' })
   amount: number;
 
-  @Column()
+  @Column({ type: 'integer' })
   sum: number;
 
-  @Column()
+  @Column({ type: 'integer' })
   rate: number;
 
-  @Column()
+  @Column({ type: 'bool' })
   isValid: boolean;
 
   @ManyToOne(() => ReportOrmEntity, (report) => report.positions)

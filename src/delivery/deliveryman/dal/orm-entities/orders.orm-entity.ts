@@ -19,12 +19,12 @@ export class OrderOrmEntity {
   description: string;
 
   @Column()
-  orderId: string; // from warehouse
+  orderId: string;
 
-  @Column({ default: true })
+  @Column({ type: 'bool', default: true })
   isActive: boolean;
 
-  @Column()
+  @Column({ type: 'text' })
   deliverymanId: string;
 
   @ManyToOne(() => DeliverymanOrmEntity, (deliveryMan) => deliveryMan.orders)
