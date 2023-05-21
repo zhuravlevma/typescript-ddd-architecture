@@ -22,6 +22,8 @@ Firstly, we have a limitation - this is the change of one aggregate in one trans
 
 We cannot write a message directly to the broker, because it may not be available. Pattern [Transactional outbox](https://microservices.io/patterns/data/transactional-outbox.html).
 
+In a good way, each bounded context in a micro-service architecture should have its own Relay. In the demonstration monolith, I decided to limit myself to one.
+
 ### Important
 
 This is not a production ready solution. For example, Event Emitter needs to be replaced with a separate message broker that [supports retry with confirmation](https://medium.com/upstream-engineering/a-tale-of-retries-using-rabbitmq-8a02a357a66).
