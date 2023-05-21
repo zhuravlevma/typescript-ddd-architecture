@@ -6,7 +6,6 @@ interface Attributes {
   count: number;
   code: number;
   weight: number;
-  amount: number;
   sum: SumObjectValue;
 }
 
@@ -16,7 +15,6 @@ export class ReportPositionEntity implements Attributes {
   count: number;
   code: number;
   weight: number;
-  amount: number;
   sum: SumObjectValue;
 
   constructor(attributes: Attributes) {
@@ -25,12 +23,11 @@ export class ReportPositionEntity implements Attributes {
     this.count = attributes.count;
     this.code = attributes.code;
     this.weight = attributes.weight;
-    this.amount = attributes.amount;
     this.sum = attributes.sum;
   }
 
   priceOfOnePosition() {
-    return this.sum.sumWithoutRate / this.amount;
+    return this.sum.sumWithoutRate / this.count;
   }
 
   getTotalSum() {
@@ -39,5 +36,20 @@ export class ReportPositionEntity implements Attributes {
 
   getValueOfRate() {
     return this.sum.difference();
+  }
+
+  getSumWithoutRate() {
+    return this.sum.sumWithoutRate;
+  }
+
+  getWeightOfOnePostition() {
+    return this.weight / this.count;
+  }
+
+  hasEmptyRate(): boolean {
+    if (this.sum.difference() === 0) {
+      return true;
+    }
+    return false;
   }
 }

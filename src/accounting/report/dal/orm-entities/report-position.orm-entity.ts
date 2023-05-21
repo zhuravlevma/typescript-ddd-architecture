@@ -28,9 +28,6 @@ export class ReportPositionOrmEntity {
   reportId: string;
 
   @Column({ type: 'integer' })
-  amount: number;
-
-  @Column({ type: 'integer' })
   sum: number;
 
   @Column({ type: 'integer' })

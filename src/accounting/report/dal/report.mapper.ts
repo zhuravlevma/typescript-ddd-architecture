@@ -18,7 +18,6 @@ export class BillOfLadingMapper {
             count: positionOrm.count,
             code: positionOrm.code,
             weight: positionOrm.weight,
-            amount: positionOrm.amount,
             sum: new SumObjectValue(positionOrm.sum, positionOrm.rate),
           }),
       ),
@@ -36,7 +35,6 @@ export class BillOfLadingMapper {
       positionOrmEntity.count = positionEntity.count;
       positionOrmEntity.code = positionEntity.code;
       positionOrmEntity.weight = positionEntity.weight;
-      positionOrmEntity.amount = positionEntity.amount;
       return positionOrmEntity;
     });
     return reportOrmEntity;
