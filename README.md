@@ -12,6 +12,8 @@ If you have a large monolith that contains many [bounded contexts](https://marti
 
 If you have a micro service architecture and you prefer to allocate contexts to different services (which is preferable), then the service can be divided into modules by [aggregates](https://martinfowler.com/bliki/DDD_Aggregate.html).
 
+In this example, there are more than one bounded contexts, you have a monolith in front of you. And this monolith is internally divided into modules according to bounded contexts.
+
 ### Why do I need an event bus?
 
 Firstly, we have a limitation - this is the change of one aggregate in one transaction (strong consistency). To change multiple aggregates at the same time, you need to use eventual consistency.
@@ -19,8 +21,6 @@ Firstly, we have a limitation - this is the change of one aggregate in one trans
 ### Why do I need Relay?
 
 We cannot write a message directly to the broker, because it may not be available.
-
-In this example, there are more than one bounded contexts, you have a monolith in front of you. And this monolith is internally divided into modules according to bounded contexts.
 
 ### Important
 
