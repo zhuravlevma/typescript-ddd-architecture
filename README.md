@@ -20,7 +20,7 @@ Firstly, we have a limitation - this is the change of one aggregate in one trans
 
 ### Why do I need Relay?
 
-We cannot write a message directly to the broker, because it may not be available.
+We cannot write a message directly to the broker, because it may not be available. Pattern [Transactional outbox](https://microservices.io/patterns/data/transactional-outbox.html).
 
 ### Important
 
