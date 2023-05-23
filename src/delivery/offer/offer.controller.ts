@@ -15,7 +15,7 @@ export class OfferController {
     private readonly createOfferUseCase: CreateOfferUseCase,
   ) {}
 
-  @OnEvent('report-validated')
+  @OnEvent('report-validated') // env fixed
   handleReportValidatedEvent(event: ReportValidatedEvent) {
     return this.createOfferUseCase.execute({
       orderId: event.payload.orderId,

@@ -31,10 +31,7 @@ describe('delivery/domain/deliveryman/services/add-order-to-deliveryman.service'
     );
     const createOrderDto: AddOrderToDeliverymanCommand = {
       deliverymanId: 'deliverymanId',
-      order: {
-        name: 'test',
-        description: 'testdescr',
-      },
+      orderId: 'orderId',
     };
 
     await service.execute(createOrderDto);

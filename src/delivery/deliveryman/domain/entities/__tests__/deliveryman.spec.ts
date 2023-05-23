@@ -18,6 +18,7 @@ describe('delivery/domain/deliveryman/entities/deliveryman.entity', () => {
         description: 'description',
         isActive: true,
         deliverymanId: 'deliverymanId',
+        orderId: 'orderId',
       }),
     );
 
@@ -37,6 +38,7 @@ describe('delivery/domain/deliveryman/entities/deliveryman.entity', () => {
           description: 'description',
           isActive: true,
           deliverymanId: 'deliverymanId',
+          orderId: 'orderId1',
         }),
         new OrderEntity({
           id: 'testuuid1',
@@ -44,6 +46,7 @@ describe('delivery/domain/deliveryman/entities/deliveryman.entity', () => {
           description: 'description1',
           isActive: true,
           deliverymanId: 'deliverymanId',
+          orderId: 'orderId2',
         }),
         new OrderEntity({
           id: 'testuuid2',
@@ -51,6 +54,7 @@ describe('delivery/domain/deliveryman/entities/deliveryman.entity', () => {
           description: 'description2',
           isActive: true,
           deliverymanId: 'deliverymanId',
+          orderId: 'orderId3',
         }),
         new OrderEntity({
           id: 'testuuid3',
@@ -58,6 +62,7 @@ describe('delivery/domain/deliveryman/entities/deliveryman.entity', () => {
           description: 'description3',
           isActive: true,
           deliverymanId: 'deliverymanId',
+          orderId: 'orderId4',
         }),
       ],
     });
@@ -70,6 +75,7 @@ describe('delivery/domain/deliveryman/entities/deliveryman.entity', () => {
           description: 'description',
           isActive: true,
           deliverymanId: 'deliverymanId',
+          orderId: 'orderId5',
         }),
       );
     };

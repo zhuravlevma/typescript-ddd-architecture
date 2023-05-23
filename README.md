@@ -22,6 +22,8 @@ Firstly, we have a limitation - this is the change of one aggregate in one trans
 
 We cannot write a message directly to the broker, because it may not be available. Pattern [Transactional outbox](https://microservices.io/patterns/data/transactional-outbox.html).
 
+Transactional outbox can be done using synchronous calls, the broker is not biased. But this option is more suitable for point-to-point communication.
+
 In a good way, each bounded context in a micro-service architecture should have its own Relay. In the demonstration monolith, I decided to limit myself to one.
 
 ### Important

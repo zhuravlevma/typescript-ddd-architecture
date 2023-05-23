@@ -50,7 +50,7 @@ export class DeliverymanController {
     });
   }
 
-  @OnEvent('offer-taked')
+  @OnEvent('offer-taked') // env fixed
   handleOrderValidatedEvent(event: OfferTakedEvent) {
     return this.addOrderToDeliverymanUseCase.execute({
       deliverymanId: event.payload.deliverymanId,
