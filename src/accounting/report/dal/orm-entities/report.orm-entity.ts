@@ -9,7 +9,7 @@ export class ReportOrmEntity {
   @Column({ type: 'bool' })
   isValid: boolean;
 
-  @Column({ type: 'text' })
+  @Column({ type: 'uuid' })
   orderId: string;
 
   @OneToMany(() => ReportPositionOrmEntity, (position) => position.report, {

@@ -24,7 +24,7 @@ export class OrderOrmEntity {
   @Column({ type: 'bool', default: true })
   isActive: boolean;
 
-  @Column({ type: 'text' })
+  @Column()
   deliverymanId: string;
 
   @ManyToOne(() => DeliverymanOrmEntity, (deliveryMan) => deliveryMan.orders)

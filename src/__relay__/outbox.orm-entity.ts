@@ -1,4 +1,9 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+} from 'typeorm';
 
 @Entity('outbox')
 export class OutboxOrmEntity {
@@ -17,6 +22,12 @@ export class OutboxOrmEntity {
   })
   payload: any;
 
+  @CreateDateColumn({
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP(6)',
+  })
+  created_at: Date;
+
   @Column({ type: 'bool', default: false })
-  publushed: boolean;
+  published: boolean;
 }

@@ -1,8 +1,8 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { OutboxOrmEntity } from './outbox.orm-entity';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { InjectDataSource, InjectRepository } from '@nestjs/typeorm';
+import { DataSource, Repository } from 'typeorm';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 
 @Injectable()
@@ -13,23 +13,42 @@ export class RelayService {
     @InjectRepository(OutboxOrmEntity)
     private outBoxRepository: Repository<OutboxOrmEntity>,
     private readonly eventEmitter: EventEmitter2,
+    @InjectDataSource()
+    private dataSource: DataSource,
   ) {}
 
   @Cron(CronExpression.EVERY_10_SECONDS)
   async handleCron() {
-    const events = await this.outBoxRepository.find({
-      where: { publushed: false },
-      take: 5,
-    });
+    try {
+      await this.dataSource.transaction(async (transactionalEntityManager) => {
+        const events = await transactionalEntityManager
+          .createQueryBuilder()
+          .from(OutboxOrmEntity, 'outbox')
+          .where('outbox.published = :published', { published: false })
+          .orderBy('outbox.created_at', 'DESC')
+          .take(100)
+          .getRawMany();
 
-    for (const event of events) {
-      try {
-        this.logger.debug('run publishing: ' + event.id);
-        this.eventEmitter.emit(event.type, event);
-        await this.outBoxRepository.remove(event);
-      } catch (err) {
-        this.logger.error('published error: ' + err.message);
-      }
+        const ids = [];
+
+        for (const event of events) {
+          ids.push(event.id);
+          this.logger.debug('run publishing: ' + event.id);
+          this.eventEmitter.emit(event.type, event);
+        }
+
+        if (events.length) {
+          await transactionalEntityManager
+            .createQueryBuilder()
+            .from(OutboxOrmEntity, 'outbox')
+            .delete()
+            .from(OutboxOrmEntity)
+            .where('id IN (:...id)', { id: ids })
+            .execute();
+        }
+      });
+    } catch (err) {
+      this.logger.error('published error: ' + err.message);
     }
   }
 }

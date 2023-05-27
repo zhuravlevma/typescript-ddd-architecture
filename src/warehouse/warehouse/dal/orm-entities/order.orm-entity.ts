@@ -17,10 +17,10 @@ export class OrderOrmEntity {
   @Column()
   name: string;
 
-  @Column()
+  @Column({ type: 'bool' })
   isValid: boolean;
 
-  @Column()
+  @Column({ type: 'uuid' })
   warehouseId: string;
 
   @ManyToOne(() => WarehouseOrmEntity, (warehouse) => warehouse.orders)

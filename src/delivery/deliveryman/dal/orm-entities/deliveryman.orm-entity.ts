@@ -12,7 +12,7 @@ export class DeliverymanOrmEntity {
   @Column()
   lastName: string;
 
-  @Column({ default: false })
+  @Column({ type: 'bool', default: false })
   isActive: boolean;
 
   @OneToMany(() => OrderOrmEntity, (order) => order.deliveryman, {

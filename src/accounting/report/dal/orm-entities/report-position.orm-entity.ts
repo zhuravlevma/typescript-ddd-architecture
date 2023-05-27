@@ -12,7 +12,7 @@ export class ReportPositionOrmEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ type: 'text' })
+  @Column()
   name: string;
 
   @Column({ type: 'integer' })
@@ -24,7 +24,7 @@ export class ReportPositionOrmEntity {
   @Column({ type: 'integer' })
   weight: number;
 
-  @Column({ type: 'text' })
+  @Column({ type: 'uuid' })
   reportId: string;
 
   @Column({ type: 'integer' })
