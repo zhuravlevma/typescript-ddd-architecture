@@ -8,10 +8,15 @@ import { FindOfferByOrderIdPort } from '../domain/ports/out/find-offer-by-order-
 import { SaveOfferPort } from '../domain/ports/out/save-offer.port';
 import { OfferEntity } from '../domain/entities/offer.entity';
 import { OfferMapper } from './offer.mapper';
+import { FindCountOfFreeOffersPort as FindCountOfFreeOffersPort } from '../domain/ports/out/find-count-of-free-offers.port';
 
 @Injectable()
 export class OfferRepository
-  implements FindOfferByIdPort, FindOfferByOrderIdPort, SaveOfferPort
+  implements
+    FindOfferByIdPort,
+    FindOfferByOrderIdPort,
+    SaveOfferPort,
+    FindCountOfFreeOffersPort
 {
   constructor(
     @InjectDataSource()
@@ -19,6 +24,14 @@ export class OfferRepository
     @InjectRepository(OfferOrmEntity)
     private offerRepository: Repository<OfferOrmEntity>,
   ) {}
+
+  async findCountOfFreeOffersPort(): Promise<number> {
+    return this.offerRepository.count({
+      where: {
+        deliverymanId: null,
+      },
+    });
+  }
 
   async findOfferByIdPort(offerId: string): Promise<OfferEntity> {
     const [offer] = await this.offerRepository.find({

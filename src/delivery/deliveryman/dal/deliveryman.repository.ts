@@ -10,6 +10,7 @@ import { FindAllDeliverymansPort } from '../domain/ports/out/find-all-deliveryma
 import { FindDeliverymanByIdWithOrdersPort } from '../domain/ports/out/find-deliveryman-by-id-with-orders.port';
 import { FindDeliverymanOrderLadingPort } from '../domain/ports/out/find-deliveryman-order-lading';
 import { SaveDeliverymanPort } from '../domain/ports/out/save-deliveryman.port';
+import { FindCountOfFreeDeliverymans } from '../domain/ports/out/find-count-of-free-deliverymans.port';
 
 @Injectable()
 export class DeliverymanRepository
@@ -18,7 +19,8 @@ export class DeliverymanRepository
     FindAllDeliverymansPort,
     FindDeliverymanByIdWithOrdersPort,
     SaveDeliverymanPort,
-    FindDeliverymanOrderLadingPort
+    FindDeliverymanOrderLadingPort,
+    FindCountOfFreeDeliverymans
 {
   constructor(
     @InjectRepository(DeliverymanOrmEntity)
@@ -26,6 +28,12 @@ export class DeliverymanRepository
     @InjectRepository(OrderOrmEntity)
     private ordersRepository: Repository<OrderOrmEntity>,
   ) {}
+
+  findCountOfFreeDeliverymans(): Promise<number> {
+    return this.deliverymanRepository.count({
+      where: { isActive: true },
+    });
+  }
 
   async findDeliverymanOrderLading(
     deliverymanId: string,

@@ -31,6 +31,11 @@ import { CreateOfferUseCase } from './offer/domain/ports/in/create-offer.use-cas
 import { FindDeliverymanOrderLadingPort } from './deliveryman/domain/ports/out/find-deliveryman-order-lading';
 import { OfferController } from './offer/offer.controller';
 import { UpdateOrderInteractor } from './deliveryman/domain/interactors/update-order.interactor';
+import { FindCountOfFreeOffersPort } from './offer/domain/ports/out/find-count-of-free-offers.port';
+import { FindCountOfFreeDeliverymans } from './deliveryman/domain/ports/out/find-count-of-free-deliverymans.port';
+import { GeneralController } from './general/general.controller';
+import { GetShareOffersToFreeDeliverymansInteractor } from './general/domain/interactors/get-share-offers-to-free-deliverymans.interactor';
+import { GetShareOffersToFreeDeliverymansUseCase } from './general/domain/ports/in/get-share-offers-to-free-deliverymans.use-case';
 
 @Module({
   imports: [
@@ -40,7 +45,7 @@ import { UpdateOrderInteractor } from './deliveryman/domain/interactors/update-o
       OfferOrmEntity,
     ]),
   ],
-  controllers: [DeliverymanController, OfferController],
+  controllers: [DeliverymanController, OfferController, GeneralController],
   providers: [
     {
       provide: AddOrderToDeliverymanUseCase,
@@ -82,6 +87,10 @@ import { UpdateOrderInteractor } from './deliveryman/domain/interactors/update-o
       useClass: DeliverymanRepository,
     },
     {
+      provide: FindCountOfFreeDeliverymans,
+      useClass: DeliverymanRepository,
+    },
+    {
       provide: FindDeliverymanByIdWithOrdersPort,
       useClass: DeliverymanRepository,
     },
@@ -106,6 +115,10 @@ import { UpdateOrderInteractor } from './deliveryman/domain/interactors/update-o
       useClass: OfferRepository,
     },
     {
+      provide: FindCountOfFreeOffersPort,
+      useClass: OfferRepository,
+    },
+    {
       provide: UpdateOfferUseCase,
       useFactory: (a, b) => new UpdateOfferInteractor(a, b),
       inject: [FindOfferByIdPort, SaveOfferPort],
@@ -114,6 +127,12 @@ import { UpdateOrderInteractor } from './deliveryman/domain/interactors/update-o
       provide: CreateOfferUseCase,
       useFactory: (a) => new CreateOfferInteractor(a),
       inject: [SaveOfferPort],
+    },
+    {
+      provide: GetShareOffersToFreeDeliverymansUseCase,
+      useFactory: (a, b) =>
+        new GetShareOffersToFreeDeliverymansInteractor(a, b),
+      inject: [FindCountOfFreeOffersPort, FindCountOfFreeDeliverymans],
     },
   ],
 })
