@@ -1,5 +1,5 @@
 import { DeliverymanEntity } from '../../entities/deliveryman.entity';
 
-export abstract class FindAllDeliverymansUseCase {
+export abstract class FindAllDeliverymansQuery {
   abstract execute(): Promise<DeliverymanEntity[]>;
 }

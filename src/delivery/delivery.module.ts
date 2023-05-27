@@ -12,7 +12,7 @@ import { UpdateDeliverymansInfoInteractor } from './deliveryman/domain/interacto
 import { AddOrderToDeliverymanUseCase } from './deliveryman/domain/ports/in/add-order-to-deliveryman.use-case';
 import { ChangeDeliverymansStatusUseCase } from './deliveryman/domain/ports/in/change-deliverymans-status.use-case';
 import { CreateDeliverymanUseCase } from './deliveryman/domain/ports/in/create-deliveryman.use-case';
-import { FindAllDeliverymansUseCase } from './deliveryman/domain/ports/in/find-all-deliverymans.use-case';
+import { FindAllDeliverymansQuery } from './deliveryman/domain/ports/in/find-all-deliverymans.use-case';
 import { UpdateDeliverymansInfoUseCase } from './deliveryman/domain/ports/in/update-deliveryman-info.use-case';
 import { UpdateOrderUseCase } from './deliveryman/domain/ports/in/update-order.use-case';
 import { CreateDeliverymanPort } from './deliveryman/domain/ports/out/create-deliveryman.port';
@@ -63,7 +63,7 @@ import { GetShareOffersToFreeDeliverymansUseCase } from './general/domain/ports/
       inject: [CreateDeliverymanPort],
     },
     {
-      provide: FindAllDeliverymansUseCase,
+      provide: FindAllDeliverymansQuery,
       useFactory: (t) => new FindAllDeliverymansInteractor(t),
       inject: [FindAllDeliverymansPort],
     },

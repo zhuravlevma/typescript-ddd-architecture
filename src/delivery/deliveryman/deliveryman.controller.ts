@@ -8,7 +8,7 @@ import { UpdateOrderStatusDto } from './dtos/update-order-status.dto';
 import { AddOrderToDeliverymanUseCase } from './domain/ports/in/add-order-to-deliveryman.use-case';
 import { ChangeDeliverymansStatusUseCase } from './domain/ports/in/change-deliverymans-status.use-case';
 import { CreateDeliverymanUseCase } from './domain/ports/in/create-deliveryman.use-case';
-import { FindAllDeliverymansUseCase } from './domain/ports/in/find-all-deliverymans.use-case';
+import { FindAllDeliverymansQuery } from './domain/ports/in/find-all-deliverymans.use-case';
 import { UpdateDeliverymansInfoUseCase } from './domain/ports/in/update-deliveryman-info.use-case';
 import { UpdateOrderUseCase } from './domain/ports/in/update-order.use-case';
 import { OnEvent } from '@nestjs/event-emitter';
@@ -20,7 +20,7 @@ import { ApiTags } from '@nestjs/swagger';
 export class DeliverymanController {
   constructor(
     private readonly createDeliverymanUseCase: CreateDeliverymanUseCase,
-    private readonly findAllDeliverymansUseCase: FindAllDeliverymansUseCase,
+    private readonly findAllDeliverymansUseCase: FindAllDeliverymansQuery,
     private readonly addOrderToDeliverymanUseCase: AddOrderToDeliverymanUseCase,
     private readonly updateDeliverymansInfoUseCase: UpdateDeliverymansInfoUseCase,
     private readonly changeDeliverymansStatusUseCase: ChangeDeliverymansStatusUseCase,
