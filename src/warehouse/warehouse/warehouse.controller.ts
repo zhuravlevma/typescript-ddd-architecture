@@ -9,7 +9,7 @@ import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { SavedWarehouseResponseDto } from './dtos/response/saved-warehouse.response-dto';
 
 @ApiTags('warehouse')
-@Controller('warehouses')
+@Controller('/warehouse/warehouses')
 export class WarehouseController {
   constructor(
     private readonly addOrderUseCase: AddOrderUseCase,

@@ -8,7 +8,7 @@ import { ApiTags } from '@nestjs/swagger';
 import { UpdateReportUseCase } from './domain/ports/in/update-report.use-case';
 import { UpdateReportDto } from './dtos/update-report.dto';
 
-@ApiTags('reports')
+@ApiTags('accounting')
 @Controller('reports')
 export class ReportController {
   constructor(

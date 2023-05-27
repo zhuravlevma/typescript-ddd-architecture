@@ -7,8 +7,8 @@ import { OnEvent } from '@nestjs/event-emitter';
 import { CreateOfferUseCase } from './domain/ports/in/create-offer.use-case';
 import { ReportValidatedEvent } from 'src/accounting/report/domain/events/report-validated.event';
 
-@ApiTags('offers')
-@Controller('offers')
+@ApiTags('delivery')
+@Controller('/delivery/offers')
 export class OfferController {
   constructor(
     private readonly updateOfferUseCase: UpdateOfferUseCase,

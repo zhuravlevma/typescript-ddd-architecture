@@ -2,7 +2,7 @@ import { Controller, Get } from '@nestjs/common';
 import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { GetShareOffersToFreeDeliverymansUseCase } from './domain/ports/in/get-share-offers-to-free-deliverymans.use-case';
 
-@ApiTags('general')
+@ApiTags('delivery')
 @Controller('/delivery')
 export class GeneralController {
   constructor(

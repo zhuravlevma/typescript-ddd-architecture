@@ -16,7 +16,7 @@ import { OfferTakedEvent } from 'src/delivery/offer/domain/events/offer-taked.ev
 import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('delivery')
-@Controller('deliverymans')
+@Controller('/delivery/deliverymans')
 export class DeliverymanController {
   constructor(
     private readonly createDeliverymanUseCase: CreateDeliverymanUseCase,
