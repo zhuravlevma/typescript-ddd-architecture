@@ -26,6 +26,7 @@ export class RelayService {
           .from(OutboxOrmEntity, 'outbox')
           .where('outbox.published = :published', { published: false })
           .orderBy('outbox.created_at', 'DESC')
+          .setLock('pessimistic_partial_write')
           .take(100)
           .getRawMany();
 
