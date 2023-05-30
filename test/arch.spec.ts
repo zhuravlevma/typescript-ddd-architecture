@@ -1,7 +1,5 @@
-// imports and applies the jest extensions
 import 'tsarch/dist/jest';
 
-// imports the files entrypoint
 import { filesOfProject } from 'tsarch';
 
 describe('architecture', () => {
