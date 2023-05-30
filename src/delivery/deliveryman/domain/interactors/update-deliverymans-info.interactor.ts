@@ -1,10 +1,10 @@
-import {
-  UpdateDeliverymansInfoCommand,
-  UpdateDeliverymansInfoUseCase,
-} from 'src/delivery/deliveryman/domain/ports/in/update-deliveryman-info.use-case';
-import { DeliverymanEntity } from 'src/delivery/deliveryman/domain/entities/deliveryman.entity';
 import { FindDeliverymanByIdWithOrdersPort } from '../ports/out/find-deliveryman-by-id-with-orders.port';
 import { SaveDeliverymanPort } from '../ports/out/save-deliveryman.port';
+import { DeliverymanEntity } from '../entities/deliveryman.entity';
+import {
+  UpdateDeliverymansInfoUseCase,
+  UpdateDeliverymansInfoCommand,
+} from '../ports/in/update-deliveryman-info.use-case';
 
 export class UpdateDeliverymansInfoInteractor
   implements UpdateDeliverymansInfoUseCase

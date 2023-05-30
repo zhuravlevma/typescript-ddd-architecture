@@ -1,10 +1,10 @@
-import {
-  CreateDeliverymanCommand,
-  CreateDeliverymanUseCase,
-} from 'src/delivery/deliveryman/domain/ports/in/create-deliveryman.use-case';
-import { DeliverymanEntity } from 'src/delivery/deliveryman/domain/entities/deliveryman.entity';
 import { v4 as uuid } from 'uuid';
 import { CreateDeliverymanPort } from '../ports/out/create-deliveryman.port';
+import { DeliverymanEntity } from '../entities/deliveryman.entity';
+import {
+  CreateDeliverymanUseCase,
+  CreateDeliverymanCommand,
+} from '../ports/in/create-deliveryman.use-case';
 
 export class CreateDeliverymanInteractor implements CreateDeliverymanUseCase {
   constructor(private readonly createDeliverymanPort: CreateDeliverymanPort) {}

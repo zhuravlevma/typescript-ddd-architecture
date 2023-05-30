@@ -1,12 +1,12 @@
 import { Body, Controller, Get, Param, Patch } from '@nestjs/common';
 import { OnEvent } from '@nestjs/event-emitter';
-import { OrderValidatedEvent } from 'src/warehouse/warehouse/domain/events/order-validated.event';
 import { CreateReportUseCase } from './domain/ports/in/create-report.use-case';
 import { ReportEntity } from './domain/entities/report.entity';
 import { FindReportByIdUseCase } from './domain/ports/in/find-report-by-id.use-case';
 import { ApiTags } from '@nestjs/swagger';
 import { UpdateReportUseCase } from './domain/ports/in/update-report.use-case';
 import { UpdateReportDto } from './dtos/update-report.dto';
+import { OrderValidatedEvent } from '../../warehouse/warehouse/domain/events/order-validated.event';
 
 @ApiTags('accounting')
 @Controller('reports')

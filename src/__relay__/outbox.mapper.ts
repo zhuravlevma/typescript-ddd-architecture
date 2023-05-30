@@ -1,4 +1,4 @@
-import { DomainEvent } from 'src/__relay__/domain-event';
+import { DomainEvent } from './domain-event';
 import { OutboxOrmEntity } from './outbox.orm-entity';
 import { v4 as uuid } from 'uuid';
 

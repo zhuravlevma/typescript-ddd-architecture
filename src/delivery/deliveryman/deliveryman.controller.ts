@@ -3,7 +3,6 @@ import { AddOrderToDeliverymanDto } from './dtos/add-order-to-deliveryman.dto';
 import { UpdateDeliverymansInfoDto } from './dtos/update-deliverymans-info.dto';
 import { ChangeDeliverymansStatusDto } from './dtos/change-deliverymans-status.dto';
 import { CreateDeliverymanDto } from './dtos/create-deliveryman.dto';
-import { DeliverymanEntity } from 'src/delivery/deliveryman/domain/entities/deliveryman.entity';
 import { UpdateOrderStatusDto } from './dtos/update-order-status.dto';
 import { AddOrderToDeliverymanUseCase } from './domain/ports/in/add-order-to-deliveryman.use-case';
 import { ChangeDeliverymansStatusUseCase } from './domain/ports/in/change-deliverymans-status.use-case';
@@ -12,8 +11,9 @@ import { FindAllDeliverymansQuery } from './domain/ports/in/find-all-deliveryman
 import { UpdateDeliverymansInfoUseCase } from './domain/ports/in/update-deliveryman-info.use-case';
 import { UpdateOrderUseCase } from './domain/ports/in/update-order.use-case';
 import { OnEvent } from '@nestjs/event-emitter';
-import { OfferTakedEvent } from 'src/delivery/offer/domain/events/offer-taked.event';
 import { ApiTags } from '@nestjs/swagger';
+import { DeliverymanEntity } from './domain/entities/deliveryman.entity';
+import { OfferTakedEvent } from '../offer/domain/events/offer-taked.event';
 
 @ApiTags('delivery')
 @Controller('/delivery/deliverymans')

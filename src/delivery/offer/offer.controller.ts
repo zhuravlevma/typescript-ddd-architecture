@@ -5,7 +5,7 @@ import { UpdateOfferUseCase } from './domain/ports/in/update-offer.interactor';
 import { OfferEntity } from './domain/entities/offer.entity';
 import { OnEvent } from '@nestjs/event-emitter';
 import { CreateOfferUseCase } from './domain/ports/in/create-offer.use-case';
-import { ReportValidatedEvent } from 'src/accounting/report/domain/events/report-validated.event';
+import { ReportValidatedEvent } from '../../accounting/report/domain/events/report-validated.event';
 
 @ApiTags('delivery')
 @Controller('/delivery/offers')

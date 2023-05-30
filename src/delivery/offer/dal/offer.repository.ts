@@ -1,7 +1,6 @@
 import { DataSource, Repository } from 'typeorm';
 import { InjectDataSource, InjectRepository } from '@nestjs/typeorm';
 import { Injectable } from '@nestjs/common';
-import { OutboxMapper } from 'src/__relay__/outbox.mapper';
 import { OfferOrmEntity } from './orm-entities/offer.orm-entity';
 import { FindOfferByIdPort } from '../domain/ports/out/find-offer-by-id.port';
 import { FindOfferByOrderIdPort } from '../domain/ports/out/find-offer-by-order-id.port';
@@ -9,6 +8,7 @@ import { SaveOfferPort } from '../domain/ports/out/save-offer.port';
 import { OfferEntity } from '../domain/entities/offer.entity';
 import { OfferMapper } from './offer.mapper';
 import { FindCountOfFreeOffersPort as FindCountOfFreeOffersPort } from '../domain/ports/out/find-count-of-free-offers.port';
+import { OutboxMapper } from '../../../__relay__/outbox.mapper';
 
 @Injectable()
 export class OfferRepository

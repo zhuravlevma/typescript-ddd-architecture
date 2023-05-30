@@ -1,6 +1,6 @@
-import { DomainEvent } from 'src/__relay__/domain-event';
 import { ReportPositionEntity } from './report-position.entity';
 import { ReportValidatedEvent } from '../events/report-validated.event';
+import { DomainEvent } from 'src/__relay__/domain-event';
 
 interface Attributes {
   id: string;
