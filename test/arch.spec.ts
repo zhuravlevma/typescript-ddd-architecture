@@ -48,4 +48,14 @@ describe('architecture', () => {
 
     await expect(rule).toPassAsync();
   });
+
+  it('allows multiple patterns', async () => {
+    const violations = await filesOfProject()
+      .inFolder('*/domain/interactors/*')
+      .should()
+      .matchPattern('.interactor.*.ts')
+      .check();
+
+    expect(violations).toEqual([]);
+  });
 });
