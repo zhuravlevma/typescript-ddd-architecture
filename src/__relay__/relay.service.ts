@@ -1,8 +1,8 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { OutboxOrmEntity } from './outbox.orm-entity';
-import { InjectDataSource, InjectRepository } from '@nestjs/typeorm';
-import { DataSource, Repository } from 'typeorm';
+import { InjectDataSource } from '@nestjs/typeorm';
+import { DataSource } from 'typeorm';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 
 @Injectable()
@@ -10,8 +10,6 @@ export class RelayService {
   private readonly logger = new Logger(RelayService.name);
 
   constructor(
-    @InjectRepository(OutboxOrmEntity)
-    private outBoxRepository: Repository<OutboxOrmEntity>,
     private readonly eventEmitter: EventEmitter2,
     @InjectDataSource()
     private dataSource: DataSource,
