@@ -10,7 +10,7 @@ jobs:
     name: Install dep
     runs-on: ubuntu-latest
     container:
-      image: node:16
+      image: node:18
     steps:
       - uses: actions/checkout@v3
       - name: Cache Node Modules
@@ -27,7 +27,7 @@ jobs:
     name: ESLint
     runs-on: ubuntu-latest
     container:
-      image: node:16
+      image: node:18
     steps:
       - uses: actions/checkout@v3
       - name: Cache Node Modules
@@ -43,7 +43,7 @@ jobs:
     name: Prettier
     runs-on: ubuntu-latest
     container:
-      image: node:16
+      image: node:18
     steps:
       - uses: actions/checkout@v3
       - name: Cache Node Modules
@@ -54,3 +54,35 @@ jobs:
           key: node-modules-${{ hashFiles('package-lock.json') }}
       - name: Lint source code with Prettier
         run: npm run format:check
+  unit_testing:
+    needs: [eslint, prettier]
+    name: Unit testing
+    runs-on: self-hosted
+    container:
+      image: node:18
+    steps:
+      - uses: actions/checkout@v3
+      - name: Cache Node Modules
+        id: cache-node-modules
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: node-modules-${{ hashFiles('package-lock.json') }}
+      - name: Run tests
+        run: npm run test
+  arch_testing:
+    needs: [eslint, prettier]
+    name: Unit testing
+    runs-on: self-hosted
+    container:
+      image: node:18
+    steps:
+      - uses: actions/checkout@v3
+      - name: Cache Node Modules
+        id: cache-node-modules
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: node-modules-${{ hashFiles('package-lock.json') }}
+      - name: Run tests
+        run: npm run test:arch

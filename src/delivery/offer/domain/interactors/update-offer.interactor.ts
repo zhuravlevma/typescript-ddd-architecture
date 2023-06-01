@@ -1,4 +1,3 @@
-import { v4 as uuid } from 'uuid';
 import { SaveOfferPort } from '../ports/out/save-offer.port';
 import { OfferEntity } from '../entities/offer.entity';
 import {
