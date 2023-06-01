@@ -4,7 +4,6 @@ import { config } from './config';
 import { DeliveryModule } from './delivery/delivery.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AccountingModule } from './accounting/accounting.module';
-import { ScheduleModule } from '@nestjs/schedule';
 import { WarehouseModule } from './warehouse/warehouse.module';
 import { OutboxOrmEntity } from './__relay__/outbox.orm-entity';
 import { EventEmitterModule } from '@nestjs/event-emitter';
