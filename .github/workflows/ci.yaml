@@ -57,7 +57,7 @@ jobs:
   unit_testing:
     needs: [eslint, prettier]
     name: Unit testing
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     container:
       image: node:18
     steps:
@@ -72,8 +72,8 @@ jobs:
         run: npm run test
   arch_testing:
     needs: [eslint, prettier]
-    name: Unit testing
-    runs-on: self-hosted
+    name: Architectural testing
+    runs-on: ubuntu-latest
     container:
       image: node:18
     steps:
