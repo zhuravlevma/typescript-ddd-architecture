@@ -19,8 +19,6 @@ import { RelayModule } from './__relay__/relay.module';
 @Module({
   imports: [
     EventEmitterModule.forRoot(),
-    TypeOrmModule.forFeature([OutboxOrmEntity]), // move to relay module
-    ScheduleModule.forRoot(),
     ConfigModule.forRoot({
       load: [config],
     }),

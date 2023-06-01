@@ -2,10 +2,12 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { OutboxOrmEntity } from './outbox.orm-entity';
 import { RelayService } from './relay.service';
+import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([OutboxOrmEntity]), // move to relay module
+    ScheduleModule.forRoot(),
+    TypeOrmModule.forFeature([OutboxOrmEntity]),
   ],
   controllers: [],
   providers: [RelayService],
