@@ -37,44 +37,4 @@ export class ReportEntity implements Attributes {
       this.isValid = false;
     }
   }
-
-  getTotalSumOfpositions(): number {
-    let sum = 0;
-    this.positions.forEach((position) => {
-      sum += position.getTotalSum();
-    });
-    return sum;
-  }
-
-  getValuesOfRateForPositions() {
-    let sum = 0;
-    this.positions.forEach((position) => {
-      sum += position.getValueOfRate();
-    });
-    return sum;
-  }
-
-  getSumWithoutRateForPositions() {
-    let sum = 0;
-    this.positions.forEach((position) => {
-      sum += position.getSumWithoutRate();
-    });
-    return sum;
-  }
-
-  getCountPositionsWithEmptyRate() {
-    let count = 0;
-    this.positions.forEach((position) => {
-      if (position.hasEmptyRate()) count += 1;
-    });
-    return count;
-  }
-
-  getAverageOfWeightForOnePositionOfOrder() {
-    let totalWeight = 0;
-    this.positions.forEach((position) => {
-      totalWeight += position.getWeightOfOnePostition();
-    });
-    return totalWeight / this.positions.length;
-  }
 }
