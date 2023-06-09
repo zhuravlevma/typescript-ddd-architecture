@@ -3,7 +3,7 @@ import {
   UpdateOrderCommand,
   UpdateOrderUseCase,
 } from '../ports/in/update-order.use-case';
-import { FindDeliverymanOrderLadingPort } from '../ports/out/find-deliveryman-order-lading';
+import { FindDeliverymanOrderLadingPort } from '../ports/out/find-deliveryman-order-lading.port';
 import { SaveDeliverymanPort } from '../ports/out/save-deliveryman.port';
 
 export class UpdateOrderInteractor implements UpdateOrderUseCase {

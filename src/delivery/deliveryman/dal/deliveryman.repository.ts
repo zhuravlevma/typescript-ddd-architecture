@@ -7,7 +7,7 @@ import { OrderOrmEntity } from './orm-entities/orders.orm-entity';
 import { CreateDeliverymanPort } from '../domain/ports/out/create-deliveryman.port';
 import { FindAllDeliverymansPort } from '../domain/ports/out/find-all-deliverymans.port';
 import { FindDeliverymanByIdWithOrdersPort } from '../domain/ports/out/find-deliveryman-by-id-with-orders.port';
-import { FindDeliverymanOrderLadingPort } from '../domain/ports/out/find-deliveryman-order-lading';
+import { FindDeliverymanOrderLadingPort } from '../domain/ports/out/find-deliveryman-order-lading.port';
 import { SaveDeliverymanPort } from '../domain/ports/out/save-deliveryman.port';
 import { FindCountOfFreeDeliverymans } from '../domain/ports/out/find-count-of-free-deliverymans.port';
 import { DeliverymanEntity } from '../domain/entities/deliveryman.entity';

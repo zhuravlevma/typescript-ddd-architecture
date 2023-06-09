@@ -3,7 +3,7 @@ import { OfferEntity } from '../entities/offer.entity';
 import {
   UpdateOfferCommand,
   UpdateOfferUseCase,
-} from '../ports/in/update-offer.interactor';
+} from '../ports/in/update-offer.use-case';
 import { FindOfferByIdPort } from '../ports/out/find-offer-by-id.port';
 
 export class UpdateOfferInteractor implements UpdateOfferUseCase {

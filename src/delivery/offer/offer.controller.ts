@@ -1,7 +1,7 @@
 import { Body, Controller, Param, Patch } from '@nestjs/common';
 import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { UpdateOfferDto } from './dtos/update-offer.dto';
-import { UpdateOfferUseCase } from './domain/ports/in/update-offer.interactor';
+import { UpdateOfferUseCase } from './domain/ports/in/update-offer.use-case';
 import { OfferEntity } from './domain/entities/offer.entity';
 import { OnEvent } from '@nestjs/event-emitter';
 import { CreateOfferUseCase } from './domain/ports/in/create-offer.use-case';
