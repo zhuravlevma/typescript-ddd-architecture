@@ -59,8 +59,8 @@ $ npm run start:prod
 # unit tests
 $ npm run test
 
-# e2e tests
-$ npm run test:e2e
+# arch tests
+$ npm run test:arch
 
 # test coverage
 $ npm run test:cov
