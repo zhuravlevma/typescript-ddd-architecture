@@ -1,13 +1,15 @@
-import { CreateDeliverymanPort } from '../ports/out/create-deliveryman.port';
+import { CreateDeliverymanOutPort } from '../ports/out/create-deliveryman.out-port';
 import { DeliverymanEntity } from '../entities/deliveryman.entity';
 import {
-  CreateDeliverymanUseCase,
+  CreateDeliverymanInPort,
   CreateDeliverymanCommand,
-} from '../ports/in/create-deliveryman.use-case';
+} from '../ports/in/create-deliveryman.in-port';
 import { randomUUID } from 'crypto';
 
-export class CreateDeliverymanInteractor implements CreateDeliverymanUseCase {
-  constructor(private readonly createDeliverymanPort: CreateDeliverymanPort) {}
+export class CreateDeliverymanInteractor implements CreateDeliverymanInPort {
+  constructor(
+    private readonly createDeliverymanPort: CreateDeliverymanOutPort,
+  ) {}
 
   execute(
     createDeliverymanCommand: CreateDeliverymanCommand,

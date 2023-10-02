@@ -1,17 +1,17 @@
-import { FindDeliverymanByIdWithOrdersPort } from '../ports/out/find-deliveryman-by-id-with-orders.port';
-import { SaveDeliverymanPort } from '../ports/out/save-deliveryman.port';
+import { FindDeliverymanByIdWithOrdersOutPort } from '../ports/out/find-deliveryman-by-id-with-orders.out-port';
+import { SaveDeliverymanOutPort } from '../ports/out/save-deliveryman.out-port';
 import { DeliverymanEntity } from '../entities/deliveryman.entity';
 import {
-  UpdateDeliverymansInfoUseCase,
+  UpdateDeliverymansInPort,
   UpdateDeliverymansInfoCommand,
-} from '../ports/in/update-deliveryman-info.use-case';
+} from '../ports/in/update-deliveryman-info.in-port';
 
 export class UpdateDeliverymansInfoInteractor
-  implements UpdateDeliverymansInfoUseCase
+  implements UpdateDeliverymansInPort
 {
   constructor(
-    private readonly findDeliverymanByIdWithOrdersPort: FindDeliverymanByIdWithOrdersPort,
-    private readonly saveDeliverymanPort: SaveDeliverymanPort,
+    private readonly findDeliverymanByIdWithOrdersPort: FindDeliverymanByIdWithOrdersOutPort,
+    private readonly saveDeliverymanPort: SaveDeliverymanOutPort,
   ) {}
 
   async execute(

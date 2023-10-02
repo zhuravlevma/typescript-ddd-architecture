@@ -9,33 +9,33 @@ import { ChangeDeliverymansStatusInteractor } from './deliveryman/domain/interac
 import { CreateDeliverymanInteractor } from './deliveryman/domain/interactors/create-deliveryman.interactor';
 import { FindAllDeliverymansInteractor } from './deliveryman/domain/interactors/find-all-deliverymans.interactor';
 import { UpdateDeliverymansInfoInteractor } from './deliveryman/domain/interactors/update-deliverymans-info.interactor';
-import { AddOrderToDeliverymanUseCase } from './deliveryman/domain/ports/in/add-order-to-deliveryman.use-case';
-import { ChangeDeliverymansStatusUseCase } from './deliveryman/domain/ports/in/change-deliverymans-status.use-case';
-import { CreateDeliverymanUseCase } from './deliveryman/domain/ports/in/create-deliveryman.use-case';
-import { FindAllDeliverymansQuery } from './deliveryman/domain/ports/in/find-all-deliverymans.use-case';
-import { UpdateDeliverymansInfoUseCase } from './deliveryman/domain/ports/in/update-deliveryman-info.use-case';
-import { UpdateOrderUseCase } from './deliveryman/domain/ports/in/update-order.use-case';
-import { CreateDeliverymanPort } from './deliveryman/domain/ports/out/create-deliveryman.port';
-import { FindAllDeliverymansPort } from './deliveryman/domain/ports/out/find-all-deliverymans.port';
-import { FindDeliverymanByIdWithOrdersPort } from './deliveryman/domain/ports/out/find-deliveryman-by-id-with-orders.port';
-import { SaveDeliverymanPort } from './deliveryman/domain/ports/out/save-deliveryman.port';
+import { AddOrderToDeliverymanInPort } from './deliveryman/domain/ports/in/add-order-to-deliveryman.in-port';
+import { ChangeDeliverymansStatusInPort } from './deliveryman/domain/ports/in/change-deliverymans-status.in-port';
+import { CreateDeliverymanInPort } from './deliveryman/domain/ports/in/create-deliveryman.in-port';
+import { FindAllDeliverymansInPort } from './deliveryman/domain/ports/in/find-all-deliverymans.in-port';
+import { UpdateDeliverymansInPort } from './deliveryman/domain/ports/in/update-deliveryman-info.in-port';
+import { UpdateOrderInPort } from './deliveryman/domain/ports/in/update-order.in-port';
+import { FindAllDeliverymansOutPort } from './deliveryman/domain/ports/out/find-all-deliverymans.out-port';
+import { FindDeliverymanByIdWithOrdersOutPort } from './deliveryman/domain/ports/out/find-deliveryman-by-id-with-orders.out-port';
+import { SaveDeliverymanOutPort } from './deliveryman/domain/ports/out/save-deliveryman.out-port';
 import { OfferOrmEntity } from './offer/dal/orm-entities/offer.orm-entity';
-import { SaveOfferPort } from './offer/domain/ports/out/save-offer.port';
+import { SaveOfferOutPort } from './offer/domain/ports/out/save-offer.out-port';
 import { OfferRepository } from './offer/dal/offer.repository';
-import { FindOfferByIdPort } from './offer/domain/ports/out/find-offer-by-id.port';
-import { FindOfferByOrderIdPort } from './offer/domain/ports/out/find-offer-by-order-id.port';
-import { UpdateOfferUseCase } from './offer/domain/ports/in/update-offer.use-case';
+import { FindOfferByIdOutPort } from './offer/domain/ports/out/find-offer-by-id.out-port';
+import { FindOfferByOrderIdOutPort } from './offer/domain/ports/out/find-offer-by-order-id.out-port';
+import { UpdateOfferInPort } from './offer/domain/ports/in/update-offer.in-port';
 import { UpdateOfferInteractor } from './offer/domain/interactors/update-offer.interactor';
 import { CreateOfferInteractor } from './offer/domain/interactors/create-offer.interactor';
-import { CreateOfferUseCase } from './offer/domain/ports/in/create-offer.use-case';
-import { FindDeliverymanOrderLadingPort } from './deliveryman/domain/ports/out/find-deliveryman-order-lading.port';
+import { CreateOfferInPort } from './offer/domain/ports/in/create-offer.in-port';
+import { FindDeliverymanOrderLadingOutPort } from './deliveryman/domain/ports/out/find-deliveryman-order-lading.out-port';
 import { OfferController } from './offer/offer.controller';
 import { UpdateOrderInteractor } from './deliveryman/domain/interactors/update-order.interactor';
-import { FindCountOfFreeOffersPort } from './offer/domain/ports/out/find-count-of-free-offers.port';
-import { FindCountOfFreeDeliverymans } from './deliveryman/domain/ports/out/find-count-of-free-deliverymans.port';
+import { FindCountOfFreeOffersOutPort } from './offer/domain/ports/out/find-count-of-free-offers.out-port';
+import { FindCountOfFreeDeliverymansOutPort } from './deliveryman/domain/ports/out/find-count-of-free-deliverymans.out-port';
 import { GeneralController } from './general/general.controller';
 import { GetShareOffersToFreeDeliverymansInteractor } from './general/domain/interactors/get-share-offers-to-free-deliverymans.interactor';
-import { GetShareOffersToFreeDeliverymansUseCase } from './general/domain/ports/in/get-share-offers-to-free-deliverymans.use-case';
+import { GetShareOffersToFreeDeliverymansInPort } from './general/domain/ports/in/get-share-offers-to-free-deliverymans.in-port';
+import { CreateDeliverymanOutPort } from './deliveryman/domain/ports/out/create-deliveryman.out-port';
 
 @Module({
   imports: [
@@ -48,91 +48,98 @@ import { GetShareOffersToFreeDeliverymansUseCase } from './general/domain/ports/
   controllers: [DeliverymanController, OfferController, GeneralController],
   providers: [
     {
-      provide: AddOrderToDeliverymanUseCase,
+      provide: AddOrderToDeliverymanInPort,
       useFactory: (a, b) => new AddOrderToDeliverymanInteractor(a, b),
-      inject: [FindDeliverymanByIdWithOrdersPort, SaveDeliverymanPort],
+      inject: [FindDeliverymanByIdWithOrdersOutPort, SaveDeliverymanOutPort],
     },
     {
-      provide: ChangeDeliverymansStatusUseCase,
+      provide: ChangeDeliverymansStatusInPort,
       useFactory: (a, b) => new ChangeDeliverymansStatusInteractor(a, b),
-      inject: [FindDeliverymanByIdWithOrdersPort, SaveDeliverymanPort],
+      inject: [FindDeliverymanByIdWithOrdersOutPort, SaveDeliverymanOutPort],
     },
     {
-      provide: CreateDeliverymanUseCase,
+      provide: CreateDeliverymanInPort,
       useFactory: (a) => new CreateDeliverymanInteractor(a),
-      inject: [CreateDeliverymanPort],
+      inject: [CreateDeliverymanInPort],
     },
     {
-      provide: FindAllDeliverymansQuery,
+      provide: FindAllDeliverymansInPort,
       useFactory: (t) => new FindAllDeliverymansInteractor(t),
-      inject: [FindAllDeliverymansPort],
+      inject: [FindAllDeliverymansOutPort],
     },
     {
-      provide: UpdateDeliverymansInfoUseCase,
+      provide: UpdateDeliverymansInPort,
       useFactory: (a, b) => new UpdateDeliverymansInfoInteractor(a, b),
-      inject: [FindDeliverymanByIdWithOrdersPort, SaveDeliverymanPort],
+      inject: [FindDeliverymanByIdWithOrdersOutPort, SaveDeliverymanOutPort],
     },
     {
-      provide: UpdateOrderUseCase,
+      provide: UpdateOrderInPort,
       useFactory: (a, b) => new UpdateOrderInteractor(a, b),
-      inject: [FindDeliverymanOrderLadingPort, SaveDeliverymanPort],
+      inject: [FindDeliverymanOrderLadingOutPort, SaveDeliverymanOutPort],
     },
 
     {
-      provide: CreateDeliverymanPort,
+      provide: CreateDeliverymanInPort,
       useClass: DeliverymanRepository,
     },
     {
-      provide: FindAllDeliverymansPort,
+      provide: FindAllDeliverymansOutPort,
       useClass: DeliverymanRepository,
     },
     {
-      provide: FindCountOfFreeDeliverymans,
+      provide: CreateDeliverymanOutPort,
       useClass: DeliverymanRepository,
     },
     {
-      provide: FindDeliverymanByIdWithOrdersPort,
+      provide: FindCountOfFreeDeliverymansOutPort,
       useClass: DeliverymanRepository,
     },
     {
-      provide: FindDeliverymanOrderLadingPort,
+      provide: FindDeliverymanByIdWithOrdersOutPort,
       useClass: DeliverymanRepository,
     },
     {
-      provide: SaveDeliverymanPort,
+      provide: FindDeliverymanOrderLadingOutPort,
       useClass: DeliverymanRepository,
     },
     {
-      provide: SaveOfferPort,
+      provide: SaveDeliverymanOutPort,
+      useClass: DeliverymanRepository,
+    },
+    {
+      provide: SaveOfferOutPort,
       useClass: OfferRepository,
     },
     {
-      provide: FindOfferByIdPort,
+      provide: FindOfferByIdOutPort,
       useClass: OfferRepository,
     },
     {
-      provide: FindOfferByOrderIdPort,
+      provide: FindOfferByOrderIdOutPort,
       useClass: OfferRepository,
     },
     {
-      provide: FindCountOfFreeOffersPort,
+      provide: FindCountOfFreeOffersOutPort,
       useClass: OfferRepository,
     },
     {
-      provide: UpdateOfferUseCase,
+      provide: UpdateOfferInPort,
       useFactory: (a, b) => new UpdateOfferInteractor(a, b),
-      inject: [FindOfferByIdPort, SaveOfferPort],
+      inject: [FindOfferByIdOutPort, SaveOfferOutPort],
     },
     {
-      provide: CreateOfferUseCase,
+      provide: CreateOfferInPort,
       useFactory: (a) => new CreateOfferInteractor(a),
-      inject: [SaveOfferPort],
+      inject: [SaveOfferOutPort],
     },
     {
-      provide: GetShareOffersToFreeDeliverymansUseCase,
+      provide: GetShareOffersToFreeDeliverymansInPort,
       useFactory: (a, b) =>
         new GetShareOffersToFreeDeliverymansInteractor(a, b),
-      inject: [FindCountOfFreeOffersPort, FindCountOfFreeDeliverymans],
+      inject: [
+        FindCountOfFreeOffersOutPort,
+        FindCountOfFreeDeliverymansOutPort,
+      ],
     },
   ],
 })

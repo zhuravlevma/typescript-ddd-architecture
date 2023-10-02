@@ -1,15 +1,15 @@
-import { SaveOfferPort } from '../ports/out/save-offer.port';
+import { SaveOfferOutPort } from '../ports/out/save-offer.out-port';
 import { OfferEntity } from '../entities/offer.entity';
 import {
   UpdateOfferCommand,
-  UpdateOfferUseCase,
-} from '../ports/in/update-offer.use-case';
-import { FindOfferByIdPort } from '../ports/out/find-offer-by-id.port';
+  UpdateOfferInPort,
+} from '../ports/in/update-offer.in-port';
+import { FindOfferByIdOutPort } from '../ports/out/find-offer-by-id.out-port';
 
-export class UpdateOfferInteractor implements UpdateOfferUseCase {
+export class UpdateOfferInteractor implements UpdateOfferInPort {
   constructor(
-    private readonly findOfferByIdPort: FindOfferByIdPort,
-    private readonly saveOfferPort: SaveOfferPort,
+    private readonly findOfferByIdPort: FindOfferByIdOutPort,
+    private readonly saveOfferPort: SaveOfferOutPort,
   ) {}
 
   async execute(updateOfferCommand: UpdateOfferCommand): Promise<OfferEntity> {

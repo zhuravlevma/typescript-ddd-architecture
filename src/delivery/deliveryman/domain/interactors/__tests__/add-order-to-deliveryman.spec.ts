@@ -1,5 +1,5 @@
 import { DeliverymanEntity } from '../../entities/deliveryman.entity';
-import { AddOrderToDeliverymanCommand } from '../../ports/in/add-order-to-deliveryman.use-case';
+import { AddOrderToDeliverymanCommand } from '../../ports/in/add-order-to-deliveryman.in-port';
 import { AddOrderToDeliverymanInteractor } from '../add-order-to-deliveryman.interactor';
 
 describe('delivery/domain/deliveryman/services/add-order-to-deliveryman.service', () => {

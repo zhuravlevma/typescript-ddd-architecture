@@ -7,12 +7,12 @@ import { ReportRepository } from './report/dal/report.repository';
 import { CreateReportInteractor } from './report/domain/interactors/create-report.interactor';
 import { FindReportByIdInteractor } from './report/domain/interactors/find-report-by-id.interactor';
 import { UpdateReportInteractor } from './report/domain/interactors/update-report.interactor';
-import { CreateReportUseCase } from './report/domain/ports/in/create-report.use-case';
-import { FindReportByIdUseCase } from './report/domain/ports/in/find-report-by-id.use-case';
-import { UpdateReportUseCase } from './report/domain/ports/in/update-report.use-case';
-import { FindPositionByIdPort } from './report/domain/ports/out/find-position-by-id.port';
-import { FindReportByIdPort } from './report/domain/ports/out/find-report-by-id.port';
-import { SaveReportPort } from './report/domain/ports/out/save-report.port';
+import { CreateReportInPort } from './report/domain/ports/in/create-report.in-port';
+import { FindReportByIdInPort } from './report/domain/ports/in/find-report-by-id.in-port';
+import { UpdateReportInPort } from './report/domain/ports/in/update-report.in-port';
+import { FindPositionByIdOutPort } from './report/domain/ports/out/find-position-by-id.out-port';
+import { FindReportByIdOutPort } from './report/domain/ports/out/find-report-by-id.out-port';
+import { SaveReportOutPort } from './report/domain/ports/out/save-report.out-port';
 
 @Module({
   imports: [
@@ -21,30 +21,30 @@ import { SaveReportPort } from './report/domain/ports/out/save-report.port';
   controllers: [ReportController],
   providers: [
     {
-      provide: UpdateReportUseCase,
+      provide: UpdateReportInPort,
       useFactory: (a, b) => new UpdateReportInteractor(a, b),
-      inject: [FindReportByIdPort, SaveReportPort],
+      inject: [FindReportByIdOutPort, SaveReportOutPort],
     },
     {
-      provide: CreateReportUseCase,
+      provide: CreateReportInPort,
       useFactory: (a) => new CreateReportInteractor(a),
-      inject: [SaveReportPort],
+      inject: [SaveReportOutPort],
     },
     {
-      provide: FindReportByIdUseCase,
+      provide: FindReportByIdInPort,
       useFactory: (a) => new FindReportByIdInteractor(a),
-      inject: [FindReportByIdPort],
+      inject: [FindReportByIdOutPort],
     },
     {
-      provide: FindReportByIdPort,
+      provide: FindReportByIdOutPort,
       useClass: ReportRepository,
     },
     {
-      provide: FindPositionByIdPort,
+      provide: FindPositionByIdOutPort,
       useClass: ReportRepository,
     },
     {
-      provide: SaveReportPort,
+      provide: SaveReportOutPort,
       useClass: ReportRepository,
     },
   ],

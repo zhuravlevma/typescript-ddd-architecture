@@ -4,12 +4,12 @@ import { UpdateDeliverymansInfoDto } from './dtos/update-deliverymans-info.dto';
 import { ChangeDeliverymansStatusDto } from './dtos/change-deliverymans-status.dto';
 import { CreateDeliverymanDto } from './dtos/create-deliveryman.dto';
 import { UpdateOrderStatusDto } from './dtos/update-order-status.dto';
-import { AddOrderToDeliverymanUseCase } from './domain/ports/in/add-order-to-deliveryman.use-case';
-import { ChangeDeliverymansStatusUseCase } from './domain/ports/in/change-deliverymans-status.use-case';
-import { CreateDeliverymanUseCase } from './domain/ports/in/create-deliveryman.use-case';
-import { FindAllDeliverymansQuery } from './domain/ports/in/find-all-deliverymans.use-case';
-import { UpdateDeliverymansInfoUseCase } from './domain/ports/in/update-deliveryman-info.use-case';
-import { UpdateOrderUseCase } from './domain/ports/in/update-order.use-case';
+import { AddOrderToDeliverymanInPort } from './domain/ports/in/add-order-to-deliveryman.in-port';
+import { ChangeDeliverymansStatusInPort } from './domain/ports/in/change-deliverymans-status.in-port';
+import { CreateDeliverymanInPort } from './domain/ports/in/create-deliveryman.in-port';
+import { FindAllDeliverymansInPort } from './domain/ports/in/find-all-deliverymans.in-port';
+import { UpdateDeliverymansInPort } from './domain/ports/in/update-deliveryman-info.in-port';
+import { UpdateOrderInPort } from './domain/ports/in/update-order.in-port';
 import { OnEvent } from '@nestjs/event-emitter';
 import { ApiTags } from '@nestjs/swagger';
 import { DeliverymanEntity } from './domain/entities/deliveryman.entity';
@@ -19,12 +19,12 @@ import { OfferTakedEvent } from '../offer/domain/events/offer-taked.event';
 @Controller('/delivery/deliverymans')
 export class DeliverymanController {
   constructor(
-    private readonly createDeliverymanUseCase: CreateDeliverymanUseCase,
-    private readonly findAllDeliverymansUseCase: FindAllDeliverymansQuery,
-    private readonly addOrderToDeliverymanUseCase: AddOrderToDeliverymanUseCase,
-    private readonly updateDeliverymansInfoUseCase: UpdateDeliverymansInfoUseCase,
-    private readonly changeDeliverymansStatusUseCase: ChangeDeliverymansStatusUseCase,
-    private readonly updateOrderStatusUseCase: UpdateOrderUseCase,
+    private readonly createDeliverymanUseCase: CreateDeliverymanInPort,
+    private readonly findAllDeliverymansUseCase: FindAllDeliverymansInPort,
+    private readonly addOrderToDeliverymanUseCase: AddOrderToDeliverymanInPort,
+    private readonly updateDeliverymansInfoUseCase: UpdateDeliverymansInPort,
+    private readonly changeDeliverymansStatusUseCase: ChangeDeliverymansStatusInPort,
+    private readonly updateOrderStatusUseCase: UpdateOrderInPort,
   ) {}
 
   @Get('/')

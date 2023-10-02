@@ -2,14 +2,16 @@ import { DataSource, Repository } from 'typeorm';
 import { InjectDataSource, InjectRepository } from '@nestjs/typeorm';
 import { Injectable } from '@nestjs/common';
 import { BillOfLadingMapper as ReportMapper } from './report.mapper';
-import { FindReportByIdPort } from '../domain/ports/out/find-report-by-id.port';
-import { SaveReportPort } from '../domain/ports/out/save-report.port';
+import { FindReportByIdOutPort } from '../domain/ports/out/find-report-by-id.out-port';
+import { SaveReportOutPort } from '../domain/ports/out/save-report.out-port';
 import { ReportEntity } from '../domain/entities/report.entity';
 import { ReportOrmEntity } from './orm-entities/report.orm-entity';
 import { OutboxMapper } from '../../../__relay__/outbox.mapper';
 
 @Injectable()
-export class ReportRepository implements FindReportByIdPort, SaveReportPort {
+export class ReportRepository
+  implements FindReportByIdOutPort, SaveReportOutPort
+{
   constructor(
     @InjectDataSource()
     private dataSource: DataSource,

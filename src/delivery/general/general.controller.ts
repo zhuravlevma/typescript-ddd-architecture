@@ -1,12 +1,12 @@
 import { Controller, Get } from '@nestjs/common';
 import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
-import { GetShareOffersToFreeDeliverymansUseCase } from './domain/ports/in/get-share-offers-to-free-deliverymans.use-case';
+import { GetShareOffersToFreeDeliverymansInPort } from './domain/ports/in/get-share-offers-to-free-deliverymans.in-port';
 
 @ApiTags('delivery')
 @Controller('/delivery')
 export class GeneralController {
   constructor(
-    private readonly getShareOffersToFreeDeliverymansUseCase: GetShareOffersToFreeDeliverymansUseCase,
+    private readonly getShareOffersToFreeDeliverymansUseCase: GetShareOffersToFreeDeliverymansInPort,
   ) {}
 
   @ApiOkResponse({

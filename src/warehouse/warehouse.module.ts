@@ -1,14 +1,14 @@
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UpdateOrderInteractor } from './warehouse/domain/interactors/update-order.interactor';
-import { UpdateOrderUseCase } from './warehouse/domain/ports/in/update-order.use-case';
+import { UpdateOrderInPort } from './warehouse/domain/ports/in/update-order.in-port';
 import { Module } from '@nestjs/common';
-import { SaveWarehousePort } from './warehouse/domain/ports/out/save-warehouse.port';
-import { AddOrderUseCase } from './warehouse/domain/ports/in/add-order.use-case';
+import { SaveWarehouseOutPort } from './warehouse/domain/ports/out/save-warehouse.out-port';
+import { AddOrderInPort } from './warehouse/domain/ports/in/add-order.in-port';
 import { AddOrderInteractor } from './warehouse/domain/interactors/add-order.interactor';
-import { CreateWarehouseUseCase } from './warehouse/domain/ports/in/create-warehouse.use-case';
+import { CreateWarehouseInPort } from './warehouse/domain/ports/in/create-warehouse.in-port';
 import { CreateWarehouseInteractor } from './warehouse/domain/interactors/create-warehouse.interactor';
-import { GetWarehouseWithOrdersPort } from './warehouse/domain/ports/out/get-warehouse-with-orders.port';
-import { GetWarehouseWithOrderPort } from './warehouse/domain/ports/out/get-warehouse-with-order.port';
+import { GetWarehouseWithOrdersOutPort } from './warehouse/domain/ports/out/get-warehouse-with-orders.out-port';
+import { GetWarehouseWithOrderOutPort } from './warehouse/domain/ports/out/get-warehouse-with-order.out-port';
 import { OrderOrmEntity } from './warehouse/dal/orm-entities/order.orm-entity';
 import { WarehouseController } from './warehouse/warehouse.controller';
 import { WarehouseOrmEntity } from './warehouse/dal/orm-entities/warehouse.orm-entity';
@@ -20,30 +20,30 @@ import { WarehouseRepository } from './warehouse/dal/warehouse.repository';
   providers: [
     WarehouseRepository,
     {
-      provide: UpdateOrderUseCase,
+      provide: UpdateOrderInPort,
       useFactory: (a, b) => new UpdateOrderInteractor(a, b),
-      inject: [SaveWarehousePort, GetWarehouseWithOrderPort],
+      inject: [SaveWarehouseOutPort, GetWarehouseWithOrderOutPort],
     },
     {
-      provide: CreateWarehouseUseCase,
+      provide: CreateWarehouseInPort,
       useFactory: (a) => new CreateWarehouseInteractor(a),
-      inject: [SaveWarehousePort],
+      inject: [SaveWarehouseOutPort],
     },
     {
-      provide: AddOrderUseCase,
+      provide: AddOrderInPort,
       useFactory: (a, b) => new AddOrderInteractor(a, b),
-      inject: [GetWarehouseWithOrdersPort, SaveWarehousePort],
+      inject: [GetWarehouseWithOrdersOutPort, SaveWarehouseOutPort],
     },
     {
-      provide: GetWarehouseWithOrdersPort,
+      provide: GetWarehouseWithOrdersOutPort,
       useClass: WarehouseRepository,
     },
     {
-      provide: GetWarehouseWithOrderPort,
+      provide: GetWarehouseWithOrderOutPort,
       useClass: WarehouseRepository,
     },
     {
-      provide: SaveWarehousePort,
+      provide: SaveWarehouseOutPort,
       useClass: WarehouseRepository,
     },
   ],

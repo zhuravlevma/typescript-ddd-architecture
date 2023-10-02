@@ -1,10 +1,10 @@
 import { Body, Controller, Get, Param, Patch } from '@nestjs/common';
 import { OnEvent } from '@nestjs/event-emitter';
-import { CreateReportUseCase } from './domain/ports/in/create-report.use-case';
+import { CreateReportInPort } from './domain/ports/in/create-report.in-port';
 import { ReportEntity } from './domain/entities/report.entity';
-import { FindReportByIdUseCase } from './domain/ports/in/find-report-by-id.use-case';
+import { FindReportByIdInPort } from './domain/ports/in/find-report-by-id.in-port';
 import { ApiTags } from '@nestjs/swagger';
-import { UpdateReportUseCase } from './domain/ports/in/update-report.use-case';
+import { UpdateReportInPort } from './domain/ports/in/update-report.in-port';
 import { UpdateReportDto } from './dtos/update-report.dto';
 import { OrderValidatedEvent } from '../../warehouse/warehouse/domain/events/order-validated.event';
 
@@ -12,9 +12,9 @@ import { OrderValidatedEvent } from '../../warehouse/warehouse/domain/events/ord
 @Controller('reports')
 export class ReportController {
   constructor(
-    private readonly findReportByIdUseCase: FindReportByIdUseCase,
-    private readonly createReportUseCase: CreateReportUseCase,
-    private readonly updateReportUseCase: UpdateReportUseCase,
+    private readonly findReportByIdUseCase: FindReportByIdInPort,
+    private readonly createReportUseCase: CreateReportInPort,
+    private readonly updateReportUseCase: UpdateReportInPort,
   ) {}
 
   @Get('/:reportId')

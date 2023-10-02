@@ -1,12 +1,12 @@
 import { ReportEntity } from '../entities/report.entity';
 import {
   FindReportByIdQuery,
-  FindReportByIdUseCase,
-} from '../ports/in/find-report-by-id.use-case';
-import { FindReportByIdPort } from '../ports/out/find-report-by-id.port';
+  FindReportByIdInPort,
+} from '../ports/in/find-report-by-id.in-port';
+import { FindReportByIdOutPort } from '../ports/out/find-report-by-id.out-port';
 
-export class FindReportByIdInteractor implements FindReportByIdUseCase {
-  constructor(private readonly findReportByIdPort: FindReportByIdPort) {}
+export class FindReportByIdInteractor implements FindReportByIdInPort {
+  constructor(private readonly findReportByIdPort: FindReportByIdOutPort) {}
 
   execute(findReportByIdQuery: FindReportByIdQuery): Promise<ReportEntity> {
     return this.findReportByIdPort.findReportById(findReportByIdQuery.id);

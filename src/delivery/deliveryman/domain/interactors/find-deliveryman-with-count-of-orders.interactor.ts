@@ -1,15 +1,15 @@
 import {
-  FindDeliverymanWithCountOfOrdersQuery,
+  FindDeliverymanWithCountOfInPort,
   FindDeliverymanWithCountOfOrdersParams,
-} from '../ports/in/find-deliveryman-with-count-of-orders.query';
-import { FindDeliverymanWithCountOfOrdersPort } from '../ports/out/find-deliveryman-with-count-of-orders.port';
+} from '../ports/in/find-deliveryman-with-count-of-orders.in-port';
+import { FindDeliverymanWithCountOfOrdersOutPort } from '../ports/out/find-deliveryman-with-count-of-orders.out-port';
 import { DeliverymanWithCountOfOrders } from '../read-models/deliveryman-with-count-of-orders.model';
 
 export class FindDeliverymanWithCountOfOrdersInteractor
-  implements FindDeliverymanWithCountOfOrdersQuery
+  implements FindDeliverymanWithCountOfInPort
 {
   constructor(
-    private readonly findAllDeliverymansPort: FindDeliverymanWithCountOfOrdersPort,
+    private readonly findAllDeliverymansPort: FindDeliverymanWithCountOfOrdersOutPort,
   ) {}
 
   execute(

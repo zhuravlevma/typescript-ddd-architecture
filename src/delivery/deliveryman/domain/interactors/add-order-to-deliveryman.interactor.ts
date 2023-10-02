@@ -1,19 +1,19 @@
 import { OrderEntity } from '../entities/order.entity';
-import { FindDeliverymanByIdWithOrdersPort } from '../ports/out/find-deliveryman-by-id-with-orders.port';
-import { SaveDeliverymanPort } from '../ports/out/save-deliveryman.port';
+import { FindDeliverymanByIdWithOrdersOutPort } from '../ports/out/find-deliveryman-by-id-with-orders.out-port';
+import { SaveDeliverymanOutPort } from '../ports/out/save-deliveryman.out-port';
 import { DeliverymanEntity } from '../entities/deliveryman.entity';
 import {
-  AddOrderToDeliverymanUseCase,
+  AddOrderToDeliverymanInPort,
   AddOrderToDeliverymanCommand,
-} from '../ports/in/add-order-to-deliveryman.use-case';
+} from '../ports/in/add-order-to-deliveryman.in-port';
 import { randomUUID } from 'crypto';
 
 export class AddOrderToDeliverymanInteractor
-  implements AddOrderToDeliverymanUseCase
+  implements AddOrderToDeliverymanInPort
 {
   constructor(
-    private readonly findDeliverymanByIdWithOrdersPort: FindDeliverymanByIdWithOrdersPort,
-    private readonly saveDeliverymanPort: SaveDeliverymanPort,
+    private readonly findDeliverymanByIdWithOrdersPort: FindDeliverymanByIdWithOrdersOutPort,
+    private readonly saveDeliverymanPort: SaveDeliverymanOutPort,
   ) {}
 
   async execute(

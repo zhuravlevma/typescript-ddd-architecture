@@ -1,13 +1,13 @@
-import { SaveOfferPort } from '../ports/out/save-offer.port';
+import { SaveOfferOutPort } from '../ports/out/save-offer.out-port';
 import { OfferEntity } from '../entities/offer.entity';
 import {
   CreateOfferCommand,
-  CreateOfferUseCase,
-} from '../ports/in/create-offer.use-case';
+  CreateOfferInPort,
+} from '../ports/in/create-offer.in-port';
 import { randomUUID } from 'crypto';
 
-export class CreateOfferInteractor implements CreateOfferUseCase {
-  constructor(private readonly saveOfferPort: SaveOfferPort) {}
+export class CreateOfferInteractor implements CreateOfferInPort {
+  constructor(private readonly saveOfferPort: SaveOfferOutPort) {}
 
   async execute(createOfferCommand: CreateOfferCommand): Promise<OfferEntity> {
     try {

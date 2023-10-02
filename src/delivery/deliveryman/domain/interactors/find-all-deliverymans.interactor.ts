@@ -1,10 +1,12 @@
 import { DeliverymanEntity } from '../entities/deliveryman.entity';
-import { FindAllDeliverymansQuery } from '../ports/in/find-all-deliverymans.use-case';
-import { FindAllDeliverymansPort } from '../ports/out/find-all-deliverymans.port';
+import { FindAllDeliverymansInPort } from '../ports/in/find-all-deliverymans.in-port';
+import { FindAllDeliverymansOutPort } from '../ports/out/find-all-deliverymans.out-port';
 
-export class FindAllDeliverymansInteractor implements FindAllDeliverymansQuery {
+export class FindAllDeliverymansInteractor
+  implements FindAllDeliverymansInPort
+{
   constructor(
-    private readonly findAllDeliverymansPort: FindAllDeliverymansPort,
+    private readonly findAllDeliverymansPort: FindAllDeliverymansOutPort,
   ) {}
 
   execute(): Promise<DeliverymanEntity[]> {

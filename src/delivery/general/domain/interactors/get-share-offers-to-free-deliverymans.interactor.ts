@@ -1,13 +1,13 @@
-import { FindCountOfFreeDeliverymans } from '../../../deliveryman/domain/ports/out/find-count-of-free-deliverymans.port';
-import { FindCountOfFreeOffersPort } from '../../../offer/domain/ports/out/find-count-of-free-offers.port';
-import { GetShareOffersToFreeDeliverymansUseCase } from '../ports/in/get-share-offers-to-free-deliverymans.use-case';
+import { FindCountOfFreeDeliverymansOutPort } from '../../../deliveryman/domain/ports/out/find-count-of-free-deliverymans.out-port';
+import { FindCountOfFreeOffersOutPort } from '../../../offer/domain/ports/out/find-count-of-free-offers.out-port';
+import { GetShareOffersToFreeDeliverymansInPort } from '../ports/in/get-share-offers-to-free-deliverymans.in-port';
 
 export class GetShareOffersToFreeDeliverymansInteractor
-  implements GetShareOffersToFreeDeliverymansUseCase
+  implements GetShareOffersToFreeDeliverymansInPort
 {
   constructor(
-    private readonly findCoundOfFreeOffersPort: FindCountOfFreeOffersPort,
-    private readonly findCountOfFreeDeliverymans: FindCountOfFreeDeliverymans,
+    private readonly findCoundOfFreeOffersPort: FindCountOfFreeOffersOutPort,
+    private readonly findCountOfFreeDeliverymans: FindCountOfFreeDeliverymansOutPort,
   ) {}
 
   async execute(): Promise<number> {

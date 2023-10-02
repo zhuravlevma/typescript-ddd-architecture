@@ -1,15 +1,15 @@
 import { WarehouseEntity } from '../entities/warehouse.entity';
 import {
-  UpdateOrderUseCase,
+  UpdateOrderInPort,
   UpdateOrderCommand,
-} from '../ports/in/update-order.use-case';
-import { GetWarehouseWithOrderPort } from '../ports/out/get-warehouse-with-order.port';
-import { SaveWarehousePort } from '../ports/out/save-warehouse.port';
+} from '../ports/in/update-order.in-port';
+import { GetWarehouseWithOrderOutPort } from '../ports/out/get-warehouse-with-order.out-port';
+import { SaveWarehouseOutPort } from '../ports/out/save-warehouse.out-port';
 
-export class UpdateOrderInteractor implements UpdateOrderUseCase {
+export class UpdateOrderInteractor implements UpdateOrderInPort {
   constructor(
-    private readonly getWarehouseWithOrderPort: GetWarehouseWithOrderPort,
-    private readonly saveWhPort: SaveWarehousePort,
+    private readonly getWarehouseWithOrderPort: GetWarehouseWithOrderOutPort,
+    private readonly saveWhPort: SaveWarehouseOutPort,
   ) {}
   async execute(
     updateOrderStatusCommand: UpdateOrderCommand,

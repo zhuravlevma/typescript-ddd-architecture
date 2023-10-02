@@ -3,18 +3,18 @@ import { DataSource, Repository } from 'typeorm';
 import { InjectDataSource, InjectRepository } from '@nestjs/typeorm';
 import { WarehouseMapper } from './warehouse.mapper';
 import { OutboxMapper } from '../../../__relay__/outbox.mapper';
-import { SaveWarehousePort } from '../domain/ports/out/save-warehouse.port';
+import { SaveWarehouseOutPort } from '../domain/ports/out/save-warehouse.out-port';
 import { Injectable } from '@nestjs/common';
-import { GetWarehouseWithOrderPort } from '../domain/ports/out/get-warehouse-with-order.port';
-import { GetWarehouseWithOrdersPort } from '../domain/ports/out/get-warehouse-with-orders.port';
+import { GetWarehouseWithOrderOutPort } from '../domain/ports/out/get-warehouse-with-order.out-port';
+import { GetWarehouseWithOrdersOutPort } from '../domain/ports/out/get-warehouse-with-orders.out-port';
 import { WarehouseOrmEntity } from './orm-entities/warehouse.orm-entity';
 
 @Injectable()
 export class WarehouseRepository
   implements
-    SaveWarehousePort,
-    GetWarehouseWithOrdersPort,
-    GetWarehouseWithOrderPort
+    SaveWarehouseOutPort,
+    GetWarehouseWithOrdersOutPort,
+    GetWarehouseWithOrderOutPort
 {
   constructor(
     @InjectDataSource()

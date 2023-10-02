@@ -1,15 +1,15 @@
 import { DeliverymanEntity } from '../entities/deliveryman.entity';
 import {
   UpdateOrderCommand,
-  UpdateOrderUseCase,
-} from '../ports/in/update-order.use-case';
-import { FindDeliverymanOrderLadingPort } from '../ports/out/find-deliveryman-order-lading.port';
-import { SaveDeliverymanPort } from '../ports/out/save-deliveryman.port';
+  UpdateOrderInPort,
+} from '../ports/in/update-order.in-port';
+import { FindDeliverymanOrderLadingOutPort } from '../ports/out/find-deliveryman-order-lading.out-port';
+import { SaveDeliverymanOutPort } from '../ports/out/save-deliveryman.out-port';
 
-export class UpdateOrderInteractor implements UpdateOrderUseCase {
+export class UpdateOrderInteractor implements UpdateOrderInPort {
   constructor(
-    private readonly findDeliverymanPort: FindDeliverymanOrderLadingPort,
-    private readonly saveDeliverymanPort: SaveDeliverymanPort,
+    private readonly findDeliverymanPort: FindDeliverymanOrderLadingOutPort,
+    private readonly saveDeliverymanPort: SaveDeliverymanOutPort,
   ) {}
 
   async execute(

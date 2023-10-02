@@ -1,15 +1,15 @@
 import { ReportEntity } from '../entities/report.entity';
 import {
   UpdateReprotCommand as UpdateReportDto,
-  UpdateReportUseCase,
-} from '../ports/in/update-report.use-case';
-import { FindReportByIdPort } from '../ports/out/find-report-by-id.port';
-import { SaveReportPort } from '../ports/out/save-report.port';
+  UpdateReportInPort,
+} from '../ports/in/update-report.in-port';
+import { FindReportByIdOutPort } from '../ports/out/find-report-by-id.out-port';
+import { SaveReportOutPort } from '../ports/out/save-report.out-port';
 
-export class UpdateReportInteractor implements UpdateReportUseCase {
+export class UpdateReportInteractor implements UpdateReportInPort {
   constructor(
-    private readonly findReportById: FindReportByIdPort,
-    private readonly saveReportPort: SaveReportPort,
+    private readonly findReportById: FindReportByIdOutPort,
+    private readonly saveReportPort: SaveReportOutPort,
   ) {}
 
   async execute(updatePositionDto: UpdateReportDto): Promise<ReportEntity> {

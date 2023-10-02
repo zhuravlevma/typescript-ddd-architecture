@@ -5,17 +5,17 @@ package "Module" {
 
 package Aggregate {
  package "Domain" {
- component [UseCases] #AliceBlue
+ component [InputPorts] #AliceBlue
  component [Entities] #TECHNOLOGY
  component [OutputPorts] #AliceBlue
  component [Interactors] #TECHNOLOGY
 
- [Interactors] -up-> [UseCases] : impl
+ [Interactors] -up-> [InputPorts] : impl
  [Interactors] .down.> [Entities] : use
  [Interactors] .down.> [OutputPorts] : use
 }
 
-[Controllers] ..> [UseCases] : use
+[Controllers] ..> [InputPorts] : use
 
 package "DAL" {
 [Repositories] -up-> [OutputPorts] : impl

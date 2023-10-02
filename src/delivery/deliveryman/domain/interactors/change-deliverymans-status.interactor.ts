@@ -1,17 +1,17 @@
 import {
   ChangeDeliverymansStatusCommand,
-  ChangeDeliverymansStatusUseCase,
-} from 'src/delivery/deliveryman/domain/ports/in/change-deliverymans-status.use-case';
-import { SaveDeliverymanPort } from '../ports/out/save-deliveryman.port';
-import { FindDeliverymanByIdWithOrdersPort } from '../ports/out/find-deliveryman-by-id-with-orders.port';
+  ChangeDeliverymansStatusInPort,
+} from 'src/delivery/deliveryman/domain/ports/in/change-deliverymans-status.in-port';
+import { SaveDeliverymanOutPort } from '../ports/out/save-deliveryman.out-port';
+import { FindDeliverymanByIdWithOrdersOutPort } from '../ports/out/find-deliveryman-by-id-with-orders.out-port';
 import { DeliverymanEntity } from '../entities/deliveryman.entity';
 
 export class ChangeDeliverymansStatusInteractor
-  implements ChangeDeliverymansStatusUseCase
+  implements ChangeDeliverymansStatusInPort
 {
   constructor(
-    private readonly findDeliverymanByIdWithOrdersPort: FindDeliverymanByIdWithOrdersPort,
-    private readonly saveDeliverymanPort: SaveDeliverymanPort,
+    private readonly findDeliverymanByIdWithOrdersPort: FindDeliverymanByIdWithOrdersOutPort,
+    private readonly saveDeliverymanPort: SaveDeliverymanOutPort,
   ) {}
 
   async execute(

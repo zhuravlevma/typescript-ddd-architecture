@@ -1,17 +1,14 @@
 import { randomUUID } from 'crypto';
 import { OrderEntity } from '../entities/order.entity';
 import { WarehouseEntity } from '../entities/warehouse.entity';
-import {
-  AddOrderCommand,
-  AddOrderUseCase,
-} from '../ports/in/add-order.use-case';
-import { GetWarehouseWithOrdersPort } from '../ports/out/get-warehouse-with-orders.port';
-import { SaveWarehousePort } from '../ports/out/save-warehouse.port';
+import { AddOrderCommand, AddOrderInPort } from '../ports/in/add-order.in-port';
+import { GetWarehouseWithOrdersOutPort } from '../ports/out/get-warehouse-with-orders.out-port';
+import { SaveWarehouseOutPort } from '../ports/out/save-warehouse.out-port';
 
-export class AddOrderInteractor implements AddOrderUseCase {
+export class AddOrderInteractor implements AddOrderInPort {
   constructor(
-    private readonly getWarehouseWithOrderPort: GetWarehouseWithOrdersPort,
-    private readonly updateOrderPort: SaveWarehousePort,
+    private readonly getWarehouseWithOrderPort: GetWarehouseWithOrdersOutPort,
+    private readonly updateOrderPort: SaveWarehouseOutPort,
   ) {}
   async execute(addOrderCommand: AddOrderCommand): Promise<WarehouseEntity> {
     const warehouse =

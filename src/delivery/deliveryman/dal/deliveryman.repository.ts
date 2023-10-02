@@ -4,23 +4,23 @@ import { Injectable } from '@nestjs/common';
 import { DeliverymanOrmEntity } from './orm-entities/deliveryman.orm-entity';
 import { DeliverymanMapper } from './deliveryman.mapper';
 import { OrderOrmEntity } from './orm-entities/orders.orm-entity';
-import { CreateDeliverymanPort } from '../domain/ports/out/create-deliveryman.port';
-import { FindAllDeliverymansPort } from '../domain/ports/out/find-all-deliverymans.port';
-import { FindDeliverymanByIdWithOrdersPort } from '../domain/ports/out/find-deliveryman-by-id-with-orders.port';
-import { FindDeliverymanOrderLadingPort } from '../domain/ports/out/find-deliveryman-order-lading.port';
-import { SaveDeliverymanPort } from '../domain/ports/out/save-deliveryman.port';
-import { FindCountOfFreeDeliverymans } from '../domain/ports/out/find-count-of-free-deliverymans.port';
+import { CreateDeliverymanOutPort } from '../domain/ports/out/create-deliveryman.out-port';
+import { FindAllDeliverymansOutPort } from '../domain/ports/out/find-all-deliverymans.out-port';
+import { FindDeliverymanByIdWithOrdersOutPort } from '../domain/ports/out/find-deliveryman-by-id-with-orders.out-port';
+import { FindDeliverymanOrderLadingOutPort } from '../domain/ports/out/find-deliveryman-order-lading.out-port';
+import { SaveDeliverymanOutPort } from '../domain/ports/out/save-deliveryman.out-port';
+import { FindCountOfFreeDeliverymansOutPort } from '../domain/ports/out/find-count-of-free-deliverymans.out-port';
 import { DeliverymanEntity } from '../domain/entities/deliveryman.entity';
 
 @Injectable()
 export class DeliverymanRepository
   implements
-    CreateDeliverymanPort,
-    FindAllDeliverymansPort,
-    FindDeliverymanByIdWithOrdersPort,
-    SaveDeliverymanPort,
-    FindDeliverymanOrderLadingPort,
-    FindCountOfFreeDeliverymans
+    CreateDeliverymanOutPort,
+    FindAllDeliverymansOutPort,
+    FindDeliverymanByIdWithOrdersOutPort,
+    SaveDeliverymanOutPort,
+    FindDeliverymanOrderLadingOutPort,
+    FindCountOfFreeDeliverymansOutPort
 {
   constructor(
     @InjectRepository(DeliverymanOrmEntity)
@@ -82,9 +82,8 @@ export class DeliverymanRepository
 
   async save(deliveryMan: DeliverymanEntity): Promise<DeliverymanEntity> {
     const deliverymanOrm = DeliverymanMapper.mapToOrm(deliveryMan);
-    const savedDeliveryman = await this.deliverymanRepository.save(
-      deliverymanOrm,
-    );
+    const savedDeliveryman =
+      await this.deliverymanRepository.save(deliverymanOrm);
     return DeliverymanMapper.mapToDomain(savedDeliveryman);
   }
 }

@@ -2,12 +2,12 @@ import { randomUUID } from 'crypto';
 import { ReportEntity } from '../entities/report.entity';
 import {
   CreateReportCommand,
-  CreateReportUseCase,
-} from '../ports/in/create-report.use-case';
-import { SaveReportPort } from '../ports/out/save-report.port';
+  CreateReportInPort,
+} from '../ports/in/create-report.in-port';
+import { SaveReportOutPort } from '../ports/out/save-report.out-port';
 
-export class CreateReportInteractor implements CreateReportUseCase {
-  constructor(private readonly saveReport: SaveReportPort) {}
+export class CreateReportInteractor implements CreateReportInPort {
+  constructor(private readonly saveReport: SaveReportOutPort) {}
 
   async execute(
     createReportCommand: CreateReportCommand,
