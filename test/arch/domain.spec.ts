@@ -82,11 +82,11 @@ describe('domain boundaries', () => {
     expect(violations).toEqual([]);
   });
 
-  it('allows multiple patterns for input ports(use-cases, queries)', async () => {
+  it('allows multiple patterns for input ports', async () => {
     const violations = await filesOfProject()
       .inFolder('*/*/domain/ports/in/*')
       .should()
-      .matchPattern('(.use-case.ts|.query.ts)')
+      .matchPattern('.in-port.ts')
       .check();
 
     expect(violations).toEqual([]);
