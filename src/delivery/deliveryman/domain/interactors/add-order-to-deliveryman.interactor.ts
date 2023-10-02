@@ -1,4 +1,3 @@
-import { v4 as uuid } from 'uuid';
 import { OrderEntity } from '../entities/order.entity';
 import { FindDeliverymanByIdWithOrdersPort } from '../ports/out/find-deliveryman-by-id-with-orders.port';
 import { SaveDeliverymanPort } from '../ports/out/save-deliveryman.port';
@@ -7,6 +6,7 @@ import {
   AddOrderToDeliverymanUseCase,
   AddOrderToDeliverymanCommand,
 } from '../ports/in/add-order-to-deliveryman.use-case';
+import { randomUUID } from 'crypto';
 
 export class AddOrderToDeliverymanInteractor
   implements AddOrderToDeliverymanUseCase
@@ -27,7 +27,7 @@ export class AddOrderToDeliverymanInteractor
 
       deliverymanWithOrders.addOrder(
         new OrderEntity({
-          id: uuid(),
+          id: randomUUID(),
           name: 'test name',
           description: 'test descr',
           isActive: false,

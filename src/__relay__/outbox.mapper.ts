@@ -1,11 +1,11 @@
+import { randomUUID } from 'crypto';
 import { DomainEvent } from './domain-event';
 import { OutboxOrmEntity } from './outbox.orm-entity';
-import { v4 as uuid } from 'uuid';
 
 export class OutboxMapper {
   static mapToORM<Payload>(event: DomainEvent<Payload>): OutboxOrmEntity {
     const orm = new OutboxOrmEntity();
-    orm.id = uuid();
+    orm.id = randomUUID();
     orm.reason = event.reason;
     orm.type = event.type;
     orm.payload = event.payload;

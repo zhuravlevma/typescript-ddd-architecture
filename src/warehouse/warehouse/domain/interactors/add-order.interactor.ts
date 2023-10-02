@@ -1,3 +1,4 @@
+import { randomUUID } from 'crypto';
 import { OrderEntity } from '../entities/order.entity';
 import { WarehouseEntity } from '../entities/warehouse.entity';
 import {
@@ -6,7 +7,6 @@ import {
 } from '../ports/in/add-order.use-case';
 import { GetWarehouseWithOrdersPort } from '../ports/out/get-warehouse-with-orders.port';
 import { SaveWarehousePort } from '../ports/out/save-warehouse.port';
-import { v4 as uuid } from 'uuid';
 
 export class AddOrderInteractor implements AddOrderUseCase {
   constructor(
@@ -21,7 +21,7 @@ export class AddOrderInteractor implements AddOrderUseCase {
 
     warehouse.addOrder(
       new OrderEntity({
-        id: uuid(),
+        id: randomUUID(),
         name: addOrderCommand.name,
         isValid: false,
       }),

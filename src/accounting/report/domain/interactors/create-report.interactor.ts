@@ -1,10 +1,10 @@
+import { randomUUID } from 'crypto';
 import { ReportEntity } from '../entities/report.entity';
 import {
   CreateReportCommand,
   CreateReportUseCase,
 } from '../ports/in/create-report.use-case';
 import { SaveReportPort } from '../ports/out/save-report.port';
-import { v4 as uuid } from 'uuid';
 
 export class CreateReportInteractor implements CreateReportUseCase {
   constructor(private readonly saveReport: SaveReportPort) {}
@@ -13,7 +13,7 @@ export class CreateReportInteractor implements CreateReportUseCase {
     createReportCommand: CreateReportCommand,
   ): Promise<ReportEntity> {
     const report = new ReportEntity({
-      id: uuid(),
+      id: randomUUID(),
       orderId: createReportCommand.orderId,
       isValid: false,
       positions: [],
