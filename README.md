@@ -4,7 +4,7 @@
 
 ## Architecture
 
-![example-uml](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/zhuravlevma/nestjs-clean-architecture/main/diagram.iuml)
+![image](https://github.com/zhuravlevma/nestjs-ddd-clean-architecture/assets/44276887/2be14dbf-818b-452d-a39e-0a9de80c9a6b)
 
 ### Module boundaries
 
