@@ -17,6 +17,15 @@ describe('delivery/domain/deliveryman/services/add-order-to-deliveryman.service'
       firstName: 'test_name',
       lastName: 'test_lastname',
       isActive: true,
+      email: 'email',
+      phone: 8990099033,
+      vehicleType: 'bike',
+      workingHours: 10,
+      rating: 0,
+      deliveryCapacity: 2,
+      specialization: 'food',
+      commissionRate: 10,
+      paymentDetails: 93321331332,
       orders: [],
     });
   });

@@ -8,6 +8,15 @@ describe('delivery/domain/deliveryman/entities/deliveryman.entity', () => {
       firstName: 'test_name',
       lastName: 'test_lastname',
       isActive: true,
+      email: 'email',
+      phone: 8990099033,
+      vehicleType: 'bike',
+      workingHours: 10,
+      rating: 0,
+      deliveryCapacity: 2,
+      specialization: 'food',
+      commissionRate: 10,
+      paymentDetails: 93321331332,
       orders: [],
     });
 
@@ -18,6 +27,8 @@ describe('delivery/domain/deliveryman/entities/deliveryman.entity', () => {
         description: 'description',
         isActive: true,
         deliverymanId: 'deliverymanId',
+        totalSum: 0,
+        weight: 1,
         orderId: 'orderId',
       }),
     );
@@ -31,6 +42,15 @@ describe('delivery/domain/deliveryman/entities/deliveryman.entity', () => {
       firstName: 'test_name',
       lastName: 'test_lastname',
       isActive: true,
+      email: 'email',
+      phone: 8990099033,
+      vehicleType: 'bike',
+      workingHours: 10,
+      rating: 0,
+      deliveryCapacity: 2,
+      specialization: 'food',
+      commissionRate: 10,
+      paymentDetails: 93321331332,
       orders: [
         new OrderEntity({
           id: 'testuuid',
@@ -38,6 +58,8 @@ describe('delivery/domain/deliveryman/entities/deliveryman.entity', () => {
           description: 'description',
           isActive: true,
           deliverymanId: 'deliverymanId',
+          totalSum: 0,
+          weight: 1,
           orderId: 'orderId1',
         }),
         new OrderEntity({
@@ -46,6 +68,8 @@ describe('delivery/domain/deliveryman/entities/deliveryman.entity', () => {
           description: 'description1',
           isActive: true,
           deliverymanId: 'deliverymanId',
+          totalSum: 0,
+          weight: 1,
           orderId: 'orderId2',
         }),
         new OrderEntity({
@@ -54,6 +78,8 @@ describe('delivery/domain/deliveryman/entities/deliveryman.entity', () => {
           description: 'description2',
           isActive: true,
           deliverymanId: 'deliverymanId',
+          totalSum: 0,
+          weight: 1,
           orderId: 'orderId3',
         }),
         new OrderEntity({
@@ -62,6 +88,8 @@ describe('delivery/domain/deliveryman/entities/deliveryman.entity', () => {
           description: 'description3',
           isActive: true,
           deliverymanId: 'deliverymanId',
+          totalSum: 0,
+          weight: 1,
           orderId: 'orderId4',
         }),
       ],
@@ -75,6 +103,8 @@ describe('delivery/domain/deliveryman/entities/deliveryman.entity', () => {
           description: 'description',
           isActive: true,
           deliverymanId: 'deliverymanId',
+          totalSum: 0,
+          weight: 1,
           orderId: 'orderId5',
         }),
       );
