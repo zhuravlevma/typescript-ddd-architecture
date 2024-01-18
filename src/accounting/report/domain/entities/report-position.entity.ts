@@ -26,7 +26,7 @@ export class ReportPositionEntity implements Attributes {
     this.amount = attributes.amount;
   }
 
-  priceOfOnePosition() {
+  priceOfOnePosition(): number {
     return this.amount.getAmoutWithoutTax() / this.count;
   }
 
@@ -38,7 +38,7 @@ export class ReportPositionEntity implements Attributes {
     return this.amount.differenceAfterTax() < 0;
   }
 
-  getValueOfTax() {
+  getValueOfTax(): number {
     return this.amount.differenceAfterTax();
   }
 
@@ -50,11 +50,11 @@ export class ReportPositionEntity implements Attributes {
     this.amount.updateTaxRate(newTaxRate);
   }
 
-  getSumWithoutRate() {
+  getSumWithoutRate(): number {
     return this.amount.getAmoutWithoutTax();
   }
 
-  getWeightOfOnePostition() {
+  getWeightOfOnePostition(): number {
     return this.weight / this.count;
   }
 
