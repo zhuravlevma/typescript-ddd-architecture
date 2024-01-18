@@ -32,6 +32,8 @@ export class AddOrderToDeliverymanInteractor
           description: 'test descr',
           isActive: false,
           orderId: addOrderToDeliverymanCommand.orderId,
+          totalSum: 0,
+          weight: 1,
           deliverymanId: addOrderToDeliverymanCommand.deliverymanId,
         }),
       );

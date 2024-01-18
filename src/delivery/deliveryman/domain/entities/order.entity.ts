@@ -3,24 +3,42 @@ interface Attributes {
   name: string;
   description: string;
   isActive: boolean;
+  weight: number;
+  totalSum: number;
   deliverymanId: string;
   orderId: string;
 }
 export class OrderEntity implements Attributes {
-  id: string;
-  name: string;
-  description: string;
-  isActive: boolean;
-  deliverymanId: string;
-  orderId: string;
+  readonly id: string;
+  readonly name: string;
+  private _description: string;
+  private _isActive: boolean;
+  private _totalSum: number;
+  readonly deliverymanId: string;
+  readonly weight: number;
+  readonly orderId: string;
 
   constructor(attributes: Attributes) {
     this.id = attributes.id;
     this.name = attributes.name;
-    this.description = attributes.description;
-    this.isActive = attributes.isActive;
+    this._description = attributes.description;
+    this._isActive = attributes.isActive;
     this.deliverymanId = attributes.deliverymanId;
     this.orderId = attributes.orderId;
+    this._totalSum = attributes.totalSum;
+    this.weight = attributes.weight;
+  }
+
+  get description() {
+    return this._description;
+  }
+
+  get totalSum() {
+    return this._totalSum;
+  }
+
+  get isActive() {
+    return this._isActive;
   }
 
   checkName() {
@@ -29,24 +47,45 @@ export class OrderEntity implements Attributes {
     }
   }
 
-  changeStatus(newStatus: boolean) {
-    if (newStatus === true) {
-      this.deliver();
+  markAsDelayedDueToTraffic(): void {
+    this._isActive = false;
+    this.addInfoToDescription('Order delayed due to heavy traffic.');
+  }
+
+  requestGiftWrapping(): void {
+    this.addInfoToDescription('Gift wrapping requested.');
+    this._totalSum += 5;
+  }
+
+  cancelOrder(): void {
+    if (this.isActive === false) {
+      this._isActive = false;
+      this.addInfoToDescription('Order cancelled by customer.');
     } else {
-      this.return();
+      throw new Error('Order cannot be cancelled. Invalid order status.');
     }
   }
 
-  addInfoToDescription(info: string) {
-    this.description += '\n' + info;
+  applyTip(tipAmount: number): void {
+    if (this.isActive === true) {
+      this._totalSum += tipAmount;
+      this.addInfoToDescription(`Tip applied: $${tipAmount.toFixed(2)}`);
+    } else {
+      throw new Error('Tip cannot be applied. Order is not delivered.');
+    }
   }
 
-  return() {
-    this.addInfoToDescription('This order has been returned :(');
-  }
-
-  deliver() {
-    this.isActive = false;
+  deliverOrder() {
+    this._isActive = false;
     this.addInfoToDescription('This order has been delivered.');
+  }
+
+  addInfoToDescription(info: string) {
+    this._description += '\n' + info;
+  }
+
+  returnOrder() {
+    this._isActive = false;
+    this.addInfoToDescription('This order has been returned :(');
   }
 }

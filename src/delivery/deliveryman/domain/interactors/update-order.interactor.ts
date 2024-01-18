@@ -26,7 +26,8 @@ export class UpdateOrderInteractor implements UpdateOrderInPort {
         throw new Error('deliveryman not found');
       }
 
-      if (updateOrderStatusDto.delivered) deliveryman.deliverOrders();
+      if (updateOrderStatusDto.delivered)
+        deliveryman.completeDeliveryForAllOrders();
 
       return this.saveDeliverymanPort.save(deliveryman);
     } catch (error) {

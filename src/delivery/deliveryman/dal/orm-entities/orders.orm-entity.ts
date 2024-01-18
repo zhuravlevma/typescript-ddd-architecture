@@ -27,6 +27,12 @@ export class OrderOrmEntity {
   @Column()
   deliverymanId: string;
 
+  @Column()
+  totalSum: number;
+
+  @Column()
+  weight: number;
+
   @ManyToOne(() => DeliverymanOrmEntity, (deliveryMan) => deliveryMan.orders)
   @JoinColumn({ name: 'deliverymanId', referencedColumnName: 'id' })
   deliveryman: DeliverymanOrmEntity;

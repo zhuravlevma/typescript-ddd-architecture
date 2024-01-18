@@ -12,6 +12,15 @@ export class DeliverymanMapper {
       firstName: deliverymanOrmEntity.firstName,
       lastName: deliverymanOrmEntity.lastName,
       isActive: deliverymanOrmEntity.isActive,
+      email: deliverymanOrmEntity.email,
+      phone: deliverymanOrmEntity.phone,
+      vehicleType: deliverymanOrmEntity.vehicleType,
+      workingHours: deliverymanOrmEntity.workingHours,
+      rating: deliverymanOrmEntity.rating,
+      deliveryCapacity: deliverymanOrmEntity.deliveryCapacity,
+      specialization: deliverymanOrmEntity.specialization,
+      commissionRate: deliverymanOrmEntity.commissionRate,
+      paymentDetails: deliverymanOrmEntity.paymentDetails,
       orders: deliverymanOrmEntity.orders.map(
         (orderOrmEntity) =>
           new OrderEntity({
@@ -19,6 +28,8 @@ export class DeliverymanMapper {
             name: orderOrmEntity.name,
             description: orderOrmEntity.description,
             isActive: orderOrmEntity.isActive,
+            totalSum: orderOrmEntity.totalSum,
+            weight: orderOrmEntity.weight,
             deliverymanId: orderOrmEntity.deliverymanId,
             orderId: orderOrmEntity.orderId,
           }),
