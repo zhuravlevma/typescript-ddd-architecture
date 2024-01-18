@@ -1,4 +1,4 @@
-import { SumObjectValue } from '../object-values/sum.object-value';
+import { AmountObjectValue } from '../object-values/amount.object-value';
 
 interface Attributes {
   id: string;
@@ -6,16 +6,16 @@ interface Attributes {
   count: number;
   code: number;
   weight: number;
-  sum: SumObjectValue;
+  amount: AmountObjectValue;
 }
 
 export class ReportPositionEntity implements Attributes {
-  id: string;
-  name: string;
-  count: number;
-  code: number;
-  weight: number;
-  sum: SumObjectValue;
+  readonly id: string;
+  readonly name: string;
+  readonly count: number;
+  readonly code: number;
+  readonly weight: number;
+  readonly amount: AmountObjectValue;
 
   constructor(attributes: Attributes) {
     this.id = attributes.id;
@@ -23,23 +23,35 @@ export class ReportPositionEntity implements Attributes {
     this.count = attributes.count;
     this.code = attributes.code;
     this.weight = attributes.weight;
-    this.sum = attributes.sum;
+    this.amount = attributes.amount;
   }
 
   priceOfOnePosition() {
-    return this.sum.sumWithoutRate / this.count;
+    return this.amount.getAmoutWithoutTax() / this.count;
   }
 
-  getTotalSum() {
-    return this.sum.totalSum;
+  getPriceWithTax(): number {
+    return this.priceOfOnePosition() + this.getValueOfTax();
   }
 
-  getValueOfRate() {
-    return this.sum.difference();
+  hasNegativeDifferenceAfterTax(): boolean {
+    return this.amount.differenceAfterTax() < 0;
+  }
+
+  getValueOfTax() {
+    return this.amount.differenceAfterTax();
+  }
+
+  updatePositionDiscount(discount: number) {
+    return this.amount.applyDiscount(discount);
+  }
+
+  updateTaxRate(newTaxRate: number) {
+    this.amount.updateTaxRate(newTaxRate);
   }
 
   getSumWithoutRate() {
-    return this.sum.sumWithoutRate;
+    return this.amount.getAmoutWithoutTax();
   }
 
   getWeightOfOnePostition() {
@@ -47,7 +59,7 @@ export class ReportPositionEntity implements Attributes {
   }
 
   hasEmptyRate(): boolean {
-    if (this.sum.difference() === 0) {
+    if (this.amount.differenceAfterTax() === 0) {
       return true;
     }
     return false;
