@@ -11,6 +11,21 @@ export class OfferOrmEntity {
   @Column()
   orderId: string;
 
+  @Column()
+  vehicleType: string;
+
+  @Column()
+  preferredDeliveryAreas: string;
+
+  @Column()
+  workingHours: string;
+
+  @Column()
+  weight: number;
+
+  @Column()
+  bid: number;
+
   @Column({ type: 'uuid', nullable: true })
   deliverymanId: string | null;
 }

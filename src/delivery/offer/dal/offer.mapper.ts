@@ -7,6 +7,11 @@ export class OfferMapper {
       id: offerOrm.id,
       orderId: offerOrm.orderId,
       name: offerOrm.name,
+      vehicleType: offerOrm.vehicleType,
+      preferredDeliveryAreas: offerOrm.preferredDeliveryAreas,
+      workingHours: offerOrm.workingHours,
+      weight: offerOrm.weight,
+      bid: offerOrm.bid,
       deliverymanId: offerOrm.deliverymanId,
     });
   }
@@ -16,6 +21,12 @@ export class OfferMapper {
     offerOrmEntity.deliverymanId = offerEntity.deliverymanId;
     offerOrmEntity.name = offerEntity.name;
     offerOrmEntity.orderId = offerEntity.orderId;
+    offerOrmEntity.vehicleType = offerEntity.vehicleType;
+    offerOrmEntity.preferredDeliveryAreas = offerEntity.preferredDeliveryAreas;
+    offerOrmEntity.workingHours = offerEntity.workingHours;
+    offerOrmEntity.weight = offerEntity.weight;
+    offerOrmEntity.bid = offerEntity.bid;
+
     return offerOrmEntity;
   }
 }

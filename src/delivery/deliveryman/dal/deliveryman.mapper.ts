@@ -43,6 +43,17 @@ export class DeliverymanMapper {
     deliverymanOrmEntity.firstName = deliverymanEntity.firstName;
     deliverymanOrmEntity.isActive = deliverymanEntity.isActive;
     deliverymanOrmEntity.lastName = deliverymanEntity.lastName;
+    deliverymanOrmEntity.email = deliverymanEntity.email;
+    deliverymanOrmEntity.phone = deliverymanEntity.phone;
+    deliverymanOrmEntity.vehicleType = deliverymanEntity.vehicleType;
+    deliverymanOrmEntity.workingHours = deliverymanEntity.workingHours;
+
+    deliverymanOrmEntity.rating = deliverymanEntity.rating;
+    deliverymanOrmEntity.deliveryCapacity = deliverymanEntity.deliveryCapacity;
+    deliverymanOrmEntity.specialization = deliverymanEntity.specialization;
+    deliverymanOrmEntity.commissionRate = deliverymanEntity.commissionRate;
+    deliverymanOrmEntity.paymentDetails = deliverymanEntity.paymentDetails;
+
     deliverymanOrmEntity.orders = deliverymanEntity.orders.map(
       (orderEntity) => {
         const orderOrmEntity = new OrderOrmEntity();
@@ -51,6 +62,8 @@ export class DeliverymanMapper {
         orderOrmEntity.name = orderEntity.name;
         orderOrmEntity.isActive = orderEntity.isActive;
         orderOrmEntity.id = orderEntity.id;
+        orderOrmEntity.totalSum = orderEntity.totalSum;
+        orderOrmEntity.weight = orderEntity.weight;
         orderOrmEntity.orderId = orderEntity.orderId;
         return orderOrmEntity;
       },

@@ -16,6 +16,11 @@ export class CreateOfferInteractor implements CreateOfferInPort {
         name: createOfferCommand.name,
         orderId: createOfferCommand.orderId,
         deliverymanId: null,
+        vehicleType: 'bike',
+        preferredDeliveryAreas: 'New York',
+        workingHours: '8-11',
+        weight: 0,
+        bid: 5,
       });
 
       return this.saveOfferPort.saveOffer(offer);
