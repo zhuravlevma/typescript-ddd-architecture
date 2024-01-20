@@ -1,5 +1,6 @@
 # Warehouse bounded context
 
-Delivery contains aggregates: warehouse.
+Warehouse contains two subdomains:
 
-Each aggregate is isolated and has a clear and simple interface.
+- OrderManagment: Core
+- Location: Supporting

@@ -2,7 +2,24 @@
 
 [Domain model](https://martinfowler.com/eaaCatalog/domainModel.html) with a clean architecture with ports and adapters. It takes into account some tactical patterns from DDD.
 
-## Architecture
+## Domains And Subdomains
+
+### Marketplace Domain
+
+- **Domain: `Marketplace`**
+  - **Contexts:**
+    - **`Warehouse`** - warehouse context within the marketplace
+      - **`Core.OrderManagement`** - order management at the warehouse
+      - **`Supporting.Location`** - management of product locations at the warehouse, product categorization
+    - **`Accounting`** - accounting context within the marketplace
+      - **`Core.Reports`** - financial reports generation
+      - **`Supporting.Verification`** - order verification and invoicing
+    - **`Delivery`** - delivery context within the marketplace
+      - **`Core.Board`** - board of order proposals
+      - **`Core.Couriers`** - management of couriers
+      - **`Supporting.Tracking`** - delivery status tracking
+
+## Architecture inside Core subdomains
 
 ![image](https://github.com/zhuravlevma/nestjs-ddd-clean-architecture/assets/44276887/2be14dbf-818b-452d-a39e-0a9de80c9a6b)
 
@@ -10,9 +27,8 @@
 
 If you have a large monolith that contains many [bounded contexts](https://martinfowler.com/bliki/BoundedContext.html), then the service can be divided into modules by context.
 
-If you have a micro service architecture and you prefer to allocate contexts to different services (which is preferable), then the service can be divided into modules by [aggregates](https://martinfowler.com/bliki/DDD_Aggregate.html).
-
-In this example, there are more than one bounded contexts, you have a monolith in front of you. And this monolith is internally divided into modules according to bounded contexts.
+If you have a micro service architecture and you prefer to allocate contexts to different services (which is preferable). If it's not enough for you, then you can also divide subdomains into services.
+Each Core subdomain can be divided into modules by [aggregates](https://martinfowler.com/bliki/DDD_Aggregate.html).
 
 ### Why do I need an event bus?
 

@@ -7,13 +7,13 @@ import { AccountingModule } from './accounting/accounting.module';
 import { WarehouseModule } from './warehouse/warehouse.module';
 import { OutboxOrmEntity } from './__relay__/outbox.orm-entity';
 import { EventEmitterModule } from '@nestjs/event-emitter';
-import { OrderOrmEntity as WarehouseOrderOrmEntity } from './warehouse/warehouse/dal/orm-entities/order.orm-entity';
-import { DeliverymanOrmEntity } from './delivery/deliveryman/dal/orm-entities/deliveryman.orm-entity';
-import { OrderOrmEntity } from './delivery/deliveryman/dal/orm-entities/orders.orm-entity';
-import { OfferOrmEntity } from './delivery/offer/dal/orm-entities/offer.orm-entity';
-import { ReportPositionOrmEntity } from './accounting/report/dal/orm-entities/report-position.orm-entity';
-import { ReportOrmEntity } from './accounting/report/dal/orm-entities/report.orm-entity';
-import { WarehouseOrmEntity } from './warehouse/warehouse/dal/orm-entities/warehouse.orm-entity';
+import { OrderOrmEntity as WarehouseOrderOrmEntity } from './warehouse/order-management/warehouse/dal/orm-entities/order.orm-entity';
+import { DeliverymanOrmEntity } from './delivery/curiers/curier/dal/orm-entities/deliveryman.orm-entity';
+import { OrderOrmEntity } from './delivery/curiers/curier/dal/orm-entities/orders.orm-entity';
+import { OfferOrmEntity } from './delivery/board/offer/dal/orm-entities/offer.orm-entity';
+import { ReportPositionOrmEntity } from './accounting/reports/report/dal/orm-entities/report-position.orm-entity';
+import { ReportOrmEntity } from './accounting/reports/report/dal/orm-entities/report.orm-entity';
+import { WarehouseOrmEntity } from './warehouse/order-management/warehouse/dal/orm-entities/warehouse.orm-entity';
 import { RelayModule } from './__relay__/relay.module';
 @Module({
   imports: [

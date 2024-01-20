@@ -6,7 +6,7 @@ import { FindReportByIdInPort } from './domain/ports/in/find-report-by-id.in-por
 import { ApiTags } from '@nestjs/swagger';
 import { UpdateReportInPort } from './domain/ports/in/update-report.in-port';
 import { UpdateReportDto } from './dtos/update-report.dto';
-import { OrderValidatedEvent } from '../../warehouse/warehouse/domain/events/order-validated.event';
+import { OrderValidatedEvent } from '../../../warehouse/order-management/warehouse/domain/events/order-validated.event';
 
 @ApiTags('accounting')
 @Controller('reports')

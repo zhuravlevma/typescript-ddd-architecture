@@ -1,7 +1,7 @@
 import {
   ChangeDeliverymansStatusCommand,
   ChangeDeliverymansStatusInPort,
-} from 'src/delivery/deliveryman/domain/ports/in/change-deliverymans-status.in-port';
+} from 'src/delivery/curiers/curier/domain/ports/in/change-deliverymans-status.in-port';
 import { SaveDeliverymanOutPort } from '../ports/out/save-deliveryman.out-port';
 import { FindDeliverymanByIdWithOrdersOutPort } from '../ports/out/find-deliveryman-by-id-with-orders.out-port';
 import { DeliverymanEntity } from '../entities/deliveryman.entity';

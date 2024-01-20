@@ -13,7 +13,7 @@ import { UpdateOrderInPort } from './domain/ports/in/update-order.in-port';
 import { OnEvent } from '@nestjs/event-emitter';
 import { ApiTags } from '@nestjs/swagger';
 import { DeliverymanEntity } from './domain/entities/deliveryman.entity';
-import { OfferTakedEvent } from '../offer/domain/events/offer-taked.event';
+import { OfferTakedEvent } from '../../board/offer/domain/events/offer-taked.event';
 
 @ApiTags('delivery')
 @Controller('/delivery/deliverymans')

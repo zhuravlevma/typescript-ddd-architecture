@@ -8,7 +8,7 @@ import { SaveOfferOutPort } from '../domain/ports/out/save-offer.out-port';
 import { OfferEntity } from '../domain/entities/offer.entity';
 import { OfferMapper } from './offer.mapper';
 import { FindCountOfFreeOffersOutPort as FindCountOfFreeOffersOutPort } from '../domain/ports/out/find-count-of-free-offers.out-port';
-import { OutboxMapper } from '../../../__relay__/outbox.mapper';
+import { OutboxMapper } from '../../../../__relay__/outbox.mapper';
 
 @Injectable()
 export class OfferRepository

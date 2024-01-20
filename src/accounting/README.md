@@ -1,5 +1,6 @@
 # Accounting bounded context
 
-Accounting contains aggregates: report
+Accounting contains two subdomains:
 
-Each aggregate is isolated and has a clear and simple interface
+- Reports: Core
+- Verification: Supporting

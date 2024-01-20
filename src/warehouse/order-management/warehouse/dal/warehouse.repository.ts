@@ -2,7 +2,7 @@ import { WarehouseEntity } from '../domain/entities/warehouse.entity';
 import { DataSource, Repository } from 'typeorm';
 import { InjectDataSource, InjectRepository } from '@nestjs/typeorm';
 import { WarehouseMapper } from './warehouse.mapper';
-import { OutboxMapper } from '../../../__relay__/outbox.mapper';
+import { OutboxMapper } from '../../../../__relay__/outbox.mapper';
 import { SaveWarehouseOutPort } from '../domain/ports/out/save-warehouse.out-port';
 import { Injectable } from '@nestjs/common';
 import { GetWarehouseWithOrderOutPort } from '../domain/ports/out/get-warehouse-with-order.out-port';

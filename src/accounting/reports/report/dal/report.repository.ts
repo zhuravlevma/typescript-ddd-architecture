@@ -6,7 +6,7 @@ import { FindReportByIdOutPort } from '../domain/ports/out/find-report-by-id.out
 import { SaveReportOutPort } from '../domain/ports/out/save-report.out-port';
 import { ReportEntity } from '../domain/entities/report.entity';
 import { ReportOrmEntity } from './orm-entities/report.orm-entity';
-import { OutboxMapper } from '../../../__relay__/outbox.mapper';
+import { OutboxMapper } from '../../../../__relay__/outbox.mapper';
 
 @Injectable()
 export class ReportRepository

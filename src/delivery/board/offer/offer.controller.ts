@@ -5,7 +5,7 @@ import { UpdateOfferInPort } from './domain/ports/in/update-offer.in-port';
 import { OfferEntity } from './domain/entities/offer.entity';
 import { OnEvent } from '@nestjs/event-emitter';
 import { CreateOfferInPort } from './domain/ports/in/create-offer.in-port';
-import { ReportValidatedEvent } from '../../accounting/report/domain/events/report-validated.event';
+import { ReportValidatedEvent } from '../../../accounting/reports/report/domain/events/report-validated.event';
 
 @ApiTags('delivery')
 @Controller('/delivery/offers')
