@@ -8,13 +8,13 @@
 
 - **Domain: `Marketplace`**
   - **Contexts:**
-    - **`Warehouse`** - warehouse context within the marketplace
+    - **`Warehouse`** - warehouse context
       - **`Core.OrderManagement`** - order management at the warehouse
       - **`Supporting.Location`** - management of product locations at the warehouse, product categorization
-    - **`Accounting`** - accounting context within the marketplace
+    - **`Accounting`** - accounting context
       - **`Core.Reports`** - financial reports generation
       - **`Supporting.Verification`** - order verification and invoicing
-    - **`Delivery`** - delivery context within the marketplace
+    - **`Delivery`** - delivery context
       - **`Core.Board`** - board of order proposals
       - **`Core.Couriers`** - management of couriers
       - **`Supporting.Tracking`** - delivery status tracking
