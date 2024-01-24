@@ -12,6 +12,9 @@ export class ReportOrmEntity {
   @Column({ type: 'uuid' })
   orderId: string;
 
+  @Column()
+  reportNumber: number;
+
   @OneToMany(() => ReportPositionOrmEntity, (position) => position.report, {
     cascade: ['insert', 'update'],
   })

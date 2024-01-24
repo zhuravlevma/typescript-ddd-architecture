@@ -6,6 +6,7 @@ interface Attributes {
   id: string;
   isValid: boolean;
   orderId: string;
+  reportNumber: number;
   positions: ReportPositionEntity[];
 }
 
@@ -13,6 +14,7 @@ export class ReportEntity implements Attributes {
   readonly id: string;
   private _isValid: boolean;
   readonly orderId: string;
+  readonly reportNumber: number;
   readonly positions: ReportPositionEntity[];
   readonly events: DomainEvent[];
 

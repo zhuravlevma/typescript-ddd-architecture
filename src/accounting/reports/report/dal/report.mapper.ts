@@ -10,6 +10,7 @@ export class BillOfLadingMapper {
       id: reportOrm.id,
       isValid: reportOrm.isValid,
       orderId: reportOrm.orderId,
+      reportNumber: reportOrm.reportNumber,
       positions: reportOrm.positions.map(
         (positionOrm) =>
           new ReportPositionEntity({
@@ -28,6 +29,7 @@ export class BillOfLadingMapper {
     reportOrmEntity.id = reportEntity.id;
     reportOrmEntity.isValid = reportEntity.isValid;
     reportOrmEntity.orderId = reportEntity.orderId;
+    reportOrmEntity.reportNumber = reportEntity.reportNumber;
     reportOrmEntity.positions = reportEntity.positions.map((positionEntity) => {
       const positionOrmEntity = new ReportPositionOrmEntity();
       positionOrmEntity.id = positionEntity.id;

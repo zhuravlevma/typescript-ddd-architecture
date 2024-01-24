@@ -16,6 +16,7 @@ export class CreateReportInteractor implements CreateReportInPort {
       id: randomUUID(),
       orderId: createReportCommand.orderId,
       isValid: false,
+      reportNumber: 1213314,
       positions: [],
     });
 

@@ -13,6 +13,9 @@ import { FindPositionByIdOutPort } from './report/domain/ports/out/find-position
 import { FindReportByIdOutPort } from './report/domain/ports/out/find-report-by-id.out-port';
 import { SaveReportOutPort } from './report/domain/ports/out/save-report.out-port';
 import { ReportController } from './report/report.controller';
+import { FindReportWithPositionsByOutPort } from './report/domain/ports/out/find-report-with-positions-by-id.out-port';
+import { FindReportWithPositionsQuery } from './report/domain/queries/find-report-with-positions.query';
+import { FindReportWithPositionsByIdInPort } from './report/domain/ports/in/find-report-with-positions-by-id.in-port';
 
 @Module({
   imports: [
@@ -36,6 +39,15 @@ import { ReportController } from './report/report.controller';
       inject: [FindReportByIdOutPort],
     },
     {
+      provide: FindReportWithPositionsByIdInPort,
+      useFactory: (a) => new FindReportWithPositionsQuery(a),
+      inject: [FindReportWithPositionsByOutPort],
+    },
+    {
+      provide: FindReportWithPositionsByOutPort,
+      useClass: ReportRepository,
+    },
+    {
       provide: FindReportByIdOutPort,
       useClass: ReportRepository,
     },
@@ -48,5 +60,6 @@ import { ReportController } from './report/report.controller';
       useClass: ReportRepository,
     },
   ],
+  exports: [FindReportWithPositionsByIdInPort],
 })
 export class ReportsModule {}
