@@ -1,5 +1,5 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { CreateVerificationDto } from '../dtos/create-verification';
+import { CreateVerificationDto } from '../dtos/create-verification.dto';
 import { Verification } from '../models/verification.model';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';

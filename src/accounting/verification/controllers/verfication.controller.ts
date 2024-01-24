@@ -1,5 +1,5 @@
 import { Body, Controller, Post } from '@nestjs/common';
-import { CreateVerificationDto } from '../dtos/create-verification';
+import { CreateVerificationDto } from '../dtos/create-verification.dto';
 
 @Controller('/verification')
 export class VerificationController {
