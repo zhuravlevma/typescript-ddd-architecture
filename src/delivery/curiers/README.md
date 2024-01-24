@@ -1,0 +1,1 @@
+# Curiers core subdomain
