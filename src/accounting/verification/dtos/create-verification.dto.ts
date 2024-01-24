@@ -1,8 +1,11 @@
-import { IsString } from 'class-validator';
+import { IsNumber, IsString } from 'class-validator';
 
 export class CreateVerificationDto {
   @IsString()
-  orderId: string;
+  reportId: string;
+
+  @IsNumber()
+  reportNumber: number;
 
   @IsString()
   isFull: boolean;

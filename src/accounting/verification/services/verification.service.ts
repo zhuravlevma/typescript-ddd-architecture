@@ -20,7 +20,6 @@ export class VerificationService {
     createVerificationDto: CreateVerificationDto,
   ): Promise<Verification> {
     const verification = await this.verificationRepository.save({
-      orderId: createVerificationDto.orderId,
       isFull: createVerificationDto.isFull,
     });
 
@@ -37,7 +36,7 @@ export class VerificationService {
     });
 
     const report = await this.findReportWithPositionsByIdInPort.execute({
-      id: 'string',
+      id: verification.reportId,
     });
 
     if (verification === null) {
@@ -47,10 +46,18 @@ export class VerificationService {
     }
 
     if (updateVerificationDto.isFull) {
-      this.externalVerificationApi.fullVerifyReport({
+      await this.externalVerificationApi.fullVerifyReport({
         id: report.id,
         reportNumber: report.reportNumber,
       });
+    }
+
+    if (updateVerificationDto.signed) {
+      await this.externalVerificationApi.signReport(report.reportNumber);
+    }
+
+    if (updateVerificationDto.completed) {
+      await this.externalVerificationApi.complete(report.reportNumber);
     }
 
     return verification;

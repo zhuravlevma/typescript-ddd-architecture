@@ -1,3 +1,4 @@
+import { IsNumber } from 'class-validator';
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 @Entity('verifications', { schema: 'accounting' })
@@ -14,6 +15,9 @@ export class Verification {
   @Column({ type: 'bool' })
   signed: boolean;
 
+  @IsNumber()
+  reportNumber: number;
+
   @Column({ type: 'uuid' })
-  orderId: string;
+  reportId: string;
 }

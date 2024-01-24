@@ -12,13 +12,18 @@ export class ExternalVerificationApi {
     return report;
   }
 
-  fullVerifyReport(report: ReportApiDto) {
+  async fullVerifyReport(report: ReportApiDto) {
     /// call external api
     return report;
   }
 
-  signReport(report: number) {
+  async signReport(reportNumber: number) {
     /// call external api
-    return report;
+    return reportNumber;
+  }
+
+  async complete(reportNumber: number) {
+    /// call external api
+    return reportNumber;
   }
 }
