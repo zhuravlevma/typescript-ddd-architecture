@@ -9,15 +9,15 @@
 - **Domain: `Marketplace`**
   - **Contexts:**
     - **`Warehouse`** - warehouse context
-      - **`Core.OrderManagement`** - order management at the warehouse
-      - **`Supporting.Location`** - management of product locations at the warehouse, product categorization
+      - **`Core Subdomain.OrderManagement`** - order management at the warehouse
+      - **`Supporting Subdomain.Location`** - management of product locations at the warehouse, product categorization
     - **`Accounting`** - accounting context
-      - **`Core.Reports`** - financial reports generation
-      - **`Supporting.Verification`** - order verification and invoicing
+      - **`Core Subdomain.Reports`** - financial reports generation
+      - **`Supporting Subdomain.Verification`** - order verification and invoicing
     - **`Delivery`** - delivery context
-      - **`Core.Board`** - board of order proposals
-      - **`Core.Couriers`** - management of couriers
-      - **`Supporting.Tracking`** - delivery status tracking
+      - **`Core Subdomain.Board`** - board of order proposals
+      - **`Core Subdomain.Couriers`** - management of couriers
+      - **`Supporting Subdomain.Tracking`** - delivery status tracking
 
 ## Architecture inside Core subdomains
 
