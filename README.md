@@ -6,11 +6,11 @@
 
 ### Marketplace Domain
 
-- **Contexts:**
+- **Bounded Contexts:**
 
-  - **`Warehouse`** - warehouse context
+  - **`Warehouse`** - Context for warehouse operations
 
-    - **Subdomains:**: -
+    - **Subdomains:** -
       - **`Core OrderManagement`** - order management at the warehouse
       - **`Supporting Location`** - management of product locations at the warehouse, product categorization
 
