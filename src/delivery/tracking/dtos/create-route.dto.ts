@@ -1,9 +1,9 @@
-import { IsNumber, IsString } from 'class-validator';
+import { IsString } from 'class-validator';
 
 export class CreateRouteDto {
   @IsString()
   courierId: string;
 
-  @IsNumber()
+  @IsString()
   orderId: string;
 }
