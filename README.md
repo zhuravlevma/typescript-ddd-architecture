@@ -1,4 +1,4 @@
-# Clean Architecture with DDD
+# DDD patterns with examples
 
 [Domain model](https://martinfowler.com/eaaCatalog/domainModel.html) with a clean architecture with ports and adapters. It takes into account some tactical patterns from DDD.
 
