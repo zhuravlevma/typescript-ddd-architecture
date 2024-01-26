@@ -2,9 +2,7 @@
 
 [Domain model](https://martinfowler.com/eaaCatalog/domainModel.html) with a clean architecture with ports and adapters. It takes into account some tactical patterns from DDD.
 
-## Domains And Subdomains
-
-### Marketplace Domain
+## Marketplace Domain
 
 **Bounded Contexts:**
 
@@ -15,12 +13,14 @@
     - **`Supporting Location`** - management of product locations at the warehouse, product categorization
 
 - **`Accounting`** - accounting context
-  - **`Core Subdomain.Reports`** - financial reports generation
-  - **`Supporting Subdomain.Verification`** - order verification and invoicing
+  - **Subdomains:** -
+    - **`Core Reports`** - financial reports generation
+    - **`Supporting Verification`** - order verification and invoicing
 - **`Delivery`** - delivery context
-  - **`Core Subdomain.Board`** - board of order proposals
-  - **`Core Subdomain.Couriers`** - management of couriers
-  - **`Supporting Subdomain.Tracking`** - delivery status tracking
+  - **Subdomains:** -
+    - **`Core Board`** - board of order proposals
+    - **`Core Couriers`** - management of couriers
+    - **`Supporting Tracking`** - delivery status tracking
 
 ## Architecture inside Core subdomains
 
