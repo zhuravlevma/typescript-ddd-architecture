@@ -6,21 +6,21 @@
 
 ### Marketplace Domain
 
-- **Bounded Contexts:**
+**Bounded Contexts:**
 
-  - **`Warehouse`** - Context for warehouse operations
+- **`Warehouse`** - Context for warehouse operations
 
-    - **Subdomains:** -
-      - **`Core OrderManagement`** - order management at the warehouse
-      - **`Supporting Location`** - management of product locations at the warehouse, product categorization
+  - **Subdomains:** -
+    - **`Core OrderManagement`** - order management at the warehouse
+    - **`Supporting Location`** - management of product locations at the warehouse, product categorization
 
-  - **`Accounting`** - accounting context
-    - **`Core Subdomain.Reports`** - financial reports generation
-    - **`Supporting Subdomain.Verification`** - order verification and invoicing
-  - **`Delivery`** - delivery context
-    - **`Core Subdomain.Board`** - board of order proposals
-    - **`Core Subdomain.Couriers`** - management of couriers
-    - **`Supporting Subdomain.Tracking`** - delivery status tracking
+- **`Accounting`** - accounting context
+  - **`Core Subdomain.Reports`** - financial reports generation
+  - **`Supporting Subdomain.Verification`** - order verification and invoicing
+- **`Delivery`** - delivery context
+  - **`Core Subdomain.Board`** - board of order proposals
+  - **`Core Subdomain.Couriers`** - management of couriers
+  - **`Supporting Subdomain.Tracking`** - delivery status tracking
 
 ## Architecture inside Core subdomains
 
