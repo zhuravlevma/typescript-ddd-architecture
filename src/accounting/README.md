@@ -6,7 +6,7 @@ Accounting contains two subdomains:
 
   [Domain model](https://martinfowler.com/eaaCatalog/domainModel.html) with a clean architecture with ports and adapters. It takes into account some tactical patterns from DDD.
 
-  <img src='https://github.com/zhuravlevma/nestjs-ddd-clean-architecture/assets/44276887/2be14dbf-818b-452d-a39e-0a9de80c9a6b' width='25'>
+  <img src='https://github.com/zhuravlevma/nestjs-ddd-clean-architecture/assets/44276887/2be14dbf-818b-452d-a39e-0a9de80c9a6b' width='25%'>
 
 - Verification: Supporting
 
