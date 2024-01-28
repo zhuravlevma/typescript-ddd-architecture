@@ -28,7 +28,7 @@
 
 ### Module boundaries
 
-This project is a large monolith structured at a high level into [bounded contexts](https://martinfowler.com/bliki/BoundedContext.html). Each context contains subdomains that, depending on the type, implement their architectural pattern. For the **`Core subdomain`**, a [Domain model](https://martinfowler.com/eaaCatalog/domainModel.html) is chosen, while for the supporting subdomain, either [Transaction script](https://martinfowler.com/eaaCatalog/transactionScript.html) or [Active Record](https://www.martinfowler.com/eaaCatalog/activeRecord.html) is implemented as its architectural pattern.
+This project is a large monolith structured at a high level into [bounded contexts](https://martinfowler.com/bliki/BoundedContext.html). Each context contains subdomains that, depending on the type, implement their architectural pattern. For the **`Core subdomain`**, a [Domain model](https://martinfowler.com/eaaCatalog/domainModel.html) is chosen, while for the **`Supporting subdomain`**, either [Transaction script](https://martinfowler.com/eaaCatalog/transactionScript.html) or [Active Record](https://www.martinfowler.com/eaaCatalog/activeRecord.html) is implemented as its architectural pattern.
 
 - **`Domain model: Core`**
 
