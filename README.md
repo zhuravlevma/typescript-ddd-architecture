@@ -26,12 +26,6 @@
     - **`Core Couriers`** - management of couriers
     - **`Supporting Tracking`** - delivery status tracking
 
-## Architecture inside Core subdomains
-
-[Domain model](https://martinfowler.com/eaaCatalog/domainModel.html) with a clean architecture with ports and adapters. It takes into account some tactical patterns from DDD.
-
-![image](https://github.com/zhuravlevma/nestjs-ddd-clean-architecture/assets/44276887/2be14dbf-818b-452d-a39e-0a9de80c9a6b)
-
 ### Module boundaries
 
 If you have a large monolith that contains many [bounded contexts](https://martinfowler.com/bliki/BoundedContext.html), then the service can be divided into modules by context.
