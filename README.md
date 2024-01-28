@@ -28,7 +28,7 @@
 
 ### Module boundaries
 
-This project is a large monolith structured at a high level into [bounded contexts](https://martinfowler.com/bliki/BoundedContext.html). Each context contains subdomains that, depending on the type, implement their architectural pattern. For the Core subdomain, a [Domain model](https://martinfowler.com/eaaCatalog/domainModel.html) is chosen, while for the supporting subdomain, either [Transaction script](https://martinfowler.com/eaaCatalog/transactionScript.html) or [Active Record](https://www.martinfowler.com/eaaCatalog/activeRecord.html) is implemented as its architectural pattern.
+This project is a large monolith structured at a high level into [bounded contexts](https://martinfowler.com/bliki/BoundedContext.html). Each context contains subdomains that, depending on the type, implement their architectural pattern. For the **`Core subdomain`**, a [Domain model](https://martinfowler.com/eaaCatalog/domainModel.html) is chosen, while for the supporting subdomain, either [Transaction script](https://martinfowler.com/eaaCatalog/transactionScript.html) or [Active Record](https://www.martinfowler.com/eaaCatalog/activeRecord.html) is implemented as its architectural pattern.
 
 - **`Domain model: Core`**
 
@@ -42,7 +42,7 @@ This project is a large monolith structured at a high level into [bounded contex
 
   <img src='https://github.com/zhuravlevma/nestjs-ddd-architecture/assets/44276887/5debb30e-91df-44c6-abf0-e82d4442d0b9' alt="active record schema" width='50%'>
 
-- **`Transaction Script: Generic/Subdomain`**
+- **`Transaction Script: Supporting`**
 
   [Transaction Script](https://martinfowler.com/eaaCatalog/transactionScript.html) organizes business logic by procedures where each procedure handles a single request from the presentation.
 
