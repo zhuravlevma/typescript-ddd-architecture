@@ -28,6 +28,26 @@
 
 ### Module boundaries
 
+This project is a large monolith structured at a high level into [bounded contexts](https://martinfowler.com/bliki/BoundedContext.html). Each context contains subdomains that, depending on the type, implement their architectural pattern. For the Core subdomain, a [Domain model](https://martinfowler.com/eaaCatalog/domainModel.html) is chosen, while for the supporting subdomain, either [Transaction script](https://martinfowler.com/eaaCatalog/transactionScript.html) or [Active Record](https://www.martinfowler.com/eaaCatalog/activeRecord.html) is implemented as its architectural pattern.
+
+- **`Domain model: Core`**
+
+  [Domain model](https://martinfowler.com/eaaCatalog/domainModel.html) with a clean architecture with ports and adapters. It takes into account some tactical patterns from DDD.
+
+  <img src='https://github.com/zhuravlevma/nestjs-ddd-clean-architecture/assets/44276887/2be14dbf-818b-452d-a39e-0a9de80c9a6b' alt="domain model schema" width='50%'>
+
+- **`Active Record: Generic/Subdomain`**
+
+  [Active Record](https://www.martinfowler.com/eaaCatalog/activeRecord.html) uses the most obvious approach, putting data access logic in the domain object.
+
+  <img src='https://github.com/zhuravlevma/nestjs-ddd-architecture/assets/44276887/5debb30e-91df-44c6-abf0-e82d4442d0b9' alt="active record schema" width='50%'>
+
+- **`Transaction Script: Generic/Subdomain`**
+
+  [Transaction Script](https://martinfowler.com/eaaCatalog/transactionScript.html) organizes business logic by procedures where each procedure handles a single request from the presentation.
+
+  <img src='https://github.com/zhuravlevma/nestjs-ddd-architecture/assets/44276887/29971154-b39a-4650-b9fb-b867c5321483' alt="transaction script schema" width='50%'>
+
 If you have a large monolith that contains many [bounded contexts](https://martinfowler.com/bliki/BoundedContext.html), then the service can be divided into modules by context.
 
 If you have a micro service architecture and you prefer to allocate contexts to different services (which is preferable). If it's not enough for you, then you can also divide subdomains into services.
