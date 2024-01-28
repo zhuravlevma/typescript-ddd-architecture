@@ -19,7 +19,7 @@
 - **`Accounting`** - accounting context
   - **Subdomains:** -
     - **`Core Reports`** - financial reports generation
-    - **`Supporting Verification`** - order verification and invoicing
+    - **`Supporting Verification`** - order verification
 - **`Delivery`** - delivery context
   - **Subdomains:** -
     - **`Core Board`** - board of order proposals
