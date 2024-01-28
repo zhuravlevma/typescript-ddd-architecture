@@ -4,6 +4,12 @@
 
 ## Marketplace Domain
 
+### Event Storming schema
+
+![image](https://github.com/zhuravlevma/nestjs-ddd-architecture/assets/44276887/474fa269-4d3d-4a50-a9cc-fd3b97418418)
+
+### Describe
+
 **Bounded Contexts:**
 
 - **`Warehouse`** - Context for warehouse operations
