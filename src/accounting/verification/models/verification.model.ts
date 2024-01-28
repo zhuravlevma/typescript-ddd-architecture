@@ -20,4 +20,26 @@ export class Verification {
 
   @Column({ type: 'uuid' })
   reportId: string;
+
+  signReport() {
+    if (this.completed) {
+      throw new Error('Cannot sign a report that has already been completed.');
+    }
+
+    this.signed = true;
+  }
+
+  completeVerification() {
+    if (!this.signed) {
+      throw new Error(
+        'Cannot complete verification without signing the report.',
+      );
+    }
+
+    if (this.reportNumber < 0) {
+      throw new Error('Report number cannot be negative.');
+    }
+
+    this.completed = true;
+  }
 }

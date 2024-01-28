@@ -53,13 +53,15 @@ export class VerificationService {
     }
 
     if (updateVerificationDto.signed) {
+      verification.signReport();
       await this.externalVerificationApi.signReport(report.reportNumber);
     }
 
     if (updateVerificationDto.completed) {
+      verification.completeVerification();
       await this.externalVerificationApi.complete(report.reportNumber);
     }
 
-    return verification;
+    return this.verificationRepository.save(verification);
   }
 }
