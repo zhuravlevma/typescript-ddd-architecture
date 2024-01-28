@@ -1,7 +1,5 @@
 # DDD patterns with examples
 
-[Domain model](https://martinfowler.com/eaaCatalog/domainModel.html) with a clean architecture with ports and adapters. It takes into account some tactical patterns from DDD.
-
 ## Marketplace Domain
 
 ### Event Storming schema
@@ -30,6 +28,8 @@
 
 ## Architecture inside Core subdomains
 
+[Domain model](https://martinfowler.com/eaaCatalog/domainModel.html) with a clean architecture with ports and adapters. It takes into account some tactical patterns from DDD.
+
 ![image](https://github.com/zhuravlevma/nestjs-ddd-clean-architecture/assets/44276887/2be14dbf-818b-452d-a39e-0a9de80c9a6b)
 
 ### Module boundaries
@@ -54,10 +54,6 @@ In a good way, each bounded context in a micro-service architecture should have 
 ### Important
 
 This is not a production ready solution. For example, Event Emitter needs to be replaced with a separate message broker that [supports retry with confirmation](https://medium.com/upstream-engineering/a-tale-of-retries-using-rabbitmq-8a02a357a66).
-
-### Event Storming schema
-
-![image](https://github.com/zhuravlevma/nestjs-clean-architecture/assets/44276887/396d6ec0-bc43-4cf3-9dec-a77625f2fd11)
 
 ## Installation
 
