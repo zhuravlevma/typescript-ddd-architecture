@@ -1,4 +1,4 @@
-import { DomainMessage } from 'src/__relay__/domain-message';
+import { DomainMessage } from 'src/__lib__/domain-message';
 import { OfferTakedEvent } from '../events/offer-taked.event';
 
 interface Attributes {

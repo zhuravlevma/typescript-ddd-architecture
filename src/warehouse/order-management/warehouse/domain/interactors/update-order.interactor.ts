@@ -20,7 +20,9 @@ export class UpdateOrderInteractor implements UpdateOrderInPort {
         updateOrderStatusCommand.orderId,
       );
 
-    if (updateOrderStatusCommand.isValid) {
+    console.log('dwdfwf', updateOrderStatusCommand);
+
+    if (updateOrderStatusCommand.isValid === true) {
       warehouse.changeOrderStatusToValid(updateOrderStatusCommand.orderId);
     }
 

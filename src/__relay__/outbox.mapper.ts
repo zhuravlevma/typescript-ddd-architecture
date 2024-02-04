@@ -1,4 +1,4 @@
-import { DomainMessage } from './domain-message';
+import { DomainMessage } from '../__lib__/domain-message';
 import { MessageOrmEntity } from './message.orm-entity';
 
 export class OutboxMapper {

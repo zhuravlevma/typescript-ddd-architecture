@@ -25,20 +25,24 @@ export class BillOfLadingMapper {
     });
   }
   static mapToOrm(reportEntity: ReportEntity): ReportOrmEntity {
+    const reportRadonly = reportEntity.export();
     const reportOrmEntity = new ReportOrmEntity();
-    reportOrmEntity.id = reportEntity.id;
-    reportOrmEntity.isValid = reportEntity.isValid;
-    reportOrmEntity.orderId = reportEntity.orderId;
-    reportOrmEntity.reportNumber = reportEntity.reportNumber;
-    reportOrmEntity.positions = reportEntity.positions.map((positionEntity) => {
-      const positionOrmEntity = new ReportPositionOrmEntity();
-      positionOrmEntity.id = positionEntity.id;
-      positionOrmEntity.name = positionEntity.name;
-      positionOrmEntity.count = positionEntity.count;
-      positionOrmEntity.code = positionEntity.code;
-      positionOrmEntity.weight = positionEntity.weight;
-      return positionOrmEntity;
-    });
+    reportOrmEntity.id = reportRadonly.id;
+    reportOrmEntity.isValid = reportRadonly.isValid;
+    reportOrmEntity.orderId = reportRadonly.orderId;
+    reportOrmEntity.reportNumber = reportRadonly.reportNumber;
+    reportOrmEntity.positions = reportRadonly.positions.map(
+      (positionEntity) => {
+        const positionReadonly = positionEntity.export();
+        const positionOrmEntity = new ReportPositionOrmEntity();
+        positionOrmEntity.id = positionReadonly.id;
+        positionOrmEntity.name = positionReadonly.name;
+        positionOrmEntity.count = positionReadonly.count;
+        positionOrmEntity.code = positionReadonly.code;
+        positionOrmEntity.weight = positionReadonly.weight;
+        return positionOrmEntity;
+      },
+    );
     return reportOrmEntity;
   }
 }

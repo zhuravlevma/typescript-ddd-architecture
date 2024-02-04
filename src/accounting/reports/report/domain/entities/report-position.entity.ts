@@ -1,4 +1,5 @@
 import { AmountObjectValue } from '../object-values/amount.object-value';
+import { Entity } from 'src/__lib__/entity';
 
 interface Attributes {
   id: string;
@@ -9,25 +10,13 @@ interface Attributes {
   amount: AmountObjectValue;
 }
 
-export class ReportPositionEntity implements Attributes {
-  readonly id: string;
-  readonly name: string;
-  readonly count: number;
-  readonly code: number;
-  readonly weight: number;
-  readonly amount: AmountObjectValue;
-
+export class ReportPositionEntity extends Entity<Attributes> {
   constructor(attributes: Attributes) {
-    this.id = attributes.id;
-    this.name = attributes.name;
-    this.count = attributes.count;
-    this.code = attributes.code;
-    this.weight = attributes.weight;
-    this.amount = attributes.amount;
+    super(attributes);
   }
 
   priceOfOnePosition(): number {
-    return this.amount.getAmoutWithoutTax() / this.count;
+    return this.__data.amount.getAmoutWithoutTax() / this.__data.count;
   }
 
   getPriceWithTax(): number {
@@ -35,31 +24,31 @@ export class ReportPositionEntity implements Attributes {
   }
 
   hasNegativeDifferenceAfterTax(): boolean {
-    return this.amount.differenceAfterTax() < 0;
+    return this.__data.amount.differenceAfterTax() < 0;
   }
 
   getValueOfTax(): number {
-    return this.amount.differenceAfterTax();
+    return this.__data.amount.differenceAfterTax();
   }
 
   updatePositionDiscount(discount: number) {
-    return this.amount.applyDiscount(discount);
+    return this.__data.amount.applyDiscount(discount);
   }
 
   updateTaxRate(newTaxRate: number) {
-    this.amount.updateTaxRate(newTaxRate);
+    this.__data.amount.updateTaxRate(newTaxRate);
   }
 
   getSumWithoutRate(): number {
-    return this.amount.getAmoutWithoutTax();
+    return this.__data.amount.getAmoutWithoutTax();
   }
 
   getWeightOfOnePostition(): number {
-    return this.weight / this.count;
+    return this.__data.weight / this.__data.count;
   }
 
   hasEmptyRate(): boolean {
-    if (this.amount.differenceAfterTax() === 0) {
+    if (this.__data.amount.differenceAfterTax() === 0) {
       return true;
     }
     return false;

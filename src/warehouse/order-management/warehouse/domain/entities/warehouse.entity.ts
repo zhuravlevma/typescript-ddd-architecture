@@ -1,6 +1,6 @@
 import { OrderEntity } from './order.entity';
 import { OrderValidatedEvent } from '../events/order-validated.event';
-import { DomainMessage } from 'src/__relay__/domain-message';
+import { DomainMessage } from 'src/__lib__/domain-message';
 
 interface Attributes {
   id: string;
@@ -28,12 +28,15 @@ export class WarehouseEntity implements Attributes {
   changeOrderStatusToValid(orderId: string) {
     const order = this.orders.find((el) => el.id === orderId);
     order.changeStatus(true);
+
+    console.log('add event');
+
     this.events.push(
       new OrderValidatedEvent({
         aggregateId: this.id,
-        correlationId: this.id,
+        correlationId: 'requestId',
         payload: {
-          orderId: this.id,
+          orderId: order.id,
         },
       }),
     );

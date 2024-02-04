@@ -1,6 +1,6 @@
 import { ReportPositionEntity } from './report-position.entity';
 import { ReportValidatedEvent } from '../events/report-validated.event';
-import { DomainMessage } from 'src/__relay__/domain-message';
+import { Aggregate } from 'src/__lib__/aggregate';
 
 interface Attributes {
   id: string;
@@ -10,38 +10,27 @@ interface Attributes {
   positions: ReportPositionEntity[];
 }
 
-export class ReportEntity implements Attributes {
-  readonly id: string;
-  private _isValid: boolean;
-  readonly orderId: string;
-  readonly reportNumber: number;
-  readonly positions: ReportPositionEntity[];
-  readonly events: DomainMessage[];
-
+export class ReportEntity extends Aggregate<Attributes> {
   constructor(attributes: Attributes) {
-    this.id = attributes.id;
-    this._isValid = attributes.isValid;
-    this.orderId = attributes.orderId;
-    this.positions = attributes.positions;
-    this.events = [];
+    super(attributes);
   }
 
   get isValid() {
-    return this._isValid;
+    return this.__data.isValid;
   }
 
   updateReportStatus(status: boolean) {
     if (status === true) {
-      this._isValid = true;
-      this.events.push(
+      this.__data.isValid = true;
+      this.addMessage(
         new ReportValidatedEvent({
-          aggregateId: this.id,
+          aggregateId: this.__data.id,
           correlationId: 'id',
-          payload: { orderId: this.orderId },
+          payload: { orderId: this.__data.orderId },
         }),
       );
     } else {
-      this._isValid = false;
+      this.__data.isValid = false;
     }
   }
 
@@ -50,7 +39,7 @@ export class ReportEntity implements Attributes {
       this.updateReportStatus(true);
     }
 
-    this.positions.forEach((position) => {
+    this.__data.positions.forEach((position) => {
       if (position.getWeightOfOnePostition() > 5) {
         position.updatePositionDiscount(0.1);
       }
@@ -58,20 +47,20 @@ export class ReportEntity implements Attributes {
   }
 
   getTaxAmount(): number {
-    return this.positions.reduce(
+    return this.__data.positions.reduce(
       (totalTax, position) => totalTax + position.getValueOfTax(),
       0,
     );
   }
 
   getPositionsAboveTaxThreshold(threshold: number): ReportPositionEntity[] {
-    return this.positions.filter(
+    return this.__data.positions.filter(
       (position) => position.getValueOfTax() > threshold,
     );
   }
 
   getTotalAmountWithTax(): number {
-    return this.positions.reduce(
+    return this.__data.positions.reduce(
       (totalAmount, position) => totalAmount + position.getPriceWithTax(),
       0,
     );

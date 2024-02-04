@@ -1,7 +1,7 @@
 import {
   DomainEvent,
   DomainMessageAttributes,
-} from 'src/__relay__/domain-message';
+} from 'src/__lib__/domain-message';
 
 interface ReportValidatedPayload {
   orderId: string;

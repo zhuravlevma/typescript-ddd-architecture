@@ -37,9 +37,9 @@ export class ReportRepository
   }
 
   async save(report: ReportEntity): Promise<ReportEntity> {
-    const outboxORM = report.events.map((event) =>
-      OutboxMapper.mapToORM(event),
-    );
+    const outboxORM = report
+      .pullMessages()
+      .map((event) => OutboxMapper.mapToORM(event));
     const reportOrm = ReportMapper.mapToOrm(report);
 
     const savedReport = await this.dataSource.transaction(
