@@ -19,7 +19,11 @@ export class BillOfLadingMapper {
             count: positionOrm.count,
             code: positionOrm.code,
             weight: positionOrm.weight,
-            amount: new AmountObjectValue(positionOrm.sum, positionOrm.rate),
+            isValid: positionOrm.isValid,
+            amount: new AmountObjectValue({
+              amount: positionOrm.sum,
+              rate: positionOrm.rate,
+            }),
           }),
       ),
     });
@@ -40,6 +44,11 @@ export class BillOfLadingMapper {
         positionOrmEntity.count = positionReadonly.count;
         positionOrmEntity.code = positionReadonly.code;
         positionOrmEntity.weight = positionReadonly.weight;
+        positionOrmEntity.isValid = positionReadonly.isValid;
+
+        const amountReadonly = positionReadonly.amount.export();
+        positionOrmEntity.sum = amountReadonly.amount;
+        positionOrmEntity.rate = amountReadonly.rate;
         return positionOrmEntity;
       },
     );

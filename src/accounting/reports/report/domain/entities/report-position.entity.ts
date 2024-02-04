@@ -7,6 +7,7 @@ interface Attributes {
   count: number;
   code: number;
   weight: number;
+  isValid: boolean;
   amount: AmountObjectValue;
 }
 

@@ -1,25 +1,27 @@
-export class AmountObjectValue {
+import { ObjectValues } from 'src/__lib__/object-values';
+
+interface Attributes {
   amount: number;
   rate: number;
-
-  constructor(amount: number, rate: number) {
-    this.amount = amount;
-    this.rate = rate;
+}
+export class AmountObjectValue extends ObjectValues<Attributes> {
+  constructor(attributes: Attributes) {
+    super(attributes);
   }
 
-  applyDiscount(discount) {
-    this.amount *= discount;
+  applyDiscount(discount: number) {
+    this.__data.amount *= discount;
   }
 
   getAmoutWithoutTax(): number {
-    return this.amount * (100 - this.rate);
+    return this.__data.amount * (100 - this.__data.rate);
   }
 
   differenceAfterTax(): number {
-    return this.amount - this.getAmoutWithoutTax();
+    return this.__data.amount - this.getAmoutWithoutTax();
   }
 
   updateTaxRate(rate: number) {
-    this.rate = rate;
+    this.__data.rate = rate;
   }
 }

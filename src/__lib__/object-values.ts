@@ -1,7 +1,7 @@
 import * as _ from 'lodash';
 import { DeepReadonly } from './readonly';
 
-export abstract class Entity<Attributes> {
+export abstract class ObjectValues<Attributes> {
   protected __data: Attributes;
   constructor(attributes: Attributes) {
     this.__data = attributes;
