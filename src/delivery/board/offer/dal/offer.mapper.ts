@@ -17,15 +17,17 @@ export class OfferMapper {
   }
   static mapToOrm(offerEntity: OfferEntity): OfferOrmEntity {
     const offerOrmEntity = new OfferOrmEntity();
-    offerOrmEntity.id = offerEntity.id;
-    offerOrmEntity.curierid = offerEntity.curierId;
-    offerOrmEntity.name = offerEntity.name;
-    offerOrmEntity.orderId = offerEntity.orderId;
-    offerOrmEntity.vehicleType = offerEntity.vehicleType;
-    offerOrmEntity.preferredDeliveryAreas = offerEntity.preferredDeliveryAreas;
-    offerOrmEntity.workingHours = offerEntity.workingHours;
-    offerOrmEntity.weight = offerEntity.weight;
-    offerOrmEntity.bid = offerEntity.bid;
+    const offerReadonly = offerEntity.export();
+    offerOrmEntity.id = offerReadonly.id;
+    offerOrmEntity.curierid = offerReadonly.curierId;
+    offerOrmEntity.name = offerReadonly.name;
+    offerOrmEntity.orderId = offerReadonly.orderId;
+    offerOrmEntity.vehicleType = offerReadonly.vehicleType;
+    offerOrmEntity.preferredDeliveryAreas =
+      offerReadonly.preferredDeliveryAreas;
+    offerOrmEntity.workingHours = offerReadonly.workingHours;
+    offerOrmEntity.weight = offerReadonly.weight;
+    offerOrmEntity.bid = offerReadonly.bid;
 
     return offerOrmEntity;
   }

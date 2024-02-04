@@ -1,6 +1,6 @@
 import { OrderEntity } from './order.entity';
 import { OrderValidatedEvent } from '../events/order-validated.event';
-import { DomainMessage } from 'src/__lib__/domain-message';
+import { Aggregate } from 'src/__lib__/aggregate';
 
 interface Attributes {
   id: string;
@@ -8,32 +8,22 @@ interface Attributes {
   orders: OrderEntity[];
 }
 
-export class WarehouseEntity implements Attributes {
-  id: string;
-  name: string;
-  orders: OrderEntity[];
-  events: DomainMessage[];
-
+export class WarehouseEntity extends Aggregate<Attributes> {
   constructor(attributes: Attributes) {
-    this.id = attributes.id;
-    this.name = attributes.name;
-    this.orders = attributes.orders;
-    this.events = [];
+    super(attributes);
   }
 
   addOrder(order: OrderEntity) {
-    this.orders.push(order);
+    this.__data.orders.push(order);
   }
 
   changeOrderStatusToValid(orderId: string) {
-    const order = this.orders.find((el) => el.id === orderId);
+    const order = this.__data.orders.find((el) => el.id === orderId);
     order.changeStatus(true);
 
-    console.log('add event');
-
-    this.events.push(
+    this.addMessage(
       new OrderValidatedEvent({
-        aggregateId: this.id,
+        aggregateId: this.__data.id,
         correlationId: 'requestId',
         payload: {
           orderId: order.id,

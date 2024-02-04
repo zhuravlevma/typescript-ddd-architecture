@@ -1,3 +1,5 @@
+import { Entity } from 'src/__lib__/entity';
+
 interface Attributes {
   id: string;
   name: string;
@@ -8,58 +10,42 @@ interface Attributes {
   curierId: string;
   orderId: string;
 }
-export class OrderEntity implements Attributes {
-  readonly id: string;
-  readonly name: string;
-  private _description: string;
-  private _isActive: boolean;
-  private _totalSum: number;
-  readonly curierId: string;
-  readonly weight: number;
-  readonly orderId: string;
-
+export class OrderEntity extends Entity<Attributes> {
   constructor(attributes: Attributes) {
-    this.id = attributes.id;
-    this.name = attributes.name;
-    this._description = attributes.description;
-    this._isActive = attributes.isActive;
-    this.curierId = attributes.curierId;
-    this.orderId = attributes.orderId;
-    this._totalSum = attributes.totalSum;
-    this.weight = attributes.weight;
+    super(attributes);
   }
 
-  get description() {
-    return this._description;
+  get weight() {
+    return this.__data.weight;
   }
 
-  get totalSum() {
-    return this._totalSum;
+  get id() {
+    return this.__data.id;
   }
 
   get isActive() {
-    return this._isActive;
+    return this.__data.isActive;
   }
 
   checkName() {
-    if (this.name.length < 3) {
+    if (this.__data.name.length < 3) {
       throw new Error('The length of the name is less than 3');
     }
   }
 
   markAsDelayedDueToTraffic(): void {
-    this._isActive = false;
+    this.__data.isActive = false;
     this.addInfoToDescription('Order delayed due to heavy traffic.');
   }
 
   requestGiftWrapping(): void {
     this.addInfoToDescription('Gift wrapping requested.');
-    this._totalSum += 5;
+    this.__data.totalSum += 5;
   }
 
   cancelOrder(): void {
     if (this.isActive === false) {
-      this._isActive = false;
+      this.__data.isActive = false;
       this.addInfoToDescription('Order cancelled by customer.');
     } else {
       throw new Error('Order cannot be cancelled. Invalid order status.');
@@ -68,7 +54,7 @@ export class OrderEntity implements Attributes {
 
   applyTip(tipAmount: number): void {
     if (this.isActive === true) {
-      this._totalSum += tipAmount;
+      this.__data.totalSum += tipAmount;
       this.addInfoToDescription(`Tip applied: $${tipAmount.toFixed(2)}`);
     } else {
       throw new Error('Tip cannot be applied. Order is not delivered.');
@@ -76,16 +62,16 @@ export class OrderEntity implements Attributes {
   }
 
   deliverOrder() {
-    this._isActive = false;
+    this.__data.isActive = false;
     this.addInfoToDescription('This order has been delivered.');
   }
 
   addInfoToDescription(info: string) {
-    this._description += '\n' + info;
+    this.__data.description += '\n' + info;
   }
 
   returnOrder() {
-    this._isActive = false;
+    this.__data.isActive = false;
     this.addInfoToDescription('This order has been returned :(');
   }
 }

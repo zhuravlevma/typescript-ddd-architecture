@@ -37,31 +37,33 @@ export class CurierMapper {
 
   static mapToOrm(curierEntity: CurierEntity): CurierOrmEntity {
     const curierOrmEntity = new CurierOrmEntity();
-    curierOrmEntity.id = curierEntity.id;
-    curierOrmEntity.firstName = curierEntity.firstName;
-    curierOrmEntity.isActive = curierEntity.isActive;
-    curierOrmEntity.lastName = curierEntity.lastName;
-    curierOrmEntity.email = curierEntity.email;
-    curierOrmEntity.phone = curierEntity.phone;
-    curierOrmEntity.vehicleType = curierEntity.vehicleType;
-    curierOrmEntity.workingHours = curierEntity.workingHours;
+    const curierReadonly = curierEntity.export();
+    curierOrmEntity.id = curierReadonly.id;
+    curierOrmEntity.firstName = curierReadonly.firstName;
+    curierOrmEntity.isActive = curierReadonly.isActive;
+    curierOrmEntity.lastName = curierReadonly.lastName;
+    curierOrmEntity.email = curierReadonly.email;
+    curierOrmEntity.phone = curierReadonly.phone;
+    curierOrmEntity.vehicleType = curierReadonly.vehicleType;
+    curierOrmEntity.workingHours = curierReadonly.workingHours;
 
-    curierOrmEntity.rating = curierEntity.rating;
-    curierOrmEntity.deliveryCapacity = curierEntity.deliveryCapacity;
-    curierOrmEntity.specialization = curierEntity.specialization;
-    curierOrmEntity.commissionRate = curierEntity.commissionRate;
-    curierOrmEntity.paymentDetails = curierEntity.paymentDetails;
+    curierOrmEntity.rating = curierReadonly.rating;
+    curierOrmEntity.deliveryCapacity = curierReadonly.deliveryCapacity;
+    curierOrmEntity.specialization = curierReadonly.specialization;
+    curierOrmEntity.commissionRate = curierReadonly.commissionRate;
+    curierOrmEntity.paymentDetails = curierReadonly.paymentDetails;
 
-    curierOrmEntity.orders = curierEntity.orders.map((orderEntity) => {
+    curierOrmEntity.orders = curierReadonly.orders.map((orderEntity) => {
       const orderOrmEntity = new OrderOrmEntity();
-      orderOrmEntity.curierId = orderEntity.curierId;
-      orderOrmEntity.description = orderEntity.description;
-      orderOrmEntity.name = orderEntity.name;
-      orderOrmEntity.isActive = orderEntity.isActive;
-      orderOrmEntity.id = orderEntity.id;
-      orderOrmEntity.totalSum = orderEntity.totalSum;
-      orderOrmEntity.weight = orderEntity.weight;
-      orderOrmEntity.orderId = orderEntity.orderId;
+      const orderReadonly = orderEntity.export();
+      orderOrmEntity.curierId = orderReadonly.curierId;
+      orderOrmEntity.description = orderReadonly.description;
+      orderOrmEntity.name = orderReadonly.name;
+      orderOrmEntity.isActive = orderReadonly.isActive;
+      orderOrmEntity.id = orderReadonly.id;
+      orderOrmEntity.totalSum = orderReadonly.totalSum;
+      orderOrmEntity.weight = orderReadonly.weight;
+      orderOrmEntity.orderId = orderReadonly.orderId;
       return orderOrmEntity;
     });
     return curierOrmEntity;

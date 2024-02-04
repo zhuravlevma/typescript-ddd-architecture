@@ -24,13 +24,15 @@ export class SavedWarehouseResponseDto {
     warehouseEntity: WarehouseEntity,
   ): SavedWarehouseResponseDto {
     const respDto = new SavedWarehouseResponseDto();
-    respDto.id = warehouseEntity.id;
-    respDto.name = warehouseEntity.name;
-    respDto.orders = warehouseEntity.orders.map((orderEntity) => {
+    const warehouseReadonly = warehouseEntity.export();
+    respDto.id = warehouseReadonly.id;
+    respDto.name = warehouseReadonly.name;
+    respDto.orders = warehouseReadonly.orders.map((orderEntity) => {
       const orderDto = new SavedOrderResponseDto();
-      orderDto.id = orderEntity.id;
-      orderDto.name = orderEntity.name;
-      orderDto.isValid = orderEntity.isValid;
+      const orderReadonly = orderEntity.export();
+      orderDto.id = orderReadonly.id;
+      orderDto.name = orderReadonly.name;
+      orderDto.isValid = orderReadonly.isValid;
       return orderDto;
     });
     return respDto;

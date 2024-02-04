@@ -52,7 +52,9 @@ export class OfferRepository
   }
 
   async saveOffer(offer: OfferEntity): Promise<OfferEntity> {
-    const outboxORM = offer.events.map((event) => OutboxMapper.mapToORM(event));
+    const outboxORM = offer
+      .pullMessages()
+      .map((event) => OutboxMapper.mapToORM(event));
     const reportOrm = OfferMapper.mapToOrm(offer);
 
     const savedOffer = await this.dataSource.transaction(

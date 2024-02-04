@@ -6,14 +6,16 @@ import { WarehouseOrmEntity } from './orm-entities/warehouse.orm-entity';
 export class WarehouseMapper {
   static mapToORM(warehouseEntity: WarehouseEntity): WarehouseOrmEntity {
     const orm = new WarehouseOrmEntity();
-    orm.id = warehouseEntity.id;
-    orm.name = warehouseEntity.name;
-    orm.orders = warehouseEntity.orders.map((orderEntity) => {
+    const warehouseReadonly = warehouseEntity.export();
+    orm.id = warehouseReadonly.id;
+    orm.name = warehouseReadonly.name;
+    orm.orders = warehouseReadonly.orders.map((orderEntity) => {
       const orderOrm = new OrderOrmEntity();
+      const orderReadonly = orderEntity.export();
       orderOrm.id = orderEntity.id;
-      orderOrm.name = orderEntity.name;
-      orderOrm.warehouseId = warehouseEntity.id;
-      orderOrm.isValid = orderEntity.isValid;
+      orderOrm.name = orderReadonly.name;
+      orderOrm.warehouseId = warehouseReadonly.id;
+      orderOrm.isValid = orderReadonly.isValid;
       return orderOrm;
     });
     return orm;

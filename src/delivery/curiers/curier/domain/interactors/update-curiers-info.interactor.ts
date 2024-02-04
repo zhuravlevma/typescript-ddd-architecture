@@ -21,11 +21,12 @@ export class UpdateCuriersInfoInteractor implements UpdateCuriersInPort {
           updateCurierDto.curierId,
         );
 
-      updateCurierDto.firstName !== undefined ??
-        (curierWithOrders.firstName = updateCurierDto.firstName);
-
-      updateCurierDto.lastName !== undefined ??
-        (curierWithOrders.lastName = updateCurierDto.lastName);
+      if (updateCurierDto.firstName !== undefined) {
+        curierWithOrders.changeFirstName(updateCurierDto.firstName);
+      }
+      if (updateCurierDto.lastName !== undefined) {
+        curierWithOrders.changeLastName(updateCurierDto.lastName);
+      }
 
       return await this.saveCurierPort.save(curierWithOrders);
     } catch (error) {

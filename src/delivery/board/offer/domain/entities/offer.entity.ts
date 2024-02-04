@@ -1,5 +1,5 @@
-import { DomainMessage } from 'src/__lib__/domain-message';
 import { OfferTakedEvent } from '../events/offer-taked.event';
+import { Aggregate } from 'src/__lib__/aggregate';
 
 interface Attributes {
   id: string;
@@ -13,81 +13,61 @@ interface Attributes {
   bid: number;
 }
 
-export class OfferEntity implements Attributes {
-  id: string;
-  name: string;
-  orderId: string;
-  curierId: string | null;
-  events: DomainMessage[];
-  vehicleType: string;
-  preferredDeliveryAreas: string;
-  workingHours: string;
-  weight: number;
-  bid: number;
-
+export class OfferEntity extends Aggregate<Attributes> {
   constructor(attributes: Attributes) {
-    this.id = attributes.id;
-    this.name = attributes.name;
-    this.orderId = attributes.orderId;
-    this.curierId = attributes.curierId;
-    this.vehicleType = attributes.vehicleType;
-    this.preferredDeliveryAreas = attributes.preferredDeliveryAreas;
-    this.workingHours = attributes.workingHours;
-    this.weight = attributes.weight;
-    this.bid = attributes.bid;
-    this.events = [];
+    super(attributes);
   }
 
   setVehicleType(type: string) {
-    this.vehicleType = type;
+    this.__data.vehicleType = type;
   }
 
   setPreferredDeliveryAreas(areas: string) {
-    this.preferredDeliveryAreas = areas;
+    this.__data.preferredDeliveryAreas = areas;
   }
 
   setWorkingHours(hours: string) {
-    this.workingHours = hours;
+    this.__data.workingHours = hours;
   }
 
   private updateBid() {
-    if (this.weight <= 5) {
-      this.bid = 10;
-    } else if (this.weight <= 10) {
-      this.bid = 20;
+    if (this.__data.weight <= 5) {
+      this.__data.bid = 10;
+    } else if (this.__data.weight <= 10) {
+      this.__data.bid = 20;
     } else {
-      this.bid = 30;
+      this.__data.bid = 30;
     }
   }
 
   increaseBid(amount: number) {
-    this.bid += amount;
+    this.__data.bid += amount;
   }
 
   setWeight(weight: number) {
     if (weight < 0) {
       throw new Error('Order weight cannot be negative');
     } else if (weight <= 5) {
-      this.vehicleType = 'Bike';
+      this.__data.vehicleType = 'Bike';
     } else if (weight <= 10) {
-      this.vehicleType = 'Auto';
+      this.__data.vehicleType = 'Auto';
     } else {
-      this.vehicleType = 'Big truck';
+      this.__data.vehicleType = 'Big truck';
     }
 
-    this.weight = weight;
+    this.__data.weight = weight;
     this.updateBid();
   }
 
   curierTakeOffer(curierId: string) {
-    this.curierId = curierId;
-    this.events.push(
+    this.__data.curierId = curierId;
+    this.addMessage(
       new OfferTakedEvent({
-        aggregateId: this.id,
+        aggregateId: this.__data.id,
         correlationId: 'requestID',
         payload: {
-          orderId: this.orderId,
-          curierId: this.curierId,
+          orderId: this.__data.orderId,
+          curierId: this.__data.curierId,
         },
       }),
     );
