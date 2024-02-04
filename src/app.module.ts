@@ -8,7 +8,7 @@ import { WarehouseModule } from './warehouse/warehouse.module';
 import { MessageOrmEntity } from './__relay__/message.orm-entity';
 import { EventEmitterModule } from '@nestjs/event-emitter';
 import { OrderOrmEntity as WarehouseOrderOrmEntity } from './warehouse/order-management/warehouse/dal/orm-entities/order.orm-entity';
-import { DeliverymanOrmEntity } from './delivery/curiers/curier/dal/orm-entities/deliveryman.orm-entity';
+import { CurierOrmEntity } from './delivery/curiers/curier/dal/orm-entities/curier.orm-entity';
 import { OrderOrmEntity } from './delivery/curiers/curier/dal/orm-entities/orders.orm-entity';
 import { OfferOrmEntity } from './delivery/board/offer/dal/orm-entities/offer.orm-entity';
 import { ReportPositionOrmEntity } from './accounting/reports/report/dal/orm-entities/report-position.orm-entity';
@@ -30,7 +30,7 @@ import { RelayModule } from './__relay__/relay.module';
       database: config().database.name,
       entities: [
         OrderOrmEntity,
-        DeliverymanOrmEntity,
+        CurierOrmEntity,
         ReportPositionOrmEntity,
         ReportOrmEntity,
         WarehouseOrmEntity,

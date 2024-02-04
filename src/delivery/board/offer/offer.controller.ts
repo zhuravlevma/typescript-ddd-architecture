@@ -16,7 +16,7 @@ export class OfferController {
   ) {}
 
   @OnEvent('report-validated') // env fixed
-  handleReportValidatedEvent(event: ReportValidatedEvent) {
+  applyReportValidated(event: ReportValidatedEvent) {
     return this.createOfferUseCase.execute({
       orderId: event.payload.orderId,
       name: 'Report with ' + event.payload.orderId,
@@ -33,7 +33,7 @@ export class OfferController {
   ): Promise<OfferEntity> {
     return this.updateOfferUseCase.execute({
       offerId,
-      deliverymanId: updateOfferDto.deliverymanId,
+      curierId: updateOfferDto.curierId,
     });
   }
 }

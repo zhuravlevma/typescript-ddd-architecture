@@ -3,6 +3,6 @@ export class OrderModel {
   name: string;
   description: string;
   isActive: boolean;
-  deliverymanId: string;
+  curierId: string;
   orderId: string;
 }

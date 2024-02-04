@@ -18,8 +18,8 @@ export class UpdateOfferInteractor implements UpdateOfferInPort {
         updateOfferCommand.offerId,
       );
 
-      if (updateOfferCommand.deliverymanId !== undefined) {
-        offer.deliverymanTakeOffer(updateOfferCommand.deliverymanId);
+      if (updateOfferCommand.curierId !== undefined) {
+        offer.curierTakeOffer(updateOfferCommand.curierId);
       }
 
       return this.saveOfferPort.saveOffer(offer);

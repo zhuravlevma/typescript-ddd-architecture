@@ -28,7 +28,7 @@ export class OfferRepository
   async findCountOfFreeOffersPort(): Promise<number> {
     return this.offerRepository.count({
       where: {
-        deliverymanId: null,
+        curierid: null,
       },
     });
   }

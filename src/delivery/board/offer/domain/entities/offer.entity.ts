@@ -5,7 +5,7 @@ interface Attributes {
   id: string;
   name: string;
   orderId: string;
-  deliverymanId: string | null;
+  curierId: string | null;
   vehicleType: string;
   preferredDeliveryAreas: string;
   workingHours: string;
@@ -17,7 +17,7 @@ export class OfferEntity implements Attributes {
   id: string;
   name: string;
   orderId: string;
-  deliverymanId: string | null;
+  curierId: string | null;
   events: DomainMessage[];
   vehicleType: string;
   preferredDeliveryAreas: string;
@@ -29,7 +29,7 @@ export class OfferEntity implements Attributes {
     this.id = attributes.id;
     this.name = attributes.name;
     this.orderId = attributes.orderId;
-    this.deliverymanId = attributes.deliverymanId;
+    this.curierId = attributes.curierId;
     this.vehicleType = attributes.vehicleType;
     this.preferredDeliveryAreas = attributes.preferredDeliveryAreas;
     this.workingHours = attributes.workingHours;
@@ -79,15 +79,15 @@ export class OfferEntity implements Attributes {
     this.updateBid();
   }
 
-  deliverymanTakeOffer(deliverymanId: string) {
-    this.deliverymanId = deliverymanId;
+  curierTakeOffer(curierId: string) {
+    this.curierId = curierId;
     this.events.push(
       new OfferTakedEvent({
         aggregateId: this.id,
         correlationId: 'requestID',
         payload: {
           orderId: this.orderId,
-          deliverymanId: this.deliverymanId,
+          curierId: this.curierId,
         },
       }),
     );

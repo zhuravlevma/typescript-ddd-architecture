@@ -1,3 +1,3 @@
 export class UpdateOfferDto {
-  deliverymanId: string;
+  curierId: string;
 }

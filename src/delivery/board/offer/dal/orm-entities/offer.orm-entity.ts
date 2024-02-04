@@ -27,5 +27,5 @@ export class OfferOrmEntity {
   bid: number;
 
   @Column({ type: 'uuid', nullable: true })
-  deliverymanId: string | null;
+  curierid: string | null;
 }

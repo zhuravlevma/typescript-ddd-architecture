@@ -5,7 +5,7 @@ import {
 
 interface OfferTakedPayload {
   orderId: string;
-  deliverymanId: string;
+  curierId: string;
 }
 
 export class OfferTakedEvent extends DomainEvent<OfferTakedPayload> {

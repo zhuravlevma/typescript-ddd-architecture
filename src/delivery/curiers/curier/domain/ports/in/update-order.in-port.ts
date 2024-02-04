@@ -1,7 +1,7 @@
-import { DeliverymanEntity } from '../../entities/deliveryman.entity';
+import { CurierEntity } from '../../entities/curier.entity';
 
 export interface UpdateOrderCommand {
-  deliverymanId: string;
+  curierId: string;
   orderId: string;
   description?: string;
   delivered?: boolean;
@@ -10,5 +10,5 @@ export interface UpdateOrderCommand {
 export abstract class UpdateOrderInPort {
   abstract execute(
     updateOrderStatusCommand: UpdateOrderCommand,
-  ): Promise<DeliverymanEntity>;
+  ): Promise<CurierEntity>;
 }

@@ -5,7 +5,7 @@ interface Attributes {
   isActive: boolean;
   weight: number;
   totalSum: number;
-  deliverymanId: string;
+  curierId: string;
   orderId: string;
 }
 export class OrderEntity implements Attributes {
@@ -14,7 +14,7 @@ export class OrderEntity implements Attributes {
   private _description: string;
   private _isActive: boolean;
   private _totalSum: number;
-  readonly deliverymanId: string;
+  readonly curierId: string;
   readonly weight: number;
   readonly orderId: string;
 
@@ -23,7 +23,7 @@ export class OrderEntity implements Attributes {
     this.name = attributes.name;
     this._description = attributes.description;
     this._isActive = attributes.isActive;
-    this.deliverymanId = attributes.deliverymanId;
+    this.curierId = attributes.curierId;
     this.orderId = attributes.orderId;
     this._totalSum = attributes.totalSum;
     this.weight = attributes.weight;

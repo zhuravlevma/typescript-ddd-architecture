@@ -5,7 +5,7 @@ import {
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
-import { DeliverymanOrmEntity } from './deliveryman.orm-entity';
+import { CurierOrmEntity } from './curier.orm-entity';
 
 @Entity('orders', { schema: 'delivery' })
 export class OrderOrmEntity {
@@ -25,7 +25,7 @@ export class OrderOrmEntity {
   isActive: boolean;
 
   @Column()
-  deliverymanId: string;
+  curierId: string;
 
   @Column()
   totalSum: number;
@@ -33,7 +33,7 @@ export class OrderOrmEntity {
   @Column()
   weight: number;
 
-  @ManyToOne(() => DeliverymanOrmEntity, (deliveryMan) => deliveryMan.orders)
-  @JoinColumn({ name: 'deliverymanId', referencedColumnName: 'id' })
-  deliveryman: DeliverymanOrmEntity;
+  @ManyToOne(() => CurierOrmEntity, (curier) => curier.orders)
+  @JoinColumn({ name: 'curierId', referencedColumnName: 'id' })
+  curier: CurierOrmEntity;
 }

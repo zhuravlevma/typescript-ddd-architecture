@@ -1,90 +1,90 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { DeliverymanRepository } from './curier/dal/deliveryman.repository';
-import { DeliverymanOrmEntity } from './curier/dal/orm-entities/deliveryman.orm-entity';
+import { CurierRepository } from './curier/dal/curier.repository';
+import { CurierOrmEntity } from './curier/dal/orm-entities/curier.orm-entity';
 import { OrderOrmEntity } from './curier/dal/orm-entities/orders.orm-entity';
-import { DeliverymanController } from './curier/deliveryman.controller';
-import { AddOrderToDeliverymanInteractor } from './curier/domain/interactors/add-order-to-deliveryman.interactor';
-import { ChangeDeliverymansStatusInteractor } from './curier/domain/interactors/change-deliverymans-status.interactor';
-import { CreateDeliverymanInteractor } from './curier/domain/interactors/create-deliveryman.interactor';
-import { FindAllDeliverymansInteractor } from './curier/domain/interactors/find-all-deliverymans.interactor';
-import { UpdateDeliverymansInfoInteractor } from './curier/domain/interactors/update-deliverymans-info.interactor';
+import { CurierController } from './curier/curier.controller';
+import { AddOrderToCurierInteractor } from './curier/domain/interactors/add-order-to-curier.interactor';
+import { ChangeCuriersStatusInteractor } from './curier/domain/interactors/change-curiers-status.interactor';
+import { CreateCurierInteractor } from './curier/domain/interactors/create-curier.interactor';
+import { FindAllCuriersInteractor } from './curier/domain/interactors/find-all-curiers.interactor';
+import { UpdateCuriersInfoInteractor } from './curier/domain/interactors/update-curiers-info.interactor';
 import { UpdateOrderInteractor } from './curier/domain/interactors/update-order.interactor';
-import { AddOrderToDeliverymanInPort } from './curier/domain/ports/in/add-order-to-deliveryman.in-port';
-import { ChangeDeliverymansStatusInPort } from './curier/domain/ports/in/change-deliverymans-status.in-port';
-import { CreateDeliverymanInPort } from './curier/domain/ports/in/create-deliveryman.in-port';
-import { FindAllDeliverymansInPort } from './curier/domain/ports/in/find-all-deliverymans.in-port';
-import { UpdateDeliverymansInPort } from './curier/domain/ports/in/update-deliveryman-info.in-port';
+import { AddOrderToCurierInPort } from './curier/domain/ports/in/add-order-to-curier.in-port';
+import { ChangeCuriersStatusInPort } from './curier/domain/ports/in/change-curiers-status.in-port';
+import { CreateCurierInPort } from './curier/domain/ports/in/create-curier.in-port';
+import { FindAllCuriersInPort } from './curier/domain/ports/in/find-all-curiers.in-port';
+import { UpdateCuriersInPort } from './curier/domain/ports/in/update-curier-info.in-port';
 import { UpdateOrderInPort } from './curier/domain/ports/in/update-order.in-port';
-import { CreateDeliverymanOutPort } from './curier/domain/ports/out/create-deliveryman.out-port';
-import { FindAllDeliverymansOutPort } from './curier/domain/ports/out/find-all-deliverymans.out-port';
-import { FindCountOfFreeDeliverymansOutPort } from './curier/domain/ports/out/find-count-of-free-deliverymans.out-port';
-import { FindDeliverymanByIdWithOrdersOutPort } from './curier/domain/ports/out/find-deliveryman-by-id-with-orders.out-port';
-import { FindDeliverymanOrderLadingOutPort } from './curier/domain/ports/out/find-deliveryman-order-lading.out-port';
-import { SaveDeliverymanOutPort } from './curier/domain/ports/out/save-deliveryman.out-port';
+import { CreateCurierOutPort } from './curier/domain/ports/out/create-curier.out-port';
+import { FindAllCuriersOutPort } from './curier/domain/ports/out/find-all-curiers.out-port';
+import { FindCountOfFreeCuriersOutPort } from './curier/domain/ports/out/find-count-of-free-curiers.out-port';
+import { FindCurierByIdWithOrdersOutPort } from './curier/domain/ports/out/find-curier-by-id-with-orders.out-port';
+import { FindCurierOrderLadingOutPort } from './curier/domain/ports/out/find-curier-order-lading.out-port';
+import { SaveCurierOutPort } from './curier/domain/ports/out/save-curier.out-port';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([OrderOrmEntity, DeliverymanOrmEntity])],
-  controllers: [DeliverymanController],
+  imports: [TypeOrmModule.forFeature([OrderOrmEntity, CurierOrmEntity])],
+  controllers: [CurierController],
   providers: [
     {
-      provide: AddOrderToDeliverymanInPort,
-      useFactory: (a, b) => new AddOrderToDeliverymanInteractor(a, b),
-      inject: [FindDeliverymanByIdWithOrdersOutPort, SaveDeliverymanOutPort],
+      provide: AddOrderToCurierInPort,
+      useFactory: (a, b) => new AddOrderToCurierInteractor(a, b),
+      inject: [FindCurierByIdWithOrdersOutPort, SaveCurierOutPort],
     },
     {
-      provide: ChangeDeliverymansStatusInPort,
-      useFactory: (a, b) => new ChangeDeliverymansStatusInteractor(a, b),
-      inject: [FindDeliverymanByIdWithOrdersOutPort, SaveDeliverymanOutPort],
+      provide: ChangeCuriersStatusInPort,
+      useFactory: (a, b) => new ChangeCuriersStatusInteractor(a, b),
+      inject: [FindCurierByIdWithOrdersOutPort, SaveCurierOutPort],
     },
     {
-      provide: CreateDeliverymanInPort,
-      useFactory: (a) => new CreateDeliverymanInteractor(a),
-      inject: [CreateDeliverymanInPort],
+      provide: CreateCurierInPort,
+      useFactory: (a) => new CreateCurierInteractor(a),
+      inject: [CreateCurierInPort],
     },
     {
-      provide: FindAllDeliverymansInPort,
-      useFactory: (t) => new FindAllDeliverymansInteractor(t),
-      inject: [FindAllDeliverymansOutPort],
+      provide: FindAllCuriersInPort,
+      useFactory: (t) => new FindAllCuriersInteractor(t),
+      inject: [FindAllCuriersOutPort],
     },
     {
-      provide: UpdateDeliverymansInPort,
-      useFactory: (a, b) => new UpdateDeliverymansInfoInteractor(a, b),
-      inject: [FindDeliverymanByIdWithOrdersOutPort, SaveDeliverymanOutPort],
+      provide: UpdateCuriersInPort,
+      useFactory: (a, b) => new UpdateCuriersInfoInteractor(a, b),
+      inject: [FindCurierByIdWithOrdersOutPort, SaveCurierOutPort],
     },
     {
       provide: UpdateOrderInPort,
       useFactory: (a, b) => new UpdateOrderInteractor(a, b),
-      inject: [FindDeliverymanOrderLadingOutPort, SaveDeliverymanOutPort],
+      inject: [FindCurierOrderLadingOutPort, SaveCurierOutPort],
     },
 
     {
-      provide: CreateDeliverymanInPort,
-      useClass: DeliverymanRepository,
+      provide: CreateCurierInPort,
+      useClass: CurierRepository,
     },
     {
-      provide: FindAllDeliverymansOutPort,
-      useClass: DeliverymanRepository,
+      provide: FindAllCuriersOutPort,
+      useClass: CurierRepository,
     },
     {
-      provide: CreateDeliverymanOutPort,
-      useClass: DeliverymanRepository,
+      provide: CreateCurierOutPort,
+      useClass: CurierRepository,
     },
     {
-      provide: FindCountOfFreeDeliverymansOutPort,
-      useClass: DeliverymanRepository,
+      provide: FindCountOfFreeCuriersOutPort,
+      useClass: CurierRepository,
     },
     {
-      provide: FindDeliverymanByIdWithOrdersOutPort,
-      useClass: DeliverymanRepository,
+      provide: FindCurierByIdWithOrdersOutPort,
+      useClass: CurierRepository,
     },
     {
-      provide: FindDeliverymanOrderLadingOutPort,
-      useClass: DeliverymanRepository,
+      provide: FindCurierOrderLadingOutPort,
+      useClass: CurierRepository,
     },
     {
-      provide: SaveDeliverymanOutPort,
-      useClass: DeliverymanRepository,
+      provide: SaveCurierOutPort,
+      useClass: CurierRepository,
     },
   ],
 })

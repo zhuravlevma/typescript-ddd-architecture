@@ -12,13 +12,13 @@ export class OfferMapper {
       workingHours: offerOrm.workingHours,
       weight: offerOrm.weight,
       bid: offerOrm.bid,
-      deliverymanId: offerOrm.deliverymanId,
+      curierId: offerOrm.curierid,
     });
   }
   static mapToOrm(offerEntity: OfferEntity): OfferOrmEntity {
     const offerOrmEntity = new OfferOrmEntity();
     offerOrmEntity.id = offerEntity.id;
-    offerOrmEntity.deliverymanId = offerEntity.deliverymanId;
+    offerOrmEntity.curierid = offerEntity.curierId;
     offerOrmEntity.name = offerEntity.name;
     offerOrmEntity.orderId = offerEntity.orderId;
     offerOrmEntity.vehicleType = offerEntity.vehicleType;

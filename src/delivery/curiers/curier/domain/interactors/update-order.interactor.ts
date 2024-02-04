@@ -1,35 +1,33 @@
-import { DeliverymanEntity } from '../entities/deliveryman.entity';
+import { CurierEntity } from '../entities/curier.entity';
 import {
   UpdateOrderCommand,
   UpdateOrderInPort,
 } from '../ports/in/update-order.in-port';
-import { FindDeliverymanOrderLadingOutPort } from '../ports/out/find-deliveryman-order-lading.out-port';
-import { SaveDeliverymanOutPort } from '../ports/out/save-deliveryman.out-port';
+import { FindCurierOrderLadingOutPort } from '../ports/out/find-curier-order-lading.out-port';
+import { SaveCurierOutPort } from '../ports/out/save-curier.out-port';
 
 export class UpdateOrderInteractor implements UpdateOrderInPort {
   constructor(
-    private readonly findDeliverymanPort: FindDeliverymanOrderLadingOutPort,
-    private readonly saveDeliverymanPort: SaveDeliverymanOutPort,
+    private readonly findCurierPort: FindCurierOrderLadingOutPort,
+    private readonly saveCurierPort: SaveCurierOutPort,
   ) {}
 
   async execute(
     updateOrderStatusDto: UpdateOrderCommand,
-  ): Promise<DeliverymanEntity> {
+  ): Promise<CurierEntity> {
     try {
-      const deliveryman =
-        await this.findDeliverymanPort.findDeliverymanOrderLading(
-          updateOrderStatusDto.deliverymanId,
-          updateOrderStatusDto.orderId,
-        );
+      const curier = await this.findCurierPort.findCurierOrderLading(
+        updateOrderStatusDto.curierId,
+        updateOrderStatusDto.orderId,
+      );
 
-      if (!deliveryman) {
-        throw new Error('deliveryman not found');
+      if (!curier) {
+        throw new Error('curier not found');
       }
 
-      if (updateOrderStatusDto.delivered)
-        deliveryman.completeDeliveryForAllOrders();
+      if (updateOrderStatusDto.delivered) curier.completeDeliveryForAllOrders();
 
-      return this.saveDeliverymanPort.save(deliveryman);
+      return this.saveCurierPort.save(curier);
     } catch (error) {
       return error.message;
     }

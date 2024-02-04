@@ -36,7 +36,7 @@ export class ReportController {
   }
 
   @OnEvent('order-validated') // env fixed
-  handleOrderValidatedEvent(event: OrderValidatedEvent) {
+  applyOrderValidated(event: OrderValidatedEvent) {
     return this.createReportUseCase.execute({
       orderId: event.payload.orderId,
     });

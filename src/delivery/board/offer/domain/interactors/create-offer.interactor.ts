@@ -15,7 +15,7 @@ export class CreateOfferInteractor implements CreateOfferInPort {
         id: randomUUID(),
         name: createOfferCommand.name,
         orderId: createOfferCommand.orderId,
-        deliverymanId: null,
+        curierId: null,
         vehicleType: 'bike',
         preferredDeliveryAreas: 'New York',
         workingHours: '8-11',
