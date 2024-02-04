@@ -1,6 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { Cron, CronExpression } from '@nestjs/schedule';
-import { OutboxOrmEntity } from './outbox.orm-entity';
+import { MessageOrmEntity } from './message.orm-entity';
 import { InjectDataSource } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
 import { EventEmitter2 } from '@nestjs/event-emitter';
@@ -19,9 +19,9 @@ export class RelayService {
   async handleCron() {
     try {
       await this.dataSource.transaction(async (transactionalEntityManager) => {
-        const events = await transactionalEntityManager
+        const messages = await transactionalEntityManager
           .createQueryBuilder()
-          .from(OutboxOrmEntity, 'outbox')
+          .from(MessageOrmEntity, 'outbox')
           .where('outbox.published = :published', { published: false })
           .orderBy('outbox.created_at', 'DESC')
           .setLock('pessimistic_partial_write')
@@ -30,18 +30,18 @@ export class RelayService {
 
         const ids = [];
 
-        for (const event of events) {
+        for (const event of messages) {
           ids.push(event.id);
           this.logger.debug('run publishing: ' + event.id);
-          this.eventEmitter.emit(event.type, event);
+          this.eventEmitter.emit(event.message_name, event);
         }
 
-        if (events.length) {
+        if (messages.length) {
           await transactionalEntityManager
             .createQueryBuilder()
-            .from(OutboxOrmEntity, 'outbox')
+            .from(MessageOrmEntity, 'outbox')
             .delete()
-            .from(OutboxOrmEntity)
+            .from(MessageOrmEntity)
             .where('id IN (:...id)', { id: ids })
             .execute();
         }

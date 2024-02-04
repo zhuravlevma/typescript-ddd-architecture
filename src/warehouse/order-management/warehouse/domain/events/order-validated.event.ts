@@ -1,16 +1,22 @@
-import { DomainEvent, DomainEventAttr } from 'src/__relay__/domain-event';
+import {
+  DomainEvent,
+  DomainMessageAttributes,
+} from 'src/__relay__/domain-message';
 
 interface OrderValidatedPayload {
   orderId: string;
 }
-export class OrderValidatedEvent implements DomainEvent<OrderValidatedPayload> {
-  type: string;
-  reason: string;
-  payload: OrderValidatedPayload;
 
-  constructor(attributes: DomainEventAttr<OrderValidatedPayload>) {
-    this.reason = attributes.reason;
-    this.payload = attributes.payload;
-    this.type = 'order-validated';
+export class OrderValidatedEvent extends DomainEvent<OrderValidatedPayload> {
+  constructor(attributes: DomainMessageAttributes<OrderValidatedPayload>) {
+    super({
+      reason: 'The order was validated',
+      payload: attributes.payload,
+      messageName: 'order-validated',
+      aggregateId: attributes.aggregateId,
+      aggregateName: 'Warehouse',
+      contextName: 'warehouse',
+      correlationId: attributes.correlationId,
+    });
   }
 }

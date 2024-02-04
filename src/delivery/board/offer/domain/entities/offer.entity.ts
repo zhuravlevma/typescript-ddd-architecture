@@ -1,4 +1,4 @@
-import { DomainEvent } from 'src/__relay__/domain-event';
+import { DomainMessage } from 'src/__relay__/domain-message';
 import { OfferTakedEvent } from '../events/offer-taked.event';
 
 interface Attributes {
@@ -18,7 +18,7 @@ export class OfferEntity implements Attributes {
   name: string;
   orderId: string;
   deliverymanId: string | null;
-  events: DomainEvent[];
+  events: DomainMessage[];
   vehicleType: string;
   preferredDeliveryAreas: string;
   workingHours: string;
@@ -83,7 +83,8 @@ export class OfferEntity implements Attributes {
     this.deliverymanId = deliverymanId;
     this.events.push(
       new OfferTakedEvent({
-        reason: 'offer taked',
+        aggregateId: this.id,
+        correlationId: 'requestID',
         payload: {
           orderId: this.orderId,
           deliverymanId: this.deliverymanId,

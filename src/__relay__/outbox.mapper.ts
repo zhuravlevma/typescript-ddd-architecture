@@ -1,14 +1,17 @@
-import { randomUUID } from 'crypto';
-import { DomainEvent } from './domain-event';
-import { OutboxOrmEntity } from './outbox.orm-entity';
+import { DomainMessage } from './domain-message';
+import { MessageOrmEntity } from './message.orm-entity';
 
 export class OutboxMapper {
-  static mapToORM<Payload>(event: DomainEvent<Payload>): OutboxOrmEntity {
-    const orm = new OutboxOrmEntity();
-    orm.id = randomUUID();
+  static mapToORM<Payload>(event: DomainMessage<Payload>): MessageOrmEntity {
+    const orm = new MessageOrmEntity();
     orm.reason = event.reason;
-    orm.type = event.type;
+    orm.messageType = event.messageType;
     orm.payload = event.payload;
+    orm.aggregateId = event.aggregateId;
+    orm.aggregateName = event.aggregateName;
+    orm.contextName = event.contextName;
+    orm.correlationId = event.correlationId;
+    orm.messageName = event.messageName;
     return orm;
   }
 }

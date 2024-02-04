@@ -1,6 +1,6 @@
-import { DomainEvent } from 'src/__relay__/domain-event';
 import { OrderEntity } from './order.entity';
 import { OrderValidatedEvent } from '../events/order-validated.event';
+import { DomainMessage } from 'src/__relay__/domain-message';
 
 interface Attributes {
   id: string;
@@ -12,7 +12,7 @@ export class WarehouseEntity implements Attributes {
   id: string;
   name: string;
   orders: OrderEntity[];
-  events: DomainEvent[];
+  events: DomainMessage[];
 
   constructor(attributes: Attributes) {
     this.id = attributes.id;
@@ -30,7 +30,8 @@ export class WarehouseEntity implements Attributes {
     order.changeStatus(true);
     this.events.push(
       new OrderValidatedEvent({
-        reason: 'this order has been validate',
+        aggregateId: this.id,
+        correlationId: this.id,
         payload: {
           orderId: this.id,
         },

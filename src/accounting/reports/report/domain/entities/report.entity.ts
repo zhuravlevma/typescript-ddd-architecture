@@ -1,6 +1,6 @@
 import { ReportPositionEntity } from './report-position.entity';
 import { ReportValidatedEvent } from '../events/report-validated.event';
-import { DomainEvent } from 'src/__relay__/domain-event';
+import { DomainMessage } from 'src/__relay__/domain-message';
 
 interface Attributes {
   id: string;
@@ -16,7 +16,7 @@ export class ReportEntity implements Attributes {
   readonly orderId: string;
   readonly reportNumber: number;
   readonly positions: ReportPositionEntity[];
-  readonly events: DomainEvent[];
+  readonly events: DomainMessage[];
 
   constructor(attributes: Attributes) {
     this.id = attributes.id;
@@ -35,7 +35,8 @@ export class ReportEntity implements Attributes {
       this._isValid = true;
       this.events.push(
         new ReportValidatedEvent({
-          reason: 'report validated',
+          aggregateId: this.id,
+          correlationId: 'id',
           payload: { orderId: this.orderId },
         }),
       );

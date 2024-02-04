@@ -5,7 +5,7 @@ import { DeliveryModule } from './delivery/delivery.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AccountingModule } from './accounting/accounting.module';
 import { WarehouseModule } from './warehouse/warehouse.module';
-import { OutboxOrmEntity } from './__relay__/outbox.orm-entity';
+import { MessageOrmEntity } from './__relay__/message.orm-entity';
 import { EventEmitterModule } from '@nestjs/event-emitter';
 import { OrderOrmEntity as WarehouseOrderOrmEntity } from './warehouse/order-management/warehouse/dal/orm-entities/order.orm-entity';
 import { DeliverymanOrmEntity } from './delivery/curiers/curier/dal/orm-entities/deliveryman.orm-entity';
@@ -35,7 +35,7 @@ import { RelayModule } from './__relay__/relay.module';
         ReportOrmEntity,
         WarehouseOrmEntity,
         WarehouseOrderOrmEntity,
-        OutboxOrmEntity,
+        MessageOrmEntity,
         OfferOrmEntity,
       ],
       synchronize: true,

@@ -1,18 +1,23 @@
-import { DomainEvent, DomainEventAttr } from 'src/__relay__/domain-event';
+import {
+  DomainEvent,
+  DomainMessageAttributes,
+} from 'src/__relay__/domain-message';
 
 interface OfferTakedPayload {
   orderId: string;
   deliverymanId: string;
 }
 
-export class OfferTakedEvent implements DomainEvent<OfferTakedPayload> {
-  type: string;
-  reason: string;
-  payload: OfferTakedPayload;
-
-  constructor(attributes: DomainEventAttr<OfferTakedPayload>) {
-    this.type = 'offer-taked';
-    this.reason = attributes.reason;
-    this.payload = attributes.payload;
+export class OfferTakedEvent extends DomainEvent<OfferTakedPayload> {
+  constructor(attributes: DomainMessageAttributes<OfferTakedPayload>) {
+    super({
+      reason: 'The delivery man accepted the offer',
+      payload: attributes.payload,
+      messageName: 'offer-taked',
+      aggregateId: attributes.aggregateId,
+      aggregateName: 'Offer',
+      contextName: 'deivery',
+      correlationId: attributes.correlationId,
+    });
   }
 }
