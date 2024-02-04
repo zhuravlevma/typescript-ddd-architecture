@@ -1,5 +1,5 @@
 import { OrderEntity } from './order.entity';
-import { Aggregate } from 'src/__lib__/aggregate';
+import { Aggregate } from '../../../../../__lib__/aggregate';
 
 interface Attributes {
   id: string;

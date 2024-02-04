@@ -45,6 +45,6 @@ describe('delivery/domain/curier/services/add-order-to-curier.service', () => {
 
     await service.execute(createOrderDto);
 
-    expect(curierEntity.orders.length).toEqual(1);
+    expect(curierEntity.export().orders.length).toEqual(1);
   });
 });

@@ -33,7 +33,7 @@ describe('delivery/domain/curier/entities/curier.entity', () => {
       }),
     );
 
-    expect(curier.orders.length).toEqual(1);
+    expect(curier.export().orders.length).toEqual(1);
   });
 
   it('order was not added successfully', () => {

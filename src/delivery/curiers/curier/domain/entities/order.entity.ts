@@ -1,4 +1,4 @@
-import { Entity } from 'src/__lib__/entity';
+import { Entity } from '../../../../../__lib__/entity';
 
 interface Attributes {
   id: string;
