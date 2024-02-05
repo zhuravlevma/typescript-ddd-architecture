@@ -16,6 +16,7 @@ export class ReportEntity extends Aggregate<Attributes> {
   private orderId: string;
   private reportNumber: number;
   private positions: ReportPositionEntity[];
+
   constructor(attributes: Attributes) {
     super();
     this.id = attributes.id;
