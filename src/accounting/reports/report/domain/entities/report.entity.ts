@@ -12,7 +12,7 @@ interface Attributes {
 
 export class ReportEntity extends Aggregate<Attributes> {
   private id: string;
-  private isValid: boolean;
+  public isValid: boolean;
   private orderId: string;
   private reportNumber: number;
   private positions: ReportPositionEntity[];

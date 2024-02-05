@@ -4,6 +4,6 @@ import { DeepReadonly } from './readonly';
 export abstract class Entity<Attributes> {
   constructor() {}
   export(): DeepReadonly<Attributes> {
-    return _.cloneDeep(this as unknown as DeepReadonly<Attributes>);
+    return _.cloneDeep(_.toPlainObject(this));
   }
 }
