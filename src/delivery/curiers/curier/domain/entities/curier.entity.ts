@@ -19,97 +19,122 @@ interface Attributes {
 }
 
 export class CurierEntity extends Aggregate<Attributes> {
+  private id: string;
+  private firstName: string;
+  private lastName: string;
+  private isActive: boolean;
+  private email: string;
+  private phone: number;
+  private vehicleType: string;
+  private workingHours: number;
+  private rating: number;
+  private deliveryCapacity: number;
+  private specialization: string;
+  private commissionRate: number;
+  private paymentDetails: number;
+  private orders: OrderEntity[];
   constructor(attributes: Attributes) {
-    super(attributes);
+    super();
+    this.id = attributes.id;
+    this.firstName = attributes.firstName;
+    this.lastName = attributes.lastName;
+    this.isActive = attributes.isActive;
+    this.email = attributes.email;
+    this.phone = attributes.phone;
+    this.vehicleType = attributes.vehicleType;
+    this.workingHours = attributes.workingHours;
+    this.rating = attributes.rating;
+    this.deliveryCapacity = attributes.deliveryCapacity;
+    this.specialization = attributes.specialization;
+    this.commissionRate = attributes.commissionRate;
+    this.paymentDetails = attributes.paymentDetails;
+    this.orders = attributes.orders;
   }
 
   addOrder(order: OrderEntity) {
-    if (this.__data.orders.length > 3) {
+    if (this.orders.length > 3) {
       throw new Error('Exceeded the number of orders');
     }
-    this.__data.orders.push(order);
+    this.orders.push(order);
   }
 
   changeFirstName(firstName: string) {
-    this.__data.firstName = firstName;
+    this.firstName = firstName;
   }
 
   changeLastName(lastName: string) {
-    this.__data.lastName = lastName;
+    this.lastName = lastName;
   }
 
   updateRating(newRating: number): void {
-    const totalRating = this.__data.rating * this.__data.orders.length;
-    const updatedRating =
-      (totalRating + newRating) / (this.__data.orders.length + 1);
-    this.__data.rating = updatedRating;
+    const totalRating = this.rating * this.orders.length;
+    const updatedRating = (totalRating + newRating) / (this.orders.length + 1);
+    this.rating = updatedRating;
   }
 
   setDeliveryCapacity(capacity: number): void {
-    if (this.__data.orders.some((order) => order.weight > capacity)) {
+    if (this.orders.some((order) => order.Weight > capacity)) {
       throw new Error('Delivery capacity is insufficient for existing orders.');
     }
-    this.__data.deliveryCapacity = capacity;
+    this.deliveryCapacity = capacity;
   }
 
   changeSpecialization(area: string): void {
-    this.__data.specialization = area;
+    this.specialization = area;
   }
 
   setCommissionRate(rate: number): void {
     if (rate > 0.5) {
       throw new Error('Commission rate cannot exceed 50%.');
     }
-    this.__data.commissionRate = rate;
+    this.commissionRate = rate;
   }
 
   updatePaymentDetails(bankAddress: number): void {
-    if (this.__data.orders.some((order) => order.isActive === false)) {
+    if (this.orders.some((order) => order.IsActive === false)) {
       throw new Error(
         'Cannot update payment details for orders with pending payment.',
       );
     }
-    this.__data.paymentDetails = bankAddress;
+    this.paymentDetails = bankAddress;
   }
 
   deliverOrder(orderId: string): void {
-    const order = this.__data.orders.find((order) => order.id === orderId);
+    const order = this.orders.find((order) => order.Id === orderId);
     if (order) {
       order.deliverOrder();
     }
   }
 
   completeDeliveryForOrderId(orderId: string): void {
-    const completedOrder = this.__data.orders.find(
-      (order) => order.id === orderId,
-    );
+    const completedOrder = this.orders.find((order) => order.Id === orderId);
     if (completedOrder) {
       completedOrder.deliverOrder();
     }
   }
 
   completeDeliveryForAllOrders() {
-    for (const order of this.__data.orders) {
+    for (const order of this.orders) {
       order.deliverOrder();
     }
   }
 
   changeStatus(newStatus: boolean) {
     if (
-      this.__data.isActive === true &&
+      this.isActive === true &&
       newStatus === false &&
-      this.__data.orders.length > 0
+      this.orders.length > 0
     ) {
       throw new Error('Deliverman has orders');
     }
-    this.__data.isActive = newStatus;
+    this.isActive = newStatus;
   }
 
   addNewMessageToOrders(message: string) {
-    for (const order of this.__data.orders) {
+    for (const order of this.orders) {
       order.addInfoToDescription(`
 		${message}
-		${this.__data.firstName} ${this.__data.lastName}
+		${this.firstName} ${this.lastName}
   	  `);
     }
   }

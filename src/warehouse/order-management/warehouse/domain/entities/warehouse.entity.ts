@@ -9,24 +9,32 @@ interface Attributes {
 }
 
 export class WarehouseEntity extends Aggregate<Attributes> {
+  private id: string;
+  private name: string;
+  private orders: OrderEntity[];
   constructor(attributes: Attributes) {
-    super(attributes);
+    super();
+    this.id = attributes.id;
+    this.name = attributes.name;
+    this.orders = attributes.orders;
   }
 
   addOrder(order: OrderEntity) {
-    this.__data.orders.push(order);
+    this.orders.push(order);
   }
 
   changeOrderStatusToValid(orderId: string) {
-    const order = this.__data.orders.find((el) => el.id === orderId);
+    // console.log(this.orders);
+
+    const order = this.orders.find((el) => el.Id === orderId);
     order.changeStatus(true);
 
     this.addMessage(
       new OrderValidatedEvent({
-        aggregateId: this.__data.id,
+        aggregateId: this.id,
         correlationId: 'requestId',
         payload: {
-          orderId: order.id,
+          orderId: order.Id,
         },
       }),
     );

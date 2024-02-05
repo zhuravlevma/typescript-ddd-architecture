@@ -12,12 +12,26 @@ interface Attributes {
 }
 
 export class ReportPositionEntity extends Entity<Attributes> {
+  private id: string;
+  private name: string;
+  private count: number;
+  private code: number;
+  private weight: number;
+  private isValid: boolean;
+  private amount: AmountObjectValue;
   constructor(attributes: Attributes) {
-    super(attributes);
+    super();
+    this.id = attributes.id;
+    this.name = attributes.name;
+    this.count = attributes.count;
+    this.code = attributes.code;
+    this.weight = attributes.weight;
+    this.isValid = attributes.isValid;
+    this.amount = attributes.amount;
   }
 
   priceOfOnePosition(): number {
-    return this.__data.amount.getAmoutWithoutTax() / this.__data.count;
+    return this.amount.getAmoutWithoutTax() / this.count;
   }
 
   getPriceWithTax(): number {
@@ -25,31 +39,31 @@ export class ReportPositionEntity extends Entity<Attributes> {
   }
 
   hasNegativeDifferenceAfterTax(): boolean {
-    return this.__data.amount.differenceAfterTax() < 0;
+    return this.amount.differenceAfterTax() < 0;
   }
 
   getValueOfTax(): number {
-    return this.__data.amount.differenceAfterTax();
+    return this.amount.differenceAfterTax();
   }
 
   updatePositionDiscount(discount: number) {
-    return this.__data.amount.applyDiscount(discount);
+    return this.amount.applyDiscount(discount);
   }
 
   updateTaxRate(newTaxRate: number) {
-    this.__data.amount.updateTaxRate(newTaxRate);
+    this.amount.updateTaxRate(newTaxRate);
   }
 
   getSumWithoutRate(): number {
-    return this.__data.amount.getAmoutWithoutTax();
+    return this.amount.getAmoutWithoutTax();
   }
 
   getWeightOfOnePostition(): number {
-    return this.__data.weight / this.__data.count;
+    return this.weight / this.count;
   }
 
   hasEmptyRate(): boolean {
-    if (this.__data.amount.differenceAfterTax() === 0) {
+    if (this.amount.differenceAfterTax() === 0) {
       return true;
     }
     return false;

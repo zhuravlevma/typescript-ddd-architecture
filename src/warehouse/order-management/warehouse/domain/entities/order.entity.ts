@@ -7,15 +7,21 @@ interface Attributes {
 }
 
 export class OrderEntity extends Entity<Attributes> {
+  private id: string;
+  private name: string;
+  private isValid: boolean;
   constructor(attributes: Attributes) {
-    super(attributes);
+    super();
+    this.id = attributes.id;
+    this.name = attributes.name;
+    this.isValid = attributes.isValid;
   }
 
-  get id() {
-    return this.__data.id;
+  get Id() {
+    return this.id;
   }
 
   changeStatus(isValid: boolean) {
-    this.__data.isValid = isValid;
+    this.isValid = isValid;
   }
 }

@@ -2,11 +2,8 @@ import * as _ from 'lodash';
 import { DeepReadonly } from './readonly';
 
 export abstract class Entity<Attributes> {
-  protected __data: Attributes;
-  constructor(attributes: Attributes) {
-    this.__data = attributes;
-  }
+  constructor() {}
   export(): DeepReadonly<Attributes> {
-    return _.cloneDeep(this.__data as DeepReadonly<Attributes>);
+    return _.cloneDeep(this as unknown as DeepReadonly<Attributes>);
   }
 }

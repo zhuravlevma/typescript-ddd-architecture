@@ -12,7 +12,7 @@ export class WarehouseMapper {
     orm.orders = warehouseReadonly.orders.map((orderEntity) => {
       const orderOrm = new OrderOrmEntity();
       const orderReadonly = orderEntity.export();
-      orderOrm.id = orderEntity.id;
+      orderOrm.id = orderReadonly.id;
       orderOrm.name = orderReadonly.name;
       orderOrm.warehouseId = warehouseReadonly.id;
       orderOrm.isValid = orderReadonly.isValid;

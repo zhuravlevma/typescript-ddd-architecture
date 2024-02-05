@@ -11,26 +11,32 @@ interface Attributes {
 }
 
 export class ReportEntity extends Aggregate<Attributes> {
+  private id: string;
+  private isValid: boolean;
+  private orderId: string;
+  private reportNumber: number;
+  private positions: ReportPositionEntity[];
   constructor(attributes: Attributes) {
-    super(attributes);
-  }
-
-  get isValid() {
-    return this.__data.isValid;
+    super();
+    this.id = attributes.id;
+    this.isValid = attributes.isValid;
+    this.orderId = attributes.orderId;
+    this.reportNumber = attributes.reportNumber;
+    this.positions = attributes.positions;
   }
 
   updateReportStatus(status: boolean) {
     if (status === true) {
-      this.__data.isValid = true;
+      this.isValid = true;
       this.addMessage(
         new ReportValidatedEvent({
-          aggregateId: this.__data.id,
+          aggregateId: this.id,
           correlationId: 'id',
-          payload: { orderId: this.__data.orderId },
+          payload: { orderId: this.orderId },
         }),
       );
     } else {
-      this.__data.isValid = false;
+      this.isValid = false;
     }
   }
 
@@ -39,7 +45,7 @@ export class ReportEntity extends Aggregate<Attributes> {
       this.updateReportStatus(true);
     }
 
-    this.__data.positions.forEach((position) => {
+    this.positions.forEach((position) => {
       if (position.getWeightOfOnePostition() > 5) {
         position.updatePositionDiscount(0.1);
       }
@@ -47,20 +53,20 @@ export class ReportEntity extends Aggregate<Attributes> {
   }
 
   getTaxAmount(): number {
-    return this.__data.positions.reduce(
+    return this.positions.reduce(
       (totalTax, position) => totalTax + position.getValueOfTax(),
       0,
     );
   }
 
   getPositionsAboveTaxThreshold(threshold: number): ReportPositionEntity[] {
-    return this.__data.positions.filter(
+    return this.positions.filter(
       (position) => position.getValueOfTax() > threshold,
     );
   }
 
   getTotalAmountWithTax(): number {
-    return this.__data.positions.reduce(
+    return this.positions.reduce(
       (totalAmount, position) => totalAmount + position.getPriceWithTax(),
       0,
     );
