@@ -5,23 +5,27 @@ interface Attributes {
   rate: number;
 }
 export class AmountObjectValue extends ObjectValues<Attributes> {
+  public amount: number;
+  public rate: number;
   constructor(attributes: Attributes) {
-    super(attributes);
+    super();
+    this.amount = attributes.amount;
+    this.rate = attributes.rate;
   }
 
   applyDiscount(discount: number) {
-    this.__data.amount *= discount;
+    this.amount *= discount;
   }
 
   getAmoutWithoutTax(): number {
-    return this.__data.amount * (100 - this.__data.rate);
+    return this.amount * (100 - this.rate);
   }
 
   differenceAfterTax(): number {
-    return this.__data.amount - this.getAmoutWithoutTax();
+    return this.amount - this.getAmoutWithoutTax();
   }
 
   updateTaxRate(rate: number) {
-    this.__data.rate = rate;
+    this.rate = rate;
   }
 }
