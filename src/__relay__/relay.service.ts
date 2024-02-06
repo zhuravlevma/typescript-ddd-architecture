@@ -12,7 +12,7 @@ export class RelayService {
   constructor(
     private readonly eventEmitter: EventEmitter2,
     @InjectDataSource()
-    private dataSource: DataSource,
+    private readonly dataSource: DataSource,
   ) {}
 
   @Cron(CronExpression.EVERY_10_SECONDS)

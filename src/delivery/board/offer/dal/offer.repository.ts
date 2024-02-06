@@ -21,10 +21,10 @@ export class OfferRepository
 {
   constructor(
     @InjectDataSource()
-    private dataSource: DataSource,
+    private readonly dataSource: DataSource,
     @InjectRepository(OfferOrmEntity)
-    private offerRepository: Repository<OfferOrmEntity>,
-    private correlationService: CorrelationService,
+    private readonly offerRepository: Repository<OfferOrmEntity>,
+    private readonly correlationService: CorrelationService,
   ) {}
 
   async findCountOfFreeOffersPort(): Promise<number> {

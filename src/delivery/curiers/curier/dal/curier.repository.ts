@@ -24,9 +24,9 @@ export class CurierRepository
 {
   constructor(
     @InjectRepository(CurierOrmEntity)
-    private curierRepository: Repository<CurierOrmEntity>,
+    private readonly curierRepository: Repository<CurierOrmEntity>,
     @InjectRepository(OrderOrmEntity)
-    private ordersRepository: Repository<OrderOrmEntity>,
+    private readonly ordersRepository: Repository<OrderOrmEntity>,
   ) {}
 
   findCountOfFreeCuriers(): Promise<number> {

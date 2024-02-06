@@ -23,10 +23,10 @@ export class ReportRepository
 {
   constructor(
     @InjectDataSource()
-    private dataSource: DataSource,
+    private readonly dataSource: DataSource,
     @InjectRepository(ReportOrmEntity)
-    private reportRepository: Repository<ReportOrmEntity>,
-    private correlationService: CorrelationService,
+    private readonly reportRepository: Repository<ReportOrmEntity>,
+    private readonly correlationService: CorrelationService,
   ) {}
   async findReportById(reportId: string): Promise<ReportEntity> {
     const [order] = await this.reportRepository.find({

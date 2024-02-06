@@ -19,10 +19,10 @@ export class WarehouseRepository
 {
   constructor(
     @InjectDataSource()
-    private dataSource: DataSource,
+    private readonly dataSource: DataSource,
     @InjectRepository(WarehouseOrmEntity)
-    private whRepository: Repository<WarehouseOrmEntity>,
-    private correlationService: CorrelationService,
+    private readonly whRepository: Repository<WarehouseOrmEntity>,
+    private readonly correlationService: CorrelationService,
   ) {}
 
   async getWarehouseWithOrderPort(
