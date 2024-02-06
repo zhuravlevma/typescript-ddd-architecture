@@ -8,6 +8,7 @@ import { Injectable } from '@nestjs/common';
 import { GetWarehouseWithOrderOutPort } from '../domain/ports/out/get-warehouse-with-order.out-port';
 import { GetWarehouseWithOrdersOutPort } from '../domain/ports/out/get-warehouse-with-orders.out-port';
 import { WarehouseOrmEntity } from './orm-entities/warehouse.orm-entity';
+import { CorrelationService } from 'src/__infrastructure__/correlation/correlation.service';
 
 @Injectable()
 export class WarehouseRepository
@@ -21,6 +22,7 @@ export class WarehouseRepository
     private dataSource: DataSource,
     @InjectRepository(WarehouseOrmEntity)
     private whRepository: Repository<WarehouseOrmEntity>,
+    private correlationService: CorrelationService,
   ) {}
 
   async getWarehouseWithOrderPort(
@@ -54,7 +56,12 @@ export class WarehouseRepository
     const warehouseORM = WarehouseMapper.mapToORM(warehouse);
     const outboxORM = warehouse
       .pullMessages()
-      .map((event) => OutboxMapper.mapToORM(event));
+      .map((event) =>
+        OutboxMapper.mapToORM(
+          event,
+          this.correlationService.getCorrelationId(),
+        ),
+      );
     const whOrm = await this.dataSource.transaction(
       async (transactionalEntityManager) => {
         await transactionalEntityManager.save(outboxORM);

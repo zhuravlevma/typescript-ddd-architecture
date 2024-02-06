@@ -32,7 +32,6 @@ export class ReportEntity extends Aggregate<Attributes> {
       this.addMessage(
         new ReportValidatedEvent({
           aggregateId: this.id,
-          correlationId: 'id',
           payload: { orderId: this.orderId },
         }),
       );

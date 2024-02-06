@@ -17,7 +17,6 @@ export class OfferTakedEvent extends DomainEvent<OfferTakedPayload> {
       aggregateId: attributes.aggregateId,
       aggregateName: 'Offer',
       contextName: 'deivery',
-      correlationId: attributes.correlationId,
     });
   }
 }

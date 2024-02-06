@@ -81,7 +81,6 @@ export class OfferEntity extends Aggregate<Attributes> {
     this.addMessage(
       new OfferTakedEvent({
         aggregateId: this.id,
-        correlationId: 'requestID',
         payload: {
           orderId: this.orderId,
           curierId: this.curierId,

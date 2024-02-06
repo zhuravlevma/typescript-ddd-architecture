@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { config } from './config';
 import { DeliveryModule } from './delivery/delivery.module';
@@ -15,12 +15,15 @@ import { ReportPositionOrmEntity } from './accounting/reports/report/dal/orm-ent
 import { ReportOrmEntity } from './accounting/reports/report/dal/orm-entities/report.orm-entity';
 import { WarehouseOrmEntity } from './warehouse/order-management/warehouse/dal/orm-entities/warehouse.orm-entity';
 import { RelayModule } from './__relay__/relay.module';
+import { CorrelationModule } from './__infrastructure__/correlation/correlation.module';
+import { ContextMiddleware } from './__infrastructure__/context/context-middleware';
 @Module({
   imports: [
     EventEmitterModule.forRoot(),
     ConfigModule.forRoot({
       load: [config],
     }),
+    CorrelationModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: config().database.host,
@@ -47,4 +50,8 @@ import { RelayModule } from './__relay__/relay.module';
     WarehouseModule,
   ],
 })
-export class AppModule {}
+export class AppModule {
+  public configure(consumer: MiddlewareConsumer): any {
+    consumer.apply(ContextMiddleware).forRoutes('*');
+  }
+}

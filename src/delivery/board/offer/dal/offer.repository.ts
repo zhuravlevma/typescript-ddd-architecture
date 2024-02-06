@@ -9,6 +9,7 @@ import { OfferEntity } from '../domain/entities/offer.entity';
 import { OfferMapper } from './offer.mapper';
 import { FindCountOfFreeOffersOutPort as FindCountOfFreeOffersOutPort } from '../domain/ports/out/find-count-of-free-offers.out-port';
 import { OutboxMapper } from '../../../../__relay__/outbox.mapper';
+import { CorrelationService } from 'src/__infrastructure__/correlation/correlation.service';
 
 @Injectable()
 export class OfferRepository
@@ -23,6 +24,7 @@ export class OfferRepository
     private dataSource: DataSource,
     @InjectRepository(OfferOrmEntity)
     private offerRepository: Repository<OfferOrmEntity>,
+    private correlationService: CorrelationService,
   ) {}
 
   async findCountOfFreeOffersPort(): Promise<number> {
@@ -54,7 +56,12 @@ export class OfferRepository
   async saveOffer(offer: OfferEntity): Promise<OfferEntity> {
     const outboxORM = offer
       .pullMessages()
-      .map((event) => OutboxMapper.mapToORM(event));
+      .map((event) =>
+        OutboxMapper.mapToORM(
+          event,
+          this.correlationService.getCorrelationId(),
+        ),
+      );
     const reportOrm = OfferMapper.mapToOrm(offer);
 
     const savedOffer = await this.dataSource.transaction(

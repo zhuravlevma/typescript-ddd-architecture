@@ -24,15 +24,12 @@ export class WarehouseEntity extends Aggregate<Attributes> {
   }
 
   changeOrderStatusToValid(orderId: string) {
-    // console.log(this.orders);
-
     const order = this.orders.find((el) => el.Id === orderId);
     order.changeStatus(true);
 
     this.addMessage(
       new OrderValidatedEvent({
         aggregateId: this.id,
-        correlationId: 'requestId',
         payload: {
           orderId: order.Id,
         },

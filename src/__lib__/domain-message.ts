@@ -20,13 +20,11 @@ interface DomainMessageAllAttributes<Payload = object>
   aggregateId: string; // necessary for partitioning
   aggregateName: string; // Can be often useful (for example for humans or for id prefixes)
   contextName: string; // Can be often useful (for example for humans or for id prefixes)
-  correlationId: string; // usually uuid or ulid, useful for log tracing and sagas.
 }
 
 export interface DomainMessageAttributes<Payload = object> {
   payload: Payload;
   aggregateId: string;
-  correlationId: string;
 }
 
 export type DomainMessage<Payload = object> =
@@ -42,7 +40,6 @@ export abstract class DomainEvent<Payload = object>
   aggregateId: string;
   aggregateName: string;
   contextName: string;
-  correlationId: string;
 
   constructor(attributes: DomainMessageAllAttributes<Payload>) {
     this.contextName = attributes.contextName;
@@ -53,7 +50,6 @@ export abstract class DomainEvent<Payload = object>
     this.aggregateId = attributes.aggregateId;
     this.aggregateName = attributes.aggregateName;
     this.contextName = attributes.contextName;
-    this.correlationId = attributes.correlationId;
   }
 }
 
@@ -67,7 +63,6 @@ export abstract class DomainCommand<Payload = object>
   aggregateId: string;
   aggregateName: string;
   contextName: string;
-  correlationId: string;
 
   constructor(attributes: DomainMessageAllAttributes<Payload>) {
     this.contextName = attributes.contextName;
@@ -78,6 +73,5 @@ export abstract class DomainCommand<Payload = object>
     this.aggregateId = attributes.aggregateId;
     this.aggregateName = attributes.aggregateName;
     this.contextName = attributes.contextName;
-    this.correlationId = attributes.correlationId;
   }
 }

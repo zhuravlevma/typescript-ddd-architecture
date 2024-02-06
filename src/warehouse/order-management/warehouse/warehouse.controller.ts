@@ -7,6 +7,7 @@ import { CreateWarehouseInPort } from './domain/ports/in/create-warehouse.in-por
 import { UpdateOrderInPort } from './domain/ports/in/update-order.in-port';
 import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { SavedWarehouseResponseDto } from './dtos/response/saved-warehouse.response-dto';
+import { CorrelationService } from 'src/__infrastructure__/correlation/correlation.service';
 
 @ApiTags('warehouse')
 @Controller('/warehouse/warehouses')
@@ -15,6 +16,7 @@ export class WarehouseController {
     private readonly addOrderUseCase: AddOrderInPort,
     private readonly createWarehouseUseCase: CreateWarehouseInPort,
     private readonly updateOrderStatusUseCase: UpdateOrderInPort,
+    private correlationService: CorrelationService,
   ) {}
 
   @ApiOkResponse({

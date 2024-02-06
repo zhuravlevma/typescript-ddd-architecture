@@ -12,6 +12,7 @@ import {
   FindReportWithPositionsParams,
 } from '../domain/ports/out/find-report-with-positions-by-id.out-port';
 import { ReportReadModel } from '../domain/read-models/verification.read-model';
+import { CorrelationService } from 'src/__infrastructure__/correlation/correlation.service';
 
 @Injectable()
 export class ReportRepository
@@ -25,6 +26,7 @@ export class ReportRepository
     private dataSource: DataSource,
     @InjectRepository(ReportOrmEntity)
     private reportRepository: Repository<ReportOrmEntity>,
+    private correlationService: CorrelationService,
   ) {}
   async findReportById(reportId: string): Promise<ReportEntity> {
     const [order] = await this.reportRepository.find({
@@ -39,7 +41,12 @@ export class ReportRepository
   async save(report: ReportEntity): Promise<ReportEntity> {
     const outboxORM = report
       .pullMessages()
-      .map((event) => OutboxMapper.mapToORM(event));
+      .map((event) =>
+        OutboxMapper.mapToORM(
+          event,
+          this.correlationService.getCorrelationId(),
+        ),
+      );
     const reportOrm = ReportMapper.mapToOrm(report);
 
     const savedReport = await this.dataSource.transaction(
