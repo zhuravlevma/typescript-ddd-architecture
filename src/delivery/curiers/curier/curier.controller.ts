@@ -14,6 +14,7 @@ import { OnEvent } from '@nestjs/event-emitter';
 import { ApiTags } from '@nestjs/swagger';
 import { CurierEntity } from './domain/entities/curier.entity';
 import { OfferTakedEvent } from '../../board/offer/domain/events/offer-taked.event';
+import { config } from 'src/config';
 
 @ApiTags('delivery')
 @Controller('/delivery/curiers')
@@ -50,7 +51,7 @@ export class CurierController {
     });
   }
 
-  @OnEvent('offer-taked') // env fixed
+  @OnEvent(config().topics.offerTaked)
   applyOfferTaked(event: OfferTakedEvent) {
     return this.addOrderToCuriernUseCase.execute({
       curierId: event.payload.curierId,

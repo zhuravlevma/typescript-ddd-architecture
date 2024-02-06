@@ -6,7 +6,7 @@ import { OfferEntity } from './domain/entities/offer.entity';
 import { OnEvent } from '@nestjs/event-emitter';
 import { CreateOfferInPort } from './domain/ports/in/create-offer.in-port';
 import { ReportValidatedEvent } from '../../../accounting/reports/report/domain/events/report-validated.event';
-
+import { config } from 'src/config';
 @ApiTags('delivery')
 @Controller('/delivery/offers')
 export class OfferController {
@@ -15,7 +15,7 @@ export class OfferController {
     private readonly createOfferUseCase: CreateOfferInPort,
   ) {}
 
-  @OnEvent('report-validated') // env fixed
+  @OnEvent(config().topics.reportValidated)
   applyReportValidated(event: ReportValidatedEvent) {
     return this.createOfferUseCase.execute({
       orderId: event.payload.orderId,

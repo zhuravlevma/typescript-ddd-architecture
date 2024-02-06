@@ -7,4 +7,9 @@ export const config = () => ({
     username: process.env.DATABASE_USERNAME,
     password: process.env.DATABASE_PASSWORD,
   },
+  topics: {
+    reportValidated: process.env.REPORT_VALIDATED_EVENT,
+    offerTaked: process.env.OFFER_TAKED_EVENT,
+    orderValidated: process.env.ORDER_VALIDATED_EVENT,
+  },
 });

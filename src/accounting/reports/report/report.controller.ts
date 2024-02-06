@@ -7,6 +7,7 @@ import { ApiTags } from '@nestjs/swagger';
 import { UpdateReportInPort } from './domain/ports/in/update-report.in-port';
 import { UpdateReportDto } from './dtos/update-report.dto';
 import { OrderValidatedEvent } from '../../../warehouse/order-management/warehouse/domain/events/order-validated.event';
+import { config } from 'src/config';
 
 @ApiTags('accounting')
 @Controller('reports')
@@ -35,7 +36,7 @@ export class ReportController {
     });
   }
 
-  @OnEvent('order-validated') // env fixed
+  @OnEvent(config().topics.orderValidated)
   applyOrderValidated(event: OrderValidatedEvent) {
     return this.createReportUseCase.execute({
       orderId: event.payload.orderId,
