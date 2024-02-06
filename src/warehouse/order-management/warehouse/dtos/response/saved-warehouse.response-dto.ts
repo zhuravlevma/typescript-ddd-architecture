@@ -11,13 +11,13 @@ class SavedOrderResponseDto {
 }
 
 export class SavedWarehouseResponseDto {
-  @ApiProperty()
+  @ApiProperty({ description: 'uuid', format: 'uuid' })
   id: string;
 
   @ApiProperty()
   name: string;
 
-  @ApiProperty({ isArray: true, type: SavedOrderResponseDto })
+  @ApiProperty({ type: [SavedOrderResponseDto] })
   orders: SavedOrderResponseDto[];
 
   static fromDomain(
