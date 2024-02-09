@@ -5,7 +5,7 @@ import {
 import { FindCurierWithCountOfOrdersOutPort } from '../ports/out/find-curier-with-count-of-orders.out-port';
 import { CuriernWithCountOfOrders } from '../read-models/curier-with-count-of-orders.model';
 
-export class FindCurierWithCountOfOrdersInteractor
+export class FindCurierWithCountOfOrdersQuery
   implements FindCurierWithCountOfInPort
 {
   constructor(

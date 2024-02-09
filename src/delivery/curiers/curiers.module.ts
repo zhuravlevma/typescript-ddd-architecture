@@ -7,7 +7,7 @@ import { CurierController } from './curier/curier.controller';
 import { AddOrderToCurierInteractor } from './curier/domain/interactors/add-order-to-curier.interactor';
 import { ChangeCuriersStatusInteractor } from './curier/domain/interactors/change-curiers-status.interactor';
 import { CreateCurierInteractor } from './curier/domain/interactors/create-curier.interactor';
-import { FindAllCuriersInteractor } from './curier/domain/interactors/find-all-curiers.interactor';
+import { FindAllCuriersQuery } from './curier/domain/queries/find-all-curiers.query';
 import { UpdateCuriersInfoInteractor } from './curier/domain/interactors/update-curiers-info.interactor';
 import { UpdateOrderInteractor } from './curier/domain/interactors/update-order.interactor';
 import { AddOrderToCurierInPort } from './curier/domain/ports/in/add-order-to-curier.in-port';
@@ -44,7 +44,7 @@ import { SaveCurierOutPort } from './curier/domain/ports/out/save-curier.out-por
     },
     {
       provide: FindAllCuriersInPort,
-      useFactory: (t) => new FindAllCuriersInteractor(t),
+      useFactory: (t) => new FindAllCuriersQuery(t),
       inject: [FindAllCuriersOutPort],
     },
     {

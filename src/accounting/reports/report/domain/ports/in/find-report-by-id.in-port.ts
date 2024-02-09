@@ -1,10 +1,10 @@
 import { ReportEntity } from '../../entities/report.entity';
 
-export interface FindReportByIdQuery {
+export interface FindReportByIdParams {
   id: string;
 }
 export abstract class FindReportByIdInPort {
   abstract execute(
-    findReportByIdQuery: FindReportByIdQuery,
+    findReportByIdQuery: FindReportByIdParams,
   ): Promise<ReportEntity>;
 }
