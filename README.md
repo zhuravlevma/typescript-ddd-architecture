@@ -77,6 +77,13 @@ npm install
 
 ## Running the app
 
+```sql
+CREATE SCHEMA IF NOT EXISTS accounting
+CREATE SCHEMA IF NOT EXISTS warehouse
+CREATE SCHEMA IF NOT EXISTS delivery
+CREATE SCHEMA IF NOT EXISTS public
+```
+
 ```bash
 # development
 $ npm run start

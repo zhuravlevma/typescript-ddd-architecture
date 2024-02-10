@@ -52,6 +52,16 @@ describe('domain boundaries', () => {
     expect(violations).toEqual([]);
   });
 
+  it('allows multiple patterns for queries', async () => {
+    const violations = await filesOfProject()
+      .inFolder('*/*/domain/queries')
+      .should()
+      .matchPattern('(.query.ts|__tests__)')
+      .check();
+
+    expect(violations).toEqual([]);
+  });
+
   it('allows multiple patterns for entities', async () => {
     const violations = await filesOfProject()
       .inFolder('*/*/domain/entities')
