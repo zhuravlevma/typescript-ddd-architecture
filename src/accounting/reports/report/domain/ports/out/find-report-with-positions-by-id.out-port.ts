@@ -1,4 +1,4 @@
-import { ReportReadModel } from '../../read-models/verification.read-model';
+import { ReportReadModel } from '../../read-models/report.read-model';
 
 export interface FindReportWithPositionsParams {
   id: string;

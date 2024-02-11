@@ -9,7 +9,7 @@ import { ReportPositionEntity } from '../entities/report-position.entity';
 import { AmountObjectValue } from '../object-values/amount.object-value';
 
 export class CreateReportInteractor implements CreateReportInPort {
-  constructor(private readonly saveReport: SaveReportOutPort) {}
+  constructor(private readonly saveReportPort: SaveReportOutPort) {}
 
   async execute(
     createReportCommand: CreateReportCommand,
@@ -35,6 +35,6 @@ export class CreateReportInteractor implements CreateReportInPort {
       ],
     });
 
-    return this.saveReport.save(report);
+    return this.saveReportPort.save(report);
   }
 }

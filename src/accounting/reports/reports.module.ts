@@ -9,7 +9,6 @@ import { UpdateReportInteractor } from './report/domain/interactors/update-repor
 import { CreateReportInPort } from './report/domain/ports/in/create-report.in-port';
 import { FindReportByIdInPort } from './report/domain/ports/in/find-report-by-id.in-port';
 import { UpdateReportInPort } from './report/domain/ports/in/update-report.in-port';
-import { FindPositionByIdOutPort } from './report/domain/ports/out/find-position-by-id.out-port';
 import { FindReportByIdOutPort } from './report/domain/ports/out/find-report-by-id.out-port';
 import { SaveReportOutPort } from './report/domain/ports/out/save-report.out-port';
 import { ReportController } from './report/report.controller';
@@ -49,10 +48,6 @@ import { FindReportWithPositionsByIdInPort } from './report/domain/ports/in/find
     },
     {
       provide: FindReportByIdOutPort,
-      useClass: ReportRepository,
-    },
-    {
-      provide: FindPositionByIdOutPort,
       useClass: ReportRepository,
     },
     {

@@ -3,7 +3,7 @@ import {
   FindReportWithPositionsParams,
 } from '../ports/in/find-report-with-positions-by-id.in-port';
 import { FindReportWithPositionsByOutPort } from '../ports/out/find-report-with-positions-by-id.out-port';
-import { ReportReadModel } from '../read-models/verification.read-model';
+import { ReportReadModel } from '../read-models/report.read-model';
 
 export class FindReportWithPositionsQuery
   implements FindReportWithPositionsByIdInPort

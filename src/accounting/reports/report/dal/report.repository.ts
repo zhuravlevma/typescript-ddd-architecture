@@ -11,7 +11,7 @@ import {
   FindReportWithPositionsByOutPort,
   FindReportWithPositionsParams,
 } from '../domain/ports/out/find-report-with-positions-by-id.out-port';
-import { ReportReadModel } from '../domain/read-models/verification.read-model';
+import { ReportReadModel } from '../domain/read-models/report.read-model';
 import { CorrelationService } from 'src/__infrastructure__/correlation/correlation.service';
 
 @Injectable()
