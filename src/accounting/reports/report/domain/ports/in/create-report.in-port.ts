@@ -1,11 +1,11 @@
 import { ReportEntity } from '../../entities/report.entity';
 
-export interface CreateReportCommand {
+export interface CreateReportParams {
   orderId: string;
 }
 
 export abstract class CreateReportInPort {
   abstract execute(
-    createReportCommand: CreateReportCommand,
+    createReportParams: CreateReportParams,
   ): Promise<ReportEntity>;
 }

@@ -5,6 +5,6 @@ export interface FindReportByIdParams {
 }
 export abstract class FindReportByIdInPort {
   abstract execute(
-    findReportByIdQuery: FindReportByIdParams,
+    findReportByIdParams: FindReportByIdParams,
   ): Promise<ReportEntity>;
 }
