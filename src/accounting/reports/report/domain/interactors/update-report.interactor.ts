@@ -1,6 +1,6 @@
 import { ReportEntity } from '../entities/report.entity';
 import {
-  UpdateReportParams as UpdateReportDto,
+  UpdateReportParams,
   UpdateReportInPort,
 } from '../ports/in/update-report.in-port';
 import { FindReportByIdOutPort } from '../ports/out/find-report-by-id.out-port';
@@ -12,7 +12,7 @@ export class UpdateReportInteractor implements UpdateReportInPort {
     private readonly saveReportPort: SaveReportOutPort,
   ) {}
 
-  async execute(updatePositionDto: UpdateReportDto): Promise<ReportEntity> {
+  async execute(updatePositionDto: UpdateReportParams): Promise<ReportEntity> {
     const report = await this.findReportById.findReportById(
       updatePositionDto.reportId,
     );

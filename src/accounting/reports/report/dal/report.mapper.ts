@@ -4,7 +4,7 @@ import { ReportEntity } from '../domain/entities/report.entity';
 import { ReportOrmEntity } from './orm-entities/report.orm-entity';
 import { ReportPositionOrmEntity } from './orm-entities/report-position.orm-entity';
 
-export class BillOfLadingMapper {
+export class ReportMapper {
   static mapToDomain(reportOrm: ReportOrmEntity): ReportEntity {
     return new ReportEntity({
       id: reportOrm.id,
