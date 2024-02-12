@@ -12,9 +12,9 @@ import { SavedWarehouseResponseDto } from './dtos/response/saved-warehouse.respo
 @Controller('/warehouse/warehouses')
 export class WarehouseController {
   constructor(
-    private readonly addOrderUseCase: AddOrderInPort,
-    private readonly createWarehouseUseCase: CreateWarehouseInPort,
-    private readonly updateOrderStatusUseCase: UpdateOrderInPort,
+    private readonly addOrderInteractor: AddOrderInPort,
+    private readonly createWarehouseInteractor: CreateWarehouseInPort,
+    private readonly updateOrderStatusInteractor: UpdateOrderInPort,
   ) {}
 
   @ApiOkResponse({
@@ -25,7 +25,7 @@ export class WarehouseController {
   async createWarehouse(
     @Body() createWarehouseDto: CreateWarehouseDto,
   ): Promise<SavedWarehouseResponseDto> {
-    const wh = await this.createWarehouseUseCase.execute(createWarehouseDto);
+    const wh = await this.createWarehouseInteractor.execute(createWarehouseDto);
     return SavedWarehouseResponseDto.fromDomain(wh);
   }
 
@@ -38,7 +38,7 @@ export class WarehouseController {
     @Param('warehouseId') warehouseId: string,
     @Body() addOrderToWhDto: AddOrderDto,
   ): Promise<SavedWarehouseResponseDto> {
-    const wh = await this.addOrderUseCase.execute({
+    const wh = await this.addOrderInteractor.execute({
       warehouseId,
       ...addOrderToWhDto,
     });
@@ -55,7 +55,7 @@ export class WarehouseController {
     @Param('orderId') orderId: string,
     @Body() updateOrderStatusDto: UpdateOrderStatusDto,
   ): Promise<SavedWarehouseResponseDto> {
-    const wh = await this.updateOrderStatusUseCase.execute({
+    const wh = await this.updateOrderStatusInteractor.execute({
       warehouseId,
       orderId,
       isValid: updateOrderStatusDto.isValid,

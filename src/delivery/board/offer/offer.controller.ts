@@ -11,13 +11,13 @@ import { config } from 'src/config';
 @Controller('/delivery/offers')
 export class OfferController {
   constructor(
-    private readonly updateOfferUseCase: UpdateOfferInPort,
-    private readonly createOfferUseCase: CreateOfferInPort,
+    private readonly updateOfferInteractor: UpdateOfferInPort,
+    private readonly createOfferInteractor: CreateOfferInPort,
   ) {}
 
   @OnEvent(config().topics.reportValidated)
   applyReportValidated(event: ReportValidatedEvent) {
-    return this.createOfferUseCase.execute({
+    return this.createOfferInteractor.execute({
       orderId: event.payload.orderId,
       name: 'Report with ' + event.payload.orderId,
     });
@@ -31,7 +31,7 @@ export class OfferController {
     @Param('offerId') offerId: string,
     @Body() updateOfferDto: UpdateOfferDto,
   ): Promise<OfferEntity> {
-    return this.updateOfferUseCase.execute({
+    return this.updateOfferInteractor.execute({
       offerId,
       curierId: updateOfferDto.curierId,
     });

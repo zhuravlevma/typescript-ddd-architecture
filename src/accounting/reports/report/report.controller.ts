@@ -13,14 +13,14 @@ import { config } from 'src/config';
 @Controller('reports')
 export class ReportController {
   constructor(
-    private readonly findReportByIdUseCase: FindReportByIdInPort,
-    private readonly createReportUseCase: CreateReportInPort,
-    private readonly updateReportUseCase: UpdateReportInPort,
+    private readonly findReportByIdQuery: FindReportByIdInPort,
+    private readonly createReportInteractor: CreateReportInPort,
+    private readonly updateReportInteractor: UpdateReportInPort,
   ) {}
 
   @Get('/:reportId')
   findByReportId(@Param('reportId') id: string): Promise<ReportEntity> {
-    return this.findReportByIdUseCase.execute({
+    return this.findReportByIdQuery.execute({
       id,
     });
   }
@@ -30,7 +30,7 @@ export class ReportController {
     @Param('reportId') reportId: string,
     @Body() updateReportDto: UpdateReportDto,
   ): Promise<ReportEntity> {
-    return this.updateReportUseCase.execute({
+    return this.updateReportInteractor.execute({
       reportId,
       isValid: updateReportDto.isValid,
     });
@@ -38,7 +38,7 @@ export class ReportController {
 
   @OnEvent(config().topics.orderValidated)
   applyOrderValidated(event: OrderValidatedEvent) {
-    return this.createReportUseCase.execute({
+    return this.createReportInteractor.execute({
       orderId: event.payload.orderId,
     });
   }

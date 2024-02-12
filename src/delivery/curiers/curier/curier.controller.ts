@@ -20,24 +20,24 @@ import { config } from 'src/config';
 @Controller('/delivery/curiers')
 export class CurierController {
   constructor(
-    private readonly createCurierUseCase: CreateCurierInPort,
-    private readonly findAllCuriersUseCase: FindAllCuriersInPort,
-    private readonly addOrderToCuriernUseCase: AddOrderToCurierInPort,
-    private readonly updateCuriersInfoUseCase: UpdateCuriersInPort,
-    private readonly changeCuriersStatusUseCase: ChangeCuriersStatusInPort,
-    private readonly updateOrderStatusUseCase: UpdateOrderInPort,
+    private readonly createCurierInteractor: CreateCurierInPort,
+    private readonly findAllCuriersQuery: FindAllCuriersInPort,
+    private readonly addOrderToCuriernInteractor: AddOrderToCurierInPort,
+    private readonly updateCuriersInfoInteractor: UpdateCuriersInPort,
+    private readonly changeCuriersStatusInteractor: ChangeCuriersStatusInPort,
+    private readonly updateOrderStatusInteractor: UpdateOrderInPort,
   ) {}
 
   @Get('/')
   find(): Promise<CurierEntity[]> {
-    return this.findAllCuriersUseCase.execute();
+    return this.findAllCuriersQuery.execute();
   }
 
   @Post('/')
   createCurier(
     @Body() createCurierManDto: CreateCurierDto,
   ): Promise<CurierEntity> {
-    return this.createCurierUseCase.execute(createCurierManDto);
+    return this.createCurierInteractor.execute(createCurierManDto);
   }
 
   @Post('/:curierId/orders')
@@ -45,7 +45,7 @@ export class CurierController {
     @Param('curierId') curierId: string,
     @Body() addOrderToCurierDto: AddOrderToCurierDto,
   ): Promise<CurierEntity> {
-    return this.addOrderToCuriernUseCase.execute({
+    return this.addOrderToCuriernInteractor.execute({
       curierId,
       orderId: addOrderToCurierDto.orderId,
     });
@@ -53,7 +53,7 @@ export class CurierController {
 
   @OnEvent(config().topics.offerTaked)
   applyOfferTaked(event: OfferTakedEvent) {
-    return this.addOrderToCuriernUseCase.execute({
+    return this.addOrderToCuriernInteractor.execute({
       curierId: event.payload.curierId,
       orderId: event.payload.orderId,
     });
@@ -64,7 +64,7 @@ export class CurierController {
     @Param('curierId') curierId: string,
     @Body() updateCuriersInfoNestDto: UpdateCuriersInfoDto,
   ): Promise<CurierEntity> {
-    return this.updateCuriersInfoUseCase.execute({
+    return this.updateCuriersInfoInteractor.execute({
       curierId,
       ...updateCuriersInfoNestDto,
     });
@@ -75,7 +75,7 @@ export class CurierController {
     @Param('curierId') curierId: string,
     @Body() changeCuriersStatusDto: ChangeCuriersStatusDto,
   ): Promise<CurierEntity> {
-    return this.changeCuriersStatusUseCase.execute({
+    return this.changeCuriersStatusInteractor.execute({
       curierId,
       ...changeCuriersStatusDto,
     });
@@ -89,7 +89,7 @@ export class CurierController {
     orderId: string,
     @Body() updateCuriersOrdersDto: UpdateOrderStatusDto,
   ): Promise<CurierEntity> {
-    return this.updateOrderStatusUseCase.execute({
+    return this.updateOrderStatusInteractor.execute({
       curierId,
       orderId,
       ...updateCuriersOrdersDto,
