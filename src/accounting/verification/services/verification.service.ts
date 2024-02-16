@@ -35,15 +35,15 @@ export class VerificationService {
       },
     });
 
-    const report = await this.findReportWithPositionsByIdInPort.execute({
-      id: verification.reportId,
-    });
-
     if (verification === null) {
       throw new BadRequestException(
         `Verification with id ${updateVerificationDto.id} not found`,
       );
     }
+
+    const report = await this.findReportWithPositionsByIdInPort.execute({
+      id: verification.reportId,
+    });
 
     if (updateVerificationDto.isFull) {
       await this.externalVerificationApi.fullVerifyReport({
