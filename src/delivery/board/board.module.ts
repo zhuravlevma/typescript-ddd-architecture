@@ -6,7 +6,6 @@ import { CreateOfferInteractor } from './offer/domain/interactors/create-offer.i
 import { UpdateOfferInteractor } from './offer/domain/interactors/update-offer.interactor';
 import { CreateOfferInPort } from './offer/domain/ports/in/create-offer.in-port';
 import { UpdateOfferInPort } from './offer/domain/ports/in/update-offer.in-port';
-import { FindCountOfFreeOffersOutPort } from './offer/domain/ports/out/find-count-of-free-offers.out-port';
 import { FindOfferByIdOutPort } from './offer/domain/ports/out/find-offer-by-id.out-port';
 import { FindOfferByOrderIdOutPort } from './offer/domain/ports/out/find-offer-by-order-id.out-port';
 import { SaveOfferOutPort } from './offer/domain/ports/out/save-offer.out-port';
@@ -26,10 +25,6 @@ import { OfferOrmEntity } from './offer/dal/orm-entities/offer.orm-entity';
     },
     {
       provide: FindOfferByOrderIdOutPort,
-      useClass: OfferRepository,
-    },
-    {
-      provide: FindCountOfFreeOffersOutPort,
       useClass: OfferRepository,
     },
     {

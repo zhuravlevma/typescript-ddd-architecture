@@ -7,17 +7,12 @@ import { FindOfferByOrderIdOutPort } from '../domain/ports/out/find-offer-by-ord
 import { SaveOfferOutPort } from '../domain/ports/out/save-offer.out-port';
 import { OfferEntity } from '../domain/entities/offer.entity';
 import { OfferMapper } from './offer.mapper';
-import { FindCountOfFreeOffersOutPort as FindCountOfFreeOffersOutPort } from '../domain/ports/out/find-count-of-free-offers.out-port';
 import { OutboxMapper } from '../../../../__relay__/outbox.mapper';
 import { CorrelationService } from 'src/__infrastructure__/correlation/correlation.service';
 
 @Injectable()
 export class OfferRepository
-  implements
-    FindOfferByIdOutPort,
-    FindOfferByOrderIdOutPort,
-    SaveOfferOutPort,
-    FindCountOfFreeOffersOutPort
+  implements FindOfferByIdOutPort, FindOfferByOrderIdOutPort, SaveOfferOutPort
 {
   constructor(
     @InjectDataSource()
@@ -26,14 +21,6 @@ export class OfferRepository
     private readonly offerRepository: Repository<OfferOrmEntity>,
     private readonly correlationService: CorrelationService,
   ) {}
-
-  async findCountOfFreeOffersPort(): Promise<number> {
-    return this.offerRepository.count({
-      where: {
-        curierid: null,
-      },
-    });
-  }
 
   async findOfferByIdPort(offerId: string): Promise<OfferEntity> {
     const [offer] = await this.offerRepository.find({
