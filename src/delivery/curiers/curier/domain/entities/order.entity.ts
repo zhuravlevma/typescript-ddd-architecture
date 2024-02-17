@@ -60,7 +60,7 @@ export class OrderEntity extends Entity<Attributes> {
   }
 
   cancelOrder(): void {
-    if (this.isActive === false) {
+    if (this.isActive === true) {
       this.isActive = false;
       this.addInfoToDescription('Order cancelled by customer.');
     } else {
