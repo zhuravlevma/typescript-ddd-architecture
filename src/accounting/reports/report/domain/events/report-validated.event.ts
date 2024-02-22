@@ -11,7 +11,7 @@ interface ReportValidatedPayload {
 export class ReportValidatedEvent extends DomainEvent<ReportValidatedPayload> {
   constructor(attributes: DomainMessageAttributes<ReportValidatedPayload>) {
     super({
-      reason: 'The order was validated',
+      reason: 'The report was validated',
       payload: attributes.payload,
       messageName: config().topics.reportValidated,
       aggregateId: attributes.aggregateId,
