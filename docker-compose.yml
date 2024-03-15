@@ -1,0 +1,32 @@
+version: '3.5'
+
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_USER=maksim
+      - POSTGRES_PASSWORD=postgres
+    container_name: postgres
+    volumes:
+      - dbapp:/var/lib/postgresql/data
+      - ./initdb/init.sql:/docker-entrypoint-initdb.d/db.sql:ro
+    ports:
+      - '5432:5432'
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: nest-docker-postgres
+    env_file:
+      - .env
+    ports:
+      - '3000:3000'
+    depends_on:
+      - db
+    volumes:
+      - ./src:/app/src
+
+volumes:
+  dbapp:

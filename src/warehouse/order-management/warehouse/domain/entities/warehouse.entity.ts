@@ -20,6 +20,9 @@ export class WarehouseEntity extends Aggregate<Attributes> {
   }
 
   addOrder(order: OrderEntity) {
+    if (this.orders.length > 500) {
+      throw new Error('Limit 500');
+    }
     this.orders.push(order);
   }
 
