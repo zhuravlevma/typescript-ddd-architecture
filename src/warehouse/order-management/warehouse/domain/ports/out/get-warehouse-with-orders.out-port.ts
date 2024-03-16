@@ -1,7 +1,7 @@
 import { WarehouseEntity } from '../../entities/warehouse.entity';
 
 export abstract class GetWarehouseWithOrdersOutPort {
-  abstract getWarehouseWithOrdersPort(
+  abstract getWarehouseWithOrders(
     warehouseId: string,
   ): Promise<WarehouseEntity>;
 }

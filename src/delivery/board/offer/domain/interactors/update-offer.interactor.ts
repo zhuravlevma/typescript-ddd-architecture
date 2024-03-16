@@ -14,7 +14,7 @@ export class UpdateOfferInteractor implements UpdateOfferInPort {
 
   async execute(updateOfferCommand: UpdateOfferCommand): Promise<OfferEntity> {
     try {
-      const offer = await this.findOfferByIdPort.findOfferByIdPort(
+      const offer = await this.findOfferByIdPort.findOfferById(
         updateOfferCommand.offerId,
       );
 

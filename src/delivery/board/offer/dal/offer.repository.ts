@@ -22,7 +22,7 @@ export class OfferRepository
     private readonly correlationService: CorrelationService,
   ) {}
 
-  async findOfferByIdPort(offerId: string): Promise<OfferEntity> {
+  async findOfferById(offerId: string): Promise<OfferEntity> {
     const [offer] = await this.offerRepository.find({
       where: {
         id: offerId,
@@ -31,7 +31,7 @@ export class OfferRepository
     return OfferMapper.mapToDomain(offer);
   }
 
-  async findOfferByOrderIdPort(orderId: string): Promise<OfferEntity> {
+  async findOfferByOrderId(orderId: string): Promise<OfferEntity> {
     const [offer] = await this.offerRepository.find({
       where: {
         orderId: orderId,

@@ -25,7 +25,7 @@ export class WarehouseRepository
     private readonly correlationService: CorrelationService,
   ) {}
 
-  async getWarehouseWithOrderPort(
+  async getWarehouseWithOrder(
     warehouseId: string,
     orderId: string,
   ): Promise<WarehouseEntity> {
@@ -38,9 +38,7 @@ export class WarehouseRepository
     return WarehouseMapper.mapToDomain(whOrm);
   }
 
-  async getWarehouseWithOrdersPort(
-    warehouseId: string,
-  ): Promise<WarehouseEntity> {
+  async getWarehouseWithOrders(warehouseId: string): Promise<WarehouseEntity> {
     const whOrm = await this.whRepository.findOne({
       where: {
         id: warehouseId,

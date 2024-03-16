@@ -1,6 +1,6 @@
 import { SaveWarehouseOutPort } from '../ports/out/save-warehouse.out-port';
 import {
-  CreateWarehouseCommand,
+  CreateWarehouseParams,
   CreateWarehouseInPort,
 } from '../ports/in/create-warehouse.in-port';
 import { WarehouseEntity } from '../entities/warehouse.entity';
@@ -10,12 +10,12 @@ export class CreateWarehouseInteractor implements CreateWarehouseInPort {
   constructor(private readonly saveWhPort: SaveWarehouseOutPort) {}
 
   async execute(
-    createWarehouseCommand: CreateWarehouseCommand,
+    createWarehouseParams: CreateWarehouseParams,
   ): Promise<WarehouseEntity> {
     return this.saveWhPort.saveWarehouse(
       new WarehouseEntity({
         id: randomUUID(),
-        name: createWarehouseCommand.name,
+        name: createWarehouseParams.name,
         orders: [],
       }),
     );

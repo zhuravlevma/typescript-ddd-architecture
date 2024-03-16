@@ -1,6 +1,6 @@
 import { WarehouseEntity } from '../../entities/warehouse.entity';
 
-export interface AddOrderCommand {
+export interface AddOrderParams {
   warehouseId: string;
   name: string;
   orderId: string;
@@ -8,5 +8,5 @@ export interface AddOrderCommand {
 }
 
 export abstract class AddOrderInPort {
-  abstract execute(addOrderCommand: AddOrderCommand): Promise<WarehouseEntity>;
+  abstract execute(addOrderCommand: AddOrderParams): Promise<WarehouseEntity>;
 }

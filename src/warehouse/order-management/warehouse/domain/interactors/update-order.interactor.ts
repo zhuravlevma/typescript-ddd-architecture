@@ -1,7 +1,7 @@
 import { WarehouseEntity } from '../entities/warehouse.entity';
 import {
   UpdateOrderInPort,
-  UpdateOrderCommand,
+  UpdateOrderParams,
 } from '../ports/in/update-order.in-port';
 import { GetWarehouseWithOrderOutPort } from '../ports/out/get-warehouse-with-order.out-port';
 import { SaveWarehouseOutPort } from '../ports/out/save-warehouse.out-port';
@@ -12,16 +12,16 @@ export class UpdateOrderInteractor implements UpdateOrderInPort {
     private readonly saveWhPort: SaveWarehouseOutPort,
   ) {}
   async execute(
-    updateOrderStatusCommand: UpdateOrderCommand,
+    updateOrderStatusParams: UpdateOrderParams,
   ): Promise<WarehouseEntity> {
     const warehouse =
-      await this.getWarehouseWithOrderPort.getWarehouseWithOrderPort(
-        updateOrderStatusCommand.warehouseId,
-        updateOrderStatusCommand.orderId,
+      await this.getWarehouseWithOrderPort.getWarehouseWithOrder(
+        updateOrderStatusParams.warehouseId,
+        updateOrderStatusParams.orderId,
       );
 
-    if (updateOrderStatusCommand.isValid === true) {
-      warehouse.changeOrderStatusToValid(updateOrderStatusCommand.orderId);
+    if (updateOrderStatusParams.isValid === true) {
+      warehouse.changeOrderStatusToValid(updateOrderStatusParams.orderId);
     }
 
     return this.saveWhPort.saveWarehouse(warehouse);
