@@ -12,7 +12,7 @@ jobs:
     container:
       image: node:20
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Cache Node Modules
         id: cache-node-modules
         uses: actions/cache@v3
@@ -29,7 +29,7 @@ jobs:
     container:
       image: node:20
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Cache Node Modules
         id: cache-node-modules
         uses: actions/cache@v3
@@ -45,7 +45,7 @@ jobs:
     container:
       image: node:18
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Cache Node Modules
         id: cache-node-modules
         uses: actions/cache@v3
@@ -61,7 +61,7 @@ jobs:
     container:
       image: node:18
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Cache Node Modules
         id: cache-node-modules
         uses: actions/cache@v3
@@ -77,7 +77,7 @@ jobs:
     container:
       image: node:20
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Cache Node Modules
         id: cache-node-modules
         uses: actions/cache@v3
