@@ -75,13 +75,23 @@ This is not a production ready solution. For example, Event Emitter needs to be 
 npm install
 ```
 
-## Running the app
+## Running the app (local)
 
 ```sql
 CREATE SCHEMA IF NOT EXISTS accounting
 CREATE SCHEMA IF NOT EXISTS warehouse
 CREATE SCHEMA IF NOT EXISTS delivery
 CREATE SCHEMA IF NOT EXISTS public
+```
+
+```bash
+cp .env.example .env
+```
+
+## Running the app (docker)
+
+```bash
+docker-compose up
 ```
 
 ```bash
