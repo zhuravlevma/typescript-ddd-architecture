@@ -1,5 +1,5 @@
 import { CurierEntity } from '../../entities/curier.entity';
-import { AddOrderToCurierCommand } from '../../ports/in/add-order-to-curier.in-port';
+import { AddOrderToCurierParams } from '../../ports/in/add-order-to-curier.in-port';
 import { AddOrderToCurierInteractor } from '../add-order-to-curier.interactor';
 
 describe('delivery/domain/curier/services/add-order-to-curier.service', () => {
@@ -38,7 +38,7 @@ describe('delivery/domain/curier/services/add-order-to-curier.service', () => {
       findCurierByIdWithOrdersPort,
       saveCurierPort,
     );
-    const createOrderDto: AddOrderToCurierCommand = {
+    const createOrderDto: AddOrderToCurierParams = {
       curierId: 'curierId',
       orderId: 'orderId',
     };

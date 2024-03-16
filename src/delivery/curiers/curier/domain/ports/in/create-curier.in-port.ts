@@ -1,11 +1,11 @@
 import { CurierEntity } from '../../entities/curier.entity';
 
-export interface CreateCurierCommand {
+export interface CreateCurierParams {
   firstName: string;
   lastName: string;
 }
 export abstract class CreateCurierInPort {
   abstract execute(
-    createCurierCommand: CreateCurierCommand,
+    createCurierParams: CreateCurierParams,
   ): Promise<CurierEntity>;
 }

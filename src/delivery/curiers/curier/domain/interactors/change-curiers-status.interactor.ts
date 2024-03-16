@@ -1,5 +1,5 @@
 import {
-  ChangeCuriersStatusCommand,
+  ChangeCuriersStatusParams,
   ChangeCuriersStatusInPort,
 } from 'src/delivery/curiers/curier/domain/ports/in/change-curiers-status.in-port';
 import { SaveCurierOutPort } from '../ports/out/save-curier.out-port';
@@ -15,15 +15,15 @@ export class ChangeCuriersStatusInteractor
   ) {}
 
   async execute(
-    changeCuriersStatusCommand: ChangeCuriersStatusCommand,
+    changeCuriersStatusParams: ChangeCuriersStatusParams,
   ): Promise<CurierEntity> {
     try {
       const curierWithOrders =
         await this.findCurierByIdWithOrdersPort.findCurierByIdWithOrders(
-          changeCuriersStatusCommand.curierId,
+          changeCuriersStatusParams.curierId,
         );
 
-      curierWithOrders.changeStatus(changeCuriersStatusCommand.isActive);
+      curierWithOrders.changeStatus(changeCuriersStatusParams.isActive);
 
       return await this.saveCurierPort.save(curierWithOrders);
     } catch (error) {

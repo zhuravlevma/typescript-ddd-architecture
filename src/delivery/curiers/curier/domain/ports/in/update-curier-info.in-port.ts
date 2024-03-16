@@ -1,6 +1,6 @@
 import { CurierEntity } from '../../entities/curier.entity';
 
-export interface UpdateCuriersInfoCommand {
+export interface UpdateCuriersInfoParams {
   curierId: string;
   firstName?: string;
   lastName?: string;
@@ -8,6 +8,6 @@ export interface UpdateCuriersInfoCommand {
 }
 export abstract class UpdateCuriersInPort {
   abstract execute(
-    updateCuriersInfoCommand: UpdateCuriersInfoCommand,
+    updateCuriersInfoParams: UpdateCuriersInfoParams,
   ): Promise<CurierEntity>;
 }

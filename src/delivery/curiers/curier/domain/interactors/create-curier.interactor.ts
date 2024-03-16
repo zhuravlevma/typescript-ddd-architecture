@@ -2,14 +2,14 @@ import { CreateCurierOutPort } from '../ports/out/create-curier.out-port';
 import { CurierEntity } from '../entities/curier.entity';
 import {
   CreateCurierInPort,
-  CreateCurierCommand,
+  CreateCurierParams,
 } from '../ports/in/create-curier.in-port';
 import { randomUUID } from 'crypto';
 
 export class CreateCurierInteractor implements CreateCurierInPort {
   constructor(private readonly createCurierPort: CreateCurierOutPort) {}
 
-  execute(createCurierCommand: CreateCurierCommand): Promise<CurierEntity> {
+  execute(createCurierCommand: CreateCurierParams): Promise<CurierEntity> {
     return this.createCurierPort.createCurier(
       new CurierEntity({
         id: randomUUID(),

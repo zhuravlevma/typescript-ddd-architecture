@@ -1,11 +1,11 @@
 import { CurierEntity } from '../../entities/curier.entity';
 
-export interface ChangeCuriersStatusCommand {
+export interface ChangeCuriersStatusParams {
   curierId: string;
   isActive: boolean;
 }
 export abstract class ChangeCuriersStatusInPort {
   abstract execute(
-    changeCuriersStatusCommand: ChangeCuriersStatusCommand,
+    changeCuriersStatusParams: ChangeCuriersStatusParams,
   ): Promise<CurierEntity>;
 }

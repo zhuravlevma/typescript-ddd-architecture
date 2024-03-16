@@ -1,6 +1,6 @@
 import { CurierEntity } from '../entities/curier.entity';
 import {
-  UpdateOrderCommand,
+  UpdateOrderParams,
   UpdateOrderInPort,
 } from '../ports/in/update-order.in-port';
 import { FindCurierOrderLadingOutPort } from '../ports/out/find-curier-order-lading.out-port';
@@ -13,19 +13,20 @@ export class UpdateOrderInteractor implements UpdateOrderInPort {
   ) {}
 
   async execute(
-    updateOrderStatusDto: UpdateOrderCommand,
+    updateOrderStatusParams: UpdateOrderParams,
   ): Promise<CurierEntity> {
     try {
       const curier = await this.findCurierPort.findCurierOrderLading(
-        updateOrderStatusDto.curierId,
-        updateOrderStatusDto.orderId,
+        updateOrderStatusParams.curierId,
+        updateOrderStatusParams.orderId,
       );
 
       if (!curier) {
         throw new Error('curier not found');
       }
 
-      if (updateOrderStatusDto.delivered) curier.completeDeliveryForAllOrders();
+      if (updateOrderStatusParams.delivered)
+        curier.completeDeliveryForAllOrders();
 
       return this.saveCurierPort.save(curier);
     } catch (error) {

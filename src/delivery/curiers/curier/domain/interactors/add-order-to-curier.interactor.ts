@@ -4,7 +4,7 @@ import { SaveCurierOutPort } from '../ports/out/save-curier.out-port';
 import { CurierEntity } from '../entities/curier.entity';
 import {
   AddOrderToCurierInPort as AddOrderToCurierInPort,
-  AddOrderToCurierCommand,
+  AddOrderToCurierParams,
 } from '../ports/in/add-order-to-curier.in-port';
 import { randomUUID } from 'crypto';
 
@@ -15,12 +15,12 @@ export class AddOrderToCurierInteractor implements AddOrderToCurierInPort {
   ) {}
 
   async execute(
-    addOrderToCurierCommand: AddOrderToCurierCommand,
+    addOrderToCurierParams: AddOrderToCurierParams,
   ): Promise<CurierEntity> {
     try {
       const curiernWithOrders =
         await this.findCurierByIdWithOrdersPort.findCurierByIdWithOrders(
-          addOrderToCurierCommand.curierId,
+          addOrderToCurierParams.curierId,
         );
 
       curiernWithOrders.addOrder(
@@ -29,10 +29,10 @@ export class AddOrderToCurierInteractor implements AddOrderToCurierInPort {
           name: 'test name',
           description: 'test descr',
           isActive: false,
-          orderId: addOrderToCurierCommand.orderId,
+          orderId: addOrderToCurierParams.orderId,
           totalSum: 0,
           weight: 1,
-          curierId: addOrderToCurierCommand.curierId,
+          curierId: addOrderToCurierParams.curierId,
         }),
       );
       return await this.saveCurierPort.save(curiernWithOrders);
