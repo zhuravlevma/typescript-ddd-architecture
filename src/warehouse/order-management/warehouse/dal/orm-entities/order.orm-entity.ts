@@ -1,4 +1,10 @@
-import { Entity, Column, PrimaryGeneratedColumn, JoinColumn, ManyToOne } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  JoinColumn,
+  ManyToOne,
+} from 'typeorm';
 import { WarehouseOrmEntity } from './warehouse.orm-entity';
 
 @Entity('orders', {

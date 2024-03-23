@@ -12,7 +12,11 @@ export class ContextMiddleware implements NestMiddleware {
     private readonly asyncContextStorage: ContextStorage,
   ) {}
 
-  public use(_: http.IncomingMessage, __: http.ServerResponse, next: () => void): void {
+  public use(
+    _: http.IncomingMessage,
+    __: http.ServerResponse,
+    next: () => void,
+  ): void {
     this.asyncContextStorage.run(new Map(), () => {
       next();
     });

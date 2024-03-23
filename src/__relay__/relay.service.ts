@@ -16,7 +16,7 @@ export class RelayService {
   ) {}
 
   @Cron(CronExpression.EVERY_10_SECONDS)
-  async handleCron() {
+  async handleCron(): Promise<void> {
     try {
       await this.dataSource.transaction(async (transactionalEntityManager) => {
         const messages = await transactionalEntityManager

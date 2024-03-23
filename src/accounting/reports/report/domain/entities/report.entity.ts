@@ -26,7 +26,7 @@ export class ReportEntity extends Aggregate<Attributes> {
     this.positions = attributes.positions;
   }
 
-  updateReportStatus(status: boolean) {
+  updateReportStatus(status: boolean): void {
     if (status === true) {
       this.isValid = true;
       this.addMessage(
@@ -53,14 +53,22 @@ export class ReportEntity extends Aggregate<Attributes> {
   }
 
   getTaxAmount(): number {
-    return this.positions.reduce((totalTax, position) => totalTax + position.getValueOfTax(), 0);
+    return this.positions.reduce(
+      (totalTax, position) => totalTax + position.getValueOfTax(),
+      0,
+    );
   }
 
   getPositionsAboveTaxThreshold(threshold: number): ReportPositionEntity[] {
-    return this.positions.filter((position) => position.getValueOfTax() > threshold);
+    return this.positions.filter(
+      (position) => position.getValueOfTax() > threshold,
+    );
   }
 
   getTotalAmountWithTax(): number {
-    return this.positions.reduce((totalAmount, position) => totalAmount + position.getPriceWithTax(), 0);
+    return this.positions.reduce(
+      (totalAmount, position) => totalAmount + position.getPriceWithTax(),
+      0,
+    );
   }
 }

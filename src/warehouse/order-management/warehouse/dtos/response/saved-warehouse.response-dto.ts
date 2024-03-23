@@ -20,7 +20,9 @@ export class SavedWarehouseResponseDto {
   @ApiProperty({ type: [SavedOrderResponseDto] })
   orders: SavedOrderResponseDto[];
 
-  static fromDomain(warehouseEntity: WarehouseEntity): SavedWarehouseResponseDto {
+  static fromDomain(
+    warehouseEntity: WarehouseEntity,
+  ): SavedWarehouseResponseDto {
     const respDto = new SavedWarehouseResponseDto();
     const warehouseReadonly = warehouseEntity.export();
     respDto.id = warehouseReadonly.id;

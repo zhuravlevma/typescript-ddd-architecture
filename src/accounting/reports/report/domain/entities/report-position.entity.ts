@@ -46,11 +46,11 @@ export class ReportPositionEntity extends Entity<Attributes> {
     return this.amount.differenceAfterTax();
   }
 
-  updatePositionDiscount(discount: number) {
+  updatePositionDiscount(discount: number): void {
     return this.amount.applyDiscount(discount);
   }
 
-  updateTaxRate(newTaxRate: number) {
+  updateTaxRate(newTaxRate: number): void {
     this.amount.updateTaxRate(newTaxRate);
   }
 

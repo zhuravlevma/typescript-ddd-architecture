@@ -3,7 +3,9 @@ interface CuriernWithCountOfOrdersAttributes {
   count: number;
 }
 
-export class CuriernWithCountOfOrders implements CuriernWithCountOfOrdersAttributes {
+export class CuriernWithCountOfOrders
+  implements CuriernWithCountOfOrdersAttributes
+{
   readonly curierId: string;
   readonly count: number;
 

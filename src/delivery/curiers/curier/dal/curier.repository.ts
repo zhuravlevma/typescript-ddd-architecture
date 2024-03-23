@@ -35,7 +35,10 @@ export class CurierRepository
     });
   }
 
-  async findCurierOrderLading(curierId: string, orderId: string): Promise<CurierEntity> {
+  async findCurierOrderLading(
+    curierId: string,
+    orderId: string,
+  ): Promise<CurierEntity> {
     const curier = await this.curierRepository
       .createQueryBuilder('curiers')
       .leftJoinAndSelect('curiers.orders', 'orders')

@@ -8,5 +8,7 @@ export interface UpdateOrderParams {
   returned?: boolean;
 }
 export abstract class UpdateOrderInPort {
-  abstract execute(updateOrderStatusParams: UpdateOrderParams): Promise<CurierEntity>;
+  abstract execute(
+    updateOrderStatusParams: UpdateOrderParams,
+  ): Promise<CurierEntity>;
 }

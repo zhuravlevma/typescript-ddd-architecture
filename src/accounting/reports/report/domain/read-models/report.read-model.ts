@@ -32,7 +32,9 @@ interface ReportPositionReadModelAttributes {
   rate: number;
 }
 
-export class ReportPositionReadModel implements ReportPositionReadModelAttributes {
+export class ReportPositionReadModel
+  implements ReportPositionReadModelAttributes
+{
   readonly id: string;
   readonly name: string;
   readonly count: number;

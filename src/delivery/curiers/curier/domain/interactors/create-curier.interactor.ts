@@ -1,6 +1,9 @@
 import { CreateCurierOutPort } from '../ports/out/create-curier.out-port';
 import { CurierEntity } from '../entities/curier.entity';
-import { CreateCurierInPort, CreateCurierParams } from '../ports/in/create-curier.in-port';
+import {
+  CreateCurierInPort,
+  CreateCurierParams,
+} from '../ports/in/create-curier.in-port';
 import { randomUUID } from 'crypto';
 
 export class CreateCurierInteractor implements CreateCurierInPort {

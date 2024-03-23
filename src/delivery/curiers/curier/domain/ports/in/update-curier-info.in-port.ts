@@ -7,5 +7,7 @@ export interface UpdateCuriersInfoParams {
   isActive?: boolean;
 }
 export abstract class UpdateCuriersInPort {
-  abstract execute(updateCuriersInfoParams: UpdateCuriersInfoParams): Promise<CurierEntity>;
+  abstract execute(
+    updateCuriersInfoParams: UpdateCuriersInfoParams,
+  ): Promise<CurierEntity>;
 }

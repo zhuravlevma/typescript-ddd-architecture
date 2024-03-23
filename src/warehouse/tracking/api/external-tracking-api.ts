@@ -13,7 +13,9 @@ export class CheckCurrentPositionApiResponseDto {
 
 @Injectable()
 export class ExternalTrackingApi {
-  async checkLastCoordinates(data: CheckCurrentPositionApiDto): Promise<CheckCurrentPositionApiResponseDto> {
+  async checkLastCoordinates(
+    data: CheckCurrentPositionApiDto,
+  ): Promise<CheckCurrentPositionApiResponseDto> {
     /// call external api
     console.log(data);
 

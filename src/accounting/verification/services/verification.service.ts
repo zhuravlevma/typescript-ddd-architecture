@@ -16,7 +16,9 @@ export class VerificationService {
     private readonly findReportWithPositionsByIdInPort: FindReportWithPositionsByIdInPort,
   ) {}
 
-  async create(createVerificationDto: CreateVerificationDto): Promise<Verification> {
+  async create(
+    createVerificationDto: CreateVerificationDto,
+  ): Promise<Verification> {
     const verification = await this.verificationRepository.save({
       isFull: createVerificationDto.isFull,
     });
@@ -24,7 +26,9 @@ export class VerificationService {
     return verification;
   }
 
-  async update(updateVerificationDto: UpdateVerificationDto): Promise<Verification> {
+  async update(
+    updateVerificationDto: UpdateVerificationDto,
+  ): Promise<Verification> {
     const verification = await this.verificationRepository.findOne({
       where: {
         id: updateVerificationDto.id,
@@ -32,7 +36,9 @@ export class VerificationService {
     });
 
     if (verification === null) {
-      throw new BadRequestException(`Verification with id ${updateVerificationDto.id} not found`);
+      throw new BadRequestException(
+        `Verification with id ${updateVerificationDto.id} not found`,
+      );
     }
 
     const report = await this.findReportWithPositionsByIdInPort.execute({

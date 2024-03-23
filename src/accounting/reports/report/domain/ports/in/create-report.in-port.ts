@@ -5,5 +5,7 @@ export interface CreateReportParams {
 }
 
 export abstract class CreateReportInPort {
-  abstract execute(createReportParams: CreateReportParams): Promise<ReportEntity>;
+  abstract execute(
+    createReportParams: CreateReportParams,
+  ): Promise<ReportEntity>;
 }

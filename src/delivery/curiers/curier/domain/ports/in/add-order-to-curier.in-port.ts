@@ -5,5 +5,7 @@ export interface AddOrderToCurierParams {
   orderId: string;
 }
 export abstract class AddOrderToCurierInPort {
-  abstract execute(addOrderToCurierParams: AddOrderToCurierParams): Promise<CurierEntity>;
+  abstract execute(
+    addOrderToCurierParams: AddOrderToCurierParams,
+  ): Promise<CurierEntity>;
 }

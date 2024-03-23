@@ -6,5 +6,7 @@ export interface CreateOfferCommand {
 }
 
 export abstract class CreateOfferInPort {
-  abstract execute(createOfferCommand: CreateOfferCommand): Promise<OfferEntity>;
+  abstract execute(
+    createOfferCommand: CreateOfferCommand,
+  ): Promise<OfferEntity>;
 }

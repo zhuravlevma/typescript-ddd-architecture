@@ -5,5 +5,7 @@ export interface CreateWarehouseParams {
 }
 
 export abstract class CreateWarehouseInPort {
-  abstract execute(createWarehouseCommand: CreateWarehouseParams): Promise<WarehouseEntity>;
+  abstract execute(
+    createWarehouseCommand: CreateWarehouseParams,
+  ): Promise<WarehouseEntity>;
 }

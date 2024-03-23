@@ -6,5 +6,7 @@ export interface UpdateOfferCommand {
 }
 
 export abstract class UpdateOfferInPort {
-  abstract execute(updateOfferCommand: UpdateOfferCommand): Promise<OfferEntity>;
+  abstract execute(
+    updateOfferCommand: UpdateOfferCommand,
+  ): Promise<OfferEntity>;
 }

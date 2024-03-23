@@ -17,7 +17,9 @@ import { FindReportWithPositionsQuery } from './report/domain/queries/find-repor
 import { FindReportWithPositionsByIdInPort } from './report/domain/ports/in/find-report-with-positions-by-id.in-port';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([ReportOrmEntity, ReportPositionOrmEntity])],
+  imports: [
+    TypeOrmModule.forFeature([ReportOrmEntity, ReportPositionOrmEntity]),
+  ],
   controllers: [ReportController],
   providers: [
     {

@@ -13,7 +13,7 @@ export class AmountObjectValue extends ObjectValues<Attributes> {
     this.rate = attributes.rate;
   }
 
-  applyDiscount(discount: number) {
+  applyDiscount(discount: number): void {
     this.amount *= discount;
   }
 
@@ -25,7 +25,7 @@ export class AmountObjectValue extends ObjectValues<Attributes> {
     return this.amount - this.getAmoutWithoutTax();
   }
 
-  updateTaxRate(rate: number) {
+  updateTaxRate(rate: number): void {
     this.rate = rate;
   }
 }

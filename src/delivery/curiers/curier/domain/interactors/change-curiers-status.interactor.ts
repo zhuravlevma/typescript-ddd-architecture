@@ -6,17 +6,22 @@ import { SaveCurierOutPort } from '../ports/out/save-curier.out-port';
 import { FindCurierByIdWithOrdersOutPort } from '../ports/out/find-curier-by-id-with-orders.out-port';
 import { CurierEntity } from '../entities/curier.entity';
 
-export class ChangeCuriersStatusInteractor implements ChangeCuriersStatusInPort {
+export class ChangeCuriersStatusInteractor
+  implements ChangeCuriersStatusInPort
+{
   constructor(
     private readonly findCurierByIdWithOrdersPort: FindCurierByIdWithOrdersOutPort,
     private readonly saveCurierPort: SaveCurierOutPort,
   ) {}
 
-  async execute(changeCuriersStatusParams: ChangeCuriersStatusParams): Promise<CurierEntity> {
+  async execute(
+    changeCuriersStatusParams: ChangeCuriersStatusParams,
+  ): Promise<CurierEntity> {
     try {
-      const curierWithOrders = await this.findCurierByIdWithOrdersPort.findCurierByIdWithOrders(
-        changeCuriersStatusParams.curierId,
-      );
+      const curierWithOrders =
+        await this.findCurierByIdWithOrdersPort.findCurierByIdWithOrders(
+          changeCuriersStatusParams.curierId,
+        );
 
       curierWithOrders.changeStatus(changeCuriersStatusParams.isActive);
 

@@ -26,7 +26,10 @@ export class ReportController {
   }
 
   @Patch('/:reportId')
-  updateReport(@Param('reportId') reportId: string, @Body() updateReportDto: UpdateReportDto): Promise<ReportEntity> {
+  updateReport(
+    @Param('reportId') reportId: string,
+    @Body() updateReportDto: UpdateReportDto,
+  ): Promise<ReportEntity> {
     return this.updateReportInteractor.execute({
       reportId,
       isValid: updateReportDto.isValid,
@@ -34,7 +37,7 @@ export class ReportController {
   }
 
   @OnEvent(config().topics.orderValidated)
-  applyOrderValidated(event: OrderValidatedEvent) {
+  applyOrderValidated(event: OrderValidatedEvent): Promise<ReportEntity> {
     return this.createReportInteractor.execute({
       orderId: event.payload.orderId,
     });

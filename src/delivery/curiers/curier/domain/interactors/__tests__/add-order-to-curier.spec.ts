@@ -31,8 +31,13 @@ describe('delivery/domain/curier/services/add-order-to-curier.service', () => {
   });
 
   it('order added successfully', async () => {
-    findCurierByIdWithOrdersPort.findCurierByIdWithOrders.mockResolvedValue(curierEntity);
-    const service = new AddOrderToCurierInteractor(findCurierByIdWithOrdersPort, saveCurierPort);
+    findCurierByIdWithOrdersPort.findCurierByIdWithOrders.mockResolvedValue(
+      curierEntity,
+    );
+    const service = new AddOrderToCurierInteractor(
+      findCurierByIdWithOrdersPort,
+      saveCurierPort,
+    );
     const createOrderDto: AddOrderToCurierParams = {
       curierId: 'curierId',
       orderId: 'orderId',
