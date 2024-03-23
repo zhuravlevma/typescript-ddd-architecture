@@ -11,9 +11,7 @@ import { OutboxMapper } from '../../../../__relay__/outbox.mapper';
 import { CorrelationService } from 'src/__infrastructure__/correlation/correlation.service';
 
 @Injectable()
-export class OfferRepository
-  implements FindOfferByIdOutPort, FindOfferByOrderIdOutPort, SaveOfferOutPort
-{
+export class OfferRepository implements FindOfferByIdOutPort, FindOfferByOrderIdOutPort, SaveOfferOutPort {
   constructor(
     @InjectDataSource()
     private readonly dataSource: DataSource,
@@ -43,20 +41,13 @@ export class OfferRepository
   async saveOffer(offer: OfferEntity): Promise<OfferEntity> {
     const outboxORM = offer
       .pullMessages()
-      .map((event) =>
-        OutboxMapper.mapToORM(
-          event,
-          this.correlationService.getCorrelationId(),
-        ),
-      );
+      .map((event) => OutboxMapper.mapToORM(event, this.correlationService.getCorrelationId()));
     const reportOrm = OfferMapper.mapToOrm(offer);
 
-    const savedOffer = await this.dataSource.transaction(
-      async (transactionalEntityManager) => {
-        await transactionalEntityManager.save(outboxORM);
-        return await transactionalEntityManager.save(reportOrm);
-      },
-    );
+    const savedOffer = await this.dataSource.transaction(async (transactionalEntityManager) => {
+      await transactionalEntityManager.save(outboxORM);
+      return await transactionalEntityManager.save(reportOrm);
+    });
     return OfferMapper.mapToDomain(savedOffer);
   }
 }

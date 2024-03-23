@@ -5,7 +5,5 @@ export interface CreateCurierParams {
   lastName: string;
 }
 export abstract class CreateCurierInPort {
-  abstract execute(
-    createCurierParams: CreateCurierParams,
-  ): Promise<CurierEntity>;
+  abstract execute(createCurierParams: CreateCurierParams): Promise<CurierEntity>;
 }

@@ -12,10 +12,7 @@ import { CorrelationService } from 'src/__infrastructure__/correlation/correlati
 
 @Injectable()
 export class WarehouseRepository
-  implements
-    SaveWarehouseOutPort,
-    GetWarehouseWithOrdersOutPort,
-    GetWarehouseWithOrderOutPort
+  implements SaveWarehouseOutPort, GetWarehouseWithOrdersOutPort, GetWarehouseWithOrderOutPort
 {
   constructor(
     @InjectDataSource()
@@ -25,10 +22,7 @@ export class WarehouseRepository
     private readonly correlationService: CorrelationService,
   ) {}
 
-  async getWarehouseWithOrder(
-    warehouseId: string,
-    orderId: string,
-  ): Promise<WarehouseEntity> {
+  async getWarehouseWithOrder(warehouseId: string, orderId: string): Promise<WarehouseEntity> {
     const whOrm = await this.whRepository
       .createQueryBuilder('warehouses')
       .leftJoinAndSelect('warehouses.orders', 'orders')
@@ -54,18 +48,11 @@ export class WarehouseRepository
     const warehouseORM = WarehouseMapper.mapToORM(warehouse);
     const outboxORM = warehouse
       .pullMessages()
-      .map((event) =>
-        OutboxMapper.mapToORM(
-          event,
-          this.correlationService.getCorrelationId(),
-        ),
-      );
-    const whOrm = await this.dataSource.transaction(
-      async (transactionalEntityManager) => {
-        await transactionalEntityManager.save(outboxORM);
-        return await transactionalEntityManager.save(warehouseORM);
-      },
-    );
+      .map((event) => OutboxMapper.mapToORM(event, this.correlationService.getCorrelationId()));
+    const whOrm = await this.dataSource.transaction(async (transactionalEntityManager) => {
+      await transactionalEntityManager.save(outboxORM);
+      return await transactionalEntityManager.save(warehouseORM);
+    });
     return WarehouseMapper.mapToDomain(whOrm);
   }
 }

@@ -31,9 +31,7 @@ export class Verification {
 
   completeVerification() {
     if (!this.signed) {
-      throw new Error(
-        'Cannot complete verification without signing the report.',
-      );
+      throw new Error('Cannot complete verification without signing the report.');
     }
 
     if (this.reportNumber < 0) {

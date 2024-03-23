@@ -7,13 +7,11 @@ export interface MessageType {
   messageType: MessageTypeEnum; // event or command
 }
 
-interface PayloadObject<Payload = object>
-  extends DomainMessageAttributes<Payload> {
+interface PayloadObject<Payload = object> extends DomainMessageAttributes<Payload> {
   payload: Payload;
 }
 
-interface DomainMessageAllAttributes<Payload = object>
-  extends DomainMessageAttributes<Payload> {
+interface DomainMessageAllAttributes<Payload = object> extends DomainMessageAttributes<Payload> {
   reason: string;
   payload: Payload;
   messageName: string; // name of the event or command "WarehouseCreated"(event), "AddOrder"(command)
@@ -27,12 +25,9 @@ export interface DomainMessageAttributes<Payload = object> {
   aggregateId: string;
 }
 
-export type DomainMessage<Payload = object> =
-  DomainMessageAllAttributes<Payload> & MessageType;
+export type DomainMessage<Payload = object> = DomainMessageAllAttributes<Payload> & MessageType;
 
-export abstract class DomainEvent<Payload = object>
-  implements DomainMessage<Payload>
-{
+export abstract class DomainEvent<Payload = object> implements DomainMessage<Payload> {
   reason: string;
   payload: Payload;
   messageType: MessageTypeEnum;
@@ -53,9 +48,7 @@ export abstract class DomainEvent<Payload = object>
   }
 }
 
-export abstract class DomainCommand<Payload = object>
-  implements PayloadObject<Payload>, MessageType
-{
+export abstract class DomainCommand<Payload = object> implements PayloadObject<Payload>, MessageType {
   reason: string;
   payload: Payload;
   messageType: MessageTypeEnum;

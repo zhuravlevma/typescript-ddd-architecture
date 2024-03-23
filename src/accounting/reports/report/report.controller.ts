@@ -26,10 +26,7 @@ export class ReportController {
   }
 
   @Patch('/:reportId')
-  updateReport(
-    @Param('reportId') reportId: string,
-    @Body() updateReportDto: UpdateReportDto,
-  ): Promise<ReportEntity> {
+  updateReport(@Param('reportId') reportId: string, @Body() updateReportDto: UpdateReportDto): Promise<ReportEntity> {
     return this.updateReportInteractor.execute({
       reportId,
       isValid: updateReportDto.isValid,

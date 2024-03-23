@@ -2,10 +2,7 @@ import { DomainMessage } from '../__lib__/domain-message';
 import { MessageOrmEntity } from './message.orm-entity';
 
 export class OutboxMapper {
-  static mapToORM<Payload>(
-    event: DomainMessage<Payload>,
-    correlationId: string,
-  ): MessageOrmEntity {
+  static mapToORM<Payload>(event: DomainMessage<Payload>, correlationId: string): MessageOrmEntity {
     const orm = new MessageOrmEntity();
     orm.reason = event.reason;
     orm.messageType = event.messageType;

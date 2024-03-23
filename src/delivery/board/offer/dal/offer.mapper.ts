@@ -23,8 +23,7 @@ export class OfferMapper {
     offerOrmEntity.name = offerReadonly.name;
     offerOrmEntity.orderId = offerReadonly.orderId;
     offerOrmEntity.vehicleType = offerReadonly.vehicleType;
-    offerOrmEntity.preferredDeliveryAreas =
-      offerReadonly.preferredDeliveryAreas;
+    offerOrmEntity.preferredDeliveryAreas = offerReadonly.preferredDeliveryAreas;
     offerOrmEntity.workingHours = offerReadonly.workingHours;
     offerOrmEntity.weight = offerReadonly.weight;
     offerOrmEntity.bid = offerReadonly.bid;

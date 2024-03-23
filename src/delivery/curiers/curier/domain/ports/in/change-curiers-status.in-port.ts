@@ -5,7 +5,5 @@ export interface ChangeCuriersStatusParams {
   isActive: boolean;
 }
 export abstract class ChangeCuriersStatusInPort {
-  abstract execute(
-    changeCuriersStatusParams: ChangeCuriersStatusParams,
-  ): Promise<CurierEntity>;
+  abstract execute(changeCuriersStatusParams: ChangeCuriersStatusParams): Promise<CurierEntity>;
 }

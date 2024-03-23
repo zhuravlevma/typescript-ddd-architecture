@@ -6,7 +6,5 @@ export interface UpdateReportParams {
 }
 
 export abstract class UpdateReportInPort {
-  abstract execute(
-    updateOrderParams: UpdateReportParams,
-  ): Promise<ReportEntity>;
+  abstract execute(updateOrderParams: UpdateReportParams): Promise<ReportEntity>;
 }

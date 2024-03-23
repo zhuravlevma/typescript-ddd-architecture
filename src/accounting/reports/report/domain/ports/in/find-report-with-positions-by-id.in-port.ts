@@ -4,7 +4,5 @@ export interface FindReportWithPositionsParams {
   id: string;
 }
 export abstract class FindReportWithPositionsByIdInPort {
-  abstract execute(
-    findReportWithPositionsParams: FindReportWithPositionsParams,
-  ): Promise<ReportReadModel>;
+  abstract execute(findReportWithPositionsParams: FindReportWithPositionsParams): Promise<ReportReadModel>;
 }

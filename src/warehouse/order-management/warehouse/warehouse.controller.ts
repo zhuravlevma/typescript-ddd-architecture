@@ -22,9 +22,7 @@ export class WarehouseController {
     type: SavedWarehouseResponseDto,
   })
   @Post('/')
-  async createWarehouse(
-    @Body() createWarehouseDto: CreateWarehouseDto,
-  ): Promise<SavedWarehouseResponseDto> {
+  async createWarehouse(@Body() createWarehouseDto: CreateWarehouseDto): Promise<SavedWarehouseResponseDto> {
     const wh = await this.createWarehouseInteractor.execute(createWarehouseDto);
     return SavedWarehouseResponseDto.fromDomain(wh);
   }

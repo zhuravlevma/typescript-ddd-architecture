@@ -7,7 +7,5 @@ export interface UpdateOrderParams {
 }
 
 export abstract class UpdateOrderInPort {
-  abstract execute(
-    updateOrderStatusCommand: UpdateOrderParams,
-  ): Promise<WarehouseEntity>;
+  abstract execute(updateOrderStatusCommand: UpdateOrderParams): Promise<WarehouseEntity>;
 }

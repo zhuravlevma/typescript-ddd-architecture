@@ -14,14 +14,11 @@ export class AddOrderToCurierInteractor implements AddOrderToCurierInPort {
     private readonly saveCurierPort: SaveCurierOutPort,
   ) {}
 
-  async execute(
-    addOrderToCurierParams: AddOrderToCurierParams,
-  ): Promise<CurierEntity> {
+  async execute(addOrderToCurierParams: AddOrderToCurierParams): Promise<CurierEntity> {
     try {
-      const curiernWithOrders =
-        await this.findCurierByIdWithOrdersPort.findCurierByIdWithOrders(
-          addOrderToCurierParams.curierId,
-        );
+      const curiernWithOrders = await this.findCurierByIdWithOrdersPort.findCurierByIdWithOrders(
+        addOrderToCurierParams.curierId,
+      );
 
       curiernWithOrders.addOrder(
         new OrderEntity({

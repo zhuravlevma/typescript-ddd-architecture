@@ -1,7 +1,4 @@
-import {
-  DomainEvent,
-  DomainMessageAttributes,
-} from 'src/__lib__/domain-message';
+import { DomainEvent, DomainMessageAttributes } from 'src/__lib__/domain-message';
 import { config } from 'src/config';
 
 interface ReportValidatedPayload {

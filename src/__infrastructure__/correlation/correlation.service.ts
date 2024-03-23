@@ -17,9 +17,7 @@ export class CorrelationService {
   ) {}
 
   public startNewCorrelationId(existingCorrelationId?: string | any): string {
-    const correlationId = doesExistAndValid(existingCorrelationId)
-      ? existingCorrelationId
-      : ulid();
+    const correlationId = doesExistAndValid(existingCorrelationId) ? existingCorrelationId : ulid();
 
     const contextStore = this.asyncContextStorage.getStore();
 

@@ -11,10 +11,7 @@ export class AddOrderInteractor implements AddOrderInPort {
     private readonly updateOrderPort: SaveWarehouseOutPort,
   ) {}
   async execute(addOrderParams: AddOrderParams): Promise<WarehouseEntity> {
-    const warehouse =
-      await this.getWarehouseWithOrderPort.getWarehouseWithOrders(
-        addOrderParams.warehouseId,
-      );
+    const warehouse = await this.getWarehouseWithOrderPort.getWarehouseWithOrders(addOrderParams.warehouseId);
 
     warehouse.addOrder(
       new OrderEntity({

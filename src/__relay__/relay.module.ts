@@ -5,10 +5,7 @@ import { RelayService } from './relay.service';
 import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
-  imports: [
-    ScheduleModule.forRoot(),
-    TypeOrmModule.forFeature([MessageOrmEntity]),
-  ],
+  imports: [ScheduleModule.forRoot(), TypeOrmModule.forFeature([MessageOrmEntity])],
   controllers: [],
   providers: [RelayService],
 })

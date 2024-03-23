@@ -35,23 +35,21 @@ export class ReportMapper {
     reportOrmEntity.isValid = reportRadonly.isValid;
     reportOrmEntity.orderId = reportRadonly.orderId;
     reportOrmEntity.reportNumber = reportRadonly.reportNumber;
-    reportOrmEntity.positions = reportRadonly.positions.map(
-      (positionEntity) => {
-        const positionReadonly = positionEntity.export();
-        const positionOrmEntity = new ReportPositionOrmEntity();
-        positionOrmEntity.id = positionReadonly.id;
-        positionOrmEntity.name = positionReadonly.name;
-        positionOrmEntity.count = positionReadonly.count;
-        positionOrmEntity.code = positionReadonly.code;
-        positionOrmEntity.weight = positionReadonly.weight;
-        positionOrmEntity.isValid = positionReadonly.isValid;
+    reportOrmEntity.positions = reportRadonly.positions.map((positionEntity) => {
+      const positionReadonly = positionEntity.export();
+      const positionOrmEntity = new ReportPositionOrmEntity();
+      positionOrmEntity.id = positionReadonly.id;
+      positionOrmEntity.name = positionReadonly.name;
+      positionOrmEntity.count = positionReadonly.count;
+      positionOrmEntity.code = positionReadonly.code;
+      positionOrmEntity.weight = positionReadonly.weight;
+      positionOrmEntity.isValid = positionReadonly.isValid;
 
-        const amountReadonly = positionReadonly.amount.export();
-        positionOrmEntity.sum = amountReadonly.amount;
-        positionOrmEntity.rate = amountReadonly.rate;
-        return positionOrmEntity;
-      },
-    );
+      const amountReadonly = positionReadonly.amount.export();
+      positionOrmEntity.sum = amountReadonly.amount;
+      positionOrmEntity.rate = amountReadonly.rate;
+      return positionOrmEntity;
+    });
     return reportOrmEntity;
   }
 }

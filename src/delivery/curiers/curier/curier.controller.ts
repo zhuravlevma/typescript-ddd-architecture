@@ -34,9 +34,7 @@ export class CurierController {
   }
 
   @Post('/')
-  createCurier(
-    @Body() createCurierManDto: CreateCurierDto,
-  ): Promise<CurierEntity> {
+  createCurier(@Body() createCurierManDto: CreateCurierDto): Promise<CurierEntity> {
     return this.createCurierInteractor.execute(createCurierManDto);
   }
 

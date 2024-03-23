@@ -92,9 +92,7 @@ export class CurierEntity extends Aggregate<Attributes> {
 
   updatePaymentDetails(bankAddress: number): void {
     if (this.orders.some((order) => order.IsActive === false)) {
-      throw new Error(
-        'Cannot update payment details for orders with pending payment.',
-      );
+      throw new Error('Cannot update payment details for orders with pending payment.');
     }
     this.paymentDetails = bankAddress;
   }
@@ -120,11 +118,7 @@ export class CurierEntity extends Aggregate<Attributes> {
   }
 
   changeStatus(newStatus: boolean) {
-    if (
-      this.isActive === true &&
-      newStatus === false &&
-      this.orders.length > 0
-    ) {
+    if (this.isActive === true && newStatus === false && this.orders.length > 0) {
       throw new Error('Deliverman has orders');
     }
     this.isActive = newStatus;

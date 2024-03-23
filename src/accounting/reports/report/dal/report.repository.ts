@@ -15,12 +15,7 @@ import { ReportReadModel } from '../domain/read-models/report.read-model';
 import { CorrelationService } from 'src/__infrastructure__/correlation/correlation.service';
 
 @Injectable()
-export class ReportRepository
-  implements
-    FindReportByIdOutPort,
-    SaveReportOutPort,
-    FindReportWithPositionsByOutPort
-{
+export class ReportRepository implements FindReportByIdOutPort, SaveReportOutPort, FindReportWithPositionsByOutPort {
   constructor(
     @InjectDataSource()
     private readonly dataSource: DataSource,
@@ -41,20 +36,13 @@ export class ReportRepository
   async save(report: ReportEntity): Promise<ReportEntity> {
     const outboxORM = report
       .pullMessages()
-      .map((event) =>
-        OutboxMapper.mapToORM(
-          event,
-          this.correlationService.getCorrelationId(),
-        ),
-      );
+      .map((event) => OutboxMapper.mapToORM(event, this.correlationService.getCorrelationId()));
     const reportOrm = ReportMapper.mapToOrm(report);
 
-    const savedReport = await this.dataSource.transaction(
-      async (transactionalEntityManager) => {
-        await transactionalEntityManager.save(outboxORM);
-        return await transactionalEntityManager.save(reportOrm);
-      },
-    );
+    const savedReport = await this.dataSource.transaction(async (transactionalEntityManager) => {
+      await transactionalEntityManager.save(outboxORM);
+      return await transactionalEntityManager.save(reportOrm);
+    });
     return ReportMapper.mapToDomain(savedReport);
   }
 
