@@ -22,7 +22,7 @@ export class CurierController {
   constructor(
     private readonly createCurierInteractor: CreateCurierInPort,
     private readonly findAllCuriersQuery: FindAllCuriersInPort,
-    private readonly addOrderToCuriernInteractor: AddOrderToCurierInPort,
+    private readonly addOrderToCurierInteractor: AddOrderToCurierInPort,
     private readonly updateCuriersInfoInteractor: UpdateCuriersInPort,
     private readonly changeCuriersStatusInteractor: ChangeCuriersStatusInPort,
     private readonly updateOrderStatusInteractor: UpdateOrderInPort,
@@ -45,7 +45,7 @@ export class CurierController {
     @Param('curierId') curierId: string,
     @Body() addOrderToCurierDto: AddOrderToCurierDto,
   ): Promise<CurierEntity> {
-    return this.addOrderToCuriernInteractor.execute({
+    return this.addOrderToCurierInteractor.execute({
       curierId,
       orderId: addOrderToCurierDto.orderId,
     });
@@ -53,7 +53,7 @@ export class CurierController {
 
   @OnEvent(config().topics.offerTaked)
   applyOfferTaked(event: OfferTakedEvent) {
-    return this.addOrderToCuriernInteractor.execute({
+    return this.addOrderToCurierInteractor.execute({
       curierId: event.payload.curierId,
       orderId: event.payload.orderId,
     });
