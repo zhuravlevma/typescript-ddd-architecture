@@ -91,6 +91,10 @@ cp .env.example .env
 ## Running the app (docker)
 
 ```bash
+cp .env.example .env
+```
+
+```bash
 docker-compose up
 ```
 
