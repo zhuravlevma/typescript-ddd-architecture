@@ -8,7 +8,7 @@ import { SaveWarehouseOutPort } from '../ports/out/save-warehouse.out-port';
 export class AddOrderInteractor implements AddOrderInPort {
   constructor(
     private readonly getWarehouseWithOrderPort: GetWarehouseWithOrdersOutPort,
-    private readonly updateOrderPort: SaveWarehouseOutPort,
+    private readonly saveWarehousePort: SaveWarehouseOutPort,
   ) {}
   async execute(addOrderParams: AddOrderParams): Promise<WarehouseEntity> {
     const warehouse =
@@ -24,6 +24,6 @@ export class AddOrderInteractor implements AddOrderInPort {
       }),
     );
 
-    return this.updateOrderPort.saveWarehouse(warehouse);
+    return this.saveWarehousePort.saveWarehouse(warehouse);
   }
 }

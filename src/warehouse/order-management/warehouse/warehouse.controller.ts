@@ -1,7 +1,7 @@
 import { Body, Controller, Param, Patch, Post } from '@nestjs/common';
 import { CreateWarehouseDto } from './dtos/create-warehouse.dto';
 import { AddOrderDto } from './dtos/add-order.dto';
-import { UpdateOrderStatusDto } from './dtos/update-order-status.dto';
+import { UpdateOrderDto } from './dtos/update-order.dto';
 import { AddOrderInPort } from './domain/ports/in/add-order.in-port';
 import { CreateWarehouseInPort } from './domain/ports/in/create-warehouse.in-port';
 import { UpdateOrderInPort } from './domain/ports/in/update-order.in-port';
@@ -14,7 +14,7 @@ export class WarehouseController {
   constructor(
     private readonly addOrderInteractor: AddOrderInPort,
     private readonly createWarehouseInteractor: CreateWarehouseInPort,
-    private readonly updateOrderStatusInteractor: UpdateOrderInPort,
+    private readonly updateOrderInteractor: UpdateOrderInPort,
   ) {}
 
   @ApiOkResponse({
@@ -50,15 +50,15 @@ export class WarehouseController {
     type: SavedWarehouseResponseDto,
   })
   @Patch('/:warehouseId/orders/:orderId')
-  async updateOrderStatus(
+  async updateOrder(
     @Param('warehouseId') warehouseId: string,
     @Param('orderId') orderId: string,
-    @Body() updateOrderStatusDto: UpdateOrderStatusDto,
+    @Body() updateOrderDto: UpdateOrderDto,
   ): Promise<SavedWarehouseResponseDto> {
-    const wh = await this.updateOrderStatusInteractor.execute({
+    const wh = await this.updateOrderInteractor.execute({
       warehouseId,
       orderId,
-      isValid: updateOrderStatusDto.isValid,
+      isValid: updateOrderDto.isValid,
     });
     return SavedWarehouseResponseDto.fromDomain(wh);
   }
