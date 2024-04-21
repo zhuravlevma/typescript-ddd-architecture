@@ -14,19 +14,40 @@ services:
     ports:
       - '5432:5432'
 
+  rabbitmq:
+    image: rabbitmq:3.9-management
+    container_name: rabbitmq
+    restart: always
+    hostname: rabbitmq
+    ports:
+      - 5672:5672
+      - 15672:15672
+    healthcheck:
+      test: ['CMD', 'curl', '-f', 'http://localhost:15672']
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+
   app:
     build:
       context: .
       dockerfile: Dockerfile
     container_name: nest-docker-postgres
+    restart: on-failure
     env_file:
       - .env
     ports:
       - '3000:3000'
     depends_on:
       - db
+      - rabbitmq
+    links:
+      - rabbitmq
+
     volumes:
       - ./src:/app/src
-
 volumes:
   dbapp:
+  rabbitmq_data:

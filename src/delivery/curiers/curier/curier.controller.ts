@@ -10,11 +10,11 @@ import { CreateCurierInPort } from './domain/ports/in/create-curier.in-port';
 import { FindAllCuriersInPort } from './domain/ports/in/find-all-curiers.in-port';
 import { UpdateCuriersInPort } from './domain/ports/in/update-curier-info.in-port';
 import { UpdateOrderInPort } from './domain/ports/in/update-order.in-port';
-import { OnEvent } from '@nestjs/event-emitter';
 import { ApiTags } from '@nestjs/swagger';
 import { CurierEntity } from './domain/entities/curier.entity';
 import { OfferTakedEvent } from '../../board/offer/domain/events/offer-taked.event';
 import { config } from 'src/config';
+import { EventPattern, Payload } from '@nestjs/microservices';
 
 @ApiTags('delivery')
 @Controller('/delivery/curiers')
@@ -51,8 +51,8 @@ export class CurierController {
     });
   }
 
-  @OnEvent(config().topics.offerTaked)
-  applyOfferTaked(event: OfferTakedEvent) {
+  @EventPattern(config().topics.offerTaked)
+  applyOfferTaked(@Payload() event: OfferTakedEvent) {
     return this.addOrderToCurierInteractor.execute({
       curierId: event.payload.curierId,
       orderId: event.payload.orderId,

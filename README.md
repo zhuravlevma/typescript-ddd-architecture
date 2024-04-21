@@ -67,7 +67,7 @@ In a good way, each bounded context in a micro-service architecture should have 
 
 ### Important
 
-This is not a production ready solution. For example, Event Emitter needs to be replaced with a separate message broker that [supports retry with confirmation](https://medium.com/upstream-engineering/a-tale-of-retries-using-rabbitmq-8a02a357a66).
+This is not a production ready solution!
 
 ## Installation
 

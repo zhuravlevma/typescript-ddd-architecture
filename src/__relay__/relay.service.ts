@@ -1,16 +1,27 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Inject, Injectable, Logger } from '@nestjs/common';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { MessageOrmEntity } from './message.orm-entity';
 import { InjectDataSource } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
-import { EventEmitter2 } from '@nestjs/event-emitter';
+import { ClientProxy } from '@nestjs/microservices';
+import { config } from 'src/config';
+import {
+  OFFER_TAKED_CLIENT,
+  ORDER_VALIDATED_CLIENT,
+  REPORT_VALIDATED_CLIENT,
+} from './clients';
 
 @Injectable()
 export class RelayService {
   private readonly logger = new Logger(RelayService.name);
 
   constructor(
-    private readonly eventEmitter: EventEmitter2,
+    @Inject(OFFER_TAKED_CLIENT)
+    private readonly offerTakedClient: ClientProxy,
+    @Inject(ORDER_VALIDATED_CLIENT)
+    private readonly orderValidatedClient: ClientProxy,
+    @Inject(REPORT_VALIDATED_CLIENT)
+    private readonly reportValidatedClient: ClientProxy,
     @InjectDataSource()
     private readonly dataSource: DataSource,
   ) {}
@@ -33,7 +44,22 @@ export class RelayService {
         for (const event of messages) {
           ids.push(event.id);
           this.logger.debug('run publishing: ' + event.id);
-          this.eventEmitter.emit(event.message_name, event);
+
+          if (event.message_name === config().topics.offerTaked) {
+            this.offerTakedClient
+              .emit(config().topics.offerTaked, event)
+              .subscribe();
+          }
+          if (event.message_name === config().topics.orderValidated) {
+            this.orderValidatedClient
+              .emit(config().topics.orderValidated, event)
+              .subscribe();
+          }
+          if (event.message_name === config().topics.reportValidated) {
+            this.reportValidatedClient
+              .emit(config().topics.reportValidated, event)
+              .subscribe();
+          }
         }
 
         if (messages.length) {

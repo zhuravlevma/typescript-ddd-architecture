@@ -6,7 +6,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AccountingModule } from './accounting/accounting.module';
 import { WarehouseModule } from './warehouse/warehouse.module';
 import { MessageOrmEntity } from './__relay__/message.orm-entity';
-import { EventEmitterModule } from '@nestjs/event-emitter';
 import { OrderOrmEntity as WarehouseOrderOrmEntity } from './warehouse/order-management/warehouse/dal/orm-entities/order.orm-entity';
 import { CurierOrmEntity } from './delivery/curiers/curier/dal/orm-entities/curier.orm-entity';
 import { OrderOrmEntity } from './delivery/curiers/curier/dal/orm-entities/orders.orm-entity';
@@ -19,7 +18,6 @@ import { CorrelationModule } from './__infrastructure__/correlation/correlation.
 import { ContextMiddleware } from './__infrastructure__/context/context-middleware';
 @Module({
   imports: [
-    EventEmitterModule.forRoot(),
     ConfigModule.forRoot({
       load: [config],
     }),

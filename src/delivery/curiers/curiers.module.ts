@@ -25,6 +25,7 @@ import { SaveCurierOutPort } from './curier/domain/ports/out/save-curier.out-por
 
 @Module({
   imports: [TypeOrmModule.forFeature([OrderOrmEntity, CurierOrmEntity])],
+
   controllers: [CurierController],
   providers: [
     {

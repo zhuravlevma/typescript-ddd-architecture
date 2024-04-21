@@ -12,4 +12,7 @@ export const config = () => ({
     offerTaked: process.env.OFFER_TAKED_EVENT,
     orderValidated: process.env.ORDER_VALIDATED_EVENT,
   },
+  rabbitmq: {
+    url: process.env.RABBITMQ_URL || 'amqp://rabbitmq:5672',
+  },
 });

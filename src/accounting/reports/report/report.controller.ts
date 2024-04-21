@@ -1,5 +1,4 @@
 import { Body, Controller, Get, Param, Patch } from '@nestjs/common';
-import { OnEvent } from '@nestjs/event-emitter';
 import { CreateReportInPort } from './domain/ports/in/create-report.in-port';
 import { ReportEntity } from './domain/entities/report.entity';
 import { FindReportByIdInPort } from './domain/ports/in/find-report-by-id.in-port';
@@ -8,6 +7,7 @@ import { UpdateReportInPort } from './domain/ports/in/update-report.in-port';
 import { UpdateReportDto } from './dtos/update-report.dto';
 import { OrderValidatedEvent } from '../../../warehouse/order-management/warehouse/domain/events/order-validated.event';
 import { config } from 'src/config';
+import { EventPattern, Payload } from '@nestjs/microservices';
 
 @ApiTags('accounting')
 @Controller('reports')
@@ -36,8 +36,10 @@ export class ReportController {
     });
   }
 
-  @OnEvent(config().topics.orderValidated)
-  applyOrderValidated(event: OrderValidatedEvent): Promise<ReportEntity> {
+  @EventPattern(config().topics.orderValidated)
+  applyOrderValidated(
+    @Payload() event: OrderValidatedEvent,
+  ): Promise<ReportEntity> {
     return this.createReportInteractor.execute({
       orderId: event.payload.orderId,
     });
