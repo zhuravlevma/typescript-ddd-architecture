@@ -47,11 +47,17 @@ export class ReportPositionEntity extends Entity<Attributes> {
   }
 
   updatePositionDiscount(discount: number): void {
-    return this.amount.applyDiscount(discount);
+    this.amount = new AmountObjectValue({
+      amount: this.amount.applyDiscount(discount),
+      rate: this.amount.rate,
+    });
   }
 
   updateTaxRate(newTaxRate: number): void {
-    this.amount.updateTaxRate(newTaxRate);
+    this.amount = new AmountObjectValue({
+      amount: this.amount.amount,
+      rate: newTaxRate,
+    });
   }
 
   getSumWithoutRate(): number {
