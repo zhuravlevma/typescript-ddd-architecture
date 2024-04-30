@@ -12,13 +12,15 @@ export class UpdateReportInteractor implements UpdateReportInPort {
     private readonly saveReportPort: SaveReportOutPort,
   ) {}
 
-  async execute(updatePositionDto: UpdateReportParams): Promise<ReportEntity> {
+  async execute(
+    updatePositionParams: UpdateReportParams,
+  ): Promise<ReportEntity> {
     const report = await this.findReportById.findReportById(
-      updatePositionDto.reportId,
+      updatePositionParams.reportId,
     );
 
-    if (updatePositionDto.isValid === true) {
-      report.updateReportStatus(updatePositionDto.isValid);
+    if (updatePositionParams.isValid === true) {
+      report.updateReportStatus(updatePositionParams.isValid);
     }
 
     return this.saveReportPort.save(report);

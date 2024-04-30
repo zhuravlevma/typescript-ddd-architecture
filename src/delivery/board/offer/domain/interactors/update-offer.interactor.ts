@@ -1,7 +1,7 @@
 import { SaveOfferOutPort } from '../ports/out/save-offer.out-port';
 import { OfferEntity } from '../entities/offer.entity';
 import {
-  UpdateOfferCommand,
+  UpdateOfferParams,
   UpdateOfferInPort,
 } from '../ports/in/update-offer.in-port';
 import { FindOfferByIdOutPort } from '../ports/out/find-offer-by-id.out-port';
@@ -12,14 +12,14 @@ export class UpdateOfferInteractor implements UpdateOfferInPort {
     private readonly saveOfferPort: SaveOfferOutPort,
   ) {}
 
-  async execute(updateOfferCommand: UpdateOfferCommand): Promise<OfferEntity> {
+  async execute(updateOfferParams: UpdateOfferParams): Promise<OfferEntity> {
     try {
       const offer = await this.findOfferByIdPort.findOfferById(
-        updateOfferCommand.offerId,
+        updateOfferParams.offerId,
       );
 
-      if (updateOfferCommand.curierId !== undefined) {
-        offer.curierTakeOffer(updateOfferCommand.curierId);
+      if (updateOfferParams.curierId !== undefined) {
+        offer.curierTakeOffer(updateOfferParams.curierId);
       }
 
       return this.saveOfferPort.saveOffer(offer);

@@ -9,12 +9,12 @@ import { randomUUID } from 'crypto';
 export class CreateCurierInteractor implements CreateCurierInPort {
   constructor(private readonly createCurierPort: CreateCurierOutPort) {}
 
-  execute(createCurierCommand: CreateCurierParams): Promise<CurierEntity> {
+  execute(createCurierParams: CreateCurierParams): Promise<CurierEntity> {
     return this.createCurierPort.createCurier(
       new CurierEntity({
         id: randomUUID(),
-        firstName: createCurierCommand.firstName,
-        lastName: createCurierCommand.lastName,
+        firstName: createCurierParams.firstName,
+        lastName: createCurierParams.lastName,
         email: 'email',
         phone: 8990099033,
         vehicleType: 'bike',

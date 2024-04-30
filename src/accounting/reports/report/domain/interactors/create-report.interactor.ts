@@ -11,12 +11,10 @@ import { AmountObjectValue } from '../object-values/amount.object-value';
 export class CreateReportInteractor implements CreateReportInPort {
   constructor(private readonly saveReportPort: SaveReportOutPort) {}
 
-  async execute(
-    createReportCommand: CreateReportParams,
-  ): Promise<ReportEntity> {
+  async execute(createReportParams: CreateReportParams): Promise<ReportEntity> {
     const report = new ReportEntity({
       id: randomUUID(),
-      orderId: createReportCommand.orderId,
+      orderId: createReportParams.orderId,
       isValid: false,
       reportNumber: 1213314,
       positions: [

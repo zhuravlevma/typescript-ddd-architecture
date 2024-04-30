@@ -1,7 +1,7 @@
 import { SaveOfferOutPort } from '../ports/out/save-offer.out-port';
 import { OfferEntity } from '../entities/offer.entity';
 import {
-  CreateOfferCommand,
+  CreateOfferParams,
   CreateOfferInPort,
 } from '../ports/in/create-offer.in-port';
 import { randomUUID } from 'crypto';
@@ -9,7 +9,7 @@ import { randomUUID } from 'crypto';
 export class CreateOfferInteractor implements CreateOfferInPort {
   constructor(private readonly saveOfferPort: SaveOfferOutPort) {}
 
-  async execute(createOfferCommand: CreateOfferCommand): Promise<OfferEntity> {
+  async execute(createOfferCommand: CreateOfferParams): Promise<OfferEntity> {
     try {
       const offer = new OfferEntity({
         id: randomUUID(),

@@ -1,12 +1,10 @@
 import { OfferEntity } from '../../entities/offer.entity';
 
-export interface UpdateOfferCommand {
+export interface UpdateOfferParams {
   offerId: string;
   curierId: string;
 }
 
 export abstract class UpdateOfferInPort {
-  abstract execute(
-    updateOfferCommand: UpdateOfferCommand,
-  ): Promise<OfferEntity>;
+  abstract execute(updateOfferCommand: UpdateOfferParams): Promise<OfferEntity>;
 }
