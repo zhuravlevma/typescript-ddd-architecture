@@ -11,10 +11,10 @@ import { FindAllCuriersInPort } from './domain/ports/in/find-all-curiers.in-port
 import { UpdateCuriersInPort } from './domain/ports/in/update-curier-info.in-port';
 import { UpdateOrderInPort } from './domain/ports/in/update-order.in-port';
 import { ApiTags } from '@nestjs/swagger';
-import { CurierEntity } from './domain/entities/curier.entity';
 import { OfferTakedEvent } from '../../board/offer/domain/events/offer-taked.event';
 import { config } from 'src/config';
 import { EventPattern, Payload } from '@nestjs/microservices';
+import { SavedCurierResponseDto } from './dtos/response/saved-curier.response-dto';
 
 @ApiTags('delivery')
 @Controller('/delivery/curiers')
@@ -29,26 +29,30 @@ export class CurierController {
   ) {}
 
   @Get('/')
-  find(): Promise<CurierEntity[]> {
-    return this.findAllCuriersQuery.execute();
+  async find(): Promise<SavedCurierResponseDto[]> {
+    const cureirs = await this.findAllCuriersQuery.execute();
+    return cureirs.map((cur) => SavedCurierResponseDto.fromDomain(cur));
   }
 
   @Post('/')
-  createCurier(
+  async createCurier(
     @Body() createCurierManDto: CreateCurierDto,
-  ): Promise<CurierEntity> {
-    return this.createCurierInteractor.execute(createCurierManDto);
+  ): Promise<SavedCurierResponseDto> {
+    const curier =
+      await this.createCurierInteractor.execute(createCurierManDto);
+    return SavedCurierResponseDto.fromDomain(curier);
   }
 
   @Post('/:curierId/orders')
-  addOrderToCurier(
+  async addOrderToCurier(
     @Param('curierId') curierId: string,
     @Body() addOrderToCurierDto: AddOrderToCurierDto,
-  ): Promise<CurierEntity> {
-    return this.addOrderToCurierInteractor.execute({
+  ): Promise<SavedCurierResponseDto> {
+    const order = await this.addOrderToCurierInteractor.execute({
       curierId,
       orderId: addOrderToCurierDto.orderId,
     });
+    return SavedCurierResponseDto.fromDomain(order);
   }
 
   @EventPattern(config().topics.offerTaked)
@@ -60,39 +64,42 @@ export class CurierController {
   }
 
   @Patch('/:curierId')
-  updateCuriersInfo(
+  async updateCuriersInfo(
     @Param('curierId') curierId: string,
     @Body() updateCuriersInfoNestDto: UpdateCuriersInfoDto,
-  ): Promise<CurierEntity> {
-    return this.updateCuriersInfoInteractor.execute({
+  ): Promise<SavedCurierResponseDto> {
+    const curier = await this.updateCuriersInfoInteractor.execute({
       curierId,
       ...updateCuriersInfoNestDto,
     });
+    return SavedCurierResponseDto.fromDomain(curier);
   }
 
   @Patch('/:curierId/status')
-  changeCuriersStatus(
+  async changeCuriersStatus(
     @Param('curierId') curierId: string,
     @Body() changeCuriersStatusDto: ChangeCuriersStatusDto,
-  ): Promise<CurierEntity> {
-    return this.changeCuriersStatusInteractor.execute({
+  ): Promise<SavedCurierResponseDto> {
+    const curier = await this.changeCuriersStatusInteractor.execute({
       curierId,
       ...changeCuriersStatusDto,
     });
+    return SavedCurierResponseDto.fromDomain(curier);
   }
 
   @Patch('/:curierId/orders/:orderId')
-  updateCuriersOrderStatus(
+  async updateCuriersOrderStatus(
     @Param('curierId')
     curierId: string,
     @Param('orderId')
     orderId: string,
     @Body() updateCuriersOrdersDto: UpdateOrderStatusDto,
-  ): Promise<CurierEntity> {
-    return this.updateOrderStatusInteractor.execute({
+  ): Promise<SavedCurierResponseDto> {
+    const curier = await this.updateOrderStatusInteractor.execute({
       curierId,
       orderId,
       ...updateCuriersOrdersDto,
     });
+    return SavedCurierResponseDto.fromDomain(curier);
   }
 }

@@ -2,11 +2,12 @@ import { Body, Controller, Param, Patch } from '@nestjs/common';
 import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { UpdateOfferDto } from './dtos/update-offer.dto';
 import { UpdateOfferInPort } from './domain/ports/in/update-offer.in-port';
-import { OfferEntity } from './domain/entities/offer.entity';
 import { CreateOfferInPort } from './domain/ports/in/create-offer.in-port';
 import { ReportValidatedEvent } from '../../../accounting/reports/report/domain/events/report-validated.event';
 import { config } from 'src/config';
 import { EventPattern, Payload } from '@nestjs/microservices';
+import { SavedOfferResponseDto } from './dtos/response/saved-offer.response-dto';
+
 @ApiTags('delivery')
 @Controller('/delivery/offers')
 export class OfferController {
@@ -30,10 +31,11 @@ export class OfferController {
   async updateOrderStatus(
     @Param('offerId') offerId: string,
     @Body() updateOfferDto: UpdateOfferDto,
-  ): Promise<OfferEntity> {
-    return this.updateOfferInteractor.execute({
+  ): Promise<SavedOfferResponseDto> {
+    const offer = await this.updateOfferInteractor.execute({
       offerId,
       curierId: updateOfferDto.curierId,
     });
+    return SavedOfferResponseDto.fromDomain(offer);
   }
 }

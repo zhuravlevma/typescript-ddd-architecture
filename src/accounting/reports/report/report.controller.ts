@@ -8,6 +8,7 @@ import { UpdateReportDto } from './dtos/update-report.dto';
 import { OrderValidatedEvent } from '../../../warehouse/order-management/warehouse/domain/events/order-validated.event';
 import { config } from 'src/config';
 import { EventPattern, Payload } from '@nestjs/microservices';
+import { SavedReportResponseDto } from './dtos/response/saved-report.response-dto';
 
 @ApiTags('accounting')
 @Controller('reports')
@@ -19,21 +20,25 @@ export class ReportController {
   ) {}
 
   @Get('/:reportId')
-  findByReportId(@Param('reportId') id: string): Promise<ReportEntity> {
-    return this.findReportByIdQuery.execute({
+  async findByReportId(
+    @Param('reportId') id: string,
+  ): Promise<SavedReportResponseDto> {
+    const report = await this.findReportByIdQuery.execute({
       id,
     });
+    return SavedReportResponseDto.fromDomain(report);
   }
 
   @Patch('/:reportId')
-  updateReport(
+  async updateReport(
     @Param('reportId') reportId: string,
     @Body() updateReportDto: UpdateReportDto,
-  ): Promise<ReportEntity> {
-    return this.updateReportInteractor.execute({
+  ): Promise<SavedReportResponseDto> {
+    const report = await this.updateReportInteractor.execute({
       reportId,
       isValid: updateReportDto.isValid,
     });
+    return SavedReportResponseDto.fromDomain(report);
   }
 
   @EventPattern(config().topics.orderValidated)
