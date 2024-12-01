@@ -1,4 +1,4 @@
-# DDD patterns with examples
+# DDD patterns with examples (with ts-arch tests)
 
 ## Marketplace Domain
 
