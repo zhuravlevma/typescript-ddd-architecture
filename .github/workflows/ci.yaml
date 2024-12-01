@@ -43,7 +43,7 @@ jobs:
     name: Prettier
     runs-on: ubuntu-latest
     container:
-      image: node:18
+      image: node:20
     steps:
       - uses: actions/checkout@v4
       - name: Cache Node Modules
