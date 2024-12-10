@@ -10,7 +10,7 @@ describe('domain boundaries', () => {
       .dependOnFiles()
       .inFolder('*/dal/*');
 
-    await expect(rule).toPassAsync();
+    expect(rule).toPassAsync();
   });
 
   it('business logic should not depend on the controller', async () => {
@@ -20,7 +20,7 @@ describe('domain boundaries', () => {
       .dependOnFiles()
       .matchingPattern('controller.ts');
 
-    await expect(rule).toPassAsync();
+    expect(rule).toPassAsync();
   });
 
   it('business logic should not depend on the dto', async () => {
@@ -30,7 +30,7 @@ describe('domain boundaries', () => {
       .dependOnFiles()
       .inFolder('*/dtos/*');
 
-    await expect(rule).toPassAsync();
+    expect(rule).toPassAsync();
   });
 
   it('business logic should be cycle free', async () => {
@@ -39,7 +39,7 @@ describe('domain boundaries', () => {
       .should()
       .beFreeOfCycles();
 
-    await expect(rule).toPassAsync();
+    expect(rule).toPassAsync();
   });
 
   it('allows multiple patterns for interactors', async () => {
