@@ -46,6 +46,8 @@
 		"ulid": "^2.3.0"
 	},
 	"devDependencies": {
+		"@commitlint/cli": "^19.6.0",
+		"@commitlint/config-conventional": "^19.6.0",
 		"@eslint/eslintrc": "^3.2.0",
 		"@eslint/js": "^9.16.0",
 		"@nestjs/cli": "^10.4.9",
