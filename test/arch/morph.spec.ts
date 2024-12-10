@@ -1,5 +1,184 @@
 import * as path from 'path';
+import { fileNamesAreValid, getSourceFiles } from '../../src/__lib__/ts-arch';
 import { Project } from 'ts-morph';
+
+describe('DAL', () => {
+  it('naming', () => {
+    const dalFiles = getSourceFiles('src/**/**/dal/**/*.ts');
+    const violations = fileNamesAreValid(dalFiles, {
+      inDirectory: 'dal',
+      cheks: [
+        {
+          startsWith: 'utils/',
+          endsWith: 'utils.ts',
+        },
+        {
+          startsWith: 'orm-entities/',
+          endsWith: 'orm-entity.ts',
+        },
+        {
+          endsWith: 'repository.ts',
+        },
+        {
+          endsWith: 'mapper.ts',
+        },
+      ],
+    });
+
+    if (violations.length > 0) {
+      throw new Error(
+        `Found invalid files in 'dal' directory:\n${violations.join('\n')}`,
+      );
+    }
+  });
+});
+describe('DOMAIN', () => {
+  it('naming entities', () => {
+    const dalFiles = getSourceFiles('src/**/**/domain/entities/**/*.ts');
+
+    const violations = fileNamesAreValid(dalFiles, {
+      inDirectory: 'entities',
+      cheks: [
+        {
+          endsWith: 'entity.ts',
+        },
+        {
+          startsWith: '__tests__',
+          endsWith: 'spec.ts',
+        },
+      ],
+    });
+
+    if (violations.length > 0) {
+      throw new Error(
+        `Found invalid files in 'entity' directory:\n${violations.join('\n')}`,
+      );
+    }
+  });
+
+  it('naming events', () => {
+    const dalFiles = getSourceFiles('src/**/**/domain/events/**/*.ts');
+
+    const violations = fileNamesAreValid(dalFiles, {
+      inDirectory: 'events',
+      cheks: [
+        {
+          endsWith: 'event.ts',
+        },
+      ],
+    });
+
+    if (violations.length > 0) {
+      throw new Error(
+        `Found invalid files in 'event' directory:\n${violations.join('\n')}`,
+      );
+    }
+  });
+
+  it('naming interactors', () => {
+    const dalFiles = getSourceFiles('src/**/**/domain/interactors/**/*.ts');
+
+    const violations = fileNamesAreValid(dalFiles, {
+      inDirectory: 'interactors',
+      cheks: [
+        {
+          endsWith: 'interactor.ts',
+        },
+        {
+          startsWith: '__tests__',
+          endsWith: 'spec.ts',
+        },
+      ],
+    });
+
+    if (violations.length > 0) {
+      throw new Error(
+        `Found invalid files in 'interactors' directory:\n${violations.join('\n')}`,
+      );
+    }
+  });
+
+  it('naming ports', () => {
+    const dalFiles = getSourceFiles('src/**/**/domain/ports/**/*.ts');
+
+    const violations = fileNamesAreValid(dalFiles, {
+      inDirectory: 'ports',
+      cheks: [
+        {
+          startsWith: '/in/',
+          endsWith: 'in-port.ts',
+        },
+        {
+          startsWith: 'out',
+          endsWith: 'out-port.ts',
+        },
+      ],
+    });
+
+    if (violations.length > 0) {
+      throw new Error(
+        `Found invalid files in 'ports' directory:\n${violations.join('\n')}`,
+      );
+    }
+  });
+
+  it('naming object-values', () => {
+    const dalFiles = getSourceFiles('src/**/**/domain/object-values/**/*.ts');
+
+    const violations = fileNamesAreValid(dalFiles, {
+      inDirectory: 'object-values',
+      cheks: [
+        {
+          endsWith: 'object-value.ts',
+        },
+      ],
+    });
+
+    if (violations.length > 0) {
+      throw new Error(
+        `Found invalid files in 'object-values' directory:\n${violations.join('\n')}`,
+      );
+    }
+  });
+
+  it('naming queries', () => {
+    const dalFiles = getSourceFiles('src/**/**/domain/queries/**/*.ts');
+
+    const violations = fileNamesAreValid(dalFiles, {
+      inDirectory: 'queries',
+      cheks: [
+        {
+          endsWith: 'query.ts',
+        },
+      ],
+    });
+
+    if (violations.length > 0) {
+      throw new Error(
+        `Found invalid files in 'object-values' directory:\n${violations.join('\n')}`,
+      );
+    }
+  });
+
+  it('naming read-models', () => {
+    const dalFiles = getSourceFiles('src/**/**/domain/read-models/**/*.ts');
+
+    const violations = fileNamesAreValid(dalFiles, {
+      inDirectory: 'read-models',
+      cheks: [
+        {
+          endsWith: 'read-model.ts',
+        },
+      ],
+    });
+
+    if (violations.length > 0) {
+      throw new Error(
+        `Found invalid files in 'object-values' directory:\n${violations.join('\n')}`,
+      );
+    }
+  });
+});
 
 describe('Architecture Rules', () => {
   const project = new Project();

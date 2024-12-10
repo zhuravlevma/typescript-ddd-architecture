@@ -3,7 +3,7 @@ import {
   FindCurierWithCountOfOrdersParams,
 } from '../ports/in/find-curiers-with-count-of-orders.in-port';
 import { FindCurierWithCountOfOrdersOutPort } from '../ports/out/find-curier-with-count-of-orders.out-port';
-import { CuriernWithCountOfOrders } from '../read-models/curier-with-count-of-orders.model';
+import { CuriernWithCountOfOrdersReadModel } from '../read-models/curier-with-count-of-orders.read-model';
 
 export class FindCurierWithCountOfOrdersQuery
   implements FindCurierWithCountOfInPort
@@ -14,7 +14,7 @@ export class FindCurierWithCountOfOrdersQuery
 
   execute(
     findCurierWithCountOfOrdersParams: FindCurierWithCountOfOrdersParams,
-  ): Promise<CuriernWithCountOfOrders> {
+  ): Promise<CuriernWithCountOfOrdersReadModel> {
     return this.findAllCuriersPort.findCurierWithCountOfOrdersPort(
       findCurierWithCountOfOrdersParams.curierId,
     );

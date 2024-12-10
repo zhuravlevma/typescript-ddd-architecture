@@ -1,7 +1,7 @@
-import { CuriernWithCountOfOrders } from '../../read-models/curier-with-count-of-orders.model';
+import { CuriernWithCountOfOrdersReadModel } from '../../read-models/curier-with-count-of-orders.read-model';
 
 export abstract class FindCurierWithCountOfOrdersOutPort {
   abstract findCurierWithCountOfOrdersPort(
     curierId: string,
-  ): Promise<CuriernWithCountOfOrders>;
+  ): Promise<CuriernWithCountOfOrdersReadModel>;
 }

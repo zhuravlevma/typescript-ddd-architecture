@@ -7,7 +7,7 @@ interface OrderAttributes {
   orderId: string;
 }
 
-export class OrderModel implements OrderAttributes {
+export class OrderReadModel implements OrderAttributes {
   readonly id: string;
   readonly name: string;
   readonly description: string;
