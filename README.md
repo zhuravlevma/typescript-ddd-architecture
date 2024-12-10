@@ -1,4 +1,4 @@
-# DDD patterns with examples (with ts-arch tests)
+# DDD patterns with examples
 
 ## Marketplace Domain
 
@@ -68,6 +68,14 @@ In a good way, each bounded context in a micro-service architecture should have 
 ### Important
 
 This is not a production ready solution!
+
+### ArchUnit
+
+Utilities for convenient architectural testing (similar to [ArchUnit in Java](https://www.archunit.org/)) have been developed for the project. They can be executed using the command:
+
+```bash
+npm run test:arch
+```
 
 ## Installation
 
