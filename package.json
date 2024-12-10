@@ -52,7 +52,7 @@
 		"@nestjs/testing": "^10.4.12",
 		"@types/cron": "^2.4.3",
 		"@types/express": "^5.0.0",
-		"@types/jest": "29.5.14",
+		"@types/jest": "^29.5.14",
 		"@types/node": "^22.10.1",
 		"@types/supertest": "^6.0.2",
 		"@typescript-eslint/eslint-plugin": "^8.16.0",
@@ -72,22 +72,5 @@
 		"tsarch": "^5.4.0",
 		"tsconfig-paths": "^4.2.0",
 		"typescript": "^5.7.2"
-	},
-	"jest": {
-		"moduleFileExtensions": [
-			"js",
-			"json",
-			"ts"
-		],
-		"rootDir": "src",
-		"testRegex": ".*\\.spec\\.ts$",
-		"transform": {
-			"^.+\\.(t|j)s$": "ts-jest"
-		},
-		"collectCoverageFrom": [
-			"**/*.(t|j)s"
-		],
-		"coverageDirectory": "../coverage",
-		"testEnvironment": "node"
 	}
 }
