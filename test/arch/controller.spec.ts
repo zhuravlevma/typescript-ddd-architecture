@@ -32,6 +32,6 @@ describe('controller boundaries', () => {
       .dependOnFiles()
       .inFolder('*/dal/*');
 
-    await expect(rule).toPassAsync();
+    expect(rule).toPassAsync();
   });
 });

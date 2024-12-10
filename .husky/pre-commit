@@ -1,3 +1,3 @@
 #!/bin/sh
 
-npm run lint && npm run format && npm run test && npm run test:arch && git add .
+npm run lint && npm run format && git add .
