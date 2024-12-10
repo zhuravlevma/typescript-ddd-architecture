@@ -30,7 +30,7 @@ describe('dal boundaries', () => {
       .dependOnFiles()
       .matchingPattern('.controller.ts');
 
-    await expect(rule).toPassAsync();
+    expect(rule).toPassAsync();
   });
 
   it('dal should not depend on the dtos', async () => {
@@ -40,6 +40,6 @@ describe('dal boundaries', () => {
       .dependOnFiles()
       .inFolder('*/dtos/*');
 
-    await expect(rule).toPassAsync();
+    expect(rule).toPassAsync();
   });
 });
