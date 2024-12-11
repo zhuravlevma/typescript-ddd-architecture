@@ -10,7 +10,7 @@ jobs:
     name: Install dep
     runs-on: ubuntu-latest
     container:
-      image: node:20
+      image: node:22
     steps:
       - uses: actions/checkout@v4
       - name: Cache Node Modules
@@ -27,7 +27,7 @@ jobs:
     name: ESLint
     runs-on: ubuntu-latest
     container:
-      image: node:20
+      image: node:22
     steps:
       - uses: actions/checkout@v4
       - name: Cache Node Modules
@@ -43,7 +43,7 @@ jobs:
     name: Prettier
     runs-on: ubuntu-latest
     container:
-      image: node:20
+      image: node:22
     steps:
       - uses: actions/checkout@v4
       - name: Cache Node Modules
@@ -59,7 +59,7 @@ jobs:
     name: Unit testing
     runs-on: ubuntu-latest
     container:
-      image: node:18
+      image: node:22
     steps:
       - uses: actions/checkout@v4
       - name: Cache Node Modules
