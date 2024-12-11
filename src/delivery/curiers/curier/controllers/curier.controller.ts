@@ -1,20 +1,21 @@
 import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
+import { EventPattern, Payload } from '@nestjs/microservices';
+import { ApiTags } from '@nestjs/swagger';
+import { OfferTakedEvent } from 'src/delivery/board/offer/domain/events/offer-taked.event';
+import { AddOrderToCurierInPort } from '../domain/ports/in/add-order-to-curier.in-port';
+import { ChangeCuriersStatusInPort } from '../domain/ports/in/change-curiers-status.in-port';
+import { CreateCurierInPort } from '../domain/ports/in/create-curier.in-port';
+import { FindAllCuriersInPort } from '../domain/ports/in/find-all-curiers.in-port';
+import { UpdateCuriersInPort } from '../domain/ports/in/update-curier-info.in-port';
+import { UpdateOrderInPort } from '../domain/ports/in/update-order.in-port';
+
+import { config } from 'src/config';
 import { AddOrderToCurierDto } from './dtos/add-order-to-curier.dto';
-import { UpdateCuriersInfoDto } from './dtos/update-curiers-info.dto';
 import { ChangeCuriersStatusDto } from './dtos/change-curiers-status.dto';
 import { CreateCurierDto } from './dtos/create-curier.dto';
-import { UpdateOrderStatusDto } from './dtos/update-order-status.dto';
-import { AddOrderToCurierInPort } from './domain/ports/in/add-order-to-curier.in-port';
-import { ChangeCuriersStatusInPort } from './domain/ports/in/change-curiers-status.in-port';
-import { CreateCurierInPort } from './domain/ports/in/create-curier.in-port';
-import { FindAllCuriersInPort } from './domain/ports/in/find-all-curiers.in-port';
-import { UpdateCuriersInPort } from './domain/ports/in/update-curier-info.in-port';
-import { UpdateOrderInPort } from './domain/ports/in/update-order.in-port';
-import { ApiTags } from '@nestjs/swagger';
-import { OfferTakedEvent } from '../../board/offer/domain/events/offer-taked.event';
-import { config } from 'src/config';
-import { EventPattern, Payload } from '@nestjs/microservices';
 import { SavedCurierResponseDto } from './dtos/response/saved-curier.response-dto';
+import { UpdateCuriersInfoDto } from './dtos/update-curiers-info.dto';
+import { UpdateOrderStatusDto } from './dtos/update-order-status.dto';
 
 @ApiTags('delivery')
 @Controller('/delivery/curiers')

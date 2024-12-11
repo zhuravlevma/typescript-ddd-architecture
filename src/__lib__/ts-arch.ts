@@ -1,10 +1,4 @@
-import { Project, SourceFile } from 'ts-morph';
-
-export function getSourceFiles(path: string) {
-  const project = new Project();
-  project.addSourceFilesAtPaths(path);
-  return project.getSourceFiles();
-}
+import { Project } from 'ts-morph';
 
 export interface FileNamesAreValidParamsCheck {
   startsWith?: string;
@@ -13,6 +7,7 @@ export interface FileNamesAreValidParamsCheck {
 
 export interface FileNamesAreValidParams {
   inDirectory: string;
+  sourceFiles: string;
   cheks: FileNamesAreValidParamsCheck[];
 }
 
@@ -20,15 +15,14 @@ function fixDirectoryName(directory: string) {
   return directory.replace(/^\/|\/$/g, '');
 }
 
-export function fileNamesAreValid(
-  files: SourceFile[],
-  params: FileNamesAreValidParams,
-): string[] {
+export function fileNamesAreValid(params: FileNamesAreValidParams): string[] {
   const violations: string[] = [];
 
-  files.forEach((file) => {
-    const filePath = file.getFilePath();
+  const project = new Project();
+  project.addSourceFilesAtPaths(params.sourceFiles);
 
+  project.getSourceFiles().forEach((file) => {
+    const filePath = file.getFilePath();
     const relativePath = filePath.split(
       `/${fixDirectoryName(params.inDirectory)}/`,
     )[1];
@@ -51,10 +45,12 @@ export function fileNamesAreValid(
             relativePath.endsWith(check.endsWith),
         );
         if (checkEnd === undefined) {
-          violations.push(`${filePath} is invalid`);
+          violations.push(
+            `The end of the file ${filePath} does not meet the criteria.`,
+          );
         }
       } else {
-        violations.push(`${filePath} is invalid`);
+        violations.push(`The path ${filePath} contains nested folders`);
       }
     } else {
       if (!relativePath.endsWith(check.endsWith)) {
@@ -67,9 +63,36 @@ export function fileNamesAreValid(
       const middlePath = pathWithoutEnd.split(check.startsWith)[1];
 
       if (middlePath.indexOf('/') !== -1) {
-        violations.push(`${filePath} is invalid`);
+        violations.push(`The path ${filePath} contains nested folders`);
       }
     }
   });
+  return violations;
+}
+
+export interface NotDependParams {
+  notDependFrom: string[];
+  sourceFiles: string;
+}
+
+export function notDepend(payload: NotDependParams) {
+  const violations: string[] = [];
+
+  const project = new Project();
+  project.addSourceFilesAtPaths(payload.sourceFiles);
+  project.getSourceFiles().forEach((file) => {
+    const filePath = file.getFilePath();
+
+    file.getImportDeclarations().forEach((importDecl) => {
+      const importPath = importDecl.getModuleSpecifierValue();
+
+      for (const check of payload.notDependFrom) {
+        if (importPath.search(check) !== -1) {
+          violations.push(filePath);
+        }
+      }
+    });
+  });
+
   return violations;
 }

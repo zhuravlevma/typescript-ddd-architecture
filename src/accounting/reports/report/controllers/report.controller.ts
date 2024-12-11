@@ -1,14 +1,14 @@
-import { Body, Controller, Get, Param, Patch } from '@nestjs/common';
-import { CreateReportInPort } from './domain/ports/in/create-report.in-port';
-import { ReportEntity } from './domain/entities/report.entity';
-import { FindReportByIdInPort } from './domain/ports/in/find-report-by-id.in-port';
-import { ApiTags } from '@nestjs/swagger';
-import { UpdateReportInPort } from './domain/ports/in/update-report.in-port';
-import { UpdateReportDto } from './dtos/update-report.dto';
-import { OrderValidatedEvent } from '../../../warehouse/order-management/warehouse/domain/events/order-validated.event';
-import { config } from 'src/config';
+import { Controller, Get, Param, Patch, Body } from '@nestjs/common';
 import { EventPattern, Payload } from '@nestjs/microservices';
+import { ApiTags } from '@nestjs/swagger';
+import { OrderValidatedEvent } from 'src/warehouse/order-management/warehouse/domain/events/order-validated.event';
+import { ReportEntity } from '../domain/entities/report.entity';
+import { CreateReportInPort } from '../domain/ports/in/create-report.in-port';
+import { FindReportByIdInPort } from '../domain/ports/in/find-report-by-id.in-port';
+import { UpdateReportInPort } from '../domain/ports/in/update-report.in-port';
 import { SavedReportResponseDto } from './dtos/response/saved-report.response-dto';
+import { UpdateReportDto } from './dtos/update-report.dto';
+import { config } from 'src/config';
 
 @ApiTags('accounting')
 @Controller('reports')

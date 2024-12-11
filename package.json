@@ -20,8 +20,7 @@
 		"test": "jest",
 		"test:watch": "jest --watch",
 		"test:cov": "jest --coverage",
-		"test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-		"test:arch": "jest --config ./test/arch/jest-arch.json"
+		"test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand"
 	},
 	"dependencies": {
 		"@nestjs/common": "^10.4.15",

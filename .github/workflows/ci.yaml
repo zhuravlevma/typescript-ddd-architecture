@@ -70,19 +70,3 @@ jobs:
           key: node-modules-${{ hashFiles('package-lock.json') }}
       - name: Run tests
         run: npm run test
-  arch_testing:
-    needs: [eslint, prettier]
-    name: Architectural testing
-    runs-on: ubuntu-latest
-    container:
-      image: node:20
-    steps:
-      - uses: actions/checkout@v4
-      - name: Cache Node Modules
-        id: cache-node-modules
-        uses: actions/cache@v4
-        with:
-          path: node_modules
-          key: node-modules-${{ hashFiles('package-lock.json') }}
-      - name: Run tests
-        run: npm run test:arch
