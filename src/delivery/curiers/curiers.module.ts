@@ -3,7 +3,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { CurierRepository } from './curier/dal/curier.repository';
 import { CurierOrmEntity } from './curier/dal/orm-entities/curier.orm-entity';
 import { OrderOrmEntity } from './curier/dal/orm-entities/orders.orm-entity';
-import { CurierController } from './curier/curier.controller';
 import { AddOrderToCurierInteractor } from './curier/domain/interactors/add-order-to-curier.interactor';
 import { ChangeCuriersStatusInteractor } from './curier/domain/interactors/change-curiers-status.interactor';
 import { CreateCurierInteractor } from './curier/domain/interactors/create-curier.interactor';
@@ -22,6 +21,7 @@ import { FindCountOfFreeCuriersOutPort } from './curier/domain/ports/out/find-co
 import { FindCurierByIdWithOrdersOutPort } from './curier/domain/ports/out/find-curier-by-id-with-orders.out-port';
 import { FindCurierOrderLadingOutPort } from './curier/domain/ports/out/find-curier-order-lading.out-port';
 import { SaveCurierOutPort } from './curier/domain/ports/out/save-curier.out-port';
+import { CurierController } from './curier/controllers/curier.controller';
 
 @Module({
   imports: [TypeOrmModule.forFeature([OrderOrmEntity, CurierOrmEntity])],

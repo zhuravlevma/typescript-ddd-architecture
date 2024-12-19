@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { OfferController } from './offer/offer.controller';
 import { OfferRepository } from './offer/dal/offer.repository';
 import { CreateOfferInteractor } from './offer/domain/interactors/create-offer.interactor';
 import { UpdateOfferInteractor } from './offer/domain/interactors/update-offer.interactor';
@@ -10,6 +9,7 @@ import { FindOfferByIdOutPort } from './offer/domain/ports/out/find-offer-by-id.
 import { FindOfferByOrderIdOutPort } from './offer/domain/ports/out/find-offer-by-order-id.out-port';
 import { SaveOfferOutPort } from './offer/domain/ports/out/save-offer.out-port';
 import { OfferOrmEntity } from './offer/dal/orm-entities/offer.orm-entity';
+import { OfferController } from './offer/controllers/offer.controller';
 
 @Module({
   imports: [TypeOrmModule.forFeature([OfferOrmEntity])],

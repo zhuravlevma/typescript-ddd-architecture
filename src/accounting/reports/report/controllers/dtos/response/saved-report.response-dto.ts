@@ -1,4 +1,4 @@
-import { ReportEntity } from '../../domain/entities/report.entity';
+import { ReportEntity } from '../../../domain/entities/report.entity';
 
 export class SavedReportResponseDto {
   id: string;

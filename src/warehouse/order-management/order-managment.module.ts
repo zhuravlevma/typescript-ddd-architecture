@@ -12,7 +12,7 @@ import { UpdateOrderInPort } from './warehouse/domain/ports/in/update-order.in-p
 import { GetWarehouseWithOrderOutPort } from './warehouse/domain/ports/out/get-warehouse-with-order.out-port';
 import { GetWarehouseWithOrdersOutPort } from './warehouse/domain/ports/out/get-warehouse-with-orders.out-port';
 import { SaveWarehouseOutPort } from './warehouse/domain/ports/out/save-warehouse.out-port';
-import { WarehouseController } from './warehouse/warehouse.controller';
+import { WarehouseController } from './warehouse/controllers/warehouse.controller';
 
 @Module({
   imports: [TypeOrmModule.forFeature([WarehouseOrmEntity, OrderOrmEntity])],

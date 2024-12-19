@@ -1,4 +1,4 @@
-import { CurierEntity } from '../../domain/entities/curier.entity';
+import { CurierEntity } from '../../../domain/entities/curier.entity';
 
 export class SavedCurierResponseDto {
   id: string;

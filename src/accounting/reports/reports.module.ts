@@ -11,10 +11,10 @@ import { FindReportByIdInPort } from './report/domain/ports/in/find-report-by-id
 import { UpdateReportInPort } from './report/domain/ports/in/update-report.in-port';
 import { FindReportByIdOutPort } from './report/domain/ports/out/find-report-by-id.out-port';
 import { SaveReportOutPort } from './report/domain/ports/out/save-report.out-port';
-import { ReportController } from './report/report.controller';
 import { FindReportWithPositionsByOutPort } from './report/domain/ports/out/find-report-with-positions-by-id.out-port';
 import { FindReportWithPositionsQuery } from './report/domain/queries/find-report-with-positions.query';
 import { FindReportWithPositionsByIdInPort } from './report/domain/ports/in/find-report-with-positions-by-id.in-port';
+import { ReportController } from './report/controllers/report.controller';
 
 @Module({
   imports: [

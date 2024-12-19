@@ -1,4 +1,4 @@
-import { OfferEntity } from '../../domain/entities/offer.entity';
+import { OfferEntity } from '../../../domain/entities/offer.entity';
 
 export class SavedOfferResponseDto {
   id: string;
