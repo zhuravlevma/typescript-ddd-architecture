@@ -1,6 +1,7 @@
 import { OrderEntity } from './order.entity';
 import { OrderValidatedEvent } from '../events/order-validated.event';
 import { Aggregate } from 'src/__lib__/aggregate';
+import { ExtendOrderPeriodEvent } from '../events/extend-order-period.event';
 
 interface Attributes {
   id: string;
@@ -26,6 +27,11 @@ export class WarehouseEntity extends Aggregate<Attributes> {
     this.orders.push(order);
   }
 
+  extendPeriodForOrder(orderId: string) {
+    const order = this.orders.find((el) => el.Id === orderId);
+    order.changeStatus(false);
+  }
+
   changeOrderStatusToValid(orderId: string) {
     const order = this.orders.find((el) => el.Id === orderId);
     order.changeStatus(true);
@@ -37,6 +43,15 @@ export class WarehouseEntity extends Aggregate<Attributes> {
           orderId: order.Id,
         },
       }),
+      {
+        compensation: new ExtendOrderPeriodEvent({
+          aggregateId: this.id,
+          payload: {
+            orderId: orderId,
+            warehouseId: this.id,
+          },
+        }),
+      },
     );
   }
 }

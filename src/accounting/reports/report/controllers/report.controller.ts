@@ -1,5 +1,4 @@
 import { Controller, Get, Param, Patch, Body } from '@nestjs/common';
-import { EventPattern, Payload } from '@nestjs/microservices';
 import { ApiTags } from '@nestjs/swagger';
 import { OrderValidatedEvent } from 'src/warehouse/order-management/warehouse/domain/events/order-validated.event';
 import { ReportEntity } from '../domain/entities/report.entity';
@@ -9,6 +8,7 @@ import { UpdateReportInPort } from '../domain/ports/in/update-report.in-port';
 import { SavedReportResponseDto } from './dtos/response/saved-report.response-dto';
 import { UpdateReportDto } from './dtos/update-report.dto';
 import { config } from 'src/config';
+import { RabbitSubscribe } from '@golevelup/nestjs-rabbitmq';
 
 @ApiTags('accounting')
 @Controller('reports')
@@ -41,10 +41,12 @@ export class ReportController {
     return SavedReportResponseDto.fromDomain(report);
   }
 
-  @EventPattern(config().topics.orderValidated)
-  applyOrderValidated(
-    @Payload() event: OrderValidatedEvent,
-  ): Promise<ReportEntity> {
+  @RabbitSubscribe({
+    exchange: config().rabbitmq.exchange,
+    routingKey: config().topics.orderValidated,
+    queue: config().topics.orderValidated,
+  })
+  applyOrderValidated(event: OrderValidatedEvent): Promise<ReportEntity> {
     return this.createReportInteractor.execute({
       orderId: event.payload.orderId,
     });

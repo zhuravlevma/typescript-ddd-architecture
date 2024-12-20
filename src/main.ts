@@ -13,53 +13,6 @@ async function bootstrap() {
     .setVersion('1.0')
     .build();
 
-  app.connectMicroservice<RmqOptions>({
-    transport: Transport.RMQ,
-    options: {
-      urls: [config().rabbitmq.url],
-      queue: config().topics.offerTaked,
-      queueOptions: {
-        durable: false,
-      },
-      socketOptions: {
-        heartbeatIntervalInSeconds: 60,
-        reconnectTimeInSeconds: 5,
-      },
-    },
-  });
-
-  app.connectMicroservice<RmqOptions>({
-    transport: Transport.RMQ,
-    options: {
-      urls: [config().rabbitmq.url],
-      queue: config().topics.orderValidated,
-      queueOptions: {
-        durable: false,
-      },
-      socketOptions: {
-        heartbeatIntervalInSeconds: 60,
-        reconnectTimeInSeconds: 5,
-      },
-    },
-  });
-
-  app.connectMicroservice<RmqOptions>({
-    transport: Transport.RMQ,
-    options: {
-      urls: [config().rabbitmq.url],
-      queue: config().topics.reportValidated,
-      queueOptions: {
-        durable: false,
-      },
-      socketOptions: {
-        heartbeatIntervalInSeconds: 60,
-        reconnectTimeInSeconds: 5,
-      },
-    },
-  });
-
-  await app.startAllMicroservices();
-
   const document = SwaggerModule.createDocument(app, configSwagger);
   SwaggerModule.setup('swagger', app, document);
   await app.listen(3000);

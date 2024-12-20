@@ -16,11 +16,17 @@ import { WarehouseOrmEntity } from './warehouse/order-management/warehouse/dal/o
 import { RelayModule } from './__relay__/relay.module';
 import { CorrelationModule } from './__infrastructure__/correlation/correlation.module';
 import { ContextMiddleware } from './__infrastructure__/context/context-middleware';
+import { SagaModule } from './__saga__/saga.module';
+import { RabbitModule } from './__infrastructure__/rabbitmq/rabbitmq.module';
+import { Saga } from './__saga__/models/saga.model';
+import { SagaStep } from './__saga__/models/saga-step.model';
+import { Compensation } from './__saga__/models/compensation.model';
 @Module({
   imports: [
     ConfigModule.forRoot({
       load: [config],
     }),
+    RabbitModule,
     CorrelationModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
@@ -38,6 +44,9 @@ import { ContextMiddleware } from './__infrastructure__/context/context-middlewa
         WarehouseOrderOrmEntity,
         MessageOrmEntity,
         OfferOrmEntity,
+        Saga,
+        SagaStep,
+        Compensation,
       ],
       synchronize: true,
       logging: true,
@@ -46,6 +55,7 @@ import { ContextMiddleware } from './__infrastructure__/context/context-middlewa
     AccountingModule,
     DeliveryModule,
     WarehouseModule,
+    SagaModule,
   ],
 })
 export class AppModule {

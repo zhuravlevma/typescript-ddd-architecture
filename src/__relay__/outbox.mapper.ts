@@ -15,6 +15,7 @@ export class OutboxMapper {
     orm.contextName = event.contextName;
     orm.correlationId = correlationId;
     orm.messageName = event.messageName;
+    orm.compensationEvent = event.compensation;
     return orm;
   }
 }

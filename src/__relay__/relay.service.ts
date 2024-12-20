@@ -9,21 +9,18 @@ import {
   OFFER_TAKED_CLIENT,
   ORDER_VALIDATED_CLIENT,
   REPORT_VALIDATED_CLIENT,
+  SAGA_CLIENT,
 } from './clients';
+import { AmqpConnection } from '@golevelup/nestjs-rabbitmq';
 
 @Injectable()
 export class RelayService {
   private readonly logger = new Logger(RelayService.name);
 
   constructor(
-    @Inject(OFFER_TAKED_CLIENT)
-    private readonly offerTakedClient: ClientProxy,
-    @Inject(ORDER_VALIDATED_CLIENT)
-    private readonly orderValidatedClient: ClientProxy,
-    @Inject(REPORT_VALIDATED_CLIENT)
-    private readonly reportValidatedClient: ClientProxy,
     @InjectDataSource()
     private readonly dataSource: DataSource,
+    private readonly amqpConnection: AmqpConnection,
   ) {}
 
   @Cron(CronExpression.EVERY_10_SECONDS)
@@ -45,20 +42,34 @@ export class RelayService {
           ids.push(event.id);
           this.logger.debug('run publishing: ' + event.id);
 
+          if (event.compensation_event !== undefined) {
+            await this.amqpConnection.publish(
+              'test',
+              config().topics.sagaReceived,
+              event,
+            );
+          }
+
           if (event.message_name === config().topics.offerTaked) {
-            this.offerTakedClient
-              .emit(config().topics.offerTaked, event)
-              .subscribe();
+            await this.amqpConnection.publish(
+              'test',
+              config().topics.offerTaked,
+              event,
+            );
           }
           if (event.message_name === config().topics.orderValidated) {
-            this.orderValidatedClient
-              .emit(config().topics.orderValidated, event)
-              .subscribe();
+            await this.amqpConnection.publish(
+              'test',
+              config().topics.orderValidated,
+              event,
+            );
           }
           if (event.message_name === config().topics.reportValidated) {
-            this.reportValidatedClient
-              .emit(config().topics.reportValidated, event)
-              .subscribe();
+            await this.amqpConnection.publish(
+              'test',
+              config().topics.reportValidated,
+              event,
+            );
           }
         }
 

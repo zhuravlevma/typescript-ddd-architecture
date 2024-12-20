@@ -20,6 +20,7 @@ interface DomainMessageAllAttributes<Payload = object>
   aggregateId: string; // necessary for partitioning
   aggregateName: string; // Can be often useful (for example for humans or for id prefixes)
   contextName: string; // Can be often useful (for example for humans or for id prefixes)
+  compensation?: DomainMessage;
 }
 
 export interface DomainMessageAttributes<Payload = object> {
@@ -40,6 +41,7 @@ export abstract class DomainEvent<Payload = object>
   aggregateId: string;
   aggregateName: string;
   contextName: string;
+  compensation?: DomainMessage<object>;
 
   constructor(attributes: DomainMessageAllAttributes<Payload>) {
     this.contextName = attributes.contextName;
@@ -50,6 +52,7 @@ export abstract class DomainEvent<Payload = object>
     this.aggregateId = attributes.aggregateId;
     this.aggregateName = attributes.aggregateName;
     this.contextName = attributes.contextName;
+    this.compensation = attributes.compensation;
   }
 }
 

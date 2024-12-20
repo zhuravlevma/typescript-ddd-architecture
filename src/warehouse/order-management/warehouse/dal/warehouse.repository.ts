@@ -60,6 +60,9 @@ export class WarehouseRepository
           this.correlationService.getCorrelationId(),
         ),
       );
+
+    console.log(outboxORM);
+
     const whOrm = await this.dataSource.transaction(
       async (transactionalEntityManager) => {
         await transactionalEntityManager.save(outboxORM);

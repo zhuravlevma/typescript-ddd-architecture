@@ -1,5 +1,4 @@
 import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
-import { EventPattern, Payload } from '@nestjs/microservices';
 import { ApiTags } from '@nestjs/swagger';
 import { OfferTakedEvent } from 'src/delivery/board/offer/domain/events/offer-taked.event';
 import { AddOrderToCurierInPort } from '../domain/ports/in/add-order-to-curier.in-port';
@@ -16,6 +15,7 @@ import { CreateCurierDto } from './dtos/create-curier.dto';
 import { SavedCurierResponseDto } from './dtos/response/saved-curier.response-dto';
 import { UpdateCuriersInfoDto } from './dtos/update-curiers-info.dto';
 import { UpdateOrderStatusDto } from './dtos/update-order-status.dto';
+import { RabbitSubscribe } from '@golevelup/nestjs-rabbitmq';
 
 @ApiTags('delivery')
 @Controller('/delivery/curiers')
@@ -56,8 +56,12 @@ export class CurierController {
     return SavedCurierResponseDto.fromDomain(order);
   }
 
-  @EventPattern(config().topics.offerTaked)
-  applyOfferTaked(@Payload() event: OfferTakedEvent) {
+  @RabbitSubscribe({
+    exchange: config().rabbitmq.exchange,
+    routingKey: config().topics.offerTaked,
+    queue: config().topics.offerTaked,
+  })
+  applyOfferTaked(event: OfferTakedEvent) {
     return this.addOrderToCurierInteractor.execute({
       curierId: event.payload.curierId,
       orderId: event.payload.orderId,
