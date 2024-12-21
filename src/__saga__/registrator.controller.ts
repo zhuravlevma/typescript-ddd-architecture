@@ -5,6 +5,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Controller } from '@nestjs/common';
 import { RabbitSubscribe } from '@golevelup/nestjs-rabbitmq';
+import { Compensation } from './models/compensation.model';
+import { SagaStep } from './models/saga-step.model';
 
 // Если счёт успешно создан, но доставка не может
 // быть инициирована (например, нет доступного курьера), то счёт аннулируется, а резерв на складе снимается.
@@ -28,6 +30,30 @@ export class RegistatorController {
     });
 
     if (!saga) {
+      console.log('hahahhah');
+
+      const newSaga = new Saga();
+      newSaga.correlationId = event.correlationId;
+      newSaga.sagaType = 'compensation';
+      newSaga.status = 'In Progress';
+
+      const compensation = new Compensation();
+      compensation.metadata = event.compensationEvent;
+      compensation.compensationType = event.messageName;
+      compensation.status = 'PENDING';
+
+      const newStep = new SagaStep();
+      newStep.metadata = event;
+      newStep.stepName = event.messageName;
+      newStep.status = 'PENDING';
+      newStep.compensations;
+      newStep.compensations = [compensation];
+
+      newSaga.steps = [newStep];
+
+      const resp = await this.sagaRepository.save(newSaga);
+      console.log(resp);
+
       // создаем новую сагу, фиксируем евенты и компенсации. если сага сразу со статусом failed, то пускаем компенсации
       return;
     }

@@ -28,13 +28,14 @@ export class RelayService {
     try {
       await this.dataSource.transaction(async (transactionalEntityManager) => {
         const messages = await transactionalEntityManager
-          .createQueryBuilder()
-          .from(MessageOrmEntity, 'outbox')
+          .createQueryBuilder(MessageOrmEntity, 'outbox')
           .where('outbox.published = :published', { published: false })
           .orderBy('outbox.created_at', 'DESC')
           .setLock('pessimistic_partial_write')
           .take(100)
-          .getRawMany();
+          .getMany();
+
+        console.log(messages, 'sjhdhhdh');
 
         const ids = [];
 
@@ -42,7 +43,7 @@ export class RelayService {
           ids.push(event.id);
           this.logger.debug('run publishing: ' + event.id);
 
-          if (event.compensation_event !== undefined) {
+          if (event.compensationEvent !== undefined) {
             await this.amqpConnection.publish(
               'test',
               config().topics.sagaReceived,
@@ -50,21 +51,21 @@ export class RelayService {
             );
           }
 
-          if (event.message_name === config().topics.offerTaked) {
+          if (event.messageName === config().topics.offerTaked) {
             await this.amqpConnection.publish(
               'test',
               config().topics.offerTaked,
               event,
             );
           }
-          if (event.message_name === config().topics.orderValidated) {
+          if (event.messageName === config().topics.orderValidated) {
             await this.amqpConnection.publish(
               'test',
               config().topics.orderValidated,
               event,
             );
           }
-          if (event.message_name === config().topics.reportValidated) {
+          if (event.messageName === config().topics.reportValidated) {
             await this.amqpConnection.publish(
               'test',
               config().topics.reportValidated,

@@ -1,11 +1,9 @@
 import { Injectable } from '@nestjs/common';
-
-import { ulid } from 'ulid';
-
 import { isString } from 'class-validator';
 import { InjectAsyncContextStorage } from '../context/decorator';
 import { CORRELATION_ID_KEY } from './constants';
 import { ContextStorage } from '../context/context-middleware';
+import { randomUUID } from 'crypto';
 
 const doesExistAndValid = isString;
 
@@ -19,7 +17,7 @@ export class CorrelationService {
   public startNewCorrelationId(existingCorrelationId?: string | any): string {
     const correlationId = doesExistAndValid(existingCorrelationId)
       ? existingCorrelationId
-      : ulid();
+      : randomUUID();
 
     const contextStore = this.asyncContextStorage.getStore();
 

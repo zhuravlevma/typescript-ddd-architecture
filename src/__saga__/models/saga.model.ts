@@ -37,6 +37,8 @@ export class Saga {
   @Column({ type: 'jsonb', nullable: true })
   metadata: Record<string, any>;
 
-  @OneToMany(() => SagaStep, (step) => step.saga)
+  @OneToMany(() => SagaStep, (step) => step.saga, {
+    cascade: ['insert', 'update'],
+  })
   steps: SagaStep[];
 }

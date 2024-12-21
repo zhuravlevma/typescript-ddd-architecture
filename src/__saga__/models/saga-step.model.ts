@@ -38,7 +38,9 @@ export class SagaStep {
   @Column({ default: 0 })
   retries: number;
 
-  @OneToMany(() => Compensation, (compensation) => compensation.sagaStep)
+  @OneToMany(() => Compensation, (compensation) => compensation.sagaStep, {
+    cascade: ['insert', 'update'],
+  })
   compensations: Compensation[];
 
   @Column({ type: 'jsonb', nullable: true })
