@@ -13,9 +13,11 @@ export class OutboxMapper {
     orm.aggregateId = event.aggregateId;
     orm.aggregateName = event.aggregateName;
     orm.contextName = event.contextName;
-    orm.correlationId = correlationId;
+    orm.correlationId =
+      event.correlationId !== undefined ? event.correlationId : correlationId;
     orm.messageName = event.messageName;
     orm.compensationEvent = event.compensation;
+    orm.isFinal = event.isFinal;
     return orm;
   }
 }

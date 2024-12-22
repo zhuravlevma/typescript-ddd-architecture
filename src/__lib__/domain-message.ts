@@ -21,11 +21,18 @@ interface DomainMessageAllAttributes<Payload = object>
   aggregateName: string; // Can be often useful (for example for humans or for id prefixes)
   contextName: string; // Can be often useful (for example for humans or for id prefixes)
   compensation?: DomainMessage;
+  sagaId?: string;
+  isFinal?: boolean;
 }
 
 export interface DomainMessageAttributes<Payload = object> {
   payload: Payload;
   aggregateId: string;
+  correlationId?: string;
+  compensation?: DomainMessage<object>;
+  isFinal?: boolean;
+  error?: boolean;
+  sagaId?: string;
 }
 
 export type DomainMessage<Payload = object> =
@@ -42,6 +49,10 @@ export abstract class DomainEvent<Payload = object>
   aggregateName: string;
   contextName: string;
   compensation?: DomainMessage<object>;
+  correlationId: string;
+  isFinal?: boolean;
+  error?: boolean;
+  sagaId?: string;
 
   constructor(attributes: DomainMessageAllAttributes<Payload>) {
     this.contextName = attributes.contextName;
@@ -53,6 +64,8 @@ export abstract class DomainEvent<Payload = object>
     this.aggregateName = attributes.aggregateName;
     this.contextName = attributes.contextName;
     this.compensation = attributes.compensation;
+    this.isFinal = attributes.isFinal;
+    this.correlationId = attributes.correlationId;
   }
 }
 
@@ -66,6 +79,11 @@ export abstract class DomainCommand<Payload = object>
   aggregateId: string;
   aggregateName: string;
   contextName: string;
+  compensation?: DomainMessage<object>;
+  correlationId: string;
+  isFinal?: boolean;
+  error?: boolean;
+  sagaId?: string;
 
   constructor(attributes: DomainMessageAllAttributes<Payload>) {
     this.contextName = attributes.contextName;
@@ -76,5 +94,8 @@ export abstract class DomainCommand<Payload = object>
     this.aggregateId = attributes.aggregateId;
     this.aggregateName = attributes.aggregateName;
     this.contextName = attributes.contextName;
+    this.compensation = attributes.compensation;
+    this.isFinal = attributes.isFinal;
+    this.correlationId = attributes.correlationId;
   }
 }

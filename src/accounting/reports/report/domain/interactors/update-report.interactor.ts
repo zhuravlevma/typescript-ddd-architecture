@@ -23,6 +23,10 @@ export class UpdateReportInteractor implements UpdateReportInPort {
       report.updateReportStatus(updatePositionParams.isValid);
     }
 
+    if (updatePositionParams.isValid === false) {
+      report.cancelReport();
+    }
+
     return this.saveReportPort.save(report);
   }
 }

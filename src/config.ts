@@ -14,7 +14,12 @@ export const config = () => ({
     offerTaked: process.env.OFFER_TAKED_EVENT,
     curierNotFound: process.env.CURIER_NOT_FOUND,
     orderValidated: process.env.ORDER_VALIDATED_EVENT,
+    orderCreated: process.env.ORDER_CREATED_EVENT,
+    orderCancelled: process.env.ORDER_CANCELLED_EVENT,
     extendOrderPeriod: process.env.EXTEND_ORDER_PERIOD,
+
+    paymentCompleted: process.env.PAYMENT_COMPLETED_EVENT,
+    paymentFailed: process.env.PAYMENT_FAILED_EVENT,
   },
   rabbitmq: {
     url: process.env.RABBITMQ_URL || 'amqp://rabbitmq:5672',

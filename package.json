@@ -36,6 +36,7 @@
 		"amqp-connection-manager": "^4.1.14",
 		"amqplib": "^0.10.5",
 		"async_hooks": "^1.0.0",
+		"axios": "^1.7.9",
 		"class-validator": "^0.14.1",
 		"dotenv": "^16.4.7",
 		"lodash": "^4.17.21",

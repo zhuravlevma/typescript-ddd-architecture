@@ -21,6 +21,11 @@ import { RabbitModule } from './__infrastructure__/rabbitmq/rabbitmq.module';
 import { Saga } from './__saga__/models/saga.model';
 import { SagaStep } from './__saga__/models/saga-step.model';
 import { Compensation } from './__saga__/models/compensation.model';
+import { CartOrmEntity } from './cart/cart/dal/orm-entities/cart.orm-entity';
+import { CartPositionOrmEntity } from './cart/cart/dal/orm-entities/cart-position.orm-entity';
+import { CartModule } from './cart/cart/cart.module';
+import { PaymentModule } from './cart/payment/payment.module';
+import { Payment } from './cart/payment/models/payment.model';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -47,6 +52,9 @@ import { Compensation } from './__saga__/models/compensation.model';
         Saga,
         SagaStep,
         Compensation,
+        CartOrmEntity,
+        CartPositionOrmEntity,
+        Payment,
       ],
       synchronize: true,
       logging: true,
@@ -56,6 +64,8 @@ import { Compensation } from './__saga__/models/compensation.model';
     DeliveryModule,
     WarehouseModule,
     SagaModule,
+    CartModule,
+    PaymentModule,
   ],
 })
 export class AppModule {

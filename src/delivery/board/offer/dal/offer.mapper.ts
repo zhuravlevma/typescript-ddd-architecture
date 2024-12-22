@@ -13,6 +13,7 @@ export class OfferMapper {
       weight: offerOrm.weight,
       bid: offerOrm.bid,
       curierId: offerOrm.curierid,
+      isActive: offerOrm.isActive,
     });
   }
   static mapToOrm(offerEntity: OfferEntity): OfferOrmEntity {
@@ -28,7 +29,7 @@ export class OfferMapper {
     offerOrmEntity.workingHours = offerReadonly.workingHours;
     offerOrmEntity.weight = offerReadonly.weight;
     offerOrmEntity.bid = offerReadonly.bid;
-
+    offerOrmEntity.isActive = offerReadonly.isActive;
     return offerOrmEntity;
   }
 }

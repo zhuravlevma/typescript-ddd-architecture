@@ -1,7 +1,6 @@
 import { OrderEntity } from './order.entity';
 import { OrderValidatedEvent } from '../events/order-validated.event';
 import { Aggregate } from 'src/__lib__/aggregate';
-import { ExtendOrderPeriodEvent } from '../events/extend-order-period.event';
 
 interface Attributes {
   id: string;
@@ -43,15 +42,15 @@ export class WarehouseEntity extends Aggregate<Attributes> {
           orderId: order.Id,
         },
       }),
-      {
-        compensation: new ExtendOrderPeriodEvent({
-          aggregateId: this.id,
-          payload: {
-            orderId: orderId,
-            warehouseId: this.id,
-          },
-        }),
-      },
+      // {
+      //   compensation: new ExtendOrderPeriodEvent({
+      //     aggregateId: this.id,
+      //     payload: {
+      //       orderId: orderId,
+      //       warehouseId: this.id,
+      //     },
+      //   }),
+      // },
     );
   }
 }

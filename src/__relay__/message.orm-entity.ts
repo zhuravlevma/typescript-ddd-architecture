@@ -48,4 +48,7 @@ export class MessageOrmEntity {
 
   @Column({ type: 'jsonb', default: {}, name: 'compensation_event' })
   compensationEvent: any;
+
+  @Column({ name: 'is_final', type: 'bool', default: false })
+  isFinal: boolean;
 }

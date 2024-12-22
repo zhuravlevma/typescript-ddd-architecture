@@ -26,6 +26,9 @@ export class SagaStep {
   @Column()
   status: string; // Pending, Completed, Failed
 
+  @Column({ name: 'is_final', type: 'bool', default: false })
+  isFinal: boolean;
+
   @CreateDateColumn()
   startedAt: Date;
 

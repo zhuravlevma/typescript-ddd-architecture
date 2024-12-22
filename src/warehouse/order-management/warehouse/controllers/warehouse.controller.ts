@@ -7,9 +7,6 @@ import { AddOrderDto } from './dtos/add-order.dto';
 import { CreateWarehouseDto } from './dtos/create-warehouse.dto';
 import { SavedWarehouseResponseDto } from './dtos/response/saved-warehouse.response-dto';
 import { UpdateOrderDto } from './dtos/update-order.dto';
-import { config } from 'src/config';
-import { ExtendOrderPeriodEvent } from '../domain/events/extend-order-period.event';
-import { RabbitSubscribe } from '@golevelup/nestjs-rabbitmq';
 
 @ApiTags('warehouse')
 @Controller('/warehouse/warehouses')
@@ -64,18 +61,5 @@ export class WarehouseController {
       isValid: updateOrderDto.isValid,
     });
     return SavedWarehouseResponseDto.fromDomain(wh);
-  }
-
-  @RabbitSubscribe({
-    exchange: config().rabbitmq.exchange,
-    routingKey: config().topics.extendOrderPeriod,
-    queue: config().topics.extendOrderPeriod,
-  })
-  async applyExtendOrderPeriod(event: ExtendOrderPeriodEvent): Promise<void> {
-    await this.updateOrderInteractor.execute({
-      orderId: event.payload.orderId,
-      warehouseId: event.payload.warehouseId,
-      isValid: false,
-    });
   }
 }
