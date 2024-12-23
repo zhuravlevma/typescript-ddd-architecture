@@ -1,12 +1,4 @@
-import { MessageOrmEntity } from 'src/__relay__/message.orm-entity';
-import { config } from 'src/config';
-import { Saga } from './models/saga.model';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
 import { Body, Controller, Post } from '@nestjs/common';
-import { RabbitSubscribe } from '@golevelup/nestjs-rabbitmq';
-import { Compensation } from './models/compensation.model';
-import { SagaStep } from './models/saga-step.model';
 import { RegistatorService } from './registrator.service';
 
 // Если счёт успешно создан, но доставка не может

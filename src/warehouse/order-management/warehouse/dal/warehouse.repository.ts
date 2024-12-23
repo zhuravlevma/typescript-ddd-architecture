@@ -9,13 +9,15 @@ import { GetWarehouseWithOrderOutPort } from '../domain/ports/out/get-warehouse-
 import { GetWarehouseWithOrdersOutPort } from '../domain/ports/out/get-warehouse-with-orders.out-port';
 import { WarehouseOrmEntity } from './orm-entities/warehouse.orm-entity';
 import { CorrelationService } from 'src/__infrastructure__/correlation/correlation.service';
+import { GetLastWhOutPort } from '../domain/ports/out/get-last-wh.out-port';
 
 @Injectable()
 export class WarehouseRepository
   implements
     SaveWarehouseOutPort,
     GetWarehouseWithOrdersOutPort,
-    GetWarehouseWithOrderOutPort
+    GetWarehouseWithOrderOutPort,
+    GetLastWhOutPort
 {
   constructor(
     @InjectDataSource()
@@ -50,6 +52,19 @@ export class WarehouseRepository
     return WarehouseMapper.mapToDomain(whOrm);
   }
 
+  async getLastWh(): Promise<WarehouseEntity> {
+    const whOrm = await this.whRepository.find({
+      relations: {
+        orders: true,
+      },
+      take: 1,
+    });
+    if (whOrm.length === 0) {
+      throw new Error();
+    }
+    return WarehouseMapper.mapToDomain(whOrm[0]);
+  }
+
   async saveWarehouse(warehouse: WarehouseEntity): Promise<WarehouseEntity> {
     const warehouseORM = WarehouseMapper.mapToORM(warehouse);
     const outboxORM = warehouse
@@ -60,8 +75,6 @@ export class WarehouseRepository
           this.correlationService.getCorrelationId(),
         ),
       );
-
-    console.log(outboxORM);
 
     const whOrm = await this.dataSource.transaction(
       async (transactionalEntityManager) => {

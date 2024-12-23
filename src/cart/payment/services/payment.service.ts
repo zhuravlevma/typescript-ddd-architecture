@@ -24,34 +24,33 @@ export class PaymentService {
       orderId: event.payload.orderId,
       userId: event.payload.userId,
       correlationId: event.correlationId,
+      completed: true,
     });
 
     const paymentResult = await this.externalPaymentApi.pay({
       userId: event.payload.userId,
     });
 
-    if (paymentResult !== 'OK') {
+    if (paymentResult === true) {
+      const created = new PaymentCompletedEvent({
+        aggregateId: payment.id,
+        payload: {
+          paymentId: payment.id,
+          positions: event.payload.positions,
+          orderId: event.payload.orderId,
+        },
+        correlationId: event.correlationId,
+        sagaId: event.sagaId,
+        compensation: new PaymentFailedEvent({
+          aggregateId: payment.id,
+          payload: {
+            paymentId: payment.id,
+          },
+        }),
+      });
+
       await this.ormRepository.save(
-        OutboxMapper.mapToORM(
-          new PaymentCompletedEvent({
-            aggregateId: payment.id,
-            payload: {
-              paymentId: payment.id,
-              positions: event.payload.positions,
-              orderId: event.payload.orderId,
-            },
-            correlationId: event.correlationId,
-            compensation: new PaymentFailedEvent({
-              aggregateId: payment.id,
-              payload: {
-                paymentId: payment.id,
-              },
-              correlationId: event.correlationId,
-            }),
-            sagaId: event.sagaId,
-          }),
-          event.correlationId,
-        ),
+        OutboxMapper.mapToORM(created, event.correlationId),
       );
     }
 

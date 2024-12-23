@@ -1,16 +1,9 @@
-import { Inject, Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { MessageOrmEntity } from './message.orm-entity';
 import { InjectDataSource } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
-import { ClientProxy } from '@nestjs/microservices';
 import { config } from 'src/config';
-import {
-  OFFER_TAKED_CLIENT,
-  ORDER_VALIDATED_CLIENT,
-  REPORT_VALIDATED_CLIENT,
-  SAGA_CLIENT,
-} from './clients';
 import { AmqpConnection } from '@golevelup/nestjs-rabbitmq';
 
 @Injectable()
@@ -35,40 +28,46 @@ export class RelayService {
           .take(100)
           .getMany();
 
-        console.log(messages, 'sjhdhhdh');
-
         const ids = [];
 
         for (const event of messages) {
           ids.push(event.id);
           this.logger.debug('run publishing: ' + event.id);
 
-          if (event.compensationEvent !== undefined) {
-            await this.amqpConnection.publish(
-              'test',
-              config().topics.sagaReceived,
-              event,
-            );
-          }
-
           if (event.messageName === config().topics.offerTaked) {
             await this.amqpConnection.publish(
-              'test',
+              config().rabbitmq.exchange,
               config().topics.offerTaked,
               event,
             );
           }
           if (event.messageName === config().topics.orderValidated) {
             await this.amqpConnection.publish(
-              'test',
+              config().rabbitmq.exchange,
               config().topics.orderValidated,
               event,
             );
           }
           if (event.messageName === config().topics.reportValidated) {
             await this.amqpConnection.publish(
-              'test',
+              config().rabbitmq.exchange,
               config().topics.reportValidated,
+              event,
+            );
+          }
+
+          if (event.messageName === config().topics.orderCreated) {
+            await this.amqpConnection.publish(
+              config().rabbitmq.exchange,
+              config().topics.orderCreated,
+              event,
+            );
+          }
+
+          if (event.messageName === config().topics.paymentCompleted) {
+            await this.amqpConnection.publish(
+              config().rabbitmq.exchange,
+              config().topics.paymentCompleted,
               event,
             );
           }

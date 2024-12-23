@@ -1,29 +1,26 @@
-import { randomUUID } from 'crypto';
 import { OrderEntity } from '../entities/order.entity';
 import { WarehouseEntity } from '../entities/warehouse.entity';
-import { AddOrderParams, AddOrderInPort } from '../ports/in/add-order.in-port';
-import { GetWarehouseWithOrdersOutPort } from '../ports/out/get-warehouse-with-orders.out-port';
+import { AddOrderInPort } from '../ports/in/add-order.in-port';
 import { SaveWarehouseOutPort } from '../ports/out/save-warehouse.out-port';
+import { PaymentCompletedEvent } from 'src/cart/payment/events/payment-completed.event';
+import { GetLastWhOutPort } from '../ports/out/get-last-wh.out-port';
 
 export class AddOrderInteractor implements AddOrderInPort {
   constructor(
-    private readonly getWarehouseWithOrderPort: GetWarehouseWithOrdersOutPort,
     private readonly saveWarehousePort: SaveWarehouseOutPort,
+    private readonly getLastWhOutPort: GetLastWhOutPort,
   ) {}
-  async execute(addOrderParams: AddOrderParams): Promise<WarehouseEntity> {
-    const warehouse =
-      await this.getWarehouseWithOrderPort.getWarehouseWithOrders(
-        addOrderParams.warehouseId,
-      );
+  async execute(event: PaymentCompletedEvent): Promise<WarehouseEntity> {
+    const nearestWh = await this.getLastWhOutPort.getLastWh();
 
-    warehouse.addOrder(
+    nearestWh.addOrder(
       new OrderEntity({
-        id: randomUUID(),
-        name: addOrderParams.name,
+        id: event.payload.orderId,
+        name: 'ha',
         isValid: false,
       }),
     );
 
-    return this.saveWarehousePort.saveWarehouse(warehouse);
+    return this.saveWarehousePort.saveWarehouse(nearestWh);
   }
 }

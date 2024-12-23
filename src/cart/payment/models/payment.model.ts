@@ -11,7 +11,7 @@ export class Payment {
   @Column({ type: 'uuid' })
   orderId: string;
 
-  @Column({ type: 'uuid' })
+  @Column({ type: 'text' })
   userId: string;
 
   @Column({ type: 'uuid' })

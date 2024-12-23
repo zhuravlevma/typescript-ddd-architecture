@@ -20,10 +20,13 @@ export class PaymentCompletedEvent extends DomainEvent<PaymentCompletedPayload> 
     super({
       reason: 'The payment was completed',
       payload: attributes.payload,
-      messageName: config().topics.orderCancelled,
+      messageName: config().topics.paymentCompleted,
       aggregateId: attributes.aggregateId,
       aggregateName: 'Cart',
       contextName: 'Cart',
+      correlationId: attributes.correlationId,
+      compensation: attributes.compensation,
+      sagaId: attributes.sagaId,
     });
   }
 }

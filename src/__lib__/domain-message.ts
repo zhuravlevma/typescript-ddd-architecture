@@ -66,6 +66,7 @@ export abstract class DomainEvent<Payload = object>
     this.compensation = attributes.compensation;
     this.isFinal = attributes.isFinal;
     this.correlationId = attributes.correlationId;
+    this.sagaId = attributes.sagaId;
   }
 }
 
@@ -97,5 +98,6 @@ export abstract class DomainCommand<Payload = object>
     this.compensation = attributes.compensation;
     this.isFinal = attributes.isFinal;
     this.correlationId = attributes.correlationId;
+    this.sagaId = attributes.sagaId;
   }
 }

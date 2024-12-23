@@ -1,12 +1,7 @@
-import { RabbitSubscribe } from '@golevelup/nestjs-rabbitmq';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { MessageOrmEntity } from 'src/__relay__/message.orm-entity';
 import { Repository } from 'typeorm';
-import { Compensation } from './models/compensation.model';
-import { SagaStep } from './models/saga-step.model';
 import { Saga } from './models/saga.model';
-import { config } from 'src/config';
 
 @Injectable()
 export class RegistatorService {
@@ -90,12 +85,16 @@ export class RegistatorService {
       where: { correlationId },
       relations: ['steps', 'steps.compensations'],
     });
+    console.log(saga, 'hahahha');
 
-    if (!saga) {
+    if (saga === null) {
       const newSaga = new Saga();
       newSaga.correlationId = correlationId;
       newSaga.sagaType = 'compensation';
       newSaga.status = 'In Progress';
+      newSaga.steps = [];
+      const created = await this.sagaRepository.save(newSaga);
+      return created.id;
     }
     return saga.id;
   }

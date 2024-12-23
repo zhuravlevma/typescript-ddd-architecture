@@ -13,6 +13,7 @@ import { GetWarehouseWithOrderOutPort } from './warehouse/domain/ports/out/get-w
 import { GetWarehouseWithOrdersOutPort } from './warehouse/domain/ports/out/get-warehouse-with-orders.out-port';
 import { SaveWarehouseOutPort } from './warehouse/domain/ports/out/save-warehouse.out-port';
 import { WarehouseController } from './warehouse/controllers/warehouse.controller';
+import { GetLastWhOutPort } from './warehouse/domain/ports/out/get-last-wh.out-port';
 
 @Module({
   imports: [TypeOrmModule.forFeature([WarehouseOrmEntity, OrderOrmEntity])],
@@ -44,6 +45,10 @@ import { WarehouseController } from './warehouse/controllers/warehouse.controlle
     },
     {
       provide: SaveWarehouseOutPort,
+      useClass: WarehouseRepository,
+    },
+    {
+      provide: GetLastWhOutPort,
       useClass: WarehouseRepository,
     },
   ],

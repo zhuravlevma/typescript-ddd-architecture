@@ -17,7 +17,9 @@ export class OutboxMapper {
       event.correlationId !== undefined ? event.correlationId : correlationId;
     orm.messageName = event.messageName;
     orm.compensationEvent = event.compensation;
+    orm.sagaId = event.sagaId;
     orm.isFinal = event.isFinal;
+
     return orm;
   }
 }

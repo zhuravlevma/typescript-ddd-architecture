@@ -12,34 +12,35 @@ export class CreateCartInteractor implements CreateCartInPort {
   ) {}
 
   async execute(correlationId: string): Promise<CartEntity> {
-    const sagaId = await this.createSagaPort.createSaga(correlationId);
-    const cart = await this.saveCartPort.saveCart(
-      new CartEntity({
-        id: randomUUID(),
-        orderId: randomUUID(),
-        positions: [
-          new CartPositionEntity({
-            id: randomUUID(),
-            name: 'hah1',
-            code: 1001,
-            sum: 1001,
-          }),
-          new CartPositionEntity({
-            id: randomUUID(),
-            name: 'hah2',
-            code: 1002,
-            sum: 500,
-          }),
-          new CartPositionEntity({
-            id: randomUUID(),
-            name: 'hah3',
-            code: 1004,
-            sum: 199,
-          }),
-        ],
-      }),
-    );
+    const sagaId = await this.createSagaPort.createSaga({ correlationId });
+
+    const cart = new CartEntity({
+      id: randomUUID(),
+      orderId: randomUUID(),
+      positions: [
+        new CartPositionEntity({
+          id: randomUUID(),
+          name: 'hah1',
+          code: 1001,
+          sum: 1001,
+        }),
+        new CartPositionEntity({
+          id: randomUUID(),
+          name: 'hah2',
+          code: 1002,
+          sum: 500,
+        }),
+        new CartPositionEntity({
+          id: randomUUID(),
+          name: 'hah3',
+          code: 1004,
+          sum: 199,
+        }),
+      ],
+    });
+
     cart.createOrder(sagaId);
-    return cart;
+
+    return this.saveCartPort.saveCart(cart);
   }
 }

@@ -29,7 +29,6 @@ export class CartRepository implements SaveCartOutPort, GetCartOutPort {
           this.correlationService.getCorrelationId(),
         ),
       );
-
     const savedCartOrm = await this.dataSource.transaction(
       async (transactionalEntityManager) => {
         await transactionalEntityManager.save(outboxORM);

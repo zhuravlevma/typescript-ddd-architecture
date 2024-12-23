@@ -20,22 +20,23 @@ import { ExternalSagaApi } from './api/external-saga-api';
   controllers: [CartController],
   providers: [
     CartRepository,
+    ExternalSagaApi,
     {
       provide: CreateCartInPort,
       useFactory: (a, b) => new CreateCartInteractor(a, b),
-      inject: [SaveCartOutPort],
+      inject: [SaveCartOutPort, CreateSagaOutPort],
     },
     {
       provide: GetCartOutPort,
       useClass: CartRepository,
     },
     {
-      provide: SaveCartOutPort,
-      useClass: CartRepository,
-    },
-    {
       provide: CreateSagaOutPort,
       useClass: ExternalSagaApi,
+    },
+    {
+      provide: SaveCartOutPort,
+      useClass: CartRepository,
     },
   ],
 })

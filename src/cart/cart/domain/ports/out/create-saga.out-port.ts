@@ -1,3 +1,6 @@
+export class CheckSagaApiDto {
+  correlationId: string;
+}
 export abstract class CreateSagaOutPort {
-  abstract createSaga(correlationId: string): Promise<string>;
+  abstract createSaga(checkSagaApiDto: CheckSagaApiDto): Promise<string>;
 }

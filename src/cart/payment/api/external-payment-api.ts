@@ -6,10 +6,10 @@ export class CheckCurrentPositionApiDto {
 
 @Injectable()
 export class ExternalPaymentApi {
-  async pay(data: CheckCurrentPositionApiDto): Promise<string> {
+  async pay(data: CheckCurrentPositionApiDto): Promise<boolean> {
     /// call external api
     console.log('payment', data);
 
-    return 'OK';
+    return true;
   }
 }
