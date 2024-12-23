@@ -24,6 +24,7 @@ export class OrderCreatedEvent extends DomainEvent<OrderCreatedPayload> {
       aggregateId: attributes.aggregateId,
       aggregateName: 'Cart',
       contextName: 'Cart',
+      saga: attributes.saga,
     });
   }
 }

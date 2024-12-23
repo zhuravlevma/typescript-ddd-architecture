@@ -21,7 +21,7 @@ export class CartEntity extends Aggregate<Attributes> {
     this.positions = attributes.positions;
   }
 
-  createOrder(sagaId: string) {
+  createOrder(sagaId: string, correlationId: string) {
     this.addMessage(
       new OrderCreatedEvent({
         aggregateId: this.id,
@@ -33,14 +33,15 @@ export class CartEntity extends Aggregate<Attributes> {
             code: el.Code,
           })),
         },
+        saga: {
+          compensation: new OrderCancelledEvent({
+            aggregateId: this.id,
+            payload: { orderId: this.orderId },
+          }),
+          sagaId,
+          correlationId,
+        },
       }),
-      {
-        compensation: new OrderCancelledEvent({
-          aggregateId: this.id,
-          payload: { orderId: this.orderId },
-        }),
-        sagaId,
-      },
     );
   }
 }

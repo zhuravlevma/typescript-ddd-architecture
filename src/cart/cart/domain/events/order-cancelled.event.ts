@@ -17,6 +17,7 @@ export class OrderCancelledEvent extends DomainEvent<OrderCancelledPayload> {
       aggregateId: attributes.aggregateId,
       aggregateName: 'Cart',
       contextName: 'Cart',
+      saga: attributes.saga,
     });
   }
 }

@@ -18,6 +18,7 @@ export class ExtendOrderPeriodEvent extends DomainEvent<ExtendOrderPeriodPayload
       aggregateId: attributes.aggregateId,
       aggregateName: 'Warehouse',
       contextName: 'warehouse',
+      saga: attributes.saga,
     });
   }
 }

@@ -5,6 +5,7 @@ import { InjectDataSource } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
 import { config } from 'src/config';
 import { AmqpConnection } from '@golevelup/nestjs-rabbitmq';
+import { OutboxMapper } from './outbox.mapper';
 
 @Injectable()
 export class RelayService {
@@ -31,44 +32,56 @@ export class RelayService {
         const ids = [];
 
         for (const event of messages) {
+          const domainEvent = OutboxMapper.mapToDomain(event);
           ids.push(event.id);
+
+          if (event.sagaId !== null) {
+            this.logger.debug('run publishing to saga: ' + event.id);
+
+            // await this.amqpConnection.publish(
+            //   config().rabbitmq.exchange,
+            //   config().topics.sagaReceived,
+            //   event,
+            // );
+          }
+
           this.logger.debug('run publishing: ' + event.id);
 
-          if (event.messageName === config().topics.offerTaked) {
+          if (domainEvent.messageName === config().topics.offerTaked) {
             await this.amqpConnection.publish(
               config().rabbitmq.exchange,
               config().topics.offerTaked,
-              event,
+              domainEvent,
             );
           }
-          if (event.messageName === config().topics.orderValidated) {
+          if (domainEvent.messageName === config().topics.orderValidated) {
             await this.amqpConnection.publish(
               config().rabbitmq.exchange,
               config().topics.orderValidated,
-              event,
+              domainEvent,
             );
           }
-          if (event.messageName === config().topics.reportValidated) {
+          if (domainEvent.messageName === config().topics.reportValidated) {
             await this.amqpConnection.publish(
               config().rabbitmq.exchange,
               config().topics.reportValidated,
-              event,
+              domainEvent,
             );
           }
 
-          if (event.messageName === config().topics.orderCreated) {
+          if (domainEvent.messageName === config().topics.orderCreated) {
             await this.amqpConnection.publish(
               config().rabbitmq.exchange,
               config().topics.orderCreated,
-              event,
+              domainEvent,
             );
           }
 
-          if (event.messageName === config().topics.paymentCompleted) {
+          if (domainEvent.messageName === config().topics.paymentCompleted) {
             await this.amqpConnection.publish(
               config().rabbitmq.exchange,
               config().topics.paymentCompleted,
-              event,
+              domainEvent,
             );
           }
         }

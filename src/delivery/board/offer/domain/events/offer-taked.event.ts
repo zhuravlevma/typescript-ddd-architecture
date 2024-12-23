@@ -18,6 +18,7 @@ export class OfferTakedEvent extends DomainEvent<OfferTakedPayload> {
       aggregateId: attributes.aggregateId,
       aggregateName: 'Offer',
       contextName: 'deivery',
+      saga: attributes.saga,
     });
   }
 }

@@ -39,7 +39,7 @@ export class CreateCartInteractor implements CreateCartInPort {
       ],
     });
 
-    cart.createOrder(sagaId);
+    cart.createOrder(sagaId, correlationId);
 
     return this.saveCartPort.saveCart(cart);
   }

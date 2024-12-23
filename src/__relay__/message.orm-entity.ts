@@ -47,7 +47,7 @@ export class MessageOrmEntity {
   correlationId: string;
 
   @Column({ type: 'text', name: 'saga_id', nullable: true })
-  sagaId: string;
+  sagaId: string | null;
 
   @Column({ type: 'jsonb', default: {}, name: 'compensation_event' })
   compensationEvent: any;

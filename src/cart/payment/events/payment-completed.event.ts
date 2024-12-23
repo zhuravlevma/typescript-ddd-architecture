@@ -24,9 +24,7 @@ export class PaymentCompletedEvent extends DomainEvent<PaymentCompletedPayload> 
       aggregateId: attributes.aggregateId,
       aggregateName: 'Cart',
       contextName: 'Cart',
-      correlationId: attributes.correlationId,
-      compensation: attributes.compensation,
-      sagaId: attributes.sagaId,
+      saga: attributes.saga,
     });
   }
 }

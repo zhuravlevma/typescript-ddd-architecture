@@ -17,6 +17,7 @@ export class PaymentFailedEvent extends DomainEvent<PaymentFailedPayload> {
       aggregateId: attributes.aggregateId,
       aggregateName: 'Cart',
       contextName: 'Cart',
+      saga: attributes.saga,
     });
   }
 }

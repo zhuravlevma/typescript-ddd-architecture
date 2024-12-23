@@ -23,7 +23,7 @@ export class PaymentService {
     const payment = await this.paymentRepository.save({
       orderId: event.payload.orderId,
       userId: event.payload.userId,
-      correlationId: event.correlationId,
+      correlationId: event.saga.correlationId,
       completed: true,
     });
 
@@ -39,18 +39,20 @@ export class PaymentService {
           positions: event.payload.positions,
           orderId: event.payload.orderId,
         },
-        correlationId: event.correlationId,
-        sagaId: event.sagaId,
-        compensation: new PaymentFailedEvent({
-          aggregateId: payment.id,
-          payload: {
-            paymentId: payment.id,
-          },
-        }),
+        saga: {
+          correlationId: event.saga.correlationId,
+          sagaId: event.saga.sagaId,
+          compensation: new PaymentFailedEvent({
+            aggregateId: payment.id,
+            payload: {
+              paymentId: payment.id,
+            },
+          }),
+        },
       });
 
       await this.ormRepository.save(
-        OutboxMapper.mapToORM(created, event.correlationId),
+        OutboxMapper.mapToORM(created, event.saga.correlationId),
       );
     }
 
