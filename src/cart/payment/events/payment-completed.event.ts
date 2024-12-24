@@ -22,7 +22,7 @@ export class PaymentCompletedEvent extends DomainEvent<PaymentCompletedPayload> 
       payload: attributes.payload,
       messageName: config().topics.paymentCompleted,
       aggregateId: attributes.aggregateId,
-      aggregateName: 'Cart',
+      aggregateName: 'Payment',
       contextName: 'Cart',
       saga: attributes.saga,
     });

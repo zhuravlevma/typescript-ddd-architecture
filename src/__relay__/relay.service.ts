@@ -35,14 +35,24 @@ export class RelayService {
           const domainEvent = OutboxMapper.mapToDomain(event);
           ids.push(event.id);
 
-          if (event.sagaId !== null) {
-            this.logger.debug('run publishing to saga: ' + event.id);
-
+          if (event.runCompensation === true) {
+            // run compensation
             // await this.amqpConnection.publish(
             //   config().rabbitmq.exchange,
             //   config().topics.sagaReceived,
             //   event,
             // );
+          }
+
+          if (domainEvent.saga.sagaId !== null) {
+            console.log(domainEvent, domainEvent.messageName, 'jjjjjjj');
+
+            this.logger.debug('run publishing to saga: ' + event.id);
+            await this.amqpConnection.publish(
+              config().rabbitmq.exchange,
+              config().topics.sagaReceived,
+              domainEvent,
+            );
           }
 
           this.logger.debug('run publishing: ' + event.id);

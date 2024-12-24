@@ -6,15 +6,16 @@ export class OutboxMapper {
     return new DomainEvent({
       reason: orm.reason,
       payload: orm.payload,
-      messageName: orm.messageName, // name of the event or command "WarehouseCreated"(event), "AddOrder"(command)
-      aggregateId: orm.aggregateId, // necessary for partitioning
-      aggregateName: orm.aggregateName, // Can be often useful (for example for humans or for id prefixes)
-      contextName: orm.contextName, // Can be often useful (for example for humans or for id prefixes)
+      messageName: orm.messageName,
+      aggregateId: orm.aggregateId,
+      aggregateName: orm.aggregateName,
+      contextName: orm.contextName,
       saga: {
         correlationId: orm.correlationId,
         compensation: orm.compensationEvent,
         sagaId: orm.sagaId,
         isFinal: orm.isFinal,
+        runCompensation: orm.runCompensation,
       },
     });
   }
@@ -37,6 +38,7 @@ export class OutboxMapper {
     orm.compensationEvent = event.saga.compensation;
     orm.sagaId = event.saga.sagaId;
     orm.isFinal = event.saga.isFinal;
+    orm.runCompensation = event.saga.runCompensation;
 
     return orm;
   }

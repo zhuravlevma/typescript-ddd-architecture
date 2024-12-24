@@ -2,6 +2,9 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Saga } from './models/saga.model';
+import { DomainMessage } from 'src/__lib__/domain-message';
+import { Compensation } from './models/compensation.model';
+import { SagaStep } from './models/saga-step.model';
 
 @Injectable()
 export class RegistatorService {
@@ -79,6 +82,39 @@ export class RegistatorService {
   //   // проверяем его таймаут по последнему евенту, если там все ок, то записываем его в конец
   //   // если таймаут вышел за рамки, то сагу в Failed и инициируем компенсацию
   // }
+
+  async createStepForSaga(event: DomainMessage) {
+    const saga = await this.sagaRepository.findOne({
+      where: { id: event.saga.sagaId },
+      relations: ['steps', 'steps.compensations'],
+    });
+
+    if (saga === null) {
+      throw new Error('Saga not found');
+    }
+
+    const newCompensation = new Compensation();
+    newCompensation.metadata = event.saga.compensation;
+    newCompensation.compensationType = event.messageName;
+    newCompensation.status = 'NONE';
+
+    const newStep = new SagaStep();
+    newStep.metadata = event;
+    newStep.stepName = event.messageName;
+    newStep.compensations = [newCompensation];
+    newStep.status = 'PENDING';
+
+    saga.steps.push(newStep);
+
+    if (event.saga.isFinal === true) {
+      saga.status = 'COMPLETED';
+    }
+
+    const saved = await this.sagaRepository.save(saga);
+
+    console.log(saved, event.aggregateName, event.contextName, 'SAGAA');
+    return saved;
+  }
 
   async createSaga(correlationId: string): Promise<string> {
     const saga = await this.sagaRepository.findOne({

@@ -54,4 +54,7 @@ export class MessageOrmEntity {
 
   @Column({ name: 'is_final', type: 'bool', default: false })
   isFinal: boolean;
+
+  @Column({ name: 'is_Compensation', type: 'bool', default: false })
+  runCompensation: boolean;
 }

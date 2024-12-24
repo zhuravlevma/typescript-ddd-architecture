@@ -8,6 +8,7 @@ import { MessageOrmEntity } from 'src/__relay__/message.orm-entity';
 import { PaymentCompletedEvent } from '../events/payment-completed.event';
 import { PaymentFailedEvent } from '../events/payment-failed.event';
 import { OutboxMapper } from 'src/__relay__/outbox.mapper';
+import { SagaCompensationEvent } from 'src/__saga__/saga-compensation.event';
 
 @Injectable()
 export class PaymentService {
@@ -53,6 +54,19 @@ export class PaymentService {
 
       await this.ormRepository.save(
         OutboxMapper.mapToORM(created, event.saga.correlationId),
+      );
+    }
+
+    if (paymentResult === false) {
+      const fail = new SagaCompensationEvent({
+        aggregateId: payment.id,
+        saga: {
+          correlationId: event.saga.correlationId,
+          sagaId: event.saga.sagaId,
+        },
+      });
+      await this.ormRepository.save(
+        OutboxMapper.mapToORM(fail, event.saga.correlationId),
       );
     }
 

@@ -25,7 +25,7 @@ interface DomainMessageAllAttributes<Payload = object>
     compensation?: DomainMessage;
     sagaId: string;
     isFinal?: boolean;
-    error?: boolean;
+    runCompensation?: boolean;
   };
 }
 
@@ -37,7 +37,15 @@ export interface DomainMessageAttributes<Payload = object> {
     compensation?: DomainMessage;
     sagaId: string;
     isFinal?: boolean;
-    error?: boolean;
+    runCompesation?: boolean;
+  };
+}
+
+export interface SagaMessageCompensationAttributes {
+  aggregateId: string;
+  saga: {
+    correlationId: string;
+    sagaId: string;
   };
 }
 
@@ -50,7 +58,7 @@ export interface DomainSagaMessageAttributes<Payload = object> {
     compensation?: DomainMessage;
     sagaId: string;
     isFinal?: boolean;
-    error?: boolean;
+    runCompesation?: boolean;
   };
 }
 
@@ -69,6 +77,7 @@ export class DomainEvent<Payload = object> implements DomainMessage<Payload> {
     compensation?: DomainMessage<object>;
     correlationId: string;
     sagaId: string;
+    runCompesation?: boolean;
   };
 
   constructor(attributes: DomainMessageAllAttributes<Payload>) {
@@ -98,6 +107,7 @@ export abstract class DomainCommand<Payload = object>
     compensation?: DomainMessage<object>;
     correlationId: string;
     sagaId: string;
+    runCompesation?: boolean;
   };
 
   constructor(attributes: DomainMessageAllAttributes<Payload>) {
@@ -126,6 +136,6 @@ interface DomainMessageAllAttributes<Payload = object>
     compensation?: DomainMessage;
     sagaId: string;
     isFinal?: boolean;
-    error?: boolean;
+    runCompensation?: boolean;
   };
 }
