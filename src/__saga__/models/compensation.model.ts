@@ -9,6 +9,16 @@ import {
 } from 'typeorm';
 import { SagaStep } from './saga-step.model';
 
+export interface CompensationPayload {
+  reason: string;
+  payload: any;
+  aggregateId: string;
+  contextName: string;
+  messageName: string;
+  messageType: string;
+  aggregateName: string;
+}
+
 @Entity('compensations')
 export class Compensation {
   @PrimaryGeneratedColumn('uuid')
@@ -34,5 +44,5 @@ export class Compensation {
   errorMessage: string;
 
   @Column({ type: 'jsonb', nullable: true })
-  metadata: Record<string, any>;
+  metadata: CompensationPayload;
 }

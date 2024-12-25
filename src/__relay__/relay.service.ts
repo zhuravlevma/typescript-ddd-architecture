@@ -36,17 +36,15 @@ export class RelayService {
           ids.push(event.id);
 
           if (event.runCompensation === true) {
-            // run compensation
-            // await this.amqpConnection.publish(
-            //   config().rabbitmq.exchange,
-            //   config().topics.sagaReceived,
-            //   event,
-            // );
+            await this.amqpConnection.publish(
+              config().rabbitmq.exchange,
+              config().topics.sagaReceived,
+              domainEvent,
+            );
+            continue;
           }
 
           if (domainEvent.saga.sagaId !== null) {
-            console.log(domainEvent, domainEvent.messageName, 'jjjjjjj');
-
             this.logger.debug('run publishing to saga: ' + event.id);
             await this.amqpConnection.publish(
               config().rabbitmq.exchange,
@@ -83,6 +81,14 @@ export class RelayService {
             await this.amqpConnection.publish(
               config().rabbitmq.exchange,
               config().topics.orderCreated,
+              domainEvent,
+            );
+          }
+
+          if (domainEvent.messageName === config().topics.orderCancelled) {
+            await this.amqpConnection.publish(
+              config().rabbitmq.exchange,
+              config().topics.orderCancelled,
               domainEvent,
             );
           }

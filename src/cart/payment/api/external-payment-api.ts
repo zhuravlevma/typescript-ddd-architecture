@@ -10,6 +10,6 @@ export class ExternalPaymentApi {
     /// call external api
     console.log('payment', data);
 
-    return true;
+    return false;
   }
 }
