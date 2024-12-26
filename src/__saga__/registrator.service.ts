@@ -4,7 +4,6 @@ import { DataSource, Repository } from 'typeorm';
 import { Saga } from './models/saga.model';
 import { DomainMessage } from 'src/__lib__/domain-message';
 import { Compensation } from './models/compensation.model';
-import { SagaStep } from './models/saga-step.model';
 import { MessageOrmEntity } from 'src/__relay__/message.orm-entity';
 
 @Injectable()
@@ -18,6 +17,7 @@ export class RegistatorService {
 
   private async runCompensations(saga: Saga) {
     const compensations: Compensation[] = [];
+
     saga.steps.map((el) => {
       for (const compensation of el.compensations) {
         compensations.push(compensation);
@@ -47,6 +47,8 @@ export class RegistatorService {
   }
 
   async createStepForSaga(event: DomainMessage) {
+    console.log(event, 'NEW EVENT');
+
     const saga = await this.sagaRepository.findOne({
       where: { id: event.saga.sagaId },
       relations: ['steps', 'steps.compensations'],
@@ -57,25 +59,20 @@ export class RegistatorService {
     }
 
     if (event.saga.runCompensation === true) {
-      return this.runCompensations(saga);
+      const messages = saga.compensate(event);
+
+      console.log(messages, 'MESSAGES');
+
+      return this.dataSource.transaction(async (transactionalEntityManager) => {
+        await transactionalEntityManager.save(messages);
+        return transactionalEntityManager.save(saga);
+      });
+    } else if (event.saga.isFinal === true) {
+      saga.addCompleteStep(event);
+      return this.sagaRepository.save(saga);
     }
 
-    const newCompensation = new Compensation();
-    newCompensation.metadata = event.saga.compensation;
-    newCompensation.compensationType = event.messageName;
-    newCompensation.status = 'NONE';
-
-    const newStep = new SagaStep();
-    newStep.metadata = event;
-    newStep.stepName = event.messageName;
-    newStep.compensations = [newCompensation];
-    newStep.status = 'PENDING';
-
-    saga.steps.push(newStep);
-
-    if (event.saga.isFinal === true) {
-      saga.status = 'COMPLETED';
-    }
+    saga.addCommonStep(event);
 
     const saved = await this.sagaRepository.save(saga);
 

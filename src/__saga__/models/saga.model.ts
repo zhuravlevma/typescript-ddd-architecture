@@ -7,6 +7,8 @@ import {
   OneToMany,
 } from 'typeorm';
 import { SagaStep } from './saga-step.model';
+import { DomainMessage } from 'src/__lib__/domain-message';
+import { MessageOrmEntity } from 'src/__relay__/message.orm-entity';
 
 @Entity('sagas')
 export class Saga {
@@ -41,4 +43,42 @@ export class Saga {
     cascade: ['insert', 'update'],
   })
   steps: SagaStep[];
+
+  addCommonStep(event: DomainMessage) {
+    const newStep = new SagaStep();
+    newStep.createStep(event);
+
+    if (this.steps === undefined) {
+      this.steps = [];
+    }
+    this.steps.push(newStep);
+  }
+
+  compensate(event: DomainMessage): MessageOrmEntity[] {
+    const messages: MessageOrmEntity[] = [];
+    for (const step of this.steps) {
+      for (const msg of step.compensate(event)) {
+        messages.push(msg);
+      }
+    }
+
+    const newStep = new SagaStep();
+    newStep.createCompensationStep(event);
+
+    if (this.steps === undefined) {
+      this.steps = [];
+    }
+    this.steps.push(newStep);
+    return messages;
+  }
+
+  addCompleteStep(event: DomainMessage) {
+    const newStep = new SagaStep();
+    newStep.createCompleteStep(event);
+
+    if (this.steps === undefined) {
+      this.steps = [];
+    }
+    this.steps.push(newStep);
+  }
 }

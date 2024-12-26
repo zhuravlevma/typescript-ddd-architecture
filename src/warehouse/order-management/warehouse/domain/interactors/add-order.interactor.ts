@@ -1,4 +1,3 @@
-import { OrderEntity } from '../entities/order.entity';
 import { WarehouseEntity } from '../entities/warehouse.entity';
 import { AddOrderInPort } from '../ports/in/add-order.in-port';
 import { SaveWarehouseOutPort } from '../ports/out/save-warehouse.out-port';
@@ -13,13 +12,12 @@ export class AddOrderInteractor implements AddOrderInPort {
   async execute(event: PaymentCompletedEvent): Promise<WarehouseEntity> {
     const nearestWh = await this.getLastWhOutPort.getLastWh();
 
-    nearestWh.addOrder(
-      new OrderEntity({
-        id: event.payload.orderId,
-        name: 'ha',
-        isValid: false,
-      }),
-    );
+    try {
+      nearestWh.addOrder(event);
+    } catch (err) {
+      nearestWh.cancelOrder(event);
+      console.error(err);
+    }
 
     return this.saveWarehousePort.saveWarehouse(nearestWh);
   }

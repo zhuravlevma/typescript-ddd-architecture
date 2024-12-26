@@ -100,6 +100,14 @@ export class RelayService {
               domainEvent,
             );
           }
+
+          if (domainEvent.messageName === config().topics.paymentFailed) {
+            await this.amqpConnection.publish(
+              config().rabbitmq.exchange,
+              config().topics.paymentFailed,
+              domainEvent,
+            );
+          }
         }
 
         if (messages.length) {

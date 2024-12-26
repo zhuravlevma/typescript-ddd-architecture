@@ -35,24 +35,13 @@ export class WarehouseController {
     description: 'Saved Wh with orders',
     type: SavedWarehouseResponseDto,
   })
-  // @Post('/:warehouseId/orders')
-  // async addOrderToWh(
-  //   @Param('warehouseId') warehouseId: string,
-  //   @Body() addOrderToWhDto: AddOrderDto,
-  // ): Promise<SavedWarehouseResponseDto> {
-  //   const wh = await this.addOrderInteractor.execute({
-  //     warehouseId,
-  //     ...addOrderToWhDto,
-  //   });
-  //   return SavedWarehouseResponseDto.fromDomain(wh);
-  // }
   @RabbitSubscribe({
     exchange: config().rabbitmq.exchange,
     routingKey: config().topics.paymentCompleted,
     queue: config().topics.paymentCompleted,
   })
-  applyPaymentCompleted(event: PaymentCompletedEvent) {
-    return this.addOrderInteractor.execute(event);
+  async applyPaymentCompleted(event: PaymentCompletedEvent): Promise<void> {
+    await this.addOrderInteractor.execute(event);
   }
 
   @ApiOkResponse({

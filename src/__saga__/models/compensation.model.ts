@@ -8,6 +8,7 @@ import {
   JoinColumn,
 } from 'typeorm';
 import { SagaStep } from './saga-step.model';
+import { DomainMessage } from 'src/__lib__/domain-message';
 
 export interface CompensationPayload {
   reason: string;
@@ -45,4 +46,10 @@ export class Compensation {
 
   @Column({ type: 'jsonb', nullable: true })
   metadata: CompensationPayload;
+
+  createCompensation(event: DomainMessage) {
+    this.metadata = event.saga.compensation;
+    this.compensationType = event.messageName;
+    this.status = 'NONE';
+  }
 }

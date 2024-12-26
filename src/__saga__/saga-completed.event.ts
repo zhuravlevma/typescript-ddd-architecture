@@ -4,10 +4,10 @@ import {
 } from 'src/__lib__/domain-message';
 import { config } from 'src/config';
 
-export class SagaCompensationEvent extends DomainEvent {
+export class SagaCompletedEvent extends DomainEvent {
   constructor(attributes: SagaMessageCompensationOrCompleteAttributes) {
     super({
-      reason: 'Compesation',
+      reason: 'Completed',
       payload: {},
       messageName: config().topics.sagaReceived,
       aggregateId: attributes.aggregateId,
@@ -15,7 +15,7 @@ export class SagaCompensationEvent extends DomainEvent {
       contextName: '',
       saga: {
         ...attributes.saga,
-        runCompensation: true,
+        isFinal: true,
       },
     });
   }

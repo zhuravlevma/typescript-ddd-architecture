@@ -41,7 +41,7 @@ export interface DomainMessageAttributes<Payload = object> {
   };
 }
 
-export interface SagaMessageCompensationAttributes {
+export interface SagaMessageCompensationOrCompleteAttributes {
   aggregateId: string;
   saga: {
     correlationId: string;

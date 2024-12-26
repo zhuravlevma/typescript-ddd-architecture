@@ -18,6 +18,8 @@ export class RegistatorController {
     queue: config().topics.sagaReceived,
   })
   async applySagaReceived(event: DomainMessage): Promise<void> {
+    console.log(event, 'haha');
+
     const saga = await this.registatorService.createStepForSaga(event);
     console.log(saga);
   }
