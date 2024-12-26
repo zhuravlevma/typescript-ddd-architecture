@@ -26,6 +26,7 @@ import { CartPositionOrmEntity } from './cart/cart/dal/orm-entities/cart-positio
 import { CartModule } from './cart/cart/cart.module';
 import { PaymentModule } from './cart/payment/payment.module';
 import { Payment } from './cart/payment/models/payment.model';
+import { UOWModule } from './__infrastructure__/uow/uow.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -66,6 +67,7 @@ import { Payment } from './cart/payment/models/payment.model';
     SagaModule,
     CartModule,
     PaymentModule,
+    UOWModule,
   ],
 })
 export class AppModule {
