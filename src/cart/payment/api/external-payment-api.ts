@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 
 export class CheckCurrentPositionApiDto {
   userId: string;
@@ -6,9 +6,11 @@ export class CheckCurrentPositionApiDto {
 
 @Injectable()
 export class ExternalPaymentApi {
+  private readonly logger = new Logger(ExternalPaymentApi.name);
+
   async pay(data: CheckCurrentPositionApiDto): Promise<boolean> {
     /// call external api
-    console.log('payment', data);
+    this.logger.debug('payment', data);
 
     return true;
   }

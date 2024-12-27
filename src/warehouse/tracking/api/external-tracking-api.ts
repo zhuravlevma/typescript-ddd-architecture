@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 
 export class CheckCurrentPositionApiDto {
   entityId: string;
@@ -13,11 +13,13 @@ export class CheckCurrentPositionApiResponseDto {
 
 @Injectable()
 export class ExternalTrackingApi {
+  private readonly logger = new Logger(ExternalTrackingApi.name);
+
   async checkLastCoordinates(
     data: CheckCurrentPositionApiDto,
   ): Promise<CheckCurrentPositionApiResponseDto> {
     /// call external api
-    console.log(data);
+    this.logger.debug(data);
 
     return {
       startLatitude: null,

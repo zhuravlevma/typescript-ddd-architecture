@@ -1,8 +1,7 @@
 import { CartEntity } from '../../entities/cart.entity';
 
 export interface UpdateCartParams {
-  warehouseId: string;
-  orderId: string;
+  cartId: string;
   isValid: boolean;
 }
 

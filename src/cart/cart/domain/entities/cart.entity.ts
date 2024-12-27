@@ -7,11 +7,13 @@ interface Attributes {
   id: string;
   orderId: string | null;
   positions: CartPositionEntity[];
+  isActive: boolean;
 }
 
 export class CartEntity extends Aggregate<Attributes> {
   private id: string;
   private orderId: string | null;
+  private isActive: boolean;
 
   private positions: CartPositionEntity[];
   constructor(attributes: Attributes) {
@@ -19,6 +21,11 @@ export class CartEntity extends Aggregate<Attributes> {
     this.id = attributes.id;
     this.orderId = attributes.orderId;
     this.positions = attributes.positions;
+    this.isActive = attributes.isActive;
+  }
+
+  cancelOrder() {
+    this.isActive = false;
   }
 
   createOrder(sagaId: string, correlationId: string) {
@@ -36,7 +43,7 @@ export class CartEntity extends Aggregate<Attributes> {
         saga: {
           compensation: new OrderCancelledEvent({
             aggregateId: this.id,
-            payload: { orderId: this.orderId },
+            payload: { cartId: this.id },
           }),
           sagaId,
           correlationId,

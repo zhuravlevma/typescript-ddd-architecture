@@ -11,6 +11,9 @@ export class CartOrmEntity {
   @Column('uuid', { nullable: true })
   orderId: string | null;
 
+  @Column({ default: false })
+  isActive: boolean;
+
   @OneToMany(() => CartPositionOrmEntity, (order) => order.cart, {
     cascade: ['insert', 'update'],
   })

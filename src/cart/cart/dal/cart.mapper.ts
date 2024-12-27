@@ -9,6 +9,7 @@ export class CartMapper {
     const cartReadonly = cartEntity.export();
     orm.id = cartReadonly.id;
     orm.orderId = cartReadonly.orderId;
+    orm.isActive = cartReadonly.isActive;
     orm.positions = cartReadonly.positions.map((positionEntity) => {
       const positionOrm = new CartPositionOrmEntity();
       const positionReadonly = positionEntity.export();
@@ -26,6 +27,7 @@ export class CartMapper {
     return new CartEntity({
       id: cartOrm.id,
       orderId: cartOrm.orderId,
+      isActive: cartOrm.isActive,
       positions: cartOrm.positions.map(
         (positionORM) =>
           new CartPositionEntity({

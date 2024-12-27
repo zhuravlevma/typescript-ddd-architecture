@@ -5,7 +5,7 @@ import {
 import { config } from 'src/config';
 
 interface OrderCancelledPayload {
-  orderId: string;
+  cartId: string;
 }
 
 export class OrderCancelledEvent extends DomainEvent<OrderCancelledPayload> {

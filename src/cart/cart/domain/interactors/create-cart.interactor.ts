@@ -17,6 +17,7 @@ export class CreateCartInteractor implements CreateCartInPort {
     const cart = new CartEntity({
       id: randomUUID(),
       orderId: randomUUID(),
+      isActive: true,
       positions: [
         new CartPositionEntity({
           id: randomUUID(),

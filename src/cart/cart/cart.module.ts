@@ -5,12 +5,14 @@ import { CartPositionOrmEntity } from './dal/orm-entities/cart-position.orm-enti
 import { CartController } from './controllers/cart.controller';
 import { CartRepository } from './dal/cart.repository';
 import { CreateCartInPort } from './domain/ports/in/create-cart.in-port';
-import { CreateCartInteractor } from './domain/interactors/create-cart.interactor';
 import { SaveCartOutPort } from './domain/ports/out/save-cart.out-port';
 import { GetCartOutPort } from './domain/ports/out/get-cart.out-port';
 import { SagaModule } from 'src/__saga__/saga.module';
 import { CreateSagaOutPort } from './domain/ports/out/create-saga.out-port';
 import { ExternalSagaApi } from './api/external-saga-api';
+import { CreateCartInteractor } from './domain/interactors/create-cart.interactor';
+import { UpdateCartInPort } from './domain/ports/in/update-cart.in-port';
+import { UpdateCartInteractor } from './domain/interactors/update-cart.interactor';
 
 @Module({
   imports: [
@@ -25,6 +27,11 @@ import { ExternalSagaApi } from './api/external-saga-api';
       provide: CreateCartInPort,
       useFactory: (a, b) => new CreateCartInteractor(a, b),
       inject: [SaveCartOutPort, CreateSagaOutPort],
+    },
+    {
+      provide: UpdateCartInPort,
+      useFactory: (a, b) => new UpdateCartInteractor(a, b),
+      inject: [SaveCartOutPort, GetCartOutPort],
     },
     {
       provide: GetCartOutPort,
