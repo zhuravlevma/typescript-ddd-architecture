@@ -65,6 +65,10 @@ Transactional outbox can be done using synchronous calls, the broker is not bias
 
 In a good way, each bounded context in a micro-service architecture should have its own Relay. In the demonstration monolith, I decided to limit myself to one.
 
+### Saga
+
+The project uses a saga with choreography and a registrar. The registrar is capable of rolling back transactions in case of failure.
+
 ### Important
 
 This is not a production ready solution!
