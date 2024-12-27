@@ -19,8 +19,9 @@ export class CreateOfferInteractor implements CreateOfferInPort {
         vehicleType: 'bike',
         preferredDeliveryAreas: 'New York',
         workingHours: '8-11',
-        weight: 0,
+        weight: 100,
         bid: 5,
+        isActive: true,
       });
 
       return this.saveOfferPort.saveOffer(offer);

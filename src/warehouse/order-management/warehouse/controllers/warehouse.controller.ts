@@ -3,10 +3,12 @@ import { ApiTags, ApiOkResponse } from '@nestjs/swagger';
 import { AddOrderInPort } from '../domain/ports/in/add-order.in-port';
 import { CreateWarehouseInPort } from '../domain/ports/in/create-warehouse.in-port';
 import { UpdateOrderInPort } from '../domain/ports/in/update-order.in-port';
-import { AddOrderDto } from './dtos/add-order.dto';
 import { CreateWarehouseDto } from './dtos/create-warehouse.dto';
 import { SavedWarehouseResponseDto } from './dtos/response/saved-warehouse.response-dto';
 import { UpdateOrderDto } from './dtos/update-order.dto';
+import { config } from 'src/config';
+import { RabbitSubscribe } from '@golevelup/nestjs-rabbitmq';
+import { PaymentCompletedEvent } from 'src/cart/payment/events/payment-completed.event';
 
 @ApiTags('warehouse')
 @Controller('/warehouse/warehouses')
@@ -33,16 +35,13 @@ export class WarehouseController {
     description: 'Saved Wh with orders',
     type: SavedWarehouseResponseDto,
   })
-  @Post('/:warehouseId/orders')
-  async addOrderToWh(
-    @Param('warehouseId') warehouseId: string,
-    @Body() addOrderToWhDto: AddOrderDto,
-  ): Promise<SavedWarehouseResponseDto> {
-    const wh = await this.addOrderInteractor.execute({
-      warehouseId,
-      ...addOrderToWhDto,
-    });
-    return SavedWarehouseResponseDto.fromDomain(wh);
+  @RabbitSubscribe({
+    exchange: config().rabbitmq.exchange,
+    routingKey: config().topics.paymentCompleted,
+    queue: config().topics.paymentCompleted,
+  })
+  async applyPaymentCompleted(event: PaymentCompletedEvent): Promise<void> {
+    await this.addOrderInteractor.execute(event);
   }
 
   @ApiOkResponse({

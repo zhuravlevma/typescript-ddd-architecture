@@ -17,6 +17,7 @@ export class OrderValidatedEvent extends DomainEvent<OrderValidatedPayload> {
       aggregateId: attributes.aggregateId,
       aggregateName: 'Warehouse',
       contextName: 'warehouse',
+      saga: attributes.saga,
     });
   }
 }

@@ -11,6 +11,7 @@ interface Attributes {
   workingHours: string;
   weight: number;
   bid: number;
+  isActive: boolean;
 }
 
 export class OfferEntity extends Aggregate<Attributes> {
@@ -23,6 +24,7 @@ export class OfferEntity extends Aggregate<Attributes> {
   private workingHours: string;
   private weight: number;
   private bid: number;
+  private isActive: boolean;
   constructor(attributes: Attributes) {
     super();
     this.id = attributes.id;
@@ -33,6 +35,7 @@ export class OfferEntity extends Aggregate<Attributes> {
     this.preferredDeliveryAreas = attributes.preferredDeliveryAreas;
     this.workingHours = attributes.workingHours;
     this.bid = attributes.bid;
+    this.isActive = attributes.isActive;
   }
 
   setVehicleType(type: string) {
@@ -87,5 +90,15 @@ export class OfferEntity extends Aggregate<Attributes> {
         },
       }),
     );
+  }
+
+  curierNotFound() {
+    // this.addMessage()
+  }
+
+  cancelOffer() {
+    if (this.curierId !== undefined) {
+      this.isActive = false;
+    }
   }
 }

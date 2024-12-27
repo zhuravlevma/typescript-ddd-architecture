@@ -16,11 +16,23 @@ import { WarehouseOrmEntity } from './warehouse/order-management/warehouse/dal/o
 import { RelayModule } from './__relay__/relay.module';
 import { CorrelationModule } from './__infrastructure__/correlation/correlation.module';
 import { ContextMiddleware } from './__infrastructure__/context/context-middleware';
+import { SagaModule } from './__saga__/saga.module';
+import { RabbitModule } from './__infrastructure__/rabbitmq/rabbitmq.module';
+import { Saga } from './__saga__/models/saga.model';
+import { SagaStep } from './__saga__/models/saga-step.model';
+import { Compensation } from './__saga__/models/compensation.model';
+import { CartOrmEntity } from './cart/cart/dal/orm-entities/cart.orm-entity';
+import { CartPositionOrmEntity } from './cart/cart/dal/orm-entities/cart-position.orm-entity';
+import { CartModule } from './cart/cart/cart.module';
+import { PaymentModule } from './cart/payment/payment.module';
+import { Payment } from './cart/payment/models/payment.model';
+import { UOWModule } from './__infrastructure__/uow/uow.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
       load: [config],
     }),
+    RabbitModule,
     CorrelationModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
@@ -38,14 +50,23 @@ import { ContextMiddleware } from './__infrastructure__/context/context-middlewa
         WarehouseOrderOrmEntity,
         MessageOrmEntity,
         OfferOrmEntity,
+        Saga,
+        SagaStep,
+        Compensation,
+        CartOrmEntity,
+        CartPositionOrmEntity,
+        Payment,
       ],
       synchronize: true,
-      logging: true,
     }),
     RelayModule,
     AccountingModule,
     DeliveryModule,
     WarehouseModule,
+    SagaModule,
+    CartModule,
+    PaymentModule,
+    UOWModule,
   ],
 })
 export class AppModule {

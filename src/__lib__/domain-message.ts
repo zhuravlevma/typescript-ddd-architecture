@@ -20,19 +20,52 @@ interface DomainMessageAllAttributes<Payload = object>
   aggregateId: string; // necessary for partitioning
   aggregateName: string; // Can be often useful (for example for humans or for id prefixes)
   contextName: string; // Can be often useful (for example for humans or for id prefixes)
+  saga: {
+    correlationId: string;
+    compensation?: DomainMessage;
+    sagaId: string;
+    isFinal?: boolean;
+    runCompensation?: boolean;
+  };
 }
 
 export interface DomainMessageAttributes<Payload = object> {
   payload: Payload;
   aggregateId: string;
+  saga?: {
+    correlationId: string;
+    compensation?: DomainMessage;
+    sagaId: string;
+    isFinal?: boolean;
+    runCompesation?: boolean;
+  };
+}
+
+export interface SagaMessageCompensationOrCompleteAttributes {
+  aggregateId: string;
+  saga: {
+    correlationId: string;
+    sagaId: string;
+  };
+}
+
+export interface DomainSagaMessageAttributes<Payload = object> {
+  payload: Payload;
+  aggregateId: string;
+  correlationId?: string;
+  saga: {
+    correlationId: string;
+    compensation?: DomainMessage;
+    sagaId: string;
+    isFinal?: boolean;
+    runCompesation?: boolean;
+  };
 }
 
 export type DomainMessage<Payload = object> =
   DomainMessageAllAttributes<Payload> & MessageType;
 
-export abstract class DomainEvent<Payload = object>
-  implements DomainMessage<Payload>
-{
+export class DomainEvent<Payload = object> implements DomainMessage<Payload> {
   reason: string;
   payload: Payload;
   messageType: MessageTypeEnum;
@@ -40,6 +73,12 @@ export abstract class DomainEvent<Payload = object>
   aggregateId: string;
   aggregateName: string;
   contextName: string;
+  saga: {
+    compensation?: DomainMessage<object>;
+    correlationId: string;
+    sagaId: string;
+    runCompesation?: boolean;
+  };
 
   constructor(attributes: DomainMessageAllAttributes<Payload>) {
     this.contextName = attributes.contextName;
@@ -50,6 +89,7 @@ export abstract class DomainEvent<Payload = object>
     this.aggregateId = attributes.aggregateId;
     this.aggregateName = attributes.aggregateName;
     this.contextName = attributes.contextName;
+    this.saga = attributes.saga;
   }
 }
 
@@ -63,6 +103,12 @@ export abstract class DomainCommand<Payload = object>
   aggregateId: string;
   aggregateName: string;
   contextName: string;
+  saga: {
+    compensation?: DomainMessage<object>;
+    correlationId: string;
+    sagaId: string;
+    runCompesation?: boolean;
+  };
 
   constructor(attributes: DomainMessageAllAttributes<Payload>) {
     this.contextName = attributes.contextName;
@@ -73,5 +119,23 @@ export abstract class DomainCommand<Payload = object>
     this.aggregateId = attributes.aggregateId;
     this.aggregateName = attributes.aggregateName;
     this.contextName = attributes.contextName;
+    this.saga = attributes.saga;
   }
+}
+
+interface DomainMessageAllAttributes<Payload = object>
+  extends DomainMessageAttributes<Payload> {
+  reason: string;
+  payload: Payload;
+  messageName: string; // name of the event or command "WarehouseCreated"(event), "AddOrder"(command)
+  aggregateId: string; // necessary for partitioning
+  aggregateName: string; // Can be often useful (for example for humans or for id prefixes)
+  contextName: string; // Can be often useful (for example for humans or for id prefixes)
+  saga: {
+    correlationId: string;
+    compensation?: DomainMessage;
+    sagaId: string;
+    isFinal?: boolean;
+    runCompensation?: boolean;
+  };
 }

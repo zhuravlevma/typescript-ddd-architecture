@@ -96,6 +96,18 @@ CREATE SCHEMA IF NOT EXISTS public
 cp .env.example .env
 ```
 
+```bash
+npm install
+```
+
+```bash
+npm install dotenv-cli
+```
+
+```bash
+dotenv npm run start:dev
+```
+
 ## Running the app (docker)
 
 ```bash

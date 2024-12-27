@@ -45,4 +45,16 @@ export class MessageOrmEntity {
 
   @Column({ type: 'text', name: 'correlation_id' })
   correlationId: string;
+
+  @Column({ type: 'text', name: 'saga_id', nullable: true })
+  sagaId: string | null;
+
+  @Column({ type: 'jsonb', default: {}, name: 'compensation_event' })
+  compensationEvent: any;
+
+  @Column({ name: 'is_final', type: 'bool', default: false })
+  isFinal: boolean;
+
+  @Column({ name: 'is_Compensation', type: 'bool', default: false })
+  runCompensation: boolean;
 }

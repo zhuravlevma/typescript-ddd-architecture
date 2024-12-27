@@ -17,6 +17,7 @@ export class ReportValidatedEvent extends DomainEvent<ReportValidatedPayload> {
       aggregateId: attributes.aggregateId,
       aggregateName: 'Report',
       contextName: 'accounting',
+      saga: attributes.saga,
     });
   }
 }

@@ -40,6 +40,10 @@ export class ReportEntity extends Aggregate<Attributes> {
     }
   }
 
+  cancelReport() {
+    this.isValid = false;
+  }
+
   applyReport(): void {
     if (this.getTotalAmountWithTax() > 10000) {
       this.updateReportStatus(true);
