@@ -10,6 +10,12 @@ import { SagaStep } from './saga-step.model';
 import { DomainMessage } from 'src/__lib__/domain-message';
 import { MessageOrmEntity } from 'src/__relay__/message.orm-entity';
 
+export enum SagaStatusEnum {
+  PENDING = 'PENDING',
+  COMPENSATION = 'COMPENSATION',
+  COMPLETE = 'COMPLETE',
+}
+
 @Entity('sagas')
 export class Saga {
   @PrimaryGeneratedColumn('uuid')
@@ -22,7 +28,7 @@ export class Saga {
   sagaType: string;
 
   @Column()
-  status: string; // InProgress, Completed, Compensated, Failed
+  status: SagaStatusEnum;
 
   @CreateDateColumn()
   startedAt: Date;
@@ -32,6 +38,12 @@ export class Saga {
 
   @Column({ default: 0 })
   retries: number;
+
+  @CreateDateColumn({ type: 'timestamptz' }) // Добавляем метку времени создания
+  createdAt: Date;
+
+  @UpdateDateColumn({ type: 'timestamptz' }) // Добавляем метку времени обновления
+  updatedAt: Date;
 
   @Column({ nullable: true })
   currentStep: string;
@@ -64,6 +76,7 @@ export class Saga {
 
     const newStep = new SagaStep();
     newStep.createCompensationStep(event);
+    this.status = SagaStatusEnum.COMPENSATION;
 
     if (this.steps === undefined) {
       this.steps = [];
@@ -75,6 +88,8 @@ export class Saga {
   addCompleteStep(event: DomainMessage) {
     const newStep = new SagaStep();
     newStep.createCompleteStep(event);
+
+    this.status = SagaStatusEnum.COMPLETE;
 
     if (this.steps === undefined) {
       this.steps = [];

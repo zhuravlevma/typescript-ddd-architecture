@@ -1,8 +1,10 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectDataSource, InjectRepository } from '@nestjs/typeorm';
-import { DataSource, Repository } from 'typeorm';
-import { Saga } from './models/saga.model';
+import { DataSource, LessThanOrEqual, Repository } from 'typeorm';
+import { Saga, SagaStatusEnum } from './models/saga.model';
 import { DomainMessage } from 'src/__lib__/domain-message';
+import { SagaCompensationEvent } from './saga-compensation.event';
+import { randomUUID } from 'crypto';
 
 @Injectable()
 export class RegistatorService {
@@ -44,6 +46,37 @@ export class RegistatorService {
     return saved;
   }
 
+  async checkSagaTimeout() {
+    const twelveHoursAgo = new Date(Date.now() - 12 * 60 * 60 * 1000);
+    const sagas = await this.sagaRepository.find({
+      where: {
+        status: SagaStatusEnum.PENDING,
+        updatedAt: LessThanOrEqual(twelveHoursAgo),
+      },
+      take: 10,
+    });
+
+    const allMessages = [];
+    for (const saga of sagas) {
+      const messages = saga.compensate(
+        new SagaCompensationEvent({
+          aggregateId: saga.id,
+          saga: {
+            correlationId: randomUUID(),
+            sagaId: saga.id,
+          },
+        }),
+      );
+      for (const msg of messages) {
+        allMessages.push(msg);
+      }
+    }
+    return this.dataSource.transaction(async (transactionalEntityManager) => {
+      await transactionalEntityManager.save(allMessages);
+      return transactionalEntityManager.save(sagas);
+    });
+  }
+
   async createSaga(correlationId: string): Promise<string> {
     this.logger.debug(`Create saga for correlationId ${correlationId}`);
     const saga = await this.sagaRepository.findOne({
@@ -55,7 +88,7 @@ export class RegistatorService {
       const newSaga = new Saga();
       newSaga.correlationId = correlationId;
       newSaga.sagaType = 'compensation';
-      newSaga.status = 'In Progress';
+      newSaga.status = SagaStatusEnum.PENDING;
       newSaga.steps = [];
       const created = await this.sagaRepository.save(newSaga);
       return created.id;

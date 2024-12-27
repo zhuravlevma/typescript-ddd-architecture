@@ -3,6 +3,7 @@ import { RegistatorService } from './registrator.service';
 import { DomainMessage } from 'src/__lib__/domain-message';
 import { config } from 'src/config';
 import { RabbitSubscribe } from '@golevelup/nestjs-rabbitmq';
+import { Cron } from '@nestjs/schedule';
 
 export class CreateSagaDto {
   correlationId: string;
@@ -24,5 +25,10 @@ export class RegistatorController {
   @Post('/')
   async createSaga(@Body() payload: CreateSagaDto) {
     return this.registatorService.createSaga(payload.correlationId);
+  }
+
+  @Cron('* * * * *')
+  async timeOut() {
+    await this.registatorService.checkSagaTimeout();
   }
 }
