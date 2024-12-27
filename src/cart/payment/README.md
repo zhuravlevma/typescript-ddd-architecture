@@ -1,1 +1,1 @@
-# Tracking supporting subdomain
+# Payment generic subdomain

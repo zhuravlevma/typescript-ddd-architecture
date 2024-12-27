@@ -10,6 +10,12 @@
 
 **Bounded Contexts:**
 
+- **`Cart`** - Context for cart operations
+
+  - **Subdomains:** -
+    - **`Core Cart`** - adding items to the shopping cart
+    - **`Generic Payment`** - payment for goods
+
 - **`Warehouse`** - Context for warehouse operations
 
   - **Subdomains:** -
