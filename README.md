@@ -11,17 +11,13 @@
 **Bounded Contexts:**
 
 - **`Cart`** - Context for cart operations
-
   - **Subdomains:** -
     - **`Core Cart`** - adding items to the shopping cart
     - **`Generic Payment`** - payment for goods
-
 - **`Warehouse`** - Context for warehouse operations
-
   - **Subdomains:** -
     - **`Core OrderManagement`** - order management at the warehouse
     - **`Supporting Location`** - management of product locations at the warehouse, product categorization
-
 - **`Accounting`** - accounting context
   - **Subdomains:** -
     - **`Core Reports`** - financial reports generation
