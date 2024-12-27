@@ -5,7 +5,6 @@
 ### Event Storming schema
 
 ![image](https://github.com/user-attachments/assets/cb8b6344-5cdb-4963-8686-cce267ea08ea)
-![image](https://github.com/zhuravlevma/nestjs-ddd-architecture/assets/44276887/bb18f714-0bbf-4109-a638-976352e5eab7)
 
 ### Describe
 
