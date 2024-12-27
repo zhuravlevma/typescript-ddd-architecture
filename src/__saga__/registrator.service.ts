@@ -1,13 +1,13 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { InjectDataSource, InjectRepository } from '@nestjs/typeorm';
 import { DataSource, Repository } from 'typeorm';
 import { Saga } from './models/saga.model';
 import { DomainMessage } from 'src/__lib__/domain-message';
-import { Compensation } from './models/compensation.model';
-import { MessageOrmEntity } from 'src/__relay__/message.orm-entity';
 
 @Injectable()
 export class RegistatorService {
+  private readonly logger = new Logger(RegistatorService.name);
+
   constructor(
     @InjectRepository(Saga)
     private readonly sagaRepository: Repository<Saga>,
@@ -15,40 +15,8 @@ export class RegistatorService {
     private readonly dataSource: DataSource,
   ) {}
 
-  private async runCompensations(saga: Saga) {
-    const compensations: Compensation[] = [];
-
-    saga.steps.map((el) => {
-      for (const compensation of el.compensations) {
-        compensations.push(compensation);
-      }
-    });
-
-    const messages = compensations.map(({ metadata }) => {
-      const orm = new MessageOrmEntity();
-      orm.reason = metadata.reason;
-      orm.messageType = metadata.messageType;
-      orm.payload = metadata.payload;
-      orm.aggregateId = metadata.aggregateId;
-      orm.aggregateName = metadata.aggregateName;
-      orm.contextName = metadata.contextName;
-      orm.correlationId = saga.correlationId;
-      orm.messageName = metadata.messageName;
-      orm.compensationEvent = {};
-      orm.sagaId = saga.id;
-      return orm;
-    });
-
-    await this.dataSource.transaction(async (transactionalEntityManager) => {
-      await transactionalEntityManager.save(messages);
-      return await transactionalEntityManager.save(saga);
-    });
-    return;
-  }
-
   async createStepForSaga(event: DomainMessage) {
-    console.log(event, 'NEW EVENT');
-
+    this.logger.debug(`New step in saga for messageName=${event.messageName}`);
     const saga = await this.sagaRepository.findOne({
       where: { id: event.saga.sagaId },
       relations: ['steps', 'steps.compensations'],
@@ -60,9 +28,6 @@ export class RegistatorService {
 
     if (event.saga.runCompensation === true) {
       const messages = saga.compensate(event);
-
-      console.log(messages, 'MESSAGES');
-
       return this.dataSource.transaction(async (transactionalEntityManager) => {
         await transactionalEntityManager.save(messages);
         return transactionalEntityManager.save(saga);
@@ -80,6 +45,7 @@ export class RegistatorService {
   }
 
   async createSaga(correlationId: string): Promise<string> {
+    this.logger.debug(`Create saga for correlationId ${correlationId}`);
     const saga = await this.sagaRepository.findOne({
       where: { correlationId },
       relations: ['steps', 'steps.compensations'],

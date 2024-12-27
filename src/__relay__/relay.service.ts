@@ -45,7 +45,9 @@ export class RelayService {
           }
 
           if (domainEvent.saga.sagaId !== null) {
-            this.logger.debug('run publishing to saga: ' + event.id);
+            this.logger.debug(
+              `run publishing to saga: ${domainEvent.messageName} ${event.id}`,
+            );
             await this.amqpConnection.publish(
               config().rabbitmq.exchange,
               config().topics.sagaReceived,
@@ -53,7 +55,9 @@ export class RelayService {
             );
           }
 
-          this.logger.debug('run publishing: ' + event.id);
+          this.logger.debug(
+            `run publishing: ${domainEvent.messageName} ${event.id}`,
+          );
 
           if (domainEvent.messageName === config().topics.offerTaked) {
             await this.amqpConnection.publish(

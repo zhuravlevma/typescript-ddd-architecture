@@ -58,7 +58,6 @@ import { UOWModule } from './__infrastructure__/uow/uow.module';
         Payment,
       ],
       synchronize: true,
-      logging: true,
     }),
     RelayModule,
     AccountingModule,

@@ -24,9 +24,9 @@ export class WarehouseEntity extends Aggregate<Attributes> {
   }
 
   addOrder(event: PaymentCompletedEvent) {
-    // if (this.orders.length > 500) {
-    throw new Error('Limit 500');
-    // }
+    if (this.orders.length > 500) {
+      throw new Error('Limit 500');
+    }
 
     this.orders.push(
       new OrderEntity({
