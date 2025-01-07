@@ -28,12 +28,4 @@ export class CartPositionEntity extends Entity<Attributes> {
   get Sum() {
     return this.sum;
   }
-
-  // get Id() {
-  //   return this.id;
-  // }
-
-  // changeStatus(isValid: boolean) {
-  //   this.isValid = isValid;
-  // }
 }
