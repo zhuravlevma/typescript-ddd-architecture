@@ -70,6 +70,7 @@ In a good way, each bounded context in a micro-service architecture should have 
 ### Saga
 
 The project uses a saga with choreography and a registrar. The registrar is capable of rolling back transactions in case of failure.
+![image](https://github.com/user-attachments/assets/91e8e2af-d087-42cb-963f-5d72923fdebe)
 
 ### Important
 
