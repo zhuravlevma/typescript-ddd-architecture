@@ -17,9 +17,11 @@ ServiceA -> ServiceA: run second step
 ServiceA --> Registrator: run third step, send second step compensation
 ServiceA --> ServiceB: run third step
 
-ServiceB -> ServiceB: run third step
 
-ServiceB --> Registrator: run compensations by sagaId
+ServiceB -[#red]> ServiceB: run third step (ERROR)
+
+
+Registrator -> Registrator: third step timeout (12 hours), send compensations
 
 Registrator --> ServiceA: Compensation for second step
 Registrator --> Service: Compensation for first step
