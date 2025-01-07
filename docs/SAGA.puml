@@ -10,11 +10,11 @@ participant "Registrator" as Registrator
 Service -> Registrator: run new saga
 Registrator --> Service: return SagaId
 Service -> Service: run first step
-Service --> Registrator: run second step, send second step compensation
+Service --> Registrator: run second step, send first step compensation
 Service --> ServiceA: run second step
 
 ServiceA -> ServiceA: run second step
-ServiceA --> Registrator: run third step, send third step compensation
+ServiceA --> Registrator: run third step, send second step compensation
 ServiceA --> ServiceB: run third step
 
 
@@ -23,6 +23,5 @@ ServiceB -[#red]> ServiceB: run third step (ERROR)
 
 Registrator -> Registrator: third step timeout (12 hours), send compensations
 
-Registrator --> ServiceB: Compensation for third step
 Registrator --> ServiceA: Compensation for second step
 Registrator --> Service: Compensation for first step
